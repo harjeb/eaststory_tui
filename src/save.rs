@@ -5,7 +5,7 @@ use directories::ProjectDirs;
 
 use crate::{content::world, game::Game};
 
-pub const CURRENT_SAVE_VERSION: u32 = 2;
+pub const CURRENT_SAVE_VERSION: u32 = 4;
 
 pub fn default_save_path() -> PathBuf {
     if let Some(dirs) = ProjectDirs::from("org", "mudchina", "dongfang-tui") {
@@ -26,7 +26,12 @@ pub fn load_game(path: &std::path::Path) -> Result<Option<Game>> {
     let mut game: Game = serde_json::from_str(&contents)
         .with_context(|| format!("存档格式损坏 {}", path.display()))?;
     match game.version {
-        1 => game.migrate_v1_location_ids(),
+        1 => {
+            game.migrate_v1_location_ids();
+            game.migrate_legacy_items();
+        }
+        2 => game.migrate_legacy_items(),
+        3 => game.migrate_v3_statuses(),
         CURRENT_SAVE_VERSION => {}
         version => {
             bail!(
@@ -56,7 +61,13 @@ mod tests {
     use std::time::{SystemTime, UNIX_EPOCH};
 
     use super::*;
-    use crate::game::{Action, Activity, DoorKind, EnemyKind, InteractionKind, LocationId};
+    use crate::{
+        game::{
+            Action, Activity, ConditionKind, ConditionState, DoorKind, EnemyKind, InteractionKind,
+            LocationId,
+        },
+        items::{EquipmentSlot, HENGBING_SWORD_ID, ItemId, ItemInstance, WATER_MELON_ID},
+    };
 
     #[test]
     fn save_round_trip_preserves_progress() {
@@ -68,6 +79,20 @@ mod tests {
         let mut game = Game::new();
         game.location = LocationId::from(crate::content::TEMPLE_YARD);
         game.player.reputation = 42;
+        game.player.food = 73;
+        game.player.conditions.push(ConditionState {
+            kind: ConditionKind::Poison,
+            duration: 4,
+            potency: 7,
+        });
+        let rations = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == crate::items::DRY_RATIONS_ID)
+            .unwrap()
+            .instance_id;
+        game.perform(Action::DropItem(rations));
 
         save_game(&path, &game).unwrap();
         let restored = load_game(&path).unwrap().unwrap();
@@ -78,6 +103,21 @@ mod tests {
             LocationId::from(crate::content::TEMPLE_YARD)
         );
         assert_eq!(restored.player.reputation, 42);
+        assert_eq!(restored.player.food, 73);
+        assert_eq!(
+            restored.player.condition(ConditionKind::Poison),
+            Some(&ConditionState {
+                kind: ConditionKind::Poison,
+                duration: 4,
+                potency: 7,
+            })
+        );
+        assert_eq!(
+            restored.ground_items[&restored.location][0]
+                .item_id
+                .as_str(),
+            crate::items::DRY_RATIONS_ID
+        );
     }
 
     #[test]
@@ -119,6 +159,83 @@ mod tests {
             action,
             Action::Move { target, .. } if target.as_str() == crate::content::GARDEN
         )));
+    }
+
+    #[test]
+    fn version_two_item_enums_are_migrated_to_instances() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v2-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(2);
+        value["player"]["inventory"] = serde_json::json!(["Cloth", "DryRations", "HengbingSword"]);
+        value["player"]["weapon"] = serde_json::json!("HengbingSword");
+        value["player"].as_object_mut().unwrap().remove("equipment");
+        let root = value.as_object_mut().unwrap();
+        root.remove("ground_items");
+        root.remove("next_item_instance_id");
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert_eq!(
+            restored
+                .player
+                .equipped(EquipmentSlot::Weapon)
+                .unwrap()
+                .item_id
+                .as_str(),
+            HENGBING_SWORD_ID
+        );
+        assert!(
+            restored
+                .player
+                .inventory
+                .iter()
+                .all(|item| item.instance_id > 0)
+        );
+    }
+
+    #[test]
+    fn version_three_items_gain_consumable_state() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v3-{nonce}.json"));
+        let mut game = Game::new();
+        game.version = 3;
+        game.player
+            .inventory
+            .push(ItemInstance::new(99, ItemId::from(WATER_MELON_ID), 1));
+        let mut value = serde_json::to_value(game).unwrap();
+        let player = value["player"].as_object_mut().unwrap();
+        player.remove("food");
+        player.remove("max_food");
+        player.remove("water");
+        player.remove("max_water");
+        player.remove("conditions");
+        for item in player["inventory"].as_array_mut().unwrap() {
+            item.as_object_mut().unwrap().remove("remaining_uses");
+        }
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert_eq!(restored.player.food, restored.player.max_food);
+        let melon = restored
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == WATER_MELON_ID)
+            .unwrap();
+        assert_eq!(melon.remaining_uses, Some(8));
     }
 
     #[test]

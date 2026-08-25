@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "scope": "shared_player_items",
+  "summary": {
+    "verified": 6,
+    "deferred": 3,
+    "excluded": 4
+  },
+  "entries": [
+    {
+      "id": "obj.bandage",
+      "status": "verified",
+      "milestone": "M2",
+      "decision": "两次包扎次数和 40 tick 恢复状态已持久化；战斗中不会暴露使用行动。"
+    },
+    {
+      "id": "obj.drug.hurt_drug",
+      "status": "verified",
+      "milestone": "M2",
+      "decision": "按原值恢复 20 点精并消耗药物；满状态和战斗中不可使用。"
+    },
+    {
+      "id": "obj.drug.snake_drug",
+      "status": "verified",
+      "milestone": "M2",
+      "decision": "每份将蛇毒持续时间减一，完全清除与未中毒分支均保留。"
+    },
+    {
+      "id": "obj.example.chicken_leg",
+      "status": "verified",
+      "milestone": "M2",
+      "decision": "四次食用后保留为鸡腿骨，名称、重量、价值和不可再食用状态随实例保存。"
+    },
+    {
+      "id": "obj.slumber_drug",
+      "status": "verified",
+      "milestone": "M2",
+      "decision": "继承 POWDER 的倒入酒水行为已显式迁移；每份增加 100 点蒙汗药效。"
+    },
+    {
+      "id": "obj.toy.poison_dust",
+      "status": "verified",
+      "milestone": "M2",
+      "decision": "倒入非空酒水后累加 100 点蒙汗药效，饮用时进入持续状态。"
+    },
+    {
+      "id": "obj.dust",
+      "status": "deferred",
+      "milestone": "M7",
+      "decision": "化尸粉依赖尸体、死亡和腐化系统；物品定义保留，M7 随尸体系统验收。"
+    },
+    {
+      "id": "obj.glass",
+      "status": "deferred",
+      "milestone": "M3",
+      "decision": "战斗力探测公式依赖完整技能、战斗经验和目标角色模型，转入 M3。"
+    },
+    {
+      "id": "obj.magic_seal",
+      "status": "deferred",
+      "milestone": "M3",
+      "decision": "通用符咒自身没有 attach_func，具体效果由技能脚本注入；随法术和技能迁移。"
+    },
+    {
+      "id": "obj.mailbox",
+      "status": "excluded",
+      "milestone": "M2",
+      "decision": "仅用于玩家间离线邮件；单人版无接收者，不进入运行时。"
+    },
+    {
+      "id": "obj.marry_card",
+      "status": "excluded",
+      "milestone": "M2",
+      "decision": "全部命令依赖另一名在线玩家及其账号，按单人版范围排除。"
+    },
+    {
+      "id": "obj.roommaker",
+      "status": "excluded",
+      "milestone": "M2",
+      "decision": "仅供巫师在线写 LPC 房间文件，不属于玩家内容。"
+    },
+    {
+      "id": "obj.token",
+      "status": "excluded",
+      "milestone": "M2",
+      "decision": "用于玩家自建帮派、转让掌门和持久化多人组织，按单人版范围排除。"
+    }
+  ]
+}

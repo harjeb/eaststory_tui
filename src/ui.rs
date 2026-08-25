@@ -140,20 +140,24 @@ fn render_stats(frame: &mut Frame<'_>, area: Rect, game: &Game, compact: bool) {
             ]),
             Line::from(vec![
                 Span::styled(
-                    format!("评价 {:+}", player.reputation),
-                    Style::default().fg(PAPER),
-                ),
-                Span::styled(
-                    format!("   碎银 {}两", player.silver),
+                    format!("饱 {}/{}", player.food, player.max_food),
                     Style::default().fg(GOLD),
                 ),
                 Span::styled(
-                    format!("   领悟 {}", player.insight),
+                    format!("   饮 {}/{}", player.water, player.max_water),
                     Style::default().fg(WATER),
+                ),
+                Span::styled(
+                    format!("   钱 {}", player.money_text()),
+                    Style::default().fg(GOLD),
                 ),
                 Span::styled(
                     format!("   {}", game.activity_text()),
                     Style::default().fg(JADE),
+                ),
+                Span::styled(
+                    format!("   {}", player.conditions_text()),
+                    Style::default().fg(DANGER),
                 ),
             ]),
         ];
@@ -165,10 +169,15 @@ fn render_stats(frame: &mut Frame<'_>, area: Rect, game: &Game, compact: bool) {
         bar_line("精", player.essence, player.max_essence, JADE),
         bar_line("气", player.qi, player.max_qi, GOLD),
         bar_line("神", player.spirit, player.max_spirit, WATER),
-        Line::raw(""),
+        bar_line("饱", player.food, player.max_food, GOLD),
+        bar_line("饮", player.water, player.max_water, WATER),
         Line::from(vec![
             Span::styled("状态  ", Style::default().fg(MUTED)),
             Span::styled(game.activity_text(), Style::default().fg(JADE)),
+            Span::styled(
+                format!("  {}", player.conditions_text()),
+                Style::default().fg(DANGER),
+            ),
         ]),
         Line::from(vec![
             Span::styled("评价  ", Style::default().fg(MUTED)),
@@ -178,8 +187,8 @@ fn render_stats(frame: &mut Frame<'_>, area: Rect, game: &Game, compact: bool) {
             ),
         ]),
         Line::from(vec![
-            Span::styled("碎银  ", Style::default().fg(MUTED)),
-            Span::styled(format!("{} 两", player.silver), Style::default().fg(GOLD)),
+            Span::styled("钱财  ", Style::default().fg(MUTED)),
+            Span::styled(player.money_text(), Style::default().fg(GOLD)),
         ]),
         Line::from(vec![
             Span::styled("领悟  ", Style::default().fg(MUTED)),

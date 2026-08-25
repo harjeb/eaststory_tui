@@ -73,7 +73,13 @@ struct ItemRecord {
     weapon_damage: Option<i32>,
     armor: Option<i32>,
     food_supply: Option<i32>,
+    food_remaining: Option<i32>,
     water_supply: Option<i32>,
+    max_liquid: Option<i32>,
+    liquid_remaining: Option<i32>,
+    liquid_type: Option<String>,
+    liquid_name: Option<String>,
+    drunk_apply: Option<i32>,
     behavior_flags: Vec<String>,
 }
 
@@ -258,7 +264,14 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
                 &["set(\"armor_prop/armor\",", "set(\"armor_prop/defense\","],
             ),
             food_supply: extract_set_integer(&source, "food_supply"),
+            food_remaining: extract_set_integer(&source, "food_remaining"),
             water_supply: extract_set_integer(&source, "water_supply"),
+            max_liquid: extract_set_integer(&source, "max_liquid"),
+            liquid_remaining: extract_mapping_integer(&source, "liquid", "remaining"),
+            liquid_type: extract_mapping_string(&source, "liquid", "type"),
+            liquid_name: extract_mapping_string(&source, "liquid", "name"),
+            drunk_apply: extract_mapping_integer(&source, "liquid", "drunk_apply")
+                .or_else(|| extract_mapping_integer(&source, "liquid", "drunk_bonus")),
             behavior_flags,
         });
     }
@@ -266,7 +279,7 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
     items.sort_by(|left, right| left.id.cmp(&right.id));
     warnings.sort();
     Ok(ItemCatalog {
-        schema_version: 1,
+        schema_version: 2,
         source_commit,
         scope: "player_items",
         status: "structured",
@@ -351,6 +364,7 @@ fn detect_item_behaviors(source: &str) -> Vec<String> {
         ("add_action(", "custom_command"),
         ("hit_ob(", "combat_hook"),
         ("finish_eat(", "consume_hook"),
+        ("set(\"eat_func\"", "consume_hook"),
         ("random(", "random_behavior"),
         ("F_AUTOLOAD", "autoload"),
         ("set(\"no_drop\"", "restricted_movement"),
@@ -359,7 +373,10 @@ fn detect_item_behaviors(source: &str) -> Vec<String> {
     checks
         .iter()
         .filter(|(needle, _)| source.contains(needle))
-        .map(|(_, flag)| (*flag).to_string())
+        .map(|(_, flag)| *flag)
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .map(str::to_string)
         .collect()
 }
 
@@ -389,18 +406,45 @@ fn extract_set_integer(source: &str, key: &str) -> Option<i32> {
     extract_first_integer(source, &[&format!("set(\"{key}\",")])
 }
 
+fn extract_mapping_string(source: &str, mapping: &str, key: &str) -> Option<String> {
+    let value = extract_mapping_value(source, mapping, key)?.trim_start();
+    let value = value.strip_prefix('"')?;
+    Some(value.get(..value.find('"')?)?.to_string())
+}
+
+fn extract_mapping_integer(source: &str, mapping: &str, key: &str) -> Option<i32> {
+    parse_leading_integer(extract_mapping_value(source, mapping, key)?)
+}
+
+fn extract_mapping_value<'a>(source: &'a str, mapping: &str, key: &str) -> Option<&'a str> {
+    let block = mapping_block(source, &format!("set(\"{mapping}\""))?;
+    block.lines().find_map(|line| {
+        let line = line.trim();
+        let rest = line.strip_prefix('"')?;
+        let end = rest.find('"')?;
+        if rest.get(..end)? != key {
+            return None;
+        }
+        rest.get(end + 1..)?.split_once(':').map(|(_, value)| value)
+    })
+}
+
+fn parse_leading_integer(value: &str) -> Option<i32> {
+    let value = value.trim_start();
+    let end = value
+        .char_indices()
+        .find(|(index, character)| {
+            *index > 0 && !character.is_ascii_digit()
+                || *index == 0 && *character != '-' && !character.is_ascii_digit()
+        })
+        .map_or(value.len(), |(index, _)| index);
+    value.get(..end)?.parse().ok()
+}
+
 fn extract_first_integer(source: &str, markers: &[&str]) -> Option<i32> {
     markers.iter().find_map(|marker| {
         let tail = source.get(source.find(marker)? + marker.len()..)?;
-        let value = tail.trim_start();
-        let end = value
-            .char_indices()
-            .find(|(index, character)| {
-                *index > 0 && !character.is_ascii_digit()
-                    || *index == 0 && *character != '-' && !character.is_ascii_digit()
-            })
-            .map_or(value.len(), |(index, _)| index);
-        value.get(..end)?.parse().ok()
+        parse_leading_integer(tail)
     })
 }
 
@@ -649,6 +693,26 @@ int finish_eat() { return 1; }
         assert_eq!(extract_first_integer(source, &["set_weight("]), Some(1200));
         assert_eq!(extract_set_integer(source, "value"), Some(60));
         assert_eq!(extract_set_integer(source, "food_supply"), Some(20));
+        let liquid = r#"
+set("liquid", ([
+    "type": "alcohol",
+    "name": "红酒",
+    "remaining": 15,
+    "drunk_apply": 6,
+]));
+"#;
+        assert_eq!(
+            extract_mapping_string(liquid, "liquid", "type").as_deref(),
+            Some("alcohol")
+        );
+        assert_eq!(
+            extract_mapping_integer(liquid, "liquid", "remaining"),
+            Some(15)
+        );
+        assert_eq!(
+            extract_mapping_integer(liquid, "liquid", "drunk_apply"),
+            Some(6)
+        );
         assert_eq!(
             extract_set_string(source, "material").as_deref(),
             Some("fruit")
@@ -679,6 +743,7 @@ int finish_eat() { return 1; }
             .map(|count| count.as_u64().unwrap())
             .sum();
 
+        assert_eq!(catalog["schema_version"], 2);
         assert_eq!(
             catalog["source_commit"],
             "87bba6bd2249beec8424b0d6623486a0dd1f7b30"
@@ -686,7 +751,7 @@ int finish_eat() { return 1; }
         assert_eq!(items.len(), 451);
         assert_eq!(ids.len(), items.len());
         assert_eq!(category_total, items.len() as u64);
-        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 64);
+        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 74);
     }
 
     #[test]

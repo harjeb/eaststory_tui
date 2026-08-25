@@ -11,6 +11,8 @@
 - 非致死比试、主动认输和战败回村
 - 26 个从原 LPC 导入的 `village` 房间，以及 4 个单人适配地点
 - 连通地点、NPC 对话、任务线、奖励和装备
+- 451 个原版物品定义，以及实例堆叠、负重、装备槽、耐久和地点掉落
+- 原版货币换算、商店买卖、赠予，以及食物、饮水、药物和持续状态
 - 实时修炼与休息，行动期间游戏时间自动推进
 - 单角色本地 JSON 存档，每 30 秒自动保存
 
@@ -43,7 +45,8 @@ cargo run --release
 ## 结构
 
 - `src/game.rs`：与终端无关的角色、战斗、任务和时间状态机
-- `src/content.rs`：稳定内容 ID、嵌入式区域目录和游戏规则覆盖
+- `src/content.rs`：稳定地点 ID、嵌入式区域目录和游戏规则覆盖
+- `src/items.rs`：稳定物品 ID、451 个源定义和运行时物品实例
 - `src/app.rs`：键盘输入和 UI 选择状态
 - `src/ui.rs`：Ratatui 宽屏与紧凑布局
 - `src/save.rs`：版本化本地存档
@@ -56,4 +59,4 @@ cargo run --bin es2-import -- es2-utf8 village migration/catalog/village.json
 cargo run --bin es2-import -- es2-utf8 items migration/catalog/items.json
 ```
 
-当前已完成 `village` 的 26 个房间和 19 项动态房间行为，并开始 M2：451 个物品候选已完成结构化分类。完整范围、批次和验收口径见 `docs/MIGRATION_PLAN.md`。
+当前已完成 `village` 的 26 个房间和 19 项动态房间行为。M2 已完成 451 个物品候选的结构化分类，以及实例、装备、经济、消耗品和状态系统；共享动态对象的实现、延期与单人范围排除记录在 `migration/overrides/items.json`。下一阶段是 M3 完整武学与战斗。完整范围、批次和验收口径见 `docs/MIGRATION_PLAN.md`。
