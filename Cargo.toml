@@ -1,0 +1,18 @@
+[package]
+name = "dongfang-tui"
+version = "0.1.0"
+edition = "2024"
+description = "A single-player terminal adaptation of the ES2 Chinese MUD"
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0"
+crossterm = "0.29"
+directories = "6.0"
+ratatui = "0.30"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[profile.release]
+lto = "thin"
+strip = true

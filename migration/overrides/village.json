@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "area": "village",
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "summary": {
+    "behavior_flags": 19,
+    "verified": 19,
+    "structured": 0
+  },
+  "behaviors": [
+    {
+      "source_path": "mudlib/d/village/home.c",
+      "flags": ["door", "item_interaction"],
+      "status": "verified",
+      "adaptation": "木门以 TUI 行动开关，状态与花园北侧同步；门的行动标签取代方向查看。",
+      "tests": ["game::tests::paired_doors_block_both_sides_and_share_state"]
+    },
+    {
+      "source_path": "mudlib/d/village/lake.c",
+      "flags": ["custom_command", "conditional_exit"],
+      "status": "verified",
+      "adaptation": "普通东行被拦截，行动菜单提供划船返岸和潜入湖底；木船作为场景交通工具隐式保留。",
+      "tests": ["game::tests::lake_travel_requires_original_boat_and_dive_commands"]
+    },
+    {
+      "source_path": "mudlib/d/village/lakeside.c",
+      "flags": ["custom_command", "conditional_exit", "item_interaction"],
+      "status": "verified",
+      "adaptation": "普通西行被拦截，岸边木船以场景行动形式进入湖心。",
+      "tests": ["game::tests::lake_travel_requires_original_boat_and_dive_commands"]
+    },
+    {
+      "source_path": "mudlib/d/village/littlegarden.c",
+      "flags": ["door"],
+      "status": "verified",
+      "adaptation": "花园北侧木门与刘家南侧共享同一持久化状态。",
+      "tests": ["game::tests::paired_doors_block_both_sides_and_share_state"]
+    },
+    {
+      "source_path": "mudlib/d/village/lordhouse1.c",
+      "flags": ["door"],
+      "status": "verified",
+      "adaptation": "前院西门与 road9 东门共享同一持久化状态。",
+      "tests": ["game::tests::paired_doors_block_both_sides_and_share_state"]
+    },
+    {
+      "source_path": "mudlib/d/village/lordhouse3.c",
+      "flags": ["custom_command", "item_interaction"],
+      "status": "verified",
+      "adaptation": "书架查看后可依次抽动第 9、3、11、6 本石书；保留原源码机关分支未完成的事实，不生成虚构暗门。",
+      "tests": ["game::tests::room_objects_and_incomplete_book_puzzle_are_interactive"]
+    },
+    {
+      "source_path": "mudlib/d/village/melonfarm.c",
+      "flags": ["conditional_exit", "random_behavior"],
+      "status": "verified",
+      "adaptation": "按感知随机寻找熟瓜并判定瓜农发现；被发现后立即交战，认输仍封锁出口，赔付瓜钱或战胜瓜农后解除。",
+      "tests": ["game::tests::caught_melon_thief_must_fight_or_settle_debt"]
+    },
+    {
+      "source_path": "mudlib/d/village/road6.c",
+      "flags": ["custom_command", "dynamic_exit", "timed_behavior", "item_interaction"],
+      "status": "verified",
+      "adaptation": "拨开茅草后动态开放西侧出口，5 个一秒游戏刻度后自动关闭。",
+      "tests": ["content::tests::importer_marks_runtime_dynamic_exits", "game::tests::grass_path_is_visible_only_for_five_ticks"]
+    },
+    {
+      "source_path": "mudlib/d/village/road3.c",
+      "flags": ["item_interaction"],
+      "status": "verified",
+      "adaptation": "查看破旧路牌可辨认出傅家坡字样。",
+      "tests": ["game::tests::room_objects_and_incomplete_book_puzzle_are_interactive"]
+    },
+    {
+      "source_path": "mudlib/d/village/road9.c",
+      "flags": ["door"],
+      "status": "verified",
+      "adaptation": "road9 东门与财主家前院西门共享同一持久化状态。",
+      "tests": ["game::tests::paired_doors_block_both_sides_and_share_state"]
+    }
+  ]
+}

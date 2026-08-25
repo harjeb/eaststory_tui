@@ -1,0 +1,754 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "area": "village",
+  "status": "structured",
+  "rooms": [
+    {
+      "id": "village.farmhouse1",
+      "source_path": "mudlib/d/village/farmhouse1.c",
+      "status": "structured",
+      "name": "农舍",
+      "description": "这间农舍内的摆设非常朴素，但十分井井有条。阳光顺着窗缝撒在屋\n角落里的纺车上，桌上摆着泥作的玩具，特别是那泥老虎捏的形态生动活\n泼，色彩逼真，旁边还摆着一把木刀，可能都是父亲作给小孩的玩具。一\n张大床的旁边还有一张小床。这屋的北面是农舍的后院，南边出了屋就是\n村里的青石小路。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "village.fmhousback",
+          "source_target": "__DIR__fmhousback",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.road4",
+          "source_target": "__DIR__road4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.field",
+      "source_path": "mudlib/d/village/field.c",
+      "status": "structured",
+      "name": "稻田",
+      "description": "这是一片绿油油的稻田，稻子的长势非常喜人，因为北面就是玉螺湖，\n所以稻田的灌溉很方便。从这儿向西能看到忘情谷那郁郁葱葱的山岭，东\n面能看到几间高大房屋高出柳树部分的屋檐。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.road9",
+          "source_target": "__DIR__road9",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.fmhousback",
+      "source_path": "mudlib/d/village/fmhousback.c",
+      "status": "structured",
+      "name": "农舍后院",
+      "description": "在后院的左侧有个猪圈，几只小白猪在里面胡吃海塞，右面是一排鸡\n笼，两个红皮鸡蛋落在鸡笼后边的槽里。这村子的妇女经常把自家产的鸡\n蛋拿到京城去卖，去扯些花布或作件衣服。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "village.farmhouse1",
+          "source_target": "__DIR__farmhouse1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "/d/village/npc/woman1"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.home",
+      "source_path": "mudlib/d/village/home.c",
+      "status": "structured",
+      "name": "刘家小房",
+      "description": "这是一所很破旧的木屋。每当山风吹来，都会发出“吱吱呀呀”\n的声音。南侧是一个小小的厨房。木屋的后面是一个精巧的花园，花\n园里穿来阵阵打闹之声。一个翠绿的小草坪就在西面。",
+      "exits": [
+        {
+          "direction": "northwest",
+          "target": "village.smallstorage",
+          "source_target": "__DIR__smallstorage",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.littlegarden",
+          "source_target": "__DIR__littlegarden",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "__DIR__npc/oldliu"
+      ],
+      "behavior_flags": [
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "village.lake",
+      "source_path": "mudlib/d/village/lake.c",
+      "status": "structured",
+      "name": "玉螺湖",
+      "description": "这里是玉螺湖的湖心，湖面上丝丝雾气蒸起，周围静得出奇，心跳声\n都听的见。你仔细地向湖底看去，忽的见白光一闪，如果想看个究竟，可\n以潜入湖中(dive)，但理智告诉你一定要安全第一！西面远处是朦胧的群\n山，东边岸上的渔夫似乎冲着你比比划划。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.lakeside",
+          "source_target": "__DIR__lakeside",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command",
+        "conditional_exit"
+      ]
+    },
+    {
+      "id": "village.lakebottom1",
+      "source_path": "mudlib/d/village/lakebottom1.c",
+      "status": "structured",
+      "name": "水下岩洞",
+      "description": "这个岩洞中全都是冰，冰的色泽纯正洁白，很象是北极的玄冰，却不\n知怎么会在这里出现。四周气温极低，阵阵寒冷袭来，常人难以站立片刻。\n在玄冰上面长着发光的藻类植物，所以从入口看去非常明亮。刚才进入岩\n洞的入口处又迅速地结了一层薄冰，奇怪的是水压并没有把它压破。",
+      "exits": [
+        {
+          "direction": "westup",
+          "target": "village.lakebottom2",
+          "source_target": "__DIR__lakebottom2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.lakebottom2",
+      "source_path": "mudlib/d/village/lakebottom2.c",
+      "status": "structured",
+      "name": "水下岩洞",
+      "description": "水下岩洞到了这里，突然变得非常宽阔，巨大的穹顶成半透明，能模\n糊地看到顶外的小鱼游来游去。自上而下的看去，你不仅倒吸一口冷气：\n几只白色的大龙或悬浮在空中、或盘在冰面上、或慢游在洞里的水潭中。\n西面有一冰制的阶梯盘旋而上，不知伸向哪里。",
+      "exits": [
+        {
+          "direction": "eastdown",
+          "target": "village.lakebottom1",
+          "source_target": "__DIR__lakebottom1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "westup",
+          "target": "village.valley1",
+          "source_target": "__DIR__valley1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "__DIR__npc/dragon"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.lakeside",
+      "source_path": "mudlib/d/village/lakeside.c",
+      "status": "structured",
+      "name": "玉螺湖畔",
+      "description": "玉螺湖以产的螺蛳洁白如玉而得名，并且湖中盛产味道鲜美的鲈鱼。\n有很多渔夫泛舟湖上，以网鱼捕螺为生。但现在他们都站在岸边，面带愁\n容，不清楚有什么变故发生。岸边还散落了几艘木船(boat)。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.road7",
+          "source_target": "__DIR__road7",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.lake",
+          "source_target": "__DIR__lake",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "__DIR__npc/fisher"
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "conditional_exit",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "village.littlegarden",
+      "source_path": "mudlib/d/village/littlegarden.c",
+      "status": "structured",
+      "name": "花园",
+      "description": "这是刘老汉的小花园。花园里有很多美丽的花朵。刘老汉\n就是靠卖花来维持生计的。现在正是花开的大好季节，有很多\n人在剪花。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "village.home",
+          "source_target": "__DIR__home",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.road5",
+          "source_target": "__DIR__road5",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "__DIR__npc/flowergirl"
+      ],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "village.lordhouse1",
+      "source_path": "mudlib/d/village/lordhouse1.c",
+      "status": "structured",
+      "name": "财主家前院",
+      "description": "地主田老财的家似乎并不与老财的名字相适应，灰色的低矮院墙围着\n三间屋子。田老财家的前院，中间有一棵大槐树，伸开的枝叶遮出一大片\n阴凉，这里连接东房和南房。前院的西面是一扇漆黑的大门。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.lordhouse2",
+          "source_target": "__DIR__lordhouse2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.lordhouse3",
+          "source_target": "__DIR__lordhouse3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.road9",
+          "source_target": "__DIR__road9",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "village.lordhouse2",
+      "source_path": "mudlib/d/village/lordhouse2.c",
+      "status": "structured",
+      "name": "财主家东房",
+      "description": "东房内的北面摆放着很大的八仙桌，桌子的后面是供奉关公的神龛，\n神龛上三根拇指粗细的香慢慢燃着，关公的手似乎指向前面的墙壁(wall)，\n你还是第一次见到如此奇特姿势的关公像。在墙角处放着一根铁棍(stick)，\n顺着东侧打开的窗子望出去，可以看到远远的官道上来来往往的人群和遥\n远处阴森的黑松山。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "village.lordhouse1",
+          "source_target": "__DIR__lordhouse1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.lordhouse3",
+      "source_path": "mudlib/d/village/lordhouse3.c",
+      "status": "structured",
+      "name": "财主家南房",
+      "description": "南房布置得象个书房，在屋子的中间有一张大书桌，靠西侧的墙上立\n着一个书架(shield)，上面很摆了几本书。向南和向西开了两面大窗户，\n向南望去，能模模糊糊地望见京城林立的楼阁；向西可以看到在田间忙碌\n的田农。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "village.lordhouse1",
+          "source_target": "__DIR__lordhouse1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "village.melonfarm",
+      "source_path": "mudlib/d/village/melonfarm.c",
+      "status": "structured",
+      "name": "瓜地",
+      "description": "这是一片很大的西瓜地，沙质的土壤，种出来的瓜肯定是又甜又砂瓤，\n熟透了的西瓜(melon)已与瓜蒂脱开，就等人们去摘(pick)呢。不过看瓜农\n的篷子就在瓜地的南面，他的警惕性可是很高呀。北面是村里的小路。",
+      "exits": [
+        {
+          "direction": "northup",
+          "target": "village.road4",
+          "source_target": "__DIR__road4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.melonguard",
+          "source_target": "__DIR__melonguard",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "conditional_exit",
+        "random_behavior"
+      ]
+    },
+    {
+      "id": "village.melonguard",
+      "source_path": "mudlib/d/village/melonguard.c",
+      "status": "structured",
+      "name": "瓜棚",
+      "description": "这是一间茅草铺顶，竹竿作架的棚子，平时瓜农就在这里看着瓜地，\n他们的警惕性都很高，稍有风吹草动都会警觉起来。瓜地在瓜棚的北面，\n往西北走就上了村里的小路，往南能看到地主田老财的宅院。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "village.melonfarm",
+          "source_target": "__DIR__melonfarm",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "northwest",
+          "target": "village.road7",
+          "source_target": "__DIR__road7",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "__DIR__npc/meloner"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.road1",
+      "source_path": "mudlib/d/village/road1.c",
+      "status": "structured",
+      "name": "黄土大道",
+      "description": "这条黄土大道很宽阔，足够供八架马车并驾齐驱，与异族交战时，大量\n军队从此经过，和平时期只有商人来来往往。这条大道向南通往京师，往北\n到天驼关。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "canyon.canyon7",
+          "source_target": "/d/canyon/canyon7",
+          "internal": false,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.road2",
+      "source_path": "mudlib/d/village/road2.c",
+      "status": "structured",
+      "name": "三叉路口",
+      "description": "这里已经离天驼关很远了，顺着黄土大道向南走，绿色渐渐多了起\n来，树木透着喜人的绿，放眼望去青山绿水，好一派关内景色，你能看\n到散落的房屋，农田和水塘。来往的旅客、商人、农民也多了。黄土大\n道向东南方向延伸，西面是进入一个村庄的小路。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "village.road1",
+          "source_target": "__DIR__road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.nroad2",
+          "source_target": "/d/city/nroad2",
+          "internal": false,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.road3",
+          "source_target": "__DIR__road3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "__DIR__npc/trader1"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.road3",
+      "source_path": "mudlib/d/village/road3.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "这是一条通向一个村庄的青石小路。路口立着一个小牌子(tablet)，\n牌子看起来经过长时间的日晒雨淋，已破烂不堪。东南向望去好像是片\n瓜地，绿油油的西瓜让你感觉更渴了。从这里往西就进了村子，向东到\n三叉路口。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.road4",
+          "source_target": "__DIR__road4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "village.road4",
+      "source_path": "mudlib/d/village/road4.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "青石小路两旁没有树木，几根杂草随风摇摆，路上的石头被行人踩磨得\n很光亮，但奇怪的是平时这里的行人却非常稀少！小路向西延伸开去，南面\n是一片大大的瓜地，北面是一家农舍。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.road3",
+          "source_target": "__DIR__road3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "village.farmhouse1",
+          "source_target": "__DIR__farmhouse1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southdown",
+          "target": "village.melonfarm",
+          "source_target": "__DIR__melonfarm",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.road5",
+          "source_target": "__DIR__road5",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.road5",
+      "source_path": "mudlib/d/village/road5.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "青石小路在这里分成两条，一条继续向西延伸，另一条伸向南面，北\n面是一个鲜花盛开的小花园，闻到阵阵花香，你不仅心旷神怡。西面遥远\n处是连绵的群山，东南是一片面积不小的湖泊。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.road4",
+          "source_target": "__DIR__road4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "village.littlegarden",
+          "source_target": "__DIR__littlegarden",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southdown",
+          "target": "village.road7",
+          "source_target": "__DIR__road7",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.road6",
+          "source_target": "__DIR__road6",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.road6",
+      "source_path": "mudlib/d/village/road6.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "青石小路在这里到了尽头，被茂密的茅草(grass)挡住了去路。一阵\n东风吹过，飘来阵阵花香，南面是面积很大的湖泊，湖上的水汽映的西边\n的群山更加影影绰绰。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.road5",
+          "source_target": "__DIR__road5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.valley2",
+          "source_target": "__DIR__valley2",
+          "internal": true,
+          "dynamic": true
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command",
+        "dynamic_exit",
+        "timed_behavior",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "village.road7",
+      "source_path": "mudlib/d/village/road7.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "小路的两边种了一排垂柳，西边玉螺湖上的阵阵雾气透过柳枝飘散过\n来。你的东边是一大片绿油油的瓜地，一条大沟横在小路和瓜地之间，你\n可以走到东南向的瓜棚。",
+      "exits": [
+        {
+          "direction": "northup",
+          "target": "village.road5",
+          "source_target": "__DIR__road5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.road8",
+          "source_target": "__DIR__road8",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southeast",
+          "target": "village.melonguard",
+          "source_target": "__DIR__melonguard",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.lakeside",
+          "source_target": "__DIR__lakeside",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.road8",
+      "source_path": "mudlib/d/village/road8.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "小路的西侧是玉螺湖，东南是地主田老财的宅院，西南是一片稻田。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "village.road7",
+          "source_target": "__DIR__road7",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.road9",
+          "source_target": "__DIR__road9",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.road9",
+      "source_path": "mudlib/d/village/road9.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "两只小燕子落到柳枝上，叽叽喳喳叫个不停，它们的家可能在附近。\n在小路的西面是一片绿油油的稻田，几个农民在田间忙碌；东面是地主田\n老财的宅院，难得一个地主的房子并不是特别奢华，只有三间屋子。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.lordhouse1",
+          "source_target": "__DIR__lordhouse1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "village.road8",
+          "source_target": "__DIR__road8",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "village.field",
+          "source_target": "__DIR__field",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "village.smallstorage",
+      "source_path": "mudlib/d/village/smallstorage.c",
+      "status": "structured",
+      "name": "厨房",
+      "description": "这是一个简陋的小厨房。四壁已被油烟薰的分不出原来的颜色。\n墙上挂满了风干了的卤肉，可是上面显然有着被老鼠咬过的痕迹。",
+      "exits": [
+        {
+          "direction": "southeast",
+          "target": "village.home",
+          "source_target": "__DIR__home",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "__DIR__npc/rat"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.valley1",
+      "source_path": "mudlib/d/village/valley1.c",
+      "status": "structured",
+      "name": "忘情谷外",
+      "description": "这里是忘情谷外的一条小路，向着南和北延伸。山岭上树木繁茂，绿\n草茵茵，东面是有名的玉螺湖，湖上水汽蒸腾，但这边岸上没有船，不能\n由此到湖上。隐隐约约地看的见错落有致的村庄农舍。",
+      "exits": [
+        {
+          "direction": "eastdown",
+          "target": "village.lakebottom2",
+          "source_target": "__DIR__lakebottom2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "village.valley2",
+          "source_target": "__DIR__valley2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "village.valley2",
+      "source_path": "mudlib/d/village/valley2.c",
+      "status": "structured",
+      "name": "忘情谷外",
+      "description": "这里是忘情谷外的一条小路，往东就进了名叫傅家坡的小村庄。从村\n庄往外的这段小路人烟稀少，但能经常见到有大鸟飞过忘情谷的山岭。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "village.road6",
+          "source_target": "__DIR__road6",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "village.valley1",
+          "source_target": "__DIR__valley1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    }
+  ],
+  "non_room_files": [
+    "mudlib/d/village/flowergirl.c",
+    "mudlib/d/village/npc/dragon.c",
+    "mudlib/d/village/npc/fisher.c",
+    "mudlib/d/village/npc/flowergirl.c",
+    "mudlib/d/village/npc/meloner.c",
+    "mudlib/d/village/npc/obj/flower.c",
+    "mudlib/d/village/npc/obj/hengbing.c",
+    "mudlib/d/village/npc/obj/knife.c",
+    "mudlib/d/village/npc/obj/parrybook.c",
+    "mudlib/d/village/npc/oldliu.c",
+    "mudlib/d/village/npc/rat.c",
+    "mudlib/d/village/npc/trader1.c",
+    "mudlib/d/village/npc/woman1.c",
+    "mudlib/d/village/obj/melon.c"
+  ],
+  "warnings": [
+    "mudlib/d/village/home.c: 动态行为待实现 [door]",
+    "mudlib/d/village/home.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/village/lake.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/village/lake.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/village/lakeside.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/village/lakeside.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/village/lakeside.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/village/littlegarden.c: 动态行为待实现 [door]",
+    "mudlib/d/village/lordhouse1.c: 动态行为待实现 [door]",
+    "mudlib/d/village/lordhouse3.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/village/lordhouse3.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/village/melonfarm.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/village/melonfarm.c: 动态行为待实现 [random_behavior]",
+    "mudlib/d/village/road3.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/village/road6.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/village/road6.c: 动态行为待实现 [dynamic_exit]",
+    "mudlib/d/village/road6.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/village/road6.c: 动态行为待实现 [timed_behavior]",
+    "mudlib/d/village/road9.c: 动态行为待实现 [door]"
+  ]
+}
