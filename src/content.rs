@@ -2,7 +2,10 @@ use std::{collections::HashMap, sync::LazyLock};
 
 use serde::Deserialize;
 
-use crate::game::{EnemyKind, Exit, Location, LocationId, NpcKind, SkillKind};
+use crate::{
+    game::{EnemyKind, Exit, Location, LocationId, NpcKind},
+    skills::{DODGE_ID, FORCE_ID, PARRY_ID, SWORD_ID, SkillId, UNARMED_ID},
+};
 
 pub const LIU_HOME: &str = "village.home";
 pub const GARDEN: &str = "village.littlegarden";
@@ -129,13 +132,13 @@ fn apply_village_gameplay(location: &mut Location) {
             location.can_rest = true;
         }
         GARDEN => {
-            location.training = Some(SkillKind::Breathing);
+            location.training = Some(SkillId::from(FORCE_ID));
             location.npc = Some(NpcKind::FlowerGirl);
             location.can_rest = true;
         }
-        FIELD => location.training = Some(SkillKind::Unarmed),
+        FIELD => location.training = Some(SkillId::from(UNARMED_ID)),
         LAKESIDE => {
-            location.training = Some(SkillKind::Dodge);
+            location.training = Some(SkillId::from(DODGE_ID));
             location.npc = Some(NpcKind::Fisher);
             location.can_rest = true;
         }
@@ -190,7 +193,7 @@ fn add_solo_adaptations(locations: &mut HashMap<LocationId, Location>) {
                 Exit::adapter("东", MOUNTAIN_PATH),
             ],
             None,
-            Some(SkillKind::Sword),
+            Some(SkillId::from(SWORD_ID)),
             true,
             None,
         ),
@@ -217,7 +220,7 @@ fn add_solo_adaptations(locations: &mut HashMap<LocationId, Location>) {
             "钟声穿过云雾，回荡在山谷中。",
             vec![Exit::adapter("下", MOUNTAIN_PATH)],
             Some(NpcKind::TempleMaster),
-            Some(SkillKind::Parry),
+            Some(SkillId::from(PARRY_ID)),
             true,
             Some(EnemyKind::TempleDisciple),
         ),

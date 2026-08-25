@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "techniques": [
+    {
+      "source_path": "mudlib/d/force/recover.c",
+      "status": "verified",
+      "runtime_id": "force.recover"
+    },
+    {
+      "source_path": "mudlib/d/force/refresh.c",
+      "status": "verified",
+      "runtime_id": "force.refresh"
+    },
+    {
+      "source_path": "mudlib/d/force/regenerate.c",
+      "status": "verified",
+      "runtime_id": "force.regenerate"
+    },
+    {
+      "source_path": "mudlib/daemon/class/bonze/essencemagic/drift_sense.c",
+      "status": "deferred",
+      "milestone": "M4",
+      "rationale": "原行为传送到另一名在线玩家；等待北部区域完成后改编为已发现地点传送。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/bonze/essencemagic/heart_sense.c",
+      "status": "deferred",
+      "milestone": "M6",
+      "rationale": "原行为复苏另一名昏迷玩家；等待 NPC 同伴模型。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/bonze/essencemagic/void_sense.c",
+      "status": "verified",
+      "runtime_id": "essencemagic.void_sense"
+    },
+    {
+      "source_path": "mudlib/daemon/class/bonze/lotusforce/heal.c",
+      "status": "verified",
+      "runtime_id": "lotusforce.heal"
+    },
+    {
+      "source_path": "mudlib/daemon/class/bonze/lotusforce/lifeheal.c",
+      "status": "deferred",
+      "milestone": "M6",
+      "rationale": "原行为治疗另一名玩家；等待 NPC 同伴模型。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/dancer/iceforce/chillgaze.c",
+      "status": "verified",
+      "runtime_id": "iceforce.chillgaze"
+    },
+    {
+      "source_path": "mudlib/daemon/class/fighter/celestial/powerfade.c",
+      "status": "verified",
+      "runtime_id": "celestial.powerfade"
+    },
+    {
+      "source_path": "mudlib/daemon/class/fighter/celestial/powerup.c",
+      "status": "verified",
+      "runtime_id": "celestial.powerup"
+    },
+    {
+      "source_path": "mudlib/daemon/class/fighter/celestial/roar.c",
+      "status": "verified",
+      "runtime_id": "celestial.roar"
+    },
+    {
+      "source_path": "mudlib/daemon/class/juechen/magic-array/dun.c",
+      "status": "deferred",
+      "milestone": "M4",
+      "rationale": "原行为传送至雪亭寺院或使目标忙乱；等待原版 snow 区域稳定 ID。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/juechen/magic-array/saveme.c",
+      "status": "deferred",
+      "milestone": "M6",
+      "rationale": "原行为召唤天兵；等待战斗 NPC 召唤生命周期。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/nomad/yirong/yirong.c",
+      "status": "deferred",
+      "milestone": "M6",
+      "rationale": "原行为复制另一在线玩家身份；改编目标为已见 NPC 伪装。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/scholar/mysterrier/hasten.c",
+      "status": "verified",
+      "runtime_id": "mysterrier.hasten"
+    },
+    {
+      "source_path": "mudlib/daemon/class/swordsman/fonxanforce/heal.c",
+      "status": "verified",
+      "runtime_id": "fonxanforce.heal"
+    },
+    {
+      "source_path": "mudlib/daemon/class/swordsman/fonxansword/counterattack.c",
+      "status": "verified",
+      "runtime_id": "fonxansword.counterattack"
+    },
+    {
+      "source_path": "mudlib/daemon/class/swordsman/fonxansword/fakefault.c",
+      "status": "verified",
+      "runtime_id": "fonxansword.fakefault"
+    },
+    {
+      "source_path": "mudlib/daemon/class/swordsman/fonxansword/swordjab.c",
+      "status": "verified",
+      "runtime_id": "fonxansword.swordjab"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/animate.c",
+      "status": "alias",
+      "milestone": "M7",
+      "rationale": "兼容入口，与 necromancy/animate.c 相同。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/earth-warp.c",
+      "status": "alias",
+      "milestone": "M7",
+      "rationale": "兼容入口，与 necromancy/earth-warp.c 相同。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/gouyee/concentrate.c",
+      "status": "verified",
+      "runtime_id": "gouyee.concentrate"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/gouyee/heal.c",
+      "status": "verified",
+      "runtime_id": "gouyee.heal"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/haunt.c",
+      "status": "alias",
+      "milestone": "M7",
+      "rationale": "兼容入口，与 necromancy/haunt.c 相同。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/animate.c",
+      "status": "deferred",
+      "milestone": "M7",
+      "rationale": "需要尸体对象、复活和召唤物生命周期。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/astral_vision.c",
+      "status": "verified",
+      "runtime_id": "necromancy.astral_vision"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/drainerbolt.c",
+      "status": "verified",
+      "runtime_id": "necromancy.drainerbolt"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/earth-warp.c",
+      "status": "deferred",
+      "milestone": "M7",
+      "rationale": "符纸会把玩家送入死亡区域，依赖死亡和制符系统。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/feeblebolt.c",
+      "status": "verified",
+      "runtime_id": "necromancy.feeblebolt"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/haunt.c",
+      "status": "deferred",
+      "milestone": "M7",
+      "rationale": "符纸控制复生尸体，依赖尸体与召唤物系统。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/invocation.c",
+      "status": "deferred",
+      "milestone": "M6",
+      "rationale": "原行为召唤天兵或地狱守卫，等待战斗 NPC 召唤生命周期。"
+    },
+    {
+      "source_path": "mudlib/daemon/class/taoist/necromancy/netherbolt.c",
+      "status": "verified",
+      "runtime_id": "necromancy.netherbolt"
+    }
+  ],
+  "behavior_dispositions": [
+    {
+      "flag": "learning_bonus",
+      "source_count": 10,
+      "status": "source_noop",
+      "rationale": "固定提交中没有任何命令或运行框架调用 learn_bonus。"
+    },
+    {
+      "flag": "learning_requirement",
+      "source_count": 32,
+      "status": "verified",
+      "runtime": "Game::validate_skill_requirements"
+    },
+    {
+      "flag": "parry_messages",
+      "source_count": 5,
+      "status": "adapted",
+      "rationale": "原随机文字数组改为 TUI 战斗日志中的招架反馈，防御概率保持独立。"
+    },
+    {
+      "flag": "practice_bonus",
+      "source_count": 10,
+      "status": "source_noop",
+      "rationale": "固定提交中没有任何命令或运行框架调用 practice_bonus。"
+    },
+    {
+      "flag": "practice_cost",
+      "source_count": 43,
+      "status": "verified",
+      "runtime": "Game::practice_skill/practice_cost"
+    },
+    {
+      "flag": "exert_router",
+      "source_count": 11,
+      "status": "tracked",
+      "runtime": "TechniqueKind and this ledger",
+      "rationale": "所有实际存在的路由目标均为 verified、deferred 或 alias；不存在的目标按原框架返回失败。"
+    },
+    {
+      "flag": "level_hook",
+      "source_count": 9,
+      "status": "verified",
+      "runtime": "Game::apply_skill_level_hook"
+    },
+    {
+      "flag": "dodge_messages",
+      "source_count": 8,
+      "status": "adapted",
+      "rationale": "原随机文字数组改为 TUI 战斗日志中的身法反馈，闪避概率保持独立。"
+    },
+    {
+      "flag": "perform_router",
+      "source_count": 4,
+      "status": "tracked",
+      "runtime": "TechniqueKind and this ledger"
+    },
+    {
+      "flag": "conjure_router",
+      "source_count": 1,
+      "status": "tracked",
+      "runtime": "TechniqueKind and this ledger"
+    },
+    {
+      "flag": "combat_hook",
+      "source_count": 3,
+      "status": "verified",
+      "runtime": "Game::combat_tick"
+    },
+    {
+      "flag": "cast_router",
+      "source_count": 2,
+      "status": "tracked",
+      "runtime": "TechniqueKind and this ledger"
+    },
+    {
+      "flag": "scribe_router",
+      "source_count": 1,
+      "status": "deferred",
+      "milestone": "M7",
+      "rationale": "全部制符目标依赖死亡区域或尸体召唤。"
+    },
+    {
+      "flag": "effect_requirement",
+      "source_count": 4,
+      "status": "source_noop",
+      "rationale": "四个 valid_effect 函数体在固定提交中均为空。"
+    }
+  ]
+}

@@ -7,8 +7,9 @@
 当前版本保留了 ES2 有辨识度的玩法：
 
 - 精、气、神三项状态与时间恢复
-- 武学熟练度、实战领悟和评价，而不是传统刷怪等级
-- 非致死比试、主动认输和战败回村
+- 70 个原版技能、114 个招式、11 位掌门，以及师承、请教、映射、练习和秘笈研读
+- 20 个已验证绝招，基础内功恢复、属性成长和武学命中钩子
+- 区分非致死比试与死斗，支持认输、逃跑、昏迷、杀气和通缉
 - 26 个从原 LPC 导入的 `village` 房间，以及 4 个单人适配地点
 - 连通地点、NPC 对话、任务线、奖励和装备
 - 451 个原版物品定义，以及实例堆叠、负重、装备槽、耐久和地点掉落
@@ -47,6 +48,7 @@ cargo run --release
 - `src/game.rs`：与终端无关的角色、战斗、任务和时间状态机
 - `src/content.rs`：稳定地点 ID、嵌入式区域目录和游戏规则覆盖
 - `src/items.rs`：稳定物品 ID、451 个源定义和运行时物品实例
+- `src/skills.rs`：稳定技能 ID、70 个技能、11 位掌门和绝招定义
 - `src/app.rs`：键盘输入和 UI 选择状态
 - `src/ui.rs`：Ratatui 宽屏与紧凑布局
 - `src/save.rs`：版本化本地存档
@@ -57,6 +59,7 @@ cargo run --release
 ```bash
 cargo run --bin es2-import -- es2-utf8 village migration/catalog/village.json
 cargo run --bin es2-import -- es2-utf8 items migration/catalog/items.json
+cargo run --bin es2-import -- es2-utf8 skills migration/catalog/skills.json
 ```
 
-当前已完成 `village` 的 26 个房间和 19 项动态房间行为。M2 已完成 451 个物品候选的结构化分类，以及实例、装备、经济、消耗品和状态系统；共享动态对象的实现、延期与单人范围排除记录在 `migration/overrides/items.json`。下一阶段是 M3 完整武学与战斗。完整范围、批次和验收口径见 `docs/MIGRATION_PLAN.md`。
+当前 M1-M3 已完成：`village` 的 26 个房间与 19 项动态房间行为、451 个物品的实例/装备/经济/消耗状态，以及 70 个技能的训练与战斗系统。动态物品和技能脚本的实现、延期与排除分别记录在 `migration/overrides/items.json` 和 `migration/overrides/skills.json`。下一阶段是 M4 北部主干区域。完整范围、批次和验收口径见 `docs/MIGRATION_PLAN.md`。

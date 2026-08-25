@@ -5,10 +5,14 @@ use serde::{Deserialize, Serialize};
 use crate::{
     content::{self, world},
     items::{self, EquipmentSlot, ItemId, ItemInstance, LegacyItemKind, items},
+    skills::{
+        self, DODGE_ID, FORCE_ID, LIUH_KEN_ID, MAGIC_ID, MOVE_ID, PARRY_ID, PYROBAT_STEPS_ID,
+        SIX_CHAOS_SWORD_ID, SPELLS_ID, SWORD_ID, SkillId, TechniqueKind, UNARMED_ID, skills,
+    },
 };
 
 const LOG_LIMIT: usize = 80;
-const SAVE_VERSION: u32 = 4;
+const SAVE_VERSION: u32 = 5;
 const DEFAULT_FOOD_CAPACITY: i32 = 200;
 const DEFAULT_WATER_CAPACITY: i32 = 200;
 
@@ -33,15 +37,6 @@ impl From<&str> for LocationId {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-pub enum SkillKind {
-    Unarmed,
-    Sword,
-    Dodge,
-    Breathing,
-    Parry,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum EnemyKind {
     Bandit,
     Wolf,
@@ -63,6 +58,13 @@ pub enum NpcKind {
     Trader,
 }
 
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum Gender {
+    #[default]
+    Male,
+    Female,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum QuestStage {
     Unasked,
@@ -78,6 +80,7 @@ pub enum ConditionKind {
     Poison,
     Drunk,
     Slumber,
+    AstralVision,
 }
 
 impl ConditionKind {
@@ -88,6 +91,7 @@ impl ConditionKind {
             Self::Poison => "中毒",
             Self::Drunk => "醉酒",
             Self::Slumber => "蒙汗药",
+            Self::AstralVision => "灵视",
         }
     }
 }
@@ -126,11 +130,29 @@ pub enum Action {
         direction: String,
         target: LocationId,
     },
+    Flee {
+        direction: String,
+        target: LocationId,
+    },
     Interact(InteractionKind),
     Talk(NpcKind),
-    Train(SkillKind),
+    BecomeApprentice(String),
+    LearnSkill {
+        skill: SkillId,
+        teacher: String,
+    },
+    MapSkill {
+        usage: SkillId,
+        skill: SkillId,
+    },
+    Train(SkillId),
+    PracticeSkill(SkillId),
+    StudyItem(u64),
+    Cultivate(CultivationKind),
+    UseTechnique(TechniqueKind),
     Rest,
     Fight(EnemyKind),
+    Kill(EnemyKind),
     BuyItem(ItemId),
     SellItem(u64),
     GiveItem {
@@ -201,15 +223,38 @@ impl Action {
                     .map_or("未知区域", |location| location.name.as_str());
                 format!("{} · {}", direction_name(direction), name)
             }
+            Self::Flee { direction, target } => {
+                let name = world()
+                    .location(target)
+                    .map_or("未知区域", |location| location.name.as_str());
+                format!("逃往{} · {}", direction_name(direction), name)
+            }
             Self::Interact(interaction) => interaction.label(),
             Self::Talk(npc) => format!("与{}交谈", npc.name()),
+            Self::BecomeApprentice(teacher) => {
+                let teacher = skills().teacher(teacher).expect("teacher must exist");
+                format!("拜{}为师", teacher.name)
+            }
+            Self::LearnSkill { skill, teacher } => {
+                let teacher = skills().teacher(teacher).expect("teacher must exist");
+                format!("向{}请教{}", teacher.name, skill.name())
+            }
+            Self::MapSkill { usage, skill } => {
+                format!("将{}用于{}", skill.name(), usage.name())
+            }
             Self::Train(skill) => {
-                if game.activity == Activity::Training(*skill) {
+                if game.activity == Activity::Training(skill.clone()) {
                     format!("停止修炼{}", skill.name())
                 } else {
                     format!("修炼{}", skill.name())
                 }
             }
+            Self::PracticeSkill(skill) => format!("练习{}", skill.name()),
+            Self::StudyItem(instance_id) => {
+                format!("研读{}", game.inventory_item_name(*instance_id))
+            }
+            Self::Cultivate(kind) => kind.label().into(),
+            Self::UseTechnique(technique) => format!("施展{}", technique.name()),
             Self::Rest => {
                 if game.activity == Activity::Resting {
                     "结束休息".into()
@@ -224,6 +269,7 @@ impl Action {
                     format!("与{}比试", enemy.name())
                 }
             }
+            Self::Kill(enemy) => format!("与{}性命相搏", enemy.name()),
             Self::BuyItem(item_id) => {
                 let definition = items()
                     .definition(item_id)
@@ -289,11 +335,20 @@ impl Action {
     pub fn detail(&self) -> &'static str {
         match self {
             Self::Move { .. } => "移动会结束当前的修炼或休息。",
+            Self::Flee { .. } => "脱离当前战斗并移动，临阵退却会损失少量评价。",
             Self::Interact(interaction) => interaction.detail(),
             Self::Talk(_) => "交谈可能带来线索、奖励或新的武学见闻。",
-            Self::Train(_) => "时间会自动推进，持续积累熟练度并消耗精力。",
+            Self::BecomeApprentice(_) => "加入师门后才能向掌门请教本门武学。",
+            Self::LearnSkill { .. } => "请教消耗神和潜能，造诣不能超过师父。",
+            Self::MapSkill { .. } => "把已学特殊技能映射到对应基础用途。",
+            Self::Train(_) => "时间会自动推进，持续积累基础熟练度并消耗精力。",
+            Self::PracticeSkill(_) => "按原版规则消耗气、神或内力练习已映射武学。",
+            Self::StudyItem(_) => "研读秘笈需要读书识字，并受秘笈记载上限约束。",
+            Self::Cultivate(_) => "把精、气或神转化为内力、灵力或法力。",
+            Self::UseTechnique(_) => "绝招按原脚本消耗内力、法力、灵力或精气神。",
             Self::Rest => "逐步恢复精、气、神，全部恢复后自动结束。",
-            Self::Fight(_) => "比试以一方失去战力为止，不会造成永久死亡。",
+            Self::Fight(_) => "点到为止的比试；可以认输或从出口离开。",
+            Self::Kill(_) => "死斗会造成伤势、杀气和通缉，不能认输。",
             Self::BuyItem(_) => "按原物品价值付款；钱、银、金会自动换算。",
             Self::SellItem(_) => "商人按物品原价值的一半回收，损坏物品折价。",
             Self::GiveItem { .. } => "把未装备的物品赠予当前 NPC。",
@@ -310,12 +365,36 @@ impl Action {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CultivationKind {
+    Exercise,
+    Meditate,
+    Respirate,
+}
+
+impl CultivationKind {
+    fn label(self) -> &'static str {
+        match self {
+            Self::Exercise => "运气练功",
+            Self::Meditate => "静坐冥思",
+            Self::Respirate => "打坐修行",
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Activity {
     Idle,
     Resting,
-    Training(SkillKind),
+    Training(SkillId),
     Fighting(CombatState),
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum CombatMode {
+    #[default]
+    Spar,
+    Lethal,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -324,13 +403,50 @@ pub struct CombatState {
     pub health: i32,
     pub max_health: i32,
     pub rounds: u32,
+    #[serde(default)]
+    pub mode: CombatMode,
+    #[serde(default)]
+    pub attack_bonus: i32,
+    #[serde(default)]
+    pub dodge_bonus: i32,
+    #[serde(default)]
+    pub enemy_busy_rounds: u8,
+    #[serde(default)]
+    pub technique_cooldown: u8,
+    #[serde(default)]
+    pub power_up_active: bool,
+    #[serde(default)]
+    pub fake_fault_active: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum CombatResource {
+    Essence,
+    Qi,
+    Spirit,
+}
+
+impl CombatResource {
+    fn name(self) -> &'static str {
+        match self {
+            Self::Essence => "精",
+            Self::Qi => "气",
+            Self::Spirit => "神",
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Skill {
-    pub kind: SkillKind,
+    pub kind: SkillId,
     pub level: u32,
     pub progress: u32,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct SkillMapping {
+    pub usage: SkillId,
+    pub skill: SkillId,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -349,8 +465,46 @@ pub struct Player {
     pub max_spirit: i32,
     pub strength: u32,
     pub perception: u32,
+    #[serde(default = "default_intelligence")]
+    pub intelligence: u32,
+    #[serde(default = "default_spirituality")]
+    pub spirituality: u32,
+    #[serde(default = "default_courage")]
+    pub courage: u32,
+    #[serde(default = "default_constitution")]
+    pub constitution: u32,
+    #[serde(default = "default_courage")]
+    pub composure: u32,
+    #[serde(default)]
+    pub gender: Gender,
     pub reputation: i32,
     pub insight: u32,
+    #[serde(default = "default_combat_experience")]
+    pub combat_experience: u64,
+    #[serde(default = "default_potential")]
+    pub potential: u32,
+    #[serde(default)]
+    pub learned_points: u32,
+    #[serde(default)]
+    pub bellicosity: i32,
+    #[serde(default)]
+    pub wanted: u32,
+    #[serde(default)]
+    pub faction: Option<String>,
+    #[serde(default)]
+    pub teacher: Option<String>,
+    #[serde(default = "default_force")]
+    pub force: i32,
+    #[serde(default = "default_max_force")]
+    pub max_force: i32,
+    #[serde(default)]
+    pub mana: i32,
+    #[serde(default)]
+    pub max_mana: i32,
+    #[serde(default)]
+    pub atman: i32,
+    #[serde(default)]
+    pub max_atman: i32,
     pub silver: u32,
     #[serde(default)]
     pub coins: u32,
@@ -369,6 +523,8 @@ pub struct Player {
     #[serde(default)]
     pub conditions: Vec<ConditionState>,
     pub skills: Vec<Skill>,
+    #[serde(default)]
+    pub skill_mappings: Vec<SkillMapping>,
     pub inventory: Vec<ItemInstance>,
     #[serde(default)]
     pub equipment: Vec<EquippedItem>,
@@ -387,8 +543,27 @@ impl Default for Player {
             max_spirit: 70,
             strength: 12,
             perception: 11,
+            intelligence: 12,
+            spirituality: 20,
+            courage: 20,
+            constitution: 12,
+            composure: 20,
+            gender: Gender::Male,
             reputation: 0,
             insight: 0,
+            combat_experience: 5_000,
+            potential: 120,
+            learned_points: 0,
+            bellicosity: 0,
+            wanted: 0,
+            faction: None,
+            teacher: None,
+            force: 50,
+            max_force: 100,
+            mana: 0,
+            max_mana: 0,
+            atman: 0,
+            max_atman: 0,
             silver: 24,
             coins: 0,
             gold: 0,
@@ -399,12 +574,17 @@ impl Default for Player {
             max_water: DEFAULT_WATER_CAPACITY,
             conditions: vec![],
             skills: vec![
-                Skill::new(SkillKind::Unarmed, 8),
-                Skill::new(SkillKind::Sword, 3),
-                Skill::new(SkillKind::Dodge, 6),
-                Skill::new(SkillKind::Breathing, 5),
-                Skill::new(SkillKind::Parry, 4),
+                Skill::new(UNARMED_ID, 8),
+                Skill::new(SWORD_ID, 3),
+                Skill::new(DODGE_ID, 6),
+                Skill::new(MOVE_ID, 6),
+                Skill::new(FORCE_ID, 5),
+                Skill::new(PARRY_ID, 4),
+                Skill::new(LIUH_KEN_ID, 8),
+                Skill::new(SIX_CHAOS_SWORD_ID, 3),
+                Skill::new(PYROBAT_STEPS_ID, 6),
             ],
+            skill_mappings: default_skill_mappings(),
             inventory: vec![
                 ItemInstance::new(1, ItemId::from(items::CLOTH_ID), 1),
                 ItemInstance::new(2, ItemId::from(items::DRY_RATIONS_ID), 3),
@@ -418,6 +598,38 @@ impl Default for Player {
     }
 }
 
+fn default_intelligence() -> u32 {
+    12
+}
+
+fn default_spirituality() -> u32 {
+    20
+}
+
+fn default_courage() -> u32 {
+    20
+}
+
+fn default_constitution() -> u32 {
+    12
+}
+
+fn default_combat_experience() -> u64 {
+    5_000
+}
+
+fn default_potential() -> u32 {
+    120
+}
+
+fn default_force() -> i32 {
+    50
+}
+
+fn default_max_force() -> i32 {
+    100
+}
+
 fn default_food_capacity() -> i32 {
     DEFAULT_FOOD_CAPACITY
 }
@@ -426,33 +638,91 @@ fn default_water_capacity() -> i32 {
     DEFAULT_WATER_CAPACITY
 }
 
+fn default_skill_mappings() -> Vec<SkillMapping> {
+    vec![
+        SkillMapping {
+            usage: SkillId::from(UNARMED_ID),
+            skill: SkillId::from(LIUH_KEN_ID),
+        },
+        SkillMapping {
+            usage: SkillId::from(SWORD_ID),
+            skill: SkillId::from(SIX_CHAOS_SWORD_ID),
+        },
+        SkillMapping {
+            usage: SkillId::from(PARRY_ID),
+            skill: SkillId::from(SIX_CHAOS_SWORD_ID),
+        },
+        SkillMapping {
+            usage: SkillId::from(DODGE_ID),
+            skill: SkillId::from(PYROBAT_STEPS_ID),
+        },
+        SkillMapping {
+            usage: SkillId::from(MOVE_ID),
+            skill: SkillId::from(PYROBAT_STEPS_ID),
+        },
+    ]
+}
+
 impl Skill {
-    fn new(kind: SkillKind, level: u32) -> Self {
+    fn new(kind: &str, level: u32) -> Self {
         Self {
-            kind,
+            kind: SkillId::from(kind),
             level,
             progress: 0,
         }
     }
 
     pub fn required_progress(&self) -> u32 {
-        18 + self.level * 4
+        (self.level + 1).saturating_pow(2)
     }
 }
 
 impl Player {
-    pub fn skill(&self, kind: SkillKind) -> &Skill {
+    pub fn skill(&self, kind: &SkillId) -> &Skill {
         self.skills
             .iter()
-            .find(|skill| skill.kind == kind)
-            .expect("all core skills exist")
+            .find(|skill| &skill.kind == kind)
+            .expect("requested skill must be learned")
     }
 
-    fn skill_mut(&mut self, kind: SkillKind) -> &mut Skill {
+    pub fn skill_by_id(&self, id: &str) -> Option<&Skill> {
+        self.skills.iter().find(|skill| skill.kind.as_str() == id)
+    }
+
+    pub fn skill_level(&self, id: &str) -> u32 {
+        self.skill_by_id(id).map_or(0, |skill| skill.level)
+    }
+
+    pub fn mapped_skill(&self, usage: &str) -> Option<&SkillId> {
+        self.skill_mappings
+            .iter()
+            .find(|mapping| mapping.usage.as_str() == usage)
+            .map(|mapping| &mapping.skill)
+    }
+
+    pub fn effective_skill(&self, usage: &str) -> u32 {
+        let basic = self.skill_level(usage) / 2;
+        basic
+            + self
+                .mapped_skill(usage)
+                .map_or(0, |mapped| self.skill_level(mapped.as_str()))
+    }
+
+    fn skill_mut(&mut self, kind: &SkillId) -> &mut Skill {
         self.skills
             .iter_mut()
-            .find(|skill| skill.kind == kind)
-            .expect("all core skills exist")
+            .find(|skill| &skill.kind == kind)
+            .expect("requested skill must be learned")
+    }
+
+    fn ensure_skill(&mut self, kind: SkillId) {
+        if self.skill_by_id(kind.as_str()).is_none() {
+            self.skills.push(Skill {
+                kind,
+                level: 0,
+                progress: 0,
+            });
+        }
     }
 
     pub fn is_full_health(&self) -> bool {
@@ -639,12 +909,30 @@ impl Game {
     }
 
     pub fn available_actions(&self) -> Vec<Action> {
-        if matches!(self.activity, Activity::Fighting(_)) {
-            return vec![Action::Surrender];
+        let current = self.current_location();
+        if let Activity::Fighting(combat) = &self.activity {
+            let mut actions = if combat.technique_cooldown == 0 {
+                self.technique_actions(true)
+            } else {
+                Vec::new()
+            };
+            if !(current.id.as_str() == content::MELON_FARM && self.melon_debt) {
+                for exit in &current.exits {
+                    if self.exit_is_available(current, exit) {
+                        actions.push(Action::Flee {
+                            direction: exit.direction.clone(),
+                            target: exit.target.clone(),
+                        });
+                    }
+                }
+            }
+            if combat.mode == CombatMode::Spar {
+                actions.push(Action::Surrender);
+            }
+            return actions;
         }
 
         let mut actions = Vec::new();
-        let current = self.current_location();
 
         if current.id.as_str() == content::MELON_FARM && self.melon_debt {
             return vec![
@@ -654,19 +942,7 @@ impl Game {
         }
 
         for exit in &current.exits {
-            let interaction_only = matches!(
-                (current.id.as_str(), exit.target.as_str()),
-                (content::LAKESIDE, content::LAKE) | (content::LAKE, content::LAKESIDE)
-            );
-            let dynamic_exit_closed = exit.dynamic
-                && !(current.id.as_str() == content::ROAD6 && self.hidden_grass_path_ticks > 0);
-            let closed_door = door_for_transition(&current.id, &exit.target)
-                .is_some_and(|door| !self.is_door_open(door));
-            if world().contains(&exit.target)
-                && !interaction_only
-                && !dynamic_exit_closed
-                && !closed_door
-            {
+            if self.exit_is_available(current, exit) {
                 actions.push(Action::Move {
                     direction: exit.direction.clone(),
                     target: exit.target.clone(),
@@ -710,15 +986,46 @@ impl Game {
                 actions.push(Action::BuyItem(ItemId::from(item_id)));
             }
         }
-        if let Some(skill) = current.training {
-            actions.push(Action::Train(skill));
+        for teacher_id in teachers_at_location(current.id.as_str()) {
+            if self.player.teacher.as_deref() == Some(*teacher_id) {
+                let teacher = skills()
+                    .teacher(teacher_id)
+                    .expect("teacher catalog entry exists");
+                let mut teachable: Vec<_> = teacher.skills.iter().collect();
+                teachable.sort_by(|left, right| left.0.cmp(right.0));
+                for (skill_id, master_level) in teachable {
+                    if self.player.skill_level(skill_id) < (*master_level).max(0) as u32 {
+                        actions.push(Action::LearnSkill {
+                            skill: SkillId::from(skill_id.as_str()),
+                            teacher: (*teacher_id).to_string(),
+                        });
+                    }
+                }
+            } else {
+                actions.push(Action::BecomeApprentice((*teacher_id).to_string()));
+            }
+        }
+        if let Some(skill) = &current.training {
+            actions.push(Action::Train(skill.clone()));
         }
         if current.can_rest {
             actions.push(Action::Rest);
+            actions.extend(self.skill_development_actions());
+            if self.player.mapped_skill(FORCE_ID).is_some() {
+                actions.push(Action::Cultivate(CultivationKind::Exercise));
+            }
+            if self.player.skill_level(SPELLS_ID) > 0 {
+                actions.push(Action::Cultivate(CultivationKind::Meditate));
+            }
+            if self.player.skill_level(MAGIC_ID) > 0 {
+                actions.push(Action::Cultivate(CultivationKind::Respirate));
+            }
         }
         if let Some(enemy) = current.enemy {
             actions.push(Action::Fight(enemy));
+            actions.push(Action::Kill(enemy));
         }
+        actions.extend(self.technique_actions(false));
 
         if let Some(ground) = self.ground_items.get(&self.location) {
             for item in ground {
@@ -740,6 +1047,9 @@ impl Game {
                 )
             {
                 actions.push(Action::ApplyItem(item.instance_id));
+            }
+            if definition.study_skill.is_some() {
+                actions.push(Action::StudyItem(item.instance_id));
             }
             if definition.equipment_slot().is_some()
                 && !item.is_broken()
@@ -796,6 +1106,78 @@ impl Game {
         actions
     }
 
+    fn exit_is_available(&self, current: &Location, exit: &Exit) -> bool {
+        let interaction_only = matches!(
+            (current.id.as_str(), exit.target.as_str()),
+            (content::LAKESIDE, content::LAKE) | (content::LAKE, content::LAKESIDE)
+        );
+        let dynamic_exit_closed = exit.dynamic
+            && !(current.id.as_str() == content::ROAD6 && self.hidden_grass_path_ticks > 0);
+        let closed_door = door_for_transition(&current.id, &exit.target)
+            .is_some_and(|door| !self.is_door_open(door));
+        world().contains(&exit.target) && !interaction_only && !dynamic_exit_closed && !closed_door
+    }
+
+    fn skill_development_actions(&self) -> Vec<Action> {
+        let mut actions = Vec::new();
+        let mut practiced = Vec::<SkillId>::new();
+        for mapping in &self.player.skill_mappings {
+            if self.player.skill_by_id(mapping.skill.as_str()).is_some()
+                && !practiced.contains(&mapping.skill)
+            {
+                practiced.push(mapping.skill.clone());
+                actions.push(Action::PracticeSkill(mapping.skill.clone()));
+            }
+        }
+
+        let mut learned: Vec<_> = self.player.skills.iter().collect();
+        learned.sort_by(|left, right| left.kind.cmp(&right.kind));
+        for learned_skill in learned {
+            let Some(definition) = skills().definition(&learned_skill.kind) else {
+                continue;
+            };
+            for usage in &definition.usages {
+                if self.player.skill_level(usage) == 0
+                    || usage == learned_skill.kind.as_str()
+                    || self.player.mapped_skill(usage) == Some(&learned_skill.kind)
+                {
+                    continue;
+                }
+                actions.push(Action::MapSkill {
+                    usage: SkillId::from(usage.as_str()),
+                    skill: learned_skill.kind.clone(),
+                });
+            }
+        }
+        actions
+    }
+
+    fn technique_actions(&self, in_combat: bool) -> Vec<Action> {
+        TechniqueKind::ALL
+            .into_iter()
+            .filter(|technique| {
+                technique.combat_only() == in_combat
+                    || matches!(
+                        technique,
+                        TechniqueKind::RecoverQi
+                            | TechniqueKind::RefreshSpirit
+                            | TechniqueKind::RegenerateEssence
+                    )
+            })
+            .filter(|technique| self.technique_mapping_is_active(*technique))
+            .map(Action::UseTechnique)
+            .collect()
+    }
+
+    fn technique_mapping_is_active(&self, technique: TechniqueKind) -> bool {
+        if self.player.skill_level(technique.skill_id()) == 0 {
+            return false;
+        }
+        technique.required_usage().is_none_or(|usage| {
+            self.player.mapped_skill(usage).map(SkillId::as_str) == Some(technique.skill_id())
+        })
+    }
+
     fn is_door_open(&self, door: DoorKind) -> bool {
         match door {
             DoorKind::LiuGarden => self.garden_door_open,
@@ -819,11 +1201,20 @@ impl Game {
 
         match action {
             Action::Move { target, .. } => self.move_to(target),
+            Action::Flee { target, .. } => self.flee_to(target),
             Action::Interact(interaction) => self.interact(interaction),
             Action::Talk(npc) => self.talk(npc),
+            Action::BecomeApprentice(teacher) => self.become_apprentice(teacher),
+            Action::LearnSkill { skill, teacher } => self.learn_skill(skill, teacher),
+            Action::MapSkill { usage, skill } => self.map_skill(usage, skill),
             Action::Train(skill) => self.toggle_training(skill),
+            Action::PracticeSkill(skill) => self.practice_skill(skill),
+            Action::StudyItem(instance_id) => self.study_item(instance_id),
+            Action::Cultivate(kind) => self.cultivate(kind),
+            Action::UseTechnique(technique) => self.use_technique(technique),
             Action::Rest => self.toggle_rest(),
-            Action::Fight(enemy) => self.start_combat(enemy),
+            Action::Fight(enemy) => self.start_combat(enemy, CombatMode::Spar),
+            Action::Kill(enemy) => self.start_combat(enemy, CombatMode::Lethal),
             Action::BuyItem(item_id) => self.buy_item(item_id),
             Action::SellItem(instance_id) => self.sell_item(instance_id),
             Action::GiveItem { instance_id, npc } => self.give_item_to_npc(instance_id, npc),
@@ -851,7 +1242,7 @@ impl Game {
                 self.push_log("茅草重新合拢，西面的隐秘小路消失了。".into());
             }
         }
-        match self.activity {
+        match self.activity.clone() {
             Activity::Idle => self.recover(1, 1, 1),
             Activity::Resting => {
                 self.recover(6, 5, 5);
@@ -873,11 +1264,14 @@ impl Game {
     }
 
     pub fn activity_text(&self) -> String {
-        match self.activity {
+        match &self.activity {
             Activity::Idle => "整装待发".into(),
             Activity::Resting => "正在休息".into(),
             Activity::Training(skill) => format!("修炼{}中", skill.name()),
-            Activity::Fighting(combat) => format!("与{}交手", combat.enemy.name()),
+            Activity::Fighting(combat) => match combat.mode {
+                CombatMode::Spar => format!("与{}比试", combat.enemy.name()),
+                CombatMode::Lethal => format!("与{}死斗", combat.enemy.name()),
+            },
         }
     }
 
@@ -1444,6 +1838,25 @@ impl Game {
         self.push_log(format!("你来到{}。{}", place.name, place.arrival));
     }
 
+    fn flee_to(&mut self, target: LocationId) {
+        let Activity::Fighting(combat) = self.activity.clone() else {
+            return;
+        };
+        let loss = if combat.mode == CombatMode::Lethal {
+            10
+        } else {
+            5
+        };
+        let actual_loss = self.player.reputation.max(0).min(loss);
+        self.player.reputation -= actual_loss;
+        self.move_to(target);
+        self.push_log(format!(
+            "你脱离{}的追击，临阵退却使评价降低{}点。",
+            combat.enemy.name(),
+            actual_loss
+        ));
+    }
+
     fn interact(&mut self, interaction: InteractionKind) {
         self.activity = Activity::Idle;
         match interaction {
@@ -1543,6 +1956,13 @@ impl Game {
                 health: enemy.max_health(),
                 max_health: enemy.max_health(),
                 rounds: 0,
+                mode: CombatMode::Spar,
+                attack_bonus: 0,
+                dodge_bonus: 0,
+                enemy_busy_rounds: 0,
+                technique_cooldown: 0,
+                power_up_active: false,
+                fake_fault_active: false,
             });
             self.push_log("瓜农发现你摘瓜，冲进瓜地拦住去路：还我瓜钱，否则别想走！".into());
         } else {
@@ -1584,7 +2004,7 @@ impl Game {
                     let sword = self.add_inventory_item(ItemId::from(items::HENGBING_SWORD_ID), 1);
                     self.add_inventory_item(ItemId::from(items::PARRY_MANUAL_ID), 1);
                     self.equip_item(sword);
-                    self.gain_skill_progress(SkillKind::Parry, 40);
+                    self.gain_skill_progress(SkillId::from(PARRY_ID), 40);
                     self.push_log(
                         "刘老农：多谢搭救小女。这口銮鱼衡冰与过招要旨便赠予少侠。".into(),
                     );
@@ -1607,7 +2027,7 @@ impl Game {
             }
             NpcKind::TempleMaster => {
                 let progress = 8 + self.player.perception / 3;
-                self.gain_skill_progress(SkillKind::Breathing, progress);
+                self.gain_skill_progress(SkillId::from(FORCE_ID), progress);
                 self.push_log("玄智和尚点出你吐纳中的滞涩之处，内息运转顺畅了许多。".into());
             }
             NpcKind::Fisher => {
@@ -1628,14 +2048,765 @@ impl Game {
         }
     }
 
-    fn toggle_training(&mut self, skill: SkillKind) {
-        if self.activity == Activity::Training(skill) {
+    fn become_apprentice(&mut self, teacher_id: String) {
+        let teacher = skills()
+            .teacher(&teacher_id)
+            .expect("available teacher must exist");
+        if let Some(reason) = self.apprenticeship_rejection(&teacher_id) {
+            self.push_log(format!("{}摇头道：{reason}", teacher.name));
+            return;
+        }
+
+        self.player.teacher = Some(teacher_id);
+        self.player.faction = teacher.faction.clone();
+        if teacher.id == "fighter" {
+            self.push_log("你立誓恪守天邪派门规，萧辟尘这才点头收你入门。".into());
+        } else {
+            self.push_log(format!(
+                "{}将你收入{}门下。",
+                teacher.name,
+                teacher.faction.as_deref().unwrap_or("师门")
+            ));
+        }
+    }
+
+    fn apprenticeship_rejection(&self, teacher_id: &str) -> Option<&'static str> {
+        match teacher_id {
+            "assassin" | "beggar" | "ronin" if self.player.money_value() >= 100 => {
+                Some("本门只收身无余财之人，你还是回去享福吧。")
+            }
+            "juechen" if self.player.spirituality < 24 => {
+                Some("入我派者需有慧根，你的资质尚且不宜。")
+            }
+            "juechen" if self.player.combat_experience < 100_000 => {
+                Some("你尚缺江湖历练，不宜投入绝尘门下。")
+            }
+            "ninja" if self.player.perception < 25 => {
+                Some("入我派者需人品文采俱佳，你的资质尚且不宜。")
+            }
+            "ninja" if self.player.skill_level("literate") < 50 => {
+                Some("你的文学修养尚不足以入门。")
+            }
+            "scholar" => Some("你还需先走一趟东边桃林，方可谈入门之事。"),
+            "swordsman" if self.player.courage < 20 || self.player.composure < 20 => {
+                Some("学剑之人必须胆大心细，你的心性尚需磨炼。")
+            }
+            _ => None,
+        }
+    }
+
+    fn learn_skill(&mut self, skill_id: SkillId, teacher_id: String) {
+        if self.player.teacher.as_deref() != Some(teacher_id.as_str()) {
+            self.push_log("对方并不是你的师父，不愿传授本门绝学。".into());
+            return;
+        }
+        let teacher = skills()
+            .teacher(&teacher_id)
+            .expect("available teacher must exist");
+        let Some(master_level) = teacher.skills.get(skill_id.as_str()).copied() else {
+            self.push_log("这项技能必须另寻高人请教。".into());
+            return;
+        };
+        let current_level = self.player.skill_level(skill_id.as_str());
+        if current_level >= master_level.max(0) as u32 {
+            self.push_log(format!("你的{}造诣已经不输师父。", skill_id.name()));
+            return;
+        }
+        let definition = skills()
+            .definition(&skill_id)
+            .expect("teacher skill must exist in catalog");
+        if let Err(reason) = self.validate_skill_requirements(definition) {
+            self.push_log(reason);
+            return;
+        }
+        if self.player.learned_points >= self.player.potential {
+            self.push_log("你的潜能已经发挥到极限，暂时无法继续请教。".into());
+            return;
+        }
+
+        let is_new = self.player.skill_by_id(skill_id.as_str()).is_none();
+        let teacher_intelligence = teacher.intelligence.unwrap_or(30).max(1);
+        let base_cost = 150 / teacher_intelligence + 150 / self.player.intelligence.max(1) as i32;
+        let spirit_cost = if is_new { base_cost * 2 } else { base_cost }.max(1);
+        if self.player.spirit <= spirit_cost {
+            self.push_log("你今天太累，无法领会师父的讲解。".into());
+            return;
+        }
+        self.player.spirit -= spirit_cost;
+        self.player.ensure_skill(skill_id.clone());
+
+        if definition.skill_type == "martial"
+            && (current_level as u64).pow(3) / 10 > self.player.combat_experience
+        {
+            self.push_log(format!(
+                "也许是实战经验不足，你对{}的回答总是无法领会。",
+                teacher.name
+            ));
+            return;
+        }
+
+        let experience_term =
+            self.player.combat_experience / (1_000 + self.player.combat_experience / 1_000);
+        let upper = self
+            .player
+            .intelligence
+            .saturating_add(experience_term.min(u32::MAX as u64) as u32)
+            .max(1);
+        let gain = self.random(upper);
+        self.player.learned_points += 1;
+        self.gain_skill_progress(skill_id.clone(), gain);
+        self.push_log(format!(
+            "你向{}请教{}，消耗{}点神和1点潜能。",
+            teacher.name,
+            skill_id.name(),
+            spirit_cost
+        ));
+    }
+
+    fn map_skill(&mut self, usage: SkillId, skill_id: SkillId) {
+        let Some(definition) = skills().definition(&skill_id) else {
+            self.push_log("没有这种特殊技能。".into());
+            return;
+        };
+        if self.player.skill_level(usage.as_str()) == 0
+            || self.player.skill_level(skill_id.as_str()) == 0
+            || !definition.supports_usage(usage.as_str())
+        {
+            self.push_log("这项技能不能用于指定的基础用途。".into());
+            return;
+        }
+        self.player
+            .skill_mappings
+            .retain(|mapping| mapping.usage != usage);
+        self.player.skill_mappings.push(SkillMapping {
+            usage: usage.clone(),
+            skill: skill_id.clone(),
+        });
+        match usage.as_str() {
+            FORCE_ID => self.player.force = 0,
+            MAGIC_ID => self.player.atman = 0,
+            SPELLS_ID => self.player.mana = 0,
+            _ => {}
+        }
+        self.push_log(format!(
+            "你决定以{}作为{}用途。",
+            skill_id.name(),
+            usage.name()
+        ));
+    }
+
+    fn practice_skill(&mut self, skill_id: SkillId) {
+        let usages: Vec<_> = self
+            .player
+            .skill_mappings
+            .iter()
+            .filter(|mapping| mapping.skill == skill_id)
+            .map(|mapping| mapping.usage.clone())
+            .collect();
+        if usages.is_empty() || self.player.skill_level(skill_id.as_str()) == 0 {
+            self.push_log("你只能练习已经映射的特殊技能。".into());
+            return;
+        }
+        let definition = skills()
+            .definition(&skill_id)
+            .expect("mapped skill must exist in catalog");
+        if definition.practice.is_none()
+            || definition
+                .practice
+                .as_deref()
+                .is_some_and(|body| body.trim_start().starts_with("{ return notify_fail"))
+        {
+            self.push_log(format!("{}只能通过请教或实际运用提高。", skill_id.name()));
+            return;
+        }
+        if let Err(reason) = self.validate_skill_requirements(definition) {
+            self.push_log(reason);
+            return;
+        }
+        if let Some(reason) = self.practice_context_rejection(definition) {
+            self.push_log(reason);
+            return;
+        }
+        let Some(cost) = practice_cost(skill_id.as_str()) else {
+            self.push_log("这项技能目前无法自行练习。".into());
+            return;
+        };
+        if self.player.essence < cost.essence
+            || self.player.qi < cost.qi
+            || self.player.spirit < cost.spirit
+            || self.player.force < cost.force
+            || self.player.mana < cost.mana
+        {
+            self.push_log("你的精、气、神或内力不足，无法继续练习。".into());
+            return;
+        }
+        self.player.essence -= cost.essence;
+        self.player.qi -= cost.qi;
+        self.player.spirit -= cost.spirit;
+        self.player.force = self.player.force - cost.force + cost.force_gain;
+        self.player.mana -= cost.mana;
+
+        let basic_level = usages
+            .iter()
+            .map(|usage| self.player.skill_level(usage.as_str()))
+            .max()
+            .unwrap_or(0);
+        let gain = basic_level / 5 + 1;
+        self.gain_skill_progress_capped(skill_id.clone(), gain, basic_level);
+        self.push_log(format!("你反复练习{}，熟练度有所增长。", skill_id.name()));
+    }
+
+    fn study_item(&mut self, instance_id: u64) {
+        let Some(item) = self.player.item(instance_id) else {
+            return;
+        };
+        let definition = item.definition();
+        let Some(study_skill) = definition.study_skill.clone() else {
+            self.push_log("你无法从这件物品中学到什么。".into());
+            return;
+        };
+        let item_name = item.display_name().to_string();
+        let exp_required = definition.study_exp_required.unwrap_or(0).max(0) as u64;
+        let base_cost = definition.study_spirit_cost.unwrap_or(20).max(1);
+        let difficulty = definition.study_difficulty.unwrap_or(20);
+        let max_level = definition.study_max_level.unwrap_or(0).max(0) as u32;
+        let skill_id = SkillId::from(study_skill.as_str());
+
+        let literate = self.player.skill_level("literate");
+        if literate == 0 {
+            self.push_log("你是个文盲，必须先学习读书识字。".into());
+            return;
+        }
+        if self.player.combat_experience < exp_required {
+            self.push_log("你的实战经验不足，再怎么研读也无法领会。".into());
+            return;
+        }
+        let Some(skill_definition) = skills().definition(&skill_id) else {
+            self.push_log("这本旧书所载武学在原版技能目录中已经失传。".into());
+            return;
+        };
+        if let Err(reason) = self.validate_skill_requirements(skill_definition) {
+            self.push_log(reason);
+            return;
+        }
+        if self.player.skill_level(skill_id.as_str()) > max_level {
+            self.push_log("书中所述对你而言已经太浅，无法再有所得。".into());
+            return;
+        }
+        let cost =
+            (base_cost + base_cost * (difficulty - self.player.intelligence as i32) / 20).max(1);
+        if self.player.spirit < cost {
+            self.push_log("你现在过于疲倦，无法专心研读。".into());
+            return;
+        }
+        self.player.spirit -= cost;
+        self.player.ensure_skill(skill_id.clone());
+        self.gain_skill_progress(skill_id.clone(), literate / 5 + 1);
+        self.push_log(format!(
+            "你研读{item_name}中有关{}的记载，似乎有些心得。",
+            skill_id.name()
+        ));
+    }
+
+    fn cultivate(&mut self, kind: CultivationKind) {
+        const COST: i32 = 30;
+        match kind {
+            CultivationKind::Exercise => {
+                if self.player.mapped_skill(FORCE_ID).is_none() {
+                    self.push_log("你必须先选定一种内功心法。".into());
+                    return;
+                }
+                if self.player.qi < COST
+                    || self.player.essence * 100 / self.player.max_essence.max(1) < 70
+                    || self.player.spirit * 100 / self.player.max_spirit.max(1) < 70
+                {
+                    self.push_log("你的精、气或神不足，无法运气练功。".into());
+                    return;
+                }
+                self.player.qi -= COST;
+                let gain = COST
+                    * (self.player.skill_level(FORCE_ID) as i32 + self.player.strength as i32)
+                    / 300;
+                self.player.force += gain.max(0);
+                let cap = (self.player.skill_level(FORCE_ID)
+                    + self.player.effective_skill(FORCE_ID) / 5)
+                    * 10;
+                if self.player.force > self.player.max_force * 2 {
+                    if self.player.max_force < cap as i32 {
+                        self.player.max_force += 1;
+                        self.push_log("你的内力修为提高了。".into());
+                    }
+                    self.player.force = self.player.max_force;
+                } else {
+                    self.push_log(format!("你行功一周天，积蓄了{}点内力。", gain.max(0)));
+                }
+            }
+            CultivationKind::Meditate => {
+                if self.player.spirit < COST
+                    || self.player.qi * 100 / self.player.max_qi.max(1) < 70
+                    || self.player.essence * 100 / self.player.max_essence.max(1) < 70
+                {
+                    self.push_log("你的精、气或神不足，无法静坐冥思。".into());
+                    return;
+                }
+                self.player.spirit -= COST;
+                let gain = COST
+                    * (self.player.skill_level(SPELLS_ID) as i32 + self.player.spirituality as i32)
+                    / 300;
+                self.player.mana += gain.max(0);
+                if self.player.mana > self.player.max_mana * 2 {
+                    let cap = self.player.skill_level(SPELLS_ID) as i32 * 10;
+                    if self.player.max_mana < cap {
+                        self.player.max_mana += 1;
+                        self.push_log("你的法力修为提高了。".into());
+                    }
+                    self.player.mana = self.player.max_mana;
+                } else {
+                    self.push_log(format!("你冥思片刻，凝聚了{}点法力。", gain.max(0)));
+                }
+            }
+            CultivationKind::Respirate => {
+                if self.player.essence < COST
+                    || self.player.qi * 100 / self.player.max_qi.max(1) < 70
+                    || self.player.spirit * 100 / self.player.max_spirit.max(1) < 70
+                {
+                    self.push_log("你的精、气或神不足，无法打坐修行。".into());
+                    return;
+                }
+                self.player.essence -= COST;
+                let gain = COST
+                    * (self.player.skill_level(MAGIC_ID) as i32 + self.player.spirituality as i32)
+                    / 300;
+                self.player.atman += gain.max(0);
+                if self.player.atman > self.player.max_atman * 2 {
+                    let cap = self.player.skill_level(MAGIC_ID) as i32 * 10;
+                    if self.player.max_atman < cap {
+                        self.player.max_atman += 1;
+                        self.push_log("你的灵力修为提高了。".into());
+                    }
+                    self.player.atman = self.player.max_atman;
+                } else {
+                    self.push_log(format!("你打坐片刻，凝聚了{}点灵力。", gain.max(0)));
+                }
+            }
+        }
+    }
+
+    fn use_technique(&mut self, technique: TechniqueKind) {
+        let level = self.player.skill_level(technique.skill_id());
+        if level == 0 {
+            self.push_log("你尚未学会这项绝招所属的武学。".into());
+            return;
+        }
+        if !self.technique_mapping_is_active(technique) {
+            self.push_log("你必须先把这门武学用于对应的基础用途。".into());
+            return;
+        }
+
+        if !technique.combat_only() {
+            match technique {
+                TechniqueKind::RecoverQi
+                | TechniqueKind::RefreshSpirit
+                | TechniqueKind::RegenerateEssence => {
+                    let (current, maximum) = match technique {
+                        TechniqueKind::RecoverQi => (self.player.qi, self.player.max_qi),
+                        TechniqueKind::RefreshSpirit => {
+                            (self.player.spirit, self.player.max_spirit)
+                        }
+                        TechniqueKind::RegenerateEssence => {
+                            (self.player.essence, self.player.max_essence)
+                        }
+                        _ => unreachable!(),
+                    };
+                    if current >= maximum {
+                        self.push_log("这项状态已经恢复到上限。".into());
+                        return;
+                    }
+                    if !self.spend_technique_cost(0, 0, 20, 0, 0) {
+                        return;
+                    }
+                    let healed =
+                        (self.player.skill_level(FORCE_ID) as i32 / 3 + 10).min(maximum - current);
+                    match technique {
+                        TechniqueKind::RecoverQi => self.player.qi += healed,
+                        TechniqueKind::RefreshSpirit => self.player.spirit += healed,
+                        TechniqueKind::RegenerateEssence => self.player.essence += healed,
+                        _ => unreachable!(),
+                    }
+                    self.push_log(format!(
+                        "你运转内功施展{}，恢复{healed}点。",
+                        technique.name()
+                    ));
+                }
+                TechniqueKind::VoidSense => {
+                    if self
+                        .player
+                        .potential
+                        .saturating_sub(self.player.learned_points)
+                        >= 500
+                    {
+                        self.push_log("你的潜能尚未充分发挥，无法从虚空禅定中再有所得。".into());
+                        return;
+                    }
+                    if !self.spend_technique_cost(30, 0, 0, 0, 75) {
+                        return;
+                    }
+                    let gain = self.random(self.player.intelligence.max(1)) + 1;
+                    self.player.potential = self.player.potential.saturating_add(gain);
+                    self.push_log(format!("你入无相禅定，潜能增加{gain}点。"));
+                }
+                TechniqueKind::LotusHeal
+                | TechniqueKind::FonxanHeal
+                | TechniqueKind::GouyeeHeal => {
+                    if self.player.essence >= self.player.max_essence {
+                        self.push_log("你现在并未受伤，无需运功疗伤。".into());
+                        return;
+                    }
+                    if self.player.essence < self.player.max_essence / 2 {
+                        self.push_log("你已伤重过半，贸然运功只会更加危险。".into());
+                        return;
+                    }
+                    if self.player.force - self.player.max_force < 50 {
+                        self.push_log("你的内力没有超出修为五十点，无法运功疗伤。".into());
+                        return;
+                    }
+                    if !self.spend_technique_cost(0, 0, 50, 0, 0) {
+                        return;
+                    }
+                    let healed = 10 + level as i32 / 5;
+                    self.player.essence =
+                        (self.player.essence + healed).min(self.player.max_essence);
+                    self.push_log(format!(
+                        "你运转{}，恢复了{healed}点精。",
+                        technique.skill_id()
+                    ));
+                }
+                TechniqueKind::Concentrate => {
+                    if !self.spend_technique_cost(0, 10, 30, 0, 0) {
+                        return;
+                    }
+                    let gain = 10 + level as i32 / 5;
+                    self.player.mana = (self.player.mana + gain).min(self.player.max_mana * 2);
+                    self.push_log(format!("你凝聚心神，将内力化为{gain}点法力。"));
+                }
+                TechniqueKind::AstralVision => {
+                    if !self.spend_technique_cost(0, 5, 0, 30, 0) {
+                        return;
+                    }
+                    self.player.set_condition(
+                        ConditionKind::AstralVision,
+                        (5 + level / 10).max(5),
+                        level as i32,
+                    );
+                    self.push_log("你开启灵视，四周生命的气息变得清晰可辨。".into());
+                }
+                _ => {
+                    self.push_log("这项绝招只能在战斗中施展。".into());
+                }
+            }
+            return;
+        }
+
+        let Activity::Fighting(mut combat) = self.activity.clone() else {
+            self.push_log("这项绝招只能在战斗中施展。".into());
+            return;
+        };
+        let mut damage = 0;
+        match technique {
+            TechniqueKind::ChillGaze => {
+                if !self.spend_technique_cost(0, 20, 50, 0, 0) {
+                    return;
+                }
+                damage = 10 + level as i32 / 3 + self.player.max_force / 20;
+            }
+            TechniqueKind::PowerUp => {
+                if combat.power_up_active {
+                    self.push_log("你已经在催动天邪神功。".into());
+                    return;
+                }
+                if !self.spend_technique_cost(0, 0, 100, 0, 0) {
+                    return;
+                }
+                let bonus = (level as i32 / 3).max(1);
+                combat.attack_bonus += bonus;
+                combat.dodge_bonus += bonus;
+                combat.power_up_active = true;
+                self.player.bellicosity += 100 + level as i32 / 2;
+                self.push_log(format!(
+                    "你催动天邪神功，攻防气势各提高{bonus}点，杀气随之上升。"
+                ));
+            }
+            TechniqueKind::PowerFade => {
+                if !self.spend_technique_cost(0, 100, 100, 0, 0) {
+                    return;
+                }
+                let reduction = 100 + level as i32 / 3;
+                self.player.bellicosity = (self.player.bellicosity - reduction).max(0);
+                combat.attack_bonus -= (level as i32 / 6).max(1);
+                self.push_log(format!("你逆转天邪真气，化去{reduction}点杀气。"));
+            }
+            TechniqueKind::Roar => {
+                if !self.spend_technique_cost(10, 0, 150, 0, 0) {
+                    return;
+                }
+                damage = 15 + level as i32 / 2 + self.player.max_force / 10;
+            }
+            TechniqueKind::Hasten => {
+                let attacks = (2 + level / 30).clamp(2, 7) as i32;
+                let cost = attacks * 10;
+                if self.player.essence < 70
+                    || self.player.force - self.player.max_force < 70
+                    || !self.spend_technique_cost(cost, 0, cost, 0, 0)
+                {
+                    if self.player.essence < 70 || self.player.force - self.player.max_force < 70 {
+                        self.push_log("你的精或额外内力不足以催动步玄连环。".into());
+                    }
+                    return;
+                }
+                damage = attacks * (4 + level as i32 / 12);
+                self.push_log(format!("你身随乐律连攻{attacks}式。"));
+            }
+            TechniqueKind::Counterattack => {
+                combat.enemy_busy_rounds = (1 + level / 50).min(3) as u8;
+                self.push_log("你借势封住对手后招，准备迎隙反击。".into());
+            }
+            TechniqueKind::FakeFault => {
+                if combat.fake_fault_active {
+                    self.push_log("对手已经见过这个破绽，不会再次上当。".into());
+                    return;
+                }
+                let bonus = (level as i32 / 3).max(1);
+                combat.attack_bonus += bonus;
+                combat.dodge_bonus += bonus / 2;
+                combat.fake_fault_active = true;
+                self.push_log("你故意卖出破绽，引得对手门户大开。".into());
+            }
+            TechniqueKind::SwordJab => {
+                let attacks = (1 + level / 40).min(3) as i32;
+                let cost = attacks * 10;
+                if !self.spend_technique_cost(cost, 0, 0, 0, 0) {
+                    return;
+                }
+                damage = attacks * (5 + level as i32 / 15);
+            }
+            TechniqueKind::DrainerBolt => {
+                if !self.spend_technique_cost(0, 20, 0, 25, 0) {
+                    return;
+                }
+                damage = 10 + level as i32 / 3;
+                self.player.essence =
+                    (self.player.essence + damage / 2).min(self.player.max_essence);
+                combat.mode = CombatMode::Lethal;
+            }
+            TechniqueKind::FeebleBolt | TechniqueKind::NetherBolt => {
+                if !self.spend_technique_cost(0, 10, 0, 25, 0) {
+                    return;
+                }
+                damage = 10 + level as i32 / 3;
+                combat.mode = CombatMode::Lethal;
+            }
+            _ => {
+                self.push_log("这项绝招不能在当前战斗中施展。".into());
+                return;
+            }
+        }
+
+        combat.technique_cooldown = 1;
+        if damage > 0 {
+            combat.health -= damage;
+            self.push_log(format!(
+                "你施展{}命中{}，造成{damage}点伤势。",
+                technique.name(),
+                combat.enemy.name()
+            ));
+        }
+        if combat.health <= 0 {
+            self.win_combat(combat);
+        } else if self.player.essence <= 0 || self.player.spirit <= 0 {
+            self.lose_combat(combat);
+        } else {
+            self.activity = Activity::Fighting(combat);
+        }
+    }
+
+    fn spend_technique_cost(
+        &mut self,
+        essence: i32,
+        spirit: i32,
+        force: i32,
+        mana: i32,
+        atman: i32,
+    ) -> bool {
+        if self.player.essence < essence
+            || self.player.spirit < spirit
+            || self.player.force < force
+            || self.player.mana < mana
+            || self.player.atman < atman
+        {
+            self.push_log("你的精、神、内力、法力或灵力不足。".into());
+            return false;
+        }
+        self.player.essence -= essence;
+        self.player.spirit -= spirit;
+        self.player.force -= force;
+        self.player.mana -= mana;
+        self.player.atman -= atman;
+        true
+    }
+
+    fn validate_skill_requirements(
+        &self,
+        definition: &skills::SkillDefinition,
+    ) -> Result<(), String> {
+        let id = definition.id.as_str();
+        let level = self.player.skill_level(id);
+        let weapon = self
+            .player
+            .equipped(EquipmentSlot::Weapon)
+            .and_then(|item| item.definition().weapon_skill());
+        let body = definition.valid_learn.as_deref().unwrap_or("");
+        if body.contains("query_temp(\"weapon\") ||")
+            && !body.contains("skill_type")
+            && weapon.is_some()
+        {
+            return Err(format!("练习{}必须空手。", definition.name()));
+        }
+        if let Some(required) = required_weapon_usage(body)
+            && weapon != Some(required)
+        {
+            return Err(format!(
+                "你必须先装备合适的{}兵器。",
+                SkillId::from(required).name()
+            ));
+        }
+
+        let rejected = match id {
+            "buddhism" | "taoism" if self.player.bellicosity > 100 => {
+                "你的杀气太重，无法修炼这门正法。"
+            }
+            "celestial" if self.player.bellicosity < level as i32 * 50 => {
+                "你的杀气不够，无法领悟更高深的天邪神功。"
+            }
+            "celestrike"
+                if self.player.skill_level("celestial") < 20 || self.player.max_force < 100 =>
+            {
+                "你的天邪神功或内力修为不足。"
+            }
+            "chaos-steps" | "deisword" | "fall-steps" | "notraces"
+                if self.player.max_force < 50 =>
+            {
+                "你的内力不足，无法修炼这门武功。"
+            }
+            "cloudstaff" | "jingang-staff"
+                if self.player.strength as i32 + self.player.max_force / 10 < 50 =>
+            {
+                "你的膂力与内力尚不足以驾驭这门杖法。"
+            }
+            "essencemagic"
+                if self.player.skill_level("buddhism") < 10
+                    || self.player.skill_level("buddhism") <= level =>
+            {
+                "你的大乘佛法修为不够高深。"
+            }
+            "fonxansword"
+                if self.player.max_force < 50
+                    || self.player.mapped_skill(FORCE_ID).map(SkillId::as_str)
+                        != Some("fonxanforce") =>
+            {
+                "封山剑法必须配合足够的封山派内功。"
+            }
+            "gouyee" if self.player.max_mana < level as i32 * 5 => {
+                "你的法力不够，无法提升谷衣心法。"
+            }
+            "linbo-steps" if self.player.skill_level("literate") < 60 => {
+                "你的文学素养不够，无法修炼凌波微步。"
+            }
+            "lotusforce" if self.player.skill_level("buddhism") < level => {
+                "你的大乘佛法修为不足以领会莲华心法。"
+            }
+            "magic-array" if self.player.skill_level("tao-mystery") <= level => {
+                "你的小天魔道修为不足以领悟奇门遁甲。"
+            }
+            "mysterrier"
+                if self.player.mapped_skill(FORCE_ID).map(SkillId::as_str) != Some("mystforce")
+                    || self.player.skill_level("music") < level / 2 =>
+            {
+                "步玄七诀必须配合步玄心法与足够的音律修为。"
+            }
+            "mystsword"
+                if self.player.skill_level("mystforce") < 30 || self.player.max_force < 100 =>
+            {
+                "你的步玄心法或内力火候还不够。"
+            }
+            "necromancy" if self.player.skill_level("taoism") < level / 2 => {
+                "你的天师正道修为不足以驾驭茅山道术。"
+            }
+            "nine-moon" if self.player.gender != Gender::Female => "九阴赤炼剑法只有女子可以修炼。",
+            "nine-moon"
+                if self.player.max_force < 50
+                    || self.player.mapped_skill(FORCE_ID).map(SkillId::as_str)
+                        != Some("nine-moon-force") =>
+            {
+                "九阴赤炼剑法必须配合足够的九阴心经。"
+            }
+            "scratching" if self.player.max_force < 80 => "你的内力不足以修炼天师剑法。",
+            "six-chaos-sword" if self.player.max_force < 100 => "你的内力不足以修炼六阴追魂剑法。",
+            "snowshade-sword"
+                if self.player.max_force < 50
+                    || self.player.mapped_skill(FORCE_ID).map(SkillId::as_str)
+                        != Some("snowshade-force") =>
+            {
+                "雪影剑法必须配合足够的雪影心法。"
+            }
+            "snowwhip" if self.player.max_force < 150 => "你的内力不足以修炼寒雪鞭法。",
+            "spicyclaw" | "ts-fist" if self.player.max_force < 80 => {
+                "你的内力太弱，无法修炼这门拳掌。"
+            }
+            "stormdance" if self.player.gender != Gender::Female => "七宝天岚舞只有女子可以修炼。",
+            "stormdance" if self.player.spirituality < 20 => "你的灵性不足以修炼七宝天岚舞。",
+            "tenderzhi" if self.player.gender != Gender::Female => "柔虹指只有女子可以修炼。",
+            "wu-shun" if self.player.skill_level("literate") < level => {
+                "你的文学素养不足以提升小无相功。"
+            }
+            _ => return Ok(()),
+        };
+        Err(rejected.into())
+    }
+
+    fn practice_context_rejection(&self, definition: &skills::SkillDefinition) -> Option<String> {
+        let body = definition.practice.as_deref().unwrap_or("");
+        if let Some(required) = required_weapon_usage(body) {
+            let actual = self
+                .player
+                .equipped(EquipmentSlot::Weapon)
+                .and_then(|item| item.definition().weapon_skill());
+            if actual != Some(required) {
+                return Some(format!(
+                    "练习{}必须装备合适的{}兵器。",
+                    definition.name(),
+                    SkillId::from(required).name()
+                ));
+            }
+        }
+        if definition.id.as_str() == "serpentforce"
+            && !matches!(
+                self.location.as_str(),
+                content::LAKE | content::LAKE_BOTTOM | content::LAKESIDE | "village.lakebottom2"
+            )
+        {
+            return Some("伏蛟功只能在有水的地方练习。".into());
+        }
+        None
+    }
+
+    fn toggle_training(&mut self, skill: SkillId) {
+        if self.activity == Activity::Training(skill.clone()) {
             self.activity = Activity::Idle;
             self.push_log(format!("你收势调息，结束了{}修炼。", skill.name()));
             return;
         }
 
-        self.activity = Activity::Training(skill);
+        self.activity = Activity::Training(skill.clone());
         self.push_log(format!("你静下心来，开始修炼{}。", skill.name()));
     }
 
@@ -1651,7 +2822,7 @@ impl Game {
         }
     }
 
-    fn training_tick(&mut self, skill: SkillKind) {
+    fn training_tick(&mut self, skill: SkillId) {
         if self.player.essence <= 8 || self.player.spirit <= 5 {
             self.activity = Activity::Idle;
             self.push_log("你已十分疲惫，只得暂停修炼。".into());
@@ -1664,8 +2835,8 @@ impl Game {
         self.gain_skill_progress(skill, gain);
     }
 
-    fn start_combat(&mut self, enemy: EnemyKind) {
-        if self.player.essence < 20 || self.player.qi < 15 {
+    fn start_combat(&mut self, enemy: EnemyKind, mode: CombatMode) {
+        if self.player.essence < 20 || self.player.qi < 15 || self.player.spirit < 10 {
             self.push_log("你当前状态太差，无法贸然出手。".into());
             return;
         }
@@ -1676,60 +2847,165 @@ impl Game {
             health: max_health,
             max_health,
             rounds: 0,
+            mode,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
         });
-        self.push_log(format!("你向{}抱拳示意，双方随即交手。", enemy.name()));
+        match mode {
+            CombatMode::Spar => {
+                self.push_log(format!("你向{}抱拳示意，双方点到为止。", enemy.name()));
+            }
+            CombatMode::Lethal => {
+                self.push_log(format!("你向{}喝道：今日性命相搏！", enemy.name()));
+            }
+        }
     }
 
     fn surrender(&mut self) {
-        let Activity::Fighting(combat) = self.activity else {
+        let Activity::Fighting(combat) = self.activity.clone() else {
             return;
         };
+        if combat.mode == CombatMode::Lethal {
+            self.push_log(format!("{}不接受求饶，死斗仍在继续。", combat.enemy.name()));
+            return;
+        }
         self.activity = Activity::Idle;
-        self.player.reputation -= 1;
+        let loss = self.player.reputation.clamp(0, 50);
+        self.player.reputation -= loss;
         self.push_log(format!(
-            "你跳出战圈，向{}认输。评价 -1。",
-            combat.enemy.name()
+            "你跳出战圈，向{}认输。评价降低{}点。",
+            combat.enemy.name(),
+            loss
         ));
     }
 
     fn combat_tick(&mut self, mut combat: CombatState) {
         combat.rounds += 1;
-        let (has_weapon, weapon_bonus) =
+        combat.technique_cooldown = combat.technique_cooldown.saturating_sub(1);
+        let (has_weapon, weapon_bonus, usage) =
             self.player
                 .equipped(EquipmentSlot::Weapon)
-                .map_or((false, 0), |item| {
+                .map_or((false, 0, UNARMED_ID), |item| {
                     (
                         true,
                         item.definition().weapon_damage.unwrap_or(0).max(0) / 10,
+                        item.definition().weapon_skill().unwrap_or(SWORD_ID),
                     )
                 });
-        let attack_skill = if has_weapon {
-            SkillKind::Sword
-        } else {
-            SkillKind::Unarmed
-        };
-        let skill_level = self.player.skill(attack_skill).level;
-        let attack = self.player.strength as i32
-            + skill_level as i32 / 2
-            + weapon_bonus
-            + self.random(7) as i32;
-        let damage = (attack - combat.enemy.defense()).max(2);
-        combat.health -= damage;
+        let style_id = self
+            .player
+            .mapped_skill(usage)
+            .cloned()
+            .unwrap_or_else(|| SkillId::from(usage));
+        let skill_level = self.player.effective_skill(usage);
+        let action = skills().definition(&style_id).and_then(|definition| {
+            (!definition.actions.is_empty()).then(|| {
+                let index = self.random(definition.actions.len() as u32) as usize;
+                definition.actions[index].clone()
+            })
+        });
+        let action_name = action
+            .as_ref()
+            .map_or("寻常一式", skills::SkillActionDefinition::display_name);
+        let limb = ["头部", "胸口", "左臂", "右臂", "腰间", "腿部"][self.random(6) as usize];
+        let hit_chance = (65 + skill_level as i32 * 2 + combat.attack_bonus
+            - combat.enemy.defense() * 2)
+            .clamp(20, 95) as u32;
         self.player.qi = (self.player.qi - 2).max(0);
-        self.gain_skill_progress(attack_skill, 2);
-        self.gain_skill_progress(SkillKind::Dodge, 1);
+        self.gain_skill_progress(SkillId::from(usage), 2);
+
+        if self.random(100) < hit_chance {
+            let base_damage =
+                (self.player.strength as i32 / 2 + skill_level as i32 / 2 + weapon_bonus
+                    - combat.enemy.defense() / 2)
+                    .max(2);
+            let damage_percent = action
+                .as_ref()
+                .and_then(|action| action.damage)
+                .unwrap_or(0);
+            let force_percent = action.as_ref().and_then(|action| action.force).unwrap_or(0);
+            let mut damage = (base_damage
+                + base_damage * damage_percent / 100
+                + self.player.strength as i32 * force_percent / 200)
+                .max(2);
+            let mut hook_message = None;
+            if self.player.mapped_skill(FORCE_ID).map(SkillId::as_str) == Some("iceforce") {
+                let ice_level = self.player.skill_level("iceforce").max(1);
+                if self.random(ice_level) > damage as u32 {
+                    damage += (damage / 2).max(1);
+                    hook_message = Some("阴寒劲力透体而入");
+                }
+            }
+            if matches!(style_id.as_str(), "spicyclaw" | "ts-fist")
+                && damage_percent >= 100
+                && self.random((damage_percent / 2).max(1) as u32)
+                    > combat.enemy.attack().max(0) as u32
+            {
+                let threshold = if style_id.as_str() == "spicyclaw" {
+                    100
+                } else {
+                    80
+                };
+                damage += ((damage_percent - threshold) / 2).max(0);
+                hook_message = Some("掌力迸发，传出骨节爆响");
+            }
+            combat.health -= damage;
+            self.push_log(format!(
+                "第{}合：你使出「{}」击中{}的{}，造成{}点伤势。",
+                combat.rounds,
+                action_name,
+                combat.enemy.name(),
+                limb,
+                damage
+            ));
+            if let Some(message) = hook_message {
+                self.push_log(format!("{message}。"));
+            }
+        } else {
+            self.push_log(format!(
+                "第{}合：你使出「{}」，却被{}闪开。",
+                combat.rounds,
+                action_name,
+                combat.enemy.name()
+            ));
+        }
+
         if has_weapon {
             self.degrade_equipment(EquipmentSlot::Weapon);
         }
-        self.push_log(format!(
-            "第{}合：你击中{}，造成{}点伤势。",
-            combat.rounds,
-            combat.enemy.name(),
-            damage
-        ));
-
         if combat.health <= 0 {
-            self.win_combat(combat.enemy);
+            self.win_combat(combat);
+            return;
+        }
+
+        let dodge_level = self.player.effective_skill(DODGE_ID);
+        let parry_level = self.player.effective_skill(PARRY_ID);
+        let enemy_attack = combat.enemy.attack() + self.random(6) as i32;
+        if combat.enemy_busy_rounds > 0 {
+            combat.enemy_busy_rounds -= 1;
+            self.push_log(format!("{}尚未稳住身形，来不及反击。", combat.enemy.name()));
+            self.activity = Activity::Fighting(combat);
+            return;
+        }
+
+        let dodge_chance =
+            (15 + dodge_level as i32 * 3 + combat.dodge_bonus - enemy_attack).clamp(5, 75) as u32;
+        let parry_chance = (10 + parry_level as i32 * 2 - enemy_attack / 2).clamp(5, 45) as u32;
+        let defense_roll = self.random(100);
+        if defense_roll < dodge_chance {
+            self.gain_skill_progress(SkillId::from(DODGE_ID), 1);
+            self.push_log(format!("{}反击，你施展身法从容避开。", combat.enemy.name()));
+            self.activity = Activity::Fighting(combat);
+            return;
+        }
+        if defense_roll < dodge_chance + parry_chance {
+            self.gain_skill_progress(SkillId::from(PARRY_ID), 1);
+            self.push_log(format!("{}反击，被你稳稳架开。", combat.enemy.name()));
+            self.activity = Activity::Fighting(combat);
             return;
         }
 
@@ -1741,12 +3017,13 @@ impl Game {
             .filter_map(|equipped| self.player.item(equipped.instance_id))
             .map(|item| item.definition().armor.unwrap_or(0).max(0) / 10)
             .sum();
-        let defense = self.player.skill(SkillKind::Dodge).level as i32 / 2
-            + self.player.skill(SkillKind::Parry).level as i32 / 3
-            + armor_bonus;
-        let enemy_attack = combat.enemy.attack() + self.random(6) as i32;
-        let received = (enemy_attack - defense).max(2);
-        self.player.essence -= received;
+        let received = (enemy_attack - armor_bonus).max(2);
+        let resource = combat.enemy.damage_resource();
+        match resource {
+            CombatResource::Essence => self.player.essence -= received,
+            CombatResource::Qi => self.player.qi -= received,
+            CombatResource::Spirit => self.player.spirit -= received,
+        }
         let armor_slots: Vec<_> = self
             .player
             .equipment
@@ -1758,13 +3035,15 @@ impl Game {
             self.degrade_equipment(slot);
         }
         self.push_log(format!(
-            "{}反击，你损失{}点精。",
+            "{}反击命中你的{}，你损失{}点{}。",
             combat.enemy.name(),
-            received
+            limb,
+            received,
+            resource.name()
         ));
 
-        if self.player.essence <= 0 {
-            self.lose_combat(combat.enemy);
+        if self.player.essence <= 0 || self.player.qi <= 0 || self.player.spirit <= 0 {
+            self.lose_combat(combat);
         } else {
             self.activity = Activity::Fighting(combat);
         }
@@ -1798,16 +3077,35 @@ impl Game {
         }
     }
 
-    fn win_combat(&mut self, enemy: EnemyKind) {
+    fn win_combat(&mut self, combat: CombatState) {
         self.activity = Activity::Idle;
+        let enemy = combat.enemy;
         let insight = enemy.insight_reward();
         self.player.insight += insight;
+        self.player.potential = self.player.potential.saturating_add(insight / 2 + 1);
+        self.player.combat_experience = self
+            .player
+            .combat_experience
+            .saturating_add(enemy.max_health().max(0) as u64 * combat.rounds.max(1) as u64);
         self.player.reputation += enemy.reputation_reward();
-        self.push_log(format!(
-            "{}失去战力，抱拳认输。领悟 +{}。",
-            enemy.name(),
-            insight
-        ));
+        match combat.mode {
+            CombatMode::Spar => self.push_log(format!(
+                "{}失去战力，抱拳认输。领悟 +{}。",
+                enemy.name(),
+                insight
+            )),
+            CombatMode::Lethal => {
+                self.player.bellicosity += 1;
+                let wanted = enemy.wanted_reward();
+                self.player.wanted = self.player.wanted.saturating_add(wanted);
+                self.push_log(format!(
+                    "你在死斗中击杀{}。领悟 +{}，杀气 +1，通缉 +{}。",
+                    enemy.name(),
+                    insight,
+                    wanted
+                ));
+            }
+        }
 
         match enemy {
             EnemyKind::Bandit if self.quest == QuestStage::FindJuan => {
@@ -1835,20 +3133,28 @@ impl Game {
         }
     }
 
-    fn lose_combat(&mut self, enemy: EnemyKind) {
+    fn lose_combat(&mut self, combat: CombatState) {
         self.activity = Activity::Idle;
-        self.location = LocationId::from(content::LIU_HOME);
-        let lost = self.player.money_value().min(500);
-        self.player
-            .set_money_value(self.player.money_value() - lost);
-        self.player.essence = self.player.max_essence / 2;
-        self.player.qi = self.player.max_qi / 2;
-        self.player.spirit = self.player.max_spirit / 2;
-        self.push_log(format!(
-            "你被{}击昏。醒来时已被路人送回刘家小房，遗失{}。",
-            enemy.name(),
-            format_money(lost)
-        ));
+        self.player.essence = (self.player.max_essence / 2).max(1);
+        self.player.qi = (self.player.max_qi / 2).max(1);
+        self.player.spirit = (self.player.max_spirit / 2).max(1);
+        match combat.mode {
+            CombatMode::Spar => self.push_log(format!(
+                "你在与{}的比试中昏迷，许久后才醒来。",
+                combat.enemy.name()
+            )),
+            CombatMode::Lethal => {
+                self.location = LocationId::from(content::LIU_HOME);
+                let lost = self.player.money_value().min(500);
+                self.player
+                    .set_money_value(self.player.money_value() - lost);
+                self.push_log(format!(
+                    "你被{}重创。死亡机制将在 M7 接入；当前由路人送回刘家小房，并遗失{}。",
+                    combat.enemy.name(),
+                    format_money(lost)
+                ));
+            }
+        }
     }
 
     fn recover(&mut self, essence: i32, qi: i32, spirit: i32) {
@@ -1905,6 +3211,7 @@ impl Game {
                         condition.duration = 1;
                     }
                 }
+                ConditionKind::AstralVision => {}
             }
             condition.duration = condition.duration.saturating_sub(1);
             if condition.duration > 0 {
@@ -1925,19 +3232,73 @@ impl Game {
         }
     }
 
-    fn gain_skill_progress(&mut self, kind: SkillKind, amount: u32) {
-        let mut level_up = None;
+    fn gain_skill_progress(&mut self, kind: SkillId, amount: u32) {
+        self.gain_skill_progress_capped(kind, amount, u32::MAX);
+    }
+
+    fn gain_skill_progress_capped(&mut self, kind: SkillId, amount: u32, cap: u32) {
+        let name = kind.name().to_string();
+        let mut gained_levels = Vec::new();
+        self.player.ensure_skill(kind.clone());
         {
-            let skill = self.player.skill_mut(kind);
-            skill.progress += amount;
-            while skill.progress >= skill.required_progress() {
+            let skill = self.player.skill_mut(&kind);
+            skill.progress = skill.progress.saturating_add(amount);
+            while skill.level < cap && skill.progress >= skill.required_progress() {
                 skill.progress -= skill.required_progress();
                 skill.level += 1;
-                level_up = Some(skill.level);
+                gained_levels.push(skill.level);
+            }
+            if skill.level >= cap {
+                skill.progress = skill
+                    .progress
+                    .min(skill.required_progress().saturating_sub(1));
             }
         }
-        if let Some(level) = level_up {
-            self.push_log(format!("你的{}提升到{}层。", kind.name(), level));
+        for level in gained_levels {
+            self.push_log(format!("你的{name}提升到{level}层。"));
+            self.apply_skill_level_hook(&kind, level);
+        }
+    }
+
+    fn apply_skill_level_hook(&mut self, skill: &SkillId, level: u32) {
+        match skill.as_str() {
+            "celestial" if level % 10 == 9 && self.player.composure < level / 4 => {
+                self.player.composure += 2;
+                self.push_log("苦练天邪神功使你的定力提高了。".into());
+            }
+            FORCE_ID if level % 10 == 9 && self.player.constitution < level / 4 => {
+                self.player.constitution += 2;
+                self.push_log("内功修炼有成使你的体质改善了。".into());
+            }
+            "literate" if level % 10 == 9 && self.player.intelligence < level / 4 => {
+                self.player.intelligence += 2;
+                self.push_log("勤学苦读使你的悟性提高了。".into());
+            }
+            "music" if level % 10 == 9 && self.player.spirituality < level / 4 => {
+                self.player.spirituality += 2;
+                self.push_log("音律修为使你的灵性提高了。".into());
+            }
+            "stormdance" if level % 10 == 9 && self.player.perception < level / 4 => {
+                self.player.perception += 2;
+                self.push_log("勤练舞技使你的容貌气质提高了。".into());
+            }
+            UNARMED_ID if level % 10 == 9 && self.player.strength < level / 4 => {
+                self.player.strength += 2;
+                self.push_log("勤练拳脚使你的膂力提高了。".into());
+            }
+            "nine-moon" => {
+                // The source queries the absent `nine-moon-sword` ID, so its modulo branch is always 0.
+                self.player.bellicosity += 2_000;
+                self.push_log("九阴之气冲上心头，你的杀气陡增。".into());
+            }
+            SIX_CHAOS_SWORD_ID => {
+                self.player.bellicosity += if level.is_multiple_of(10) { 1_000 } else { 100 };
+                self.push_log("六阴剑意激起一股恶气，你的杀气上升。".into());
+            }
+            "tao-mystery" => {
+                self.player.bellicosity += 100;
+            }
+            _ => {}
         }
     }
 
@@ -2020,22 +3381,45 @@ impl Game {
         self.version = SAVE_VERSION;
     }
 
+    pub(crate) fn migrate_v4_skills(&mut self) {
+        let legacy_levels: Vec<_> = self
+            .player
+            .skills
+            .iter()
+            .map(|skill| (skill.kind.clone(), skill.level, skill.progress))
+            .collect();
+        for (kind, level, progress) in legacy_levels {
+            let usages: &[&str] = match kind.as_str() {
+                LIUH_KEN_ID => &[UNARMED_ID],
+                SIX_CHAOS_SWORD_ID => &[SWORD_ID],
+                PYROBAT_STEPS_ID => &[DODGE_ID, MOVE_ID],
+                _ => &[],
+            };
+            for usage in usages {
+                if self.player.skill_by_id(usage).is_none() {
+                    self.player.skills.push(Skill {
+                        kind: SkillId::from(*usage),
+                        level,
+                        progress,
+                    });
+                }
+            }
+        }
+        for (id, level) in [(FORCE_ID, 5), (PARRY_ID, 4)] {
+            if self.player.skill_by_id(id).is_none() {
+                self.player.skills.push(Skill::new(id, level));
+            }
+        }
+        if self.player.skill_mappings.is_empty() {
+            self.player.skill_mappings = default_skill_mappings();
+        }
+        self.version = SAVE_VERSION;
+    }
+
     pub fn push_log(&mut self, message: String) {
         self.logs.push(message);
         if self.logs.len() > LOG_LIMIT {
             self.logs.drain(0..self.logs.len() - LOG_LIMIT);
-        }
-    }
-}
-
-impl SkillKind {
-    pub fn name(self) -> &'static str {
-        match self {
-            Self::Unarmed => "刘氏拳",
-            Self::Sword => "六出纷飞剑",
-            Self::Dodge => "飘火身法",
-            Self::Breathing => "吐纳术",
-            Self::Parry => "招架",
         }
     }
 }
@@ -2106,6 +3490,21 @@ impl EnemyKind {
             Self::Meloner => -8,
         }
     }
+
+    fn damage_resource(self) -> CombatResource {
+        match self {
+            Self::TempleDisciple => CombatResource::Qi,
+            Self::IceDragon => CombatResource::Spirit,
+            _ => CombatResource::Essence,
+        }
+    }
+
+    fn wanted_reward(self) -> u32 {
+        match self {
+            Self::TempleDisciple | Self::Meloner => 1,
+            _ => 0,
+        }
+    }
 }
 
 impl NpcKind {
@@ -2153,7 +3552,7 @@ pub struct Location {
     pub arrival: String,
     pub exits: Vec<Exit>,
     pub npc: Option<NpcKind>,
-    pub training: Option<SkillKind>,
+    pub training: Option<SkillId>,
     pub can_rest: bool,
     pub enemy: Option<EnemyKind>,
     pub source_path: Option<String>,
@@ -2171,7 +3570,7 @@ impl Location {
         arrival: impl Into<String>,
         exits: Vec<Exit>,
         npc: Option<NpcKind>,
-        training: Option<SkillKind>,
+        training: Option<SkillId>,
         can_rest: bool,
         enemy: Option<EnemyKind>,
     ) -> Self {
@@ -2203,6 +3602,99 @@ fn door_for_transition(source: &LocationId, target: &LocationId) -> Option<DoorK
         }
         _ => None,
     }
+}
+
+const SNOW_TOWN_TEACHERS: [&str; 10] = [
+    "assassin",
+    "beggar",
+    "dancer",
+    "fighter",
+    "juechen",
+    "lama",
+    "ninja",
+    "ronin",
+    "scholar",
+    "swordsman",
+];
+const TEMPLE_TEACHERS: [&str; 1] = ["bonze"];
+
+fn teachers_at_location(location: &str) -> &'static [&'static str] {
+    match location {
+        content::SNOW_TOWN => &SNOW_TOWN_TEACHERS,
+        content::TEMPLE_YARD => &TEMPLE_TEACHERS,
+        _ => &[],
+    }
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+struct PracticeCost {
+    essence: i32,
+    qi: i32,
+    spirit: i32,
+    force: i32,
+    mana: i32,
+    force_gain: i32,
+}
+
+fn practice_cost(skill: &str) -> Option<PracticeCost> {
+    let mut cost = PracticeCost::default();
+    match skill {
+        "bloodystrike" | "celestrike" => {
+            cost.qi = 30;
+            cost.force = 5;
+        }
+        "chaos-steps" | "deisword" | "fall-steps" | "fonxansword" | "notraces"
+        | "snowshade-sword" => {
+            cost.qi = 30;
+            cost.force = 3;
+        }
+        "cloudstaff" | "jingang-staff" => cost.qi = 60,
+        "linbo-steps" => {
+            cost.essence = 10;
+            cost.spirit = 10;
+            cost.force_gain = 3;
+        }
+        "liuh-ken" | "meihua-shou" | "pyrobat-steps" => cost.qi = 30,
+        "mysterrier" => {
+            cost.qi = 20;
+            cost.spirit = 20;
+        }
+        "mystsword" | "nine-moon" | "scratching" | "six-chaos-sword" | "snowwhip" => {
+            cost.qi = 30;
+            cost.force = 5;
+        }
+        "necromancy" => {
+            cost.spirit = 30;
+            cost.mana = 10;
+        }
+        "serpentforce" => {
+            cost.qi = 30;
+            cost.force = 10;
+        }
+        "shortsong-blade" | "spring-blade" => cost.qi = 40,
+        "spicyclaw" | "ts-fist" => {
+            cost.qi = 25;
+            cost.force = 3;
+        }
+        "stormdance" => cost.spirit = 30,
+        "tenderzhi" => {
+            cost.spirit = 30;
+            cost.force = 10;
+        }
+        _ => return None,
+    }
+    Some(cost)
+}
+
+fn required_weapon_usage(body: &str) -> Option<&'static str> {
+    [
+        "axe", "blade", "dagger", "fork", "hammer", "staff", "sword", "throwing", "whip",
+    ]
+    .into_iter()
+    .find(|usage| {
+        body.contains(&format!("skill_type\") != \"{usage}\""))
+            || body.contains(&format!("skill_type\")!= \"{usage}\""))
+    })
 }
 
 fn consumed_residual(item_id: &str) -> Option<(&'static str, u32)> {
@@ -2374,6 +3866,11 @@ mod tests {
                 ..
             })
         ));
+        assert!(
+            game.available_actions()
+                .iter()
+                .all(|action| !matches!(action, Action::Flee { .. }))
+        );
 
         game.perform(Action::Surrender);
         assert!(
@@ -2677,11 +4174,11 @@ mod tests {
     fn training_consumes_energy_and_builds_progress() {
         let mut game = Game::new();
         game.location = LocationId::from(content::GARDEN);
-        game.perform(Action::Train(SkillKind::Breathing));
-        let before = game.player.skill(SkillKind::Breathing).progress;
+        game.perform(Action::Train(SkillId::from(FORCE_ID)));
+        let before = game.player.skill_by_id(FORCE_ID).unwrap().progress;
         game.tick();
         assert!(game.player.essence < game.player.max_essence);
-        assert!(game.player.skill(SkillKind::Breathing).progress > before);
+        assert!(game.player.skill_by_id(FORCE_ID).unwrap().progress > before);
     }
 
     #[test]
@@ -2712,12 +4209,360 @@ mod tests {
     }
 
     #[test]
-    fn surrender_ends_combat() {
+    fn representative_swordsman_and_bonze_builds_can_be_trained() {
+        let mut swordsman = Game::new();
+        swordsman.location = LocationId::from(content::SNOW_TOWN);
+        swordsman.perform(Action::BecomeApprentice("swordsman".into()));
+        swordsman.perform(Action::LearnSkill {
+            skill: SkillId::from("fonxanforce"),
+            teacher: "swordsman".into(),
+        });
+        swordsman
+            .player
+            .skill_mut(&SkillId::from("fonxanforce"))
+            .level = 10;
+        swordsman.perform(Action::MapSkill {
+            usage: SkillId::from(FORCE_ID),
+            skill: SkillId::from("fonxanforce"),
+        });
+        swordsman.player.max_force = 100;
+        swordsman.player.spirit = swordsman.player.max_spirit;
+        let sword = swordsman.add_inventory_item(ItemId::from("obj.weapon.longsword"), 1);
+        swordsman.equip_item(sword);
+        swordsman.perform(Action::LearnSkill {
+            skill: SkillId::from("fonxansword"),
+            teacher: "swordsman".into(),
+        });
+        assert!(swordsman.player.skill_by_id("fonxansword").is_some());
+        assert_eq!(
+            swordsman.player.mapped_skill(FORCE_ID).map(SkillId::as_str),
+            Some("fonxanforce")
+        );
+
+        let mut bonze = Game::new();
+        bonze.location = LocationId::from(content::TEMPLE_YARD);
+        bonze.perform(Action::BecomeApprentice("bonze".into()));
+        bonze.perform(Action::LearnSkill {
+            skill: SkillId::from("buddhism"),
+            teacher: "bonze".into(),
+        });
+        bonze.player.skill_mut(&SkillId::from("buddhism")).level = 20;
+        bonze.player.spirit = bonze.player.max_spirit;
+        bonze.perform(Action::LearnSkill {
+            skill: SkillId::from("lotusforce"),
+            teacher: "bonze".into(),
+        });
+        bonze.player.skill_mut(&SkillId::from("lotusforce")).level = 10;
+        bonze.perform(Action::MapSkill {
+            usage: SkillId::from(FORCE_ID),
+            skill: SkillId::from("lotusforce"),
+        });
+        bonze.player.spirit = bonze.player.max_spirit;
+        bonze.perform(Action::LearnSkill {
+            skill: SkillId::from(MAGIC_ID),
+            teacher: "bonze".into(),
+        });
+        bonze.player.skill_mut(&SkillId::from(MAGIC_ID)).level = 10;
+        bonze.player.spirit = bonze.player.max_spirit;
+        bonze.perform(Action::LearnSkill {
+            skill: SkillId::from("essencemagic"),
+            teacher: "bonze".into(),
+        });
+        assert!(bonze.player.skill_by_id("essencemagic").is_some());
+        assert_eq!(bonze.player.faction.as_deref(), Some("山烟寺"));
+    }
+
+    #[test]
+    fn apprenticeship_and_learning_use_teacher_limits_and_potential() {
+        let mut game = Game::new();
+        game.location = LocationId::from(content::SNOW_TOWN);
+        let apprentice = Action::BecomeApprentice("fighter".into());
+        assert!(game.available_actions().contains(&apprentice));
+        game.perform(apprentice);
+        assert_eq!(game.player.teacher.as_deref(), Some("fighter"));
+        assert_eq!(game.player.faction.as_deref(), Some("天邪派"));
+
+        let spirit_before = game.player.spirit;
+        let learn = Action::LearnSkill {
+            skill: SkillId::from("celestial"),
+            teacher: "fighter".into(),
+        };
+        assert!(game.available_actions().contains(&learn));
+        game.perform(learn);
+        assert!(game.player.skill_by_id("celestial").is_some());
+        assert_eq!(game.player.learned_points, 1);
+        assert!(game.player.spirit < spirit_before);
+    }
+
+    #[test]
+    fn practice_uses_mapped_basic_skill_and_original_resource_cost() {
+        let mut game = Game::new();
+        let skill_id = SkillId::from(LIUH_KEN_ID);
+        let progress_before = game.player.skill(&skill_id).progress;
+        let qi_before = game.player.qi;
+
+        game.perform(Action::PracticeSkill(skill_id.clone()));
+
+        assert_eq!(game.player.qi, qi_before - 30);
+        assert!(game.player.skill(&skill_id).progress > progress_before);
+        assert!(game.player.skill(&skill_id).level <= game.player.skill_level(UNARMED_ID));
+    }
+
+    #[test]
+    fn catalog_book_teaches_skill_with_literacy_and_experience_gates() {
+        let mut game = Game::new();
+        game.player.skills.push(Skill::new("literate", 20));
+        let manual = game.add_inventory_item(ItemId::from(items::PARRY_MANUAL_ID), 1);
+        let progress_before = game.player.skill_by_id(PARRY_ID).unwrap().progress;
+        let spirit_before = game.player.spirit;
+
+        game.perform(Action::StudyItem(manual));
+
+        assert!(game.player.skill_by_id(PARRY_ID).unwrap().progress > progress_before);
+        assert!(game.player.spirit < spirit_before);
+    }
+
+    #[test]
+    fn mapping_internal_skill_resets_and_rebuilds_force() {
+        let mut game = Game::new();
+        game.player.skills.push(Skill::new("celestial", 20));
+        let mapping = Action::MapSkill {
+            usage: SkillId::from(FORCE_ID),
+            skill: SkillId::from("celestial"),
+        };
+        assert!(game.available_actions().contains(&mapping));
+        game.perform(mapping);
+        assert_eq!(game.player.force, 0);
+
+        game.perform(Action::Cultivate(CultivationKind::Exercise));
+        assert!(game.player.force > 0);
+        assert_eq!(game.player.qi, game.player.max_qi - 30);
+    }
+
+    #[test]
+    fn lethal_combat_cannot_surrender_and_creates_wanted_state() {
+        let mut game = Game::new();
+        game.location = LocationId::from(content::TEMPLE_YARD);
+        game.player.strength = 200;
+        game.perform(Action::Kill(EnemyKind::TempleDisciple));
+
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(CombatState {
+                mode: CombatMode::Lethal,
+                ..
+            })
+        ));
+        let combat_actions = game.available_actions();
+        assert!(
+            combat_actions
+                .iter()
+                .any(|action| matches!(action, Action::Flee { .. }))
+        );
+        assert!(!combat_actions.contains(&Action::Surrender));
+
+        while matches!(game.activity, Activity::Fighting(_)) {
+            game.tick();
+        }
+        assert_eq!(game.player.bellicosity, 1);
+        assert_eq!(game.player.wanted, 1);
+        assert!(game.player.combat_experience > 5_000);
+    }
+
+    #[test]
+    fn fleeing_ends_combat_and_moves_through_a_real_exit() {
+        let mut game = Game::new();
+        game.location = LocationId::from(content::TEMPLE_YARD);
+        game.player.reputation = 20;
+        game.perform(Action::Fight(EnemyKind::TempleDisciple));
+        let flee = game
+            .available_actions()
+            .into_iter()
+            .find(|action| matches!(action, Action::Flee { .. }))
+            .unwrap();
+        game.perform(flee);
+
+        assert_eq!(game.activity, Activity::Idle);
+        assert_eq!(game.location, LocationId::from(content::MOUNTAIN_PATH));
+        assert_eq!(game.player.reputation, 15);
+    }
+
+    #[test]
+    fn recovery_and_conversion_techniques_preserve_source_costs() {
+        let mut game = Game::new();
+        game.player.ensure_skill(SkillId::from("lotusforce"));
+        game.player.skill_mut(&SkillId::from("lotusforce")).level = 50;
+        game.player.skill_mappings.push(SkillMapping {
+            usage: SkillId::from(FORCE_ID),
+            skill: SkillId::from("lotusforce"),
+        });
+        game.player.essence = 60;
+        game.player.force = 180;
+        game.player.max_force = 100;
+
+        game.perform(Action::UseTechnique(TechniqueKind::LotusHeal));
+        assert_eq!(game.player.essence, 80);
+        assert_eq!(game.player.force, 130);
+
+        game.player.ensure_skill(SkillId::from("gouyee"));
+        game.player.skill_mut(&SkillId::from("gouyee")).level = 50;
+        game.player
+            .skill_mappings
+            .retain(|mapping| mapping.usage.as_str() != FORCE_ID);
+        game.player.skill_mappings.push(SkillMapping {
+            usage: SkillId::from(FORCE_ID),
+            skill: SkillId::from("gouyee"),
+        });
+        game.player.mana = 0;
+        game.player.max_mana = 100;
+        let spirit_before = game.player.spirit;
+        game.perform(Action::UseTechnique(TechniqueKind::Concentrate));
+        assert_eq!(game.player.mana, 20);
+        assert_eq!(game.player.force, 100);
+        assert_eq!(game.player.spirit, spirit_before - 10);
+    }
+
+    #[test]
+    fn base_force_recovery_uses_original_fixed_cost() {
+        let mut game = Game::new();
+        game.player.qi = 50;
+        game.player.force = 50;
+
+        game.perform(Action::UseTechnique(TechniqueKind::RecoverQi));
+
+        assert_eq!(game.player.qi, 61);
+        assert_eq!(game.player.force, 30);
+    }
+
+    #[test]
+    fn source_skill_level_hooks_update_attributes_and_bellicosity() {
+        let mut game = Game::new();
+        game.player.constitution = 1;
+        let force = SkillId::from(FORCE_ID);
+        game.player.skill_mut(&force).level = 48;
+        game.gain_skill_progress(force, 49_u32.pow(2));
+        assert_eq!(game.player.constitution, 3);
+
+        let sword = SkillId::from(SIX_CHAOS_SWORD_ID);
+        game.player.skill_mut(&sword).level = 9;
+        game.gain_skill_progress(sword, 10_u32.pow(2));
+        assert_eq!(game.player.bellicosity, 1_000);
+
+        game.player.ensure_skill(SkillId::from("nine-moon"));
+        game.gain_skill_progress(SkillId::from("nine-moon"), 1);
+        assert_eq!(game.player.bellicosity, 3_000);
+    }
+
+    #[test]
+    fn combat_techniques_modify_the_active_exchange() {
+        let mut game = Game::new();
+        game.player.ensure_skill(SkillId::from("celestial"));
+        game.player.skill_mut(&SkillId::from("celestial")).level = 60;
+        game.player.skill_mappings.push(SkillMapping {
+            usage: SkillId::from(FORCE_ID),
+            skill: SkillId::from("celestial"),
+        });
+        game.player.force = 300;
+        game.location = LocationId::from(content::PINE_FOREST);
+        game.perform(Action::Fight(EnemyKind::Bandit));
+
+        game.perform(Action::UseTechnique(TechniqueKind::PowerUp));
+        let Activity::Fighting(combat) = &game.activity else {
+            panic!("combat should continue");
+        };
+        assert_eq!(combat.attack_bonus, 20);
+        assert_eq!(combat.dodge_bonus, 20);
+        assert!(combat.power_up_active);
+        assert_eq!(game.player.force, 200);
+        assert_eq!(game.player.bellicosity, 130);
+
+        game.perform(Action::UseTechnique(TechniqueKind::PowerUp));
+        assert_eq!(game.player.force, 200);
+        assert_eq!(game.player.bellicosity, 130);
+    }
+
+    #[test]
+    fn unlearned_weapon_usage_is_created_by_combat_growth() {
+        let mut game = Game::new();
+        let dagger = game.add_inventory_item(ItemId::from("obj.weapon.dagger"), 1);
+        game.equip_item(dagger);
+        assert_eq!(game.player.skill_level("dagger"), 0);
+        game.location = LocationId::from(content::PINE_FOREST);
+        game.perform(Action::Fight(EnemyKind::Bandit));
+
+        game.tick();
+
+        assert!(game.player.skill_by_id("dagger").is_some());
+    }
+
+    #[test]
+    fn specialized_techniques_require_an_active_skill_mapping() {
+        let mut game = Game::new();
+        game.player.ensure_skill(SkillId::from("celestial"));
+        game.player.skill_mut(&SkillId::from("celestial")).level = 60;
+        game.player.force = 300;
+        game.location = LocationId::from(content::PINE_FOREST);
+        game.perform(Action::Fight(EnemyKind::Bandit));
+
+        assert!(
+            !game
+                .available_actions()
+                .contains(&Action::UseTechnique(TechniqueKind::PowerUp))
+        );
+        game.perform(Action::UseTechnique(TechniqueKind::PowerUp));
+        assert_eq!(game.player.force, 300);
+    }
+
+    #[test]
+    fn healing_techniques_reject_mortal_wounds() {
+        let mut game = Game::new();
+        game.player.ensure_skill(SkillId::from("lotusforce"));
+        game.player.skill_mut(&SkillId::from("lotusforce")).level = 50;
+        game.player.skill_mappings.push(SkillMapping {
+            usage: SkillId::from(FORCE_ID),
+            skill: SkillId::from("lotusforce"),
+        });
+        game.player.essence = 40;
+        game.player.force = 180;
+
+        game.perform(Action::UseTechnique(TechniqueKind::LotusHeal));
+
+        assert_eq!(game.player.essence, 40);
+        assert_eq!(game.player.force, 180);
+    }
+
+    #[test]
+    fn necromancy_bolts_turn_a_spar_into_lethal_combat() {
+        let mut game = Game::new();
+        game.player.ensure_skill(SkillId::from("necromancy"));
+        game.player.skill_mut(&SkillId::from("necromancy")).level = 45;
+        game.player.ensure_skill(SkillId::from(SPELLS_ID));
+        game.player.skill_mappings.push(SkillMapping {
+            usage: SkillId::from(SPELLS_ID),
+            skill: SkillId::from("necromancy"),
+        });
+        game.player.mana = 100;
+        game.player.max_mana = 100;
+        game.location = LocationId::from(content::PINE_FOREST);
+        game.perform(Action::Fight(EnemyKind::Bandit));
+
+        game.perform(Action::UseTechnique(TechniqueKind::NetherBolt));
+        let Activity::Fighting(combat) = game.activity else {
+            panic!("combat should continue");
+        };
+        assert_eq!(combat.mode, CombatMode::Lethal);
+        assert_eq!(combat.health, combat.max_health - 25);
+        assert_eq!(game.player.mana, 75);
+        assert!(!game.available_actions().contains(&Action::Surrender));
+    }
+
+    #[test]
+    fn surrender_ends_only_nonlethal_combat() {
         let mut game = Game::new();
         game.location = LocationId::from(content::PINE_FOREST);
         game.perform(Action::Fight(EnemyKind::Bandit));
         game.perform(Action::Surrender);
         assert_eq!(game.activity, Activity::Idle);
-        assert_eq!(game.player.reputation, -1);
+        assert_eq!(game.player.reputation, 0);
     }
 }

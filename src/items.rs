@@ -103,6 +103,11 @@ pub struct ItemDefinition {
     pub liquid_type: Option<String>,
     pub liquid_name: Option<String>,
     pub drunk_apply: Option<i32>,
+    pub study_skill: Option<String>,
+    pub study_exp_required: Option<i32>,
+    pub study_spirit_cost: Option<i32>,
+    pub study_difficulty: Option<i32>,
+    pub study_max_level: Option<i32>,
     pub behavior_flags: Vec<String>,
 }
 impl ItemDefinition {
@@ -144,6 +149,26 @@ impl ItemDefinition {
     pub fn max_durability(&self) -> Option<u32> {
         self.equipment_slot().map(|_| 100)
     }
+    pub fn weapon_skill(&self) -> Option<&'static str> {
+        if self.category != ItemCategory::Weapon {
+            return None;
+        }
+        self.inherited
+            .iter()
+            .find_map(|marker| match marker.as_str() {
+                "AXE" => Some("axe"),
+                "BLADE" => Some("blade"),
+                "DAGGER" => Some("dagger"),
+                "FORK" => Some("fork"),
+                "HAMMER" => Some("hammer"),
+                "STAFF" => Some("staff"),
+                "SWORD" => Some("sword"),
+                "THROWING" => Some("throwing"),
+                "WHIP" => Some("whip"),
+                _ => None,
+            })
+            .or(Some("sword"))
+    }
     pub fn initial_uses(&self) -> Option<u32> {
         if self.stackable() && self.id.as_str() == DRY_RATIONS_ID {
             return None;
@@ -175,7 +200,7 @@ struct Catalog {
 static CATALOG: LazyLock<Catalog> = LazyLock::new(|| {
     let catalog: Catalog =
         serde_json::from_str(CATALOG_JSON).expect("invalid embedded item catalog");
-    assert_eq!(catalog.schema_version, 2, "unsupported item catalog schema");
+    assert_eq!(catalog.schema_version, 3, "unsupported item catalog schema");
     assert_eq!(catalog.items.len(), 451, "unexpected item catalog count");
     catalog
 });
@@ -217,6 +242,11 @@ impl ItemRepository {
                 liquid_type: None,
                 liquid_name: None,
                 drunk_apply: None,
+                study_skill: None,
+                study_exp_required: None,
+                study_spirit_cost: None,
+                study_difficulty: None,
+                study_max_level: None,
                 behavior_flags: vec![],
             },
         );
@@ -244,6 +274,11 @@ impl ItemRepository {
                 liquid_type: None,
                 liquid_name: None,
                 drunk_apply: None,
+                study_skill: None,
+                study_exp_required: None,
+                study_spirit_cost: None,
+                study_difficulty: None,
+                study_max_level: None,
                 behavior_flags: vec![],
             },
         );

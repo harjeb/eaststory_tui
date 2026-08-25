@@ -1,0 +1,3114 @@
+{
+  "schema_version": 3,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "scope": "player_skills",
+  "status": "structured",
+  "summary": {
+    "total": 70,
+    "by_category": {
+      "basic": 15,
+      "formation": 1,
+      "internal": 12,
+      "knowledge": 13,
+      "movement": 7,
+      "unarmed": 7,
+      "utility": 3,
+      "weapon": 12
+    },
+    "action_sets": 19,
+    "actions": 114,
+    "teachers": 11
+  },
+  "skills": [
+    {
+      "id": "axe",
+      "source_path": "mudlib/daemon/skill/axe.c",
+      "status": "structured",
+      "display_name": "axe",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "blade",
+      "source_path": "mudlib/daemon/skill/blade.c",
+      "status": "structured",
+      "display_name": "blade",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "bloodystrike",
+      "source_path": "mudlib/daemon/skill/bloodystrike.c",
+      "status": "structured",
+      "display_name": "bloodystrike",
+      "category": "unarmed",
+      "skill_type": "martial",
+      "usages": [
+        "unarmed"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使出一招「苦海端无涯」，左掌虚幌，右掌穿出击向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": 10,
+          "force": 50,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出一招「地狱似有门」，左掌化虚为实击向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -10,
+          "parry": -30,
+          "force": 70,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出密宗大手印中的「天堂却无路」，一掌拍向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": 10,
+          "force": 50,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N双掌一错，使出「密宗为独尊」，对准$n的$l连续拍出",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": 10,
+          "parry": -30,
+          "force": 160,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左掌立于胸前，右掌推出，一招「万念皆是空」击向$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -20,
+          "parry": -30,
+          "force": 140,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出「佛云以杀止杀」，身形凌空飞起，从空中当头向$n的$l出掌攻击",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -70,
+          "parry": -10,
+          "force": 280,
+          "damage": null
+        }
+      ],
+      "valid_learn": "{ if( me->query_temp(\"weapon\") || me->query_temp(\"secondary_weapon\") ) return notify_fail(\"练密宗大手印必须空手。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ) return notify_fail(\"你的体力不够了，休息一下再练吧。\\n\"); if( (int)me->query(\"force\") < 5 ) return notify_fail(\"你的内力不够了，休息一下再练吧。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -5); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_bonus",
+        "learning_requirement",
+        "parry_messages",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "bolomiduo",
+      "source_path": "mudlib/daemon/skill/bolomiduo.c",
+      "status": "structured",
+      "display_name": "bolomiduo",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail(\"婆萝蜜多心经只能用学的，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "learning_bonus",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "buddhism",
+      "source_path": "mudlib/daemon/skill/buddhism.c",
+      "status": "structured",
+      "display_name": "buddhism",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query(\"bellicosity\") > 100 ) return notify_fail(\"你的杀气太重，无法修炼大乘佛法。\\n\"); return 1; }",
+      "practice": null,
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement"
+      ]
+    },
+    {
+      "id": "celestial",
+      "source_path": "mudlib/daemon/skill/celestial.c",
+      "status": "structured",
+      "display_name": "天邪神功",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query(\"bellicosity\") < (int)me->query_skill(\"celestial\") * 50 ) return notify_fail(\"你的杀气不够，无法领悟更高深的天邪神功。\\n\"); return 1; }",
+      "practice": "{ return notify_fail(\"天邪神功只能用学的，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "learning_requirement",
+        "level_hook",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "celestrike",
+      "source_path": "mudlib/daemon/skill/celestrike.c",
+      "status": "structured",
+      "display_name": "celestrike",
+      "category": "unarmed",
+      "skill_type": "martial",
+      "usages": [
+        "unarmed"
+      ],
+      "dependencies": [
+        "celestial"
+      ],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使出一招「大天罗式」，右掌穿出击向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": 10,
+          "force": 200,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出一招「大天罗式」，左掌化虚为实击向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -10,
+          "parry": -30,
+          "force": 170,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出天邪掌法「小天罗式」，如鬼魅般欺至$n身前，一掌拍向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": 10,
+          "force": 150,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N双掌一错，使出「雪阳三连月」，对准$n的$l连续拍出三掌",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": 10,
+          "parry": -30,
+          "force": 260,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左掌画了个圈圈，右掌推出，一招「灵动五方鼓」击向$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -20,
+          "parry": -30,
+          "force": 240,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出「风雷七星断」，身形散作七处同时向$n的$l出掌攻击",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -70,
+          "parry": -10,
+          "force": 280,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N吐气扬声，一招「气撼九重天」双掌并力推出",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": null,
+          "parry": -40,
+          "force": 320,
+          "damage": null
+        }
+      ],
+      "valid_learn": "{ if( me->query_temp(\"weapon\") || me->query_temp(\"secondary_weapon\") ) return notify_fail(\"练天邪神掌必须空手。\\n\"); if( (int)me->query_skill(\"celestial\", 1) < 20 ) return notify_fail(\"你的天邪神功火候不足，无法练天邪掌法。\\n\"); if( (int)me->query(\"max_force\") < 100 ) return notify_fail(\"你的内力太弱，无法练天邪掌法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ) return notify_fail(\"你的体力不够了，休息一下再练吧。\\n\"); if( (int)me->query(\"force\") < 5 ) return notify_fail(\"你的内力不够了，休息一下再练吧。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -5); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "chanting",
+      "source_path": "mudlib/daemon/skill/chanting.c",
+      "status": "structured",
+      "display_name": "chanting",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chaos-steps",
+      "source_path": "mudlib/daemon/skill/chaos-steps.c",
+      "status": "structured",
+      "display_name": "倒乱七星步法",
+      "category": "movement",
+      "skill_type": "martial",
+      "usages": [
+        "dodge",
+        "move"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query(\"max_force\") < 50 ) return notify_fail(\"你的内力不够，没有办法练倒乱七星步。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||\t(int)me->query(\"force\") < 3 ) return notify_fail(\"你的气或内力不够，不能练倒乱七星步法。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -3); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "dodge_messages",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "cloudstaff",
+      "source_path": "mudlib/daemon/skill/cloudstaff.c",
+      "status": "structured",
+      "display_name": "cloudstaff",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "staff"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「天光乍现」，手中$w扫向$n下盘！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 10,
+          "parry": -40,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N挥起$w，一招「雨後初晴」攻向$n$l！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 20,
+          "parry": -60,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N横过手中$w，使出「浮云写意」击向$n$l！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 10,
+          "parry": -40,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N使出一招「游龙穿云」，$w一挺撞向$n$l！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 10,
+          "parry": -40,
+          "force": null,
+          "damage": 40
+        }
+      ],
+      "valid_learn": "{ if( (int)me->query(\"str\") + (int)me->query(\"max_force\") / 10 < 50 ) return notify_fail(\"你的膂力还不够，也许该练一练内力来增强力量。\\n\"); return 1; }",
+      "practice": "{ object weapon; if( !objectp(weapon = me->query_temp(\"weapon\")) ||      (string)weapon->query(\"skill_type\") != \"staff\" ) return notify_fail(\"你必须先找一根木杖或者是类似的武器，才能练杖法。\\n\"); if( (int)me->query(\"kee\") < 60 ) return notify_fail(\"你的体力不够练这门杖法，还是先休息休息吧。\\n\"); me->receive_damage(\"kee\", 60); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "dagger",
+      "source_path": "mudlib/daemon/skill/dagger.c",
+      "status": "structured",
+      "display_name": "dagger",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "deisword",
+      "source_path": "mudlib/daemon/skill/deisword.c",
+      "status": "structured",
+      "display_name": "deisword",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "sword"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「伫倚危楼风细细」，手中$w如一风一般卷向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": null,
+          "description": "$N使出蝶恋花剑中的「草色烟光残照里」，剑光向残照般洒向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": null,
+          "description": "$N一招「无言谁会凭栏意」，手中$w默默的削向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": -30,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": null,
+          "description": "$N手中$w一式「拟把疏狂图一醉」对准$n的$l一连刺出七剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 90
+        },
+        {
+          "name": null,
+          "description": "$N的$w凭空一指，一招「衣带渐宽终不悔」刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": 20,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N手中$w向外一分，使一招「为伊消得人憔悴」反手对准$n$l一剑刺去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        }
+      ],
+      "valid_learn": "{ object ob; if( (int)me->query(\"max_force\") < 50 ) return notify_fail(\"你的内力不够，没有办法练蝶恋花剑法。\\n\"); if( !(ob = me->query_temp(\"weapon\")) ||      (string)ob->query(\"skill_type\") != \"sword\" ) return notify_fail(\"你必须先找一把剑才能练剑法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||      (int)me->query(\"force\") < 3 ) return notify_fail(\"你的内力或气不够，没有办法练习蝶恋花剑法。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -3); write(\"你按著所学练了一遍蝶恋花剑法。\\n\"); return 1; }",
+      "routers": [
+        "perform_action_file"
+      ],
+      "behavior_flags": [
+        "learning_bonus",
+        "learning_requirement",
+        "parry_messages",
+        "perform_router",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "dodge",
+      "source_path": "mudlib/daemon/skill/dodge.c",
+      "status": "structured",
+      "display_name": "dodge",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": [
+        "dodge_messages"
+      ]
+    },
+    {
+      "id": "essencemagic",
+      "source_path": "mudlib/daemon/skill/essencemagic.c",
+      "status": "structured",
+      "display_name": "八识神通",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [
+        "magic"
+      ],
+      "dependencies": [
+        "buddhism"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query_skill(\"buddhism\") < 10 ||\t(int)me->query_skill(\"buddhism\") <= (int)me->query_skill(\"essencemagic\") ) return notify_fail(\"你的佛法修为还不够高深，无法学习八识神通。\\n\"); return 1; }",
+      "practice": null,
+      "routers": [
+        "conjure_magic_file"
+      ],
+      "behavior_flags": [
+        "conjure_router",
+        "learning_requirement"
+      ]
+    },
+    {
+      "id": "fall-steps",
+      "source_path": "mudlib/daemon/skill/fall-steps.c",
+      "status": "structured",
+      "display_name": "fall-steps",
+      "category": "movement",
+      "skill_type": "martial",
+      "usages": [
+        "dodge",
+        "move"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query(\"max_force\") < 50 ) return notify_fail(\"你的内力不够，没有办法练秋风步。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||      (int)me->query(\"force\") < 3 ) return notify_fail(\"你的气或内力不够，不能练秋风步法。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -3); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "dodge_messages",
+        "learning_bonus",
+        "learning_requirement",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "fonxanforce",
+      "source_path": "mudlib/daemon/skill/fonxanforce.c",
+      "status": "structured",
+      "display_name": "fonxanforce",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail(\"封山派内功只能用学的，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "fonxansword",
+      "source_path": "mudlib/daemon/skill/fonxansword.c",
+      "status": "structured",
+      "display_name": "封山剑法",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "sword"
+      ],
+      "dependencies": [
+        "force"
+      ],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「峰回路转」，手中$w如一条银蛇般刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": null,
+          "description": "$N使出封山剑法中的「空山鸟语」，剑光霍霍斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": null,
+          "description": "$N一招「御风而行」，身形陡然滑出数尺，手中$w斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": -30,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": null,
+          "description": "$N手中$w中宫直进，一式「旭日东升」对准$n的$l刺出一剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N纵身一跃，手中$w一招「金光泻地」对准$n的$l斜斜刺出一剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N的$w凭空一指，一招「童子引路」刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": 20,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N手中$w向外一分，使一招「柳暗花明」反手对准$n$l一剑刺去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": null,
+          "description": "$N横剑上前，身形一转手中$w使一招「空谷秋虹」画出一道光弧斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": -30,
+          "parry": null,
+          "force": null,
+          "damage": 10
+        }
+      ],
+      "valid_learn": "{ object ob; if( (int)me->query(\"max_force\") < 50 ) return notify_fail(\"你的内力不够，没有办法练封山剑法。\\n\"); if( (string)me->query_skill_mapped(\"force\")!= \"fonxanforce\") return notify_fail(\"封山剑法必须配合封山派内功才能练。\\n\"); if( !(ob = me->query_temp(\"weapon\")) ||      (string)ob->query(\"skill_type\") != \"sword\" ) return notify_fail(\"你必须先找一把剑才能练剑法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||      (int)me->query(\"force\") < 3 ) return notify_fail(\"你的内力或气不够，没有办法练习封山剑法。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -3); write(\"你按著所学练了一遍封山剑法。\\n\"); return 1; }",
+      "routers": [
+        "perform_action_file"
+      ],
+      "behavior_flags": [
+        "learning_requirement",
+        "perform_router",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "force",
+      "source_path": "mudlib/daemon/skill/force.c",
+      "status": "structured",
+      "display_name": "force",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": null,
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "level_hook"
+      ]
+    },
+    {
+      "id": "fork",
+      "source_path": "mudlib/daemon/skill/fork.c",
+      "status": "structured",
+      "display_name": "fork",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "gouyee",
+      "source_path": "mudlib/daemon/skill/gouyee.c",
+      "status": "structured",
+      "display_name": "谷衣心法",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query(\"max_mana\") < (int)me->query_skill(\"gouyee\") * 5 ) return notify_fail(\"你的魔力不够，无法提升谷衣心法的造诣。\\n\"); return 1; }",
+      "practice": "{ return notify_fail(\"谷衣心法只能用学的，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "hammer",
+      "source_path": "mudlib/daemon/skill/hammer.c",
+      "status": "structured",
+      "display_name": "hammer",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "iceforce",
+      "source_path": "mudlib/daemon/skill/iceforce.c",
+      "status": "structured",
+      "display_name": "意寒神功",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail(\"意寒功只能用学的，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "combat_hook",
+        "exert_router",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "instruments",
+      "source_path": "mudlib/daemon/skill/instruments.c",
+      "status": "structured",
+      "display_name": "instruments",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "iron-cloth",
+      "source_path": "mudlib/daemon/skill/iron-cloth.c",
+      "status": "structured",
+      "display_name": "iron-cloth",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": [
+        "learning_bonus",
+        "practice_bonus"
+      ]
+    },
+    {
+      "id": "jin-gang",
+      "source_path": "mudlib/daemon/skill/jin-gang.c",
+      "status": "structured",
+      "display_name": "jin-gang",
+      "category": "utility",
+      "skill_type": "martial",
+      "usages": [
+        "iron-cloth"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail(\"金刚不坏功只能用学的。\\n\"); }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_bonus",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "jingang-staff",
+      "source_path": "mudlib/daemon/skill/jingang-staff.c",
+      "status": "structured",
+      "display_name": "jingang-staff",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "staff"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「天光乍现」，手中$w扫向$n下盘！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 10,
+          "parry": -40,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N挥起$w，一招「雨後初晴」攻向$n$l！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 20,
+          "parry": -60,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N横过手中$w，使出「浮云写意」击向$n$l！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 10,
+          "parry": -40,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N使出一招「游龙穿云」，$w一挺撞向$n$l！",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": 10,
+          "parry": -40,
+          "force": null,
+          "damage": 40
+        }
+      ],
+      "valid_learn": "{ if( (int)me->query(\"str\") + (int)me->query(\"max_force\") / 10 < 50 ) return notify_fail(\"你的膂力还不够，也许该练一练内力来增强力量。\\n\"); return 1; }",
+      "practice": "{ object weapon; if( !objectp(weapon = me->query_temp(\"weapon\")) ||      (string)weapon->query(\"skill_type\") != \"staff\" ) return notify_fail(\"你必须先找一根木杖或者是类似的武器，才能练杖法。\\n\"); if( (int)me->query(\"kee\") < 60 ) return notify_fail(\"你的体力不够练这门杖法，还是先休息休息吧。\\n\"); me->receive_damage(\"kee\", 60); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "juechen-force",
+      "source_path": "mudlib/daemon/skill/juechen-force.c",
+      "status": "structured",
+      "display_name": "juechen-force",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail(\"绝尘心法只能用学的或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [],
+      "behavior_flags": [
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "linbo-steps",
+      "source_path": "mudlib/daemon/skill/linbo-steps.c",
+      "status": "structured",
+      "display_name": "linbo-steps",
+      "category": "movement",
+      "skill_type": "martial",
+      "usages": [
+        "dodge",
+        "move"
+      ],
+      "dependencies": [
+        "literate"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query_skill(\"literate\", 1) < 60 ) return notify_fail(\"你的文学素养不够没有办法练凌波微步。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"gin\") < 80 ||\t(int)me->query(\"sen\") < 80 ) return notify_fail(\"你的精神不足不能练凌波微步。\\n\"); me->receive_damage(\"gin\", 10); me->receive_damage(\"sen\", 10); me->add(\"force\", 3); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "dodge_messages",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "literate",
+      "source_path": "mudlib/daemon/skill/literate.c",
+      "status": "structured",
+      "display_name": "literate",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": [
+        "level_hook"
+      ]
+    },
+    {
+      "id": "liuh-ken",
+      "source_path": "mudlib/daemon/skill/liuh-ken.c",
+      "status": "structured",
+      "display_name": "柳家拳法",
+      "category": "unarmed",
+      "skill_type": "martial",
+      "usages": [
+        "unarmed"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「古松挂月」，对准$n的$l「呼」地一拳",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -40,
+          "parry": 40,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N扬起拳头，一招「傲雪冬梅」便往$n的$l招呼过去",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": 30,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左手虚晃，右拳「孤崖听涛」往$n的$l击出",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": 30,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N步履一沉，左拳拉开，右拳使出「荒山虎吟」击向$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": 30,
+          "force": null,
+          "damage": null
+        }
+      ],
+      "valid_learn": "{ if( me->query_temp(\"weapon\") || me->query_temp(\"secondary_weapon\") ) return notify_fail(\"练柳家拳法必须空手。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ) return notify_fail(\"你的体力不够了，休息一下再练吧。\\n\"); me->receive_damage(\"kee\", 30); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "lotusforce",
+      "source_path": "mudlib/daemon/skill/lotusforce.c",
+      "status": "structured",
+      "display_name": "莲华心法",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [
+        "buddhism"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query_skill(\"buddhism\") < (int)me->query_skill(\"lotusforce\") ) return notify_fail(\"你的大乘佛法修为不够，无法领会更高深的莲华心法。\\n\"); return 1; }",
+      "practice": "{ return notify_fail(\"莲华心法只能用学的，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "magic",
+      "source_path": "mudlib/daemon/skill/magic.c",
+      "status": "structured",
+      "display_name": "magic",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "magic-array",
+      "source_path": "mudlib/daemon/skill/magic-array.c",
+      "status": "structured",
+      "display_name": "magic-array",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [
+        "spells"
+      ],
+      "dependencies": [
+        "tao-mystery"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query_skill(\"tao-mystery\") <= (int)me->query_skill(\"magic-array\")) return notify_fail(\"你的小天魔道修为不够，无法领悟更高深的奇门遁甲之术。\\n\"); return 1; }",
+      "practice": "{ return notify_fail(\"法术类技能必须用学的或是从实战中获取经验。\\n\"); }",
+      "routers": [
+        "cast_spell_file"
+      ],
+      "behavior_flags": [
+        "cast_router",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "meihua-shou",
+      "source_path": "mudlib/daemon/skill/meihua-shou.c",
+      "status": "structured",
+      "display_name": "meihua-shou",
+      "category": "unarmed",
+      "skill_type": "martial",
+      "usages": [
+        "unarmed"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「轻解罗裳」，对准$n的$l轻飘飘的扫去",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -20,
+          "parry": 20,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N扬起右手，一招「独上兰舟」便往$n的$l拍去",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -10,
+          "parry": 10,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左手虚晃，右手「月满西楼」往$n的$l击出",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -20,
+          "parry": 20,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左手微分，右手一长使出一招「雁字回时」，抓向$n的$l",
+          "weapon": null,
+          "damage_type": "抓伤",
+          "dodge": -50,
+          "parry": -30,
+          "force": 100,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N倏地一个转身，双手一挑「一种相思」直掼$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -10,
+          "parry": -60,
+          "force": 110,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左手虚晃，右掌飘飘，一招「两处闲愁」击向$n$l",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": -20,
+          "parry": -50,
+          "force": 150,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N右手在$n$l划过，随後一招「才下眉头」左爪又向同一方位抓到",
+          "weapon": null,
+          "damage_type": "抓伤",
+          "dodge": null,
+          "parry": -50,
+          "force": 60,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左手虚晃，右手握成拳，一招「却上心头」击向$n$l",
+          "weapon": null,
+          "damage_type": "挫伤",
+          "dodge": -20,
+          "parry": -50,
+          "force": 150,
+          "damage": null
+        }
+      ],
+      "valid_learn": "{ if( me->query_temp(\"weapon\") || me->query_temp(\"secondary_weapon\") ) return notify_fail(\"练一剪梅花手必须空手。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ) return notify_fail(\"你的体力不够了，休息一下再练吧。\\n\"); me->receive_damage(\"kee\", 30); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_bonus",
+        "learning_requirement",
+        "parry_messages",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "move",
+      "source_path": "mudlib/daemon/skill/move.c",
+      "status": "structured",
+      "display_name": "move",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "music",
+      "source_path": "mudlib/daemon/skill/music.c",
+      "status": "structured",
+      "display_name": "music",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": [
+        "level_hook"
+      ]
+    },
+    {
+      "id": "mysterrier",
+      "source_path": "mudlib/daemon/skill/mysterrier.c",
+      "status": "structured",
+      "display_name": "步玄七诀",
+      "category": "movement",
+      "skill_type": "martial",
+      "usages": [
+        "dodge",
+        "move"
+      ],
+      "dependencies": [
+        "force",
+        "music"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( me->query_skill_mapped(\"force\") != \"mystforce\" ) return notify_fail(\"步玄七诀必须配合步玄心法使用。\\n\"); if ( me->query_skill(\"music\") < me->query_skill(\"mysterrier\")/2 ) return notify_fail(\"你的音律之学修为不够，无法领悟更高深的步玄七诀。\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 20 ||      (int)me->query(\"sen\") < 20 ) return notify_fail(\"你的气或神不够，不能练步玄七诀。\\n\"); me->receive_damage(\"kee\", 20); me->receive_damage(\"sen\", 20); return 1; }",
+      "routers": [
+        "perform_action_file"
+      ],
+      "behavior_flags": [
+        "dodge_messages",
+        "learning_requirement",
+        "perform_router",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "mystforce",
+      "source_path": "mudlib/daemon/skill/mystforce.c",
+      "status": "structured",
+      "display_name": "mystforce",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail (\"步玄心法只能学，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "mystsword",
+      "source_path": "mudlib/daemon/skill/mystsword.c",
+      "status": "structured",
+      "display_name": "mystsword",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "sword"
+      ],
+      "dependencies": [
+        "mystforce"
+      ],
+      "actions": [
+        {
+          "name": "暮雪三叹",
+          "description": "$N使一招「暮雪三叹」，手中$w急如骤雨般地刺向$n$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -30,
+          "parry": null,
+          "force": null,
+          "damage": 60
+        },
+        {
+          "name": "处子弄笛",
+          "description": "$N身形一晃，一招「处子弄笛」向$n$l刺出一剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 80
+        },
+        {
+          "name": "阳谷白练",
+          "description": "$N舞动$w，一招「阳谷白练」挟著闪闪剑光刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": "薰容逐电",
+          "description": "$N手中$w一个圈转，使出「薰容逐电」中锋直进刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -30,
+          "parry": null,
+          "force": null,
+          "damage": 100
+        }
+      ],
+      "valid_learn": "{ object ob; if( (int)me->query_skill(\"mystforce\",1) < 30 ) return notify_fail(\"你的步玄心法火候还不够。\\n\"); if( (int)me->query(\"max_force\") < 100 ) return notify_fail(\"你的内力不够，没有办法练小步玄剑。\\n\"); if( !(ob = me->query_temp(\"weapon\")) ||      (string)ob->query(\"skill_type\") != \"sword\" ) return notify_fail(\"你必须先找一把剑才能练剑法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||      (int)me->query(\"force\") < 5 ) return notify_fail(\"你的内力或气不够，没有办法练习小步玄剑。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -5); write(\"你按著所学练了一遍小步玄剑。\\n\"); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "necromancy",
+      "source_path": "mudlib/daemon/skill/necromancy.c",
+      "status": "structured",
+      "display_name": "茅山道术",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [
+        "spells"
+      ],
+      "dependencies": [
+        "spells",
+        "taoism"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query_skill(\"taoism\") < (int)me->query_skill(\"necromancy\")/2 ) return notify_fail(\"你的天师正道修为不够，无法领悟更高深的茅山道术。\\n\"); return 1; }",
+      "practice": "{ object bug; if( bug = me->query_temp(\"mind_bug\") ) return notify_fail(\"你的魂魄还没有全部收回，赶快杀死你的\" + bug->name() + \"吧！\\n\"); if( (int)me->query(\"mana\") < 10 ) return notify_fail(\"你的法力不够。\\n\"); if( (int)me->query(\"sen\") < 30 ) return notify_fail(\"你的精神无法集中。\\n\"); me->add(\"mana\", -10); me->receive_damage(\"sen\", 30); write(\"你闭目凝神，神游物外，开始修习茅山道术中的法术....\\n\"); if( random((int)me->query(\"sen\")) < 5 ) { int rnd; rnd = random(me->query_skill(\"spells\", 1)); if( rnd < 10 )\tbug = new(\"/obj/npc/mind_bug\"); else\t\t\tbug = new(\"/obj/npc/mind_beast\"); write(\"可是你心思一乱，变出了一只面目狰狞的\" + bug->name() + \"！\\n\"); bug->move(environment(me)); bug->kill_ob(me); me->fight(bug); me->set_temp(\"mind_bug\", bug); bug->set(\"owner\", me->query(\"id\")); return notify_fail(\"你的魂魄正被\" + bug->name() + \"缠住，快把它除掉吧！\\n\"); } else return 1; }",
+      "routers": [
+        "cast_spell_file",
+        "scribe_spell_file"
+      ],
+      "behavior_flags": [
+        "cast_router",
+        "learning_requirement",
+        "practice_cost",
+        "scribe_router"
+      ]
+    },
+    {
+      "id": "nine-moon",
+      "source_path": "mudlib/daemon/skill/nine-moon.c",
+      "status": "structured",
+      "display_name": "nine-moon",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "sword"
+      ],
+      "dependencies": [
+        "force",
+        "nine-moon-sword"
+      ],
+      "actions": [
+        {
+          "name": "阴魂不散",
+          "description": "$N使一招「阴魂不散」，手中$w剑光暴长，\n 向$n的$l刺去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": 50,
+          "parry": null,
+          "force": null,
+          "damage": 170
+        },
+        {
+          "name": "阴气森森",
+          "description": "$N剑随身转，一招「阴气森森」罩向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -70,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": "阴云迭起",
+          "description": "$N舞动$w，一招「阴云迭起」挟著无数剑光\n刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 90
+        },
+        {
+          "name": "阴曹地府",
+          "description": "$N手中$w龙吟一声，祭出「阴曹地府」往$n\n的$l刺出数剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": "阴阳两仪",
+          "description": "$N手中$w剑光暴长，一招「阴阳两仪」往$n$l\n刺去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": 60,
+          "parry": null,
+          "force": null,
+          "damage": 120
+        },
+        {
+          "name": "阴日阳月",
+          "description": "$N手中$w化成一道光弧，直指$n$l，一招「\n阴日阳月」发出虎哮龙吟刺去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -60,
+          "parry": null,
+          "force": null,
+          "damage": 150
+        }
+      ],
+      "valid_learn": "{ object ob; if( (string)me->query(\"gender\") != \"女性\" ) return notify_fail(\"九阴赤炼剑法是只有女子才能练的武功。\\n\"); if( (int)me->query(\"max_force\") < 50 ) return notify_fail(\"你的内力不够，没有办法练九阴赤炼剑法。\\n\"); if( (string)me->query_skill_mapped(\"force\")!= \"nine-moon-force\") return notify_fail(\"九阴赤炼剑法必须配合九阴心经才能练。\\n\"); if( !(ob = me->query_temp(\"weapon\")) ||      (string)ob->query(\"skill_type\") != \"sword\" ) return notify_fail(\"你必须先找一把剑才能练剑法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||      (int)me->query(\"force\") < 5 ) return notify_fail(\"你的内力或气不够，没有办法练习九阴赤炼剑。\\n \"); me->receive_damage(\"kee\", 30); me->add(\"force\", -5); write(\"你按著所学练了一遍九阴赤炼剑法。\\n\"); return 1; }",
+      "routers": [
+        "perform_action_file"
+      ],
+      "behavior_flags": [
+        "effect_requirement",
+        "learning_requirement",
+        "level_hook",
+        "perform_router",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "notraces",
+      "source_path": "mudlib/daemon/skill/notraces.c",
+      "status": "structured",
+      "display_name": "notraces",
+      "category": "movement",
+      "skill_type": "martial",
+      "usages": [
+        "dodge",
+        "move"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query(\"max_force\") < 50 ) return notify_fail(\"你的内力不够，没有办法练踏雪无痕。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||      (int)me->query(\"force\") < 3 ) return notify_fail(\"你的气或内力不够，不能练踏雪无痕。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -3); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "dodge_messages",
+        "learning_bonus",
+        "learning_requirement",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "parry",
+      "source_path": "mudlib/daemon/skill/parry.c",
+      "status": "structured",
+      "display_name": "parry",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": [
+        "parry_messages"
+      ]
+    },
+    {
+      "id": "perception",
+      "source_path": "mudlib/daemon/skill/perception.c",
+      "status": "structured",
+      "display_name": "听风辨器之术",
+      "category": "utility",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "pyrobat-steps",
+      "source_path": "mudlib/daemon/skill/pyrobat-steps.c",
+      "status": "structured",
+      "display_name": "pyrobat-steps",
+      "category": "movement",
+      "skill_type": "martial",
+      "usages": [
+        "dodge",
+        "move"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ) return notify_fail(\"你的体力太差了，不能练火蝠身法。\\n\"); me->receive_damage(\"kee\", 30); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "dodge_messages",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "qidaoforce",
+      "source_path": "mudlib/daemon/skill/qidaoforce.c",
+      "status": "structured",
+      "display_name": "qidaoforce",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail(\"棋道只能用学的，或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "learning_bonus",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "scratching",
+      "source_path": "mudlib/daemon/skill/scratching.c",
+      "status": "structured",
+      "display_name": "scratching",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "sword"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": "三清归真",
+          "description": "$N一招「三清归真」，手中$w挽起几个剑花，刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": "众士护佑",
+          "description": "$N身形一变，一招「众士护佑」，$w罩向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -50,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": "天人合一",
+          "description": "$N挥动$w，一招「天人合一」挟著闪闪剑光袭向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 50
+        },
+        {
+          "name": "群魔辟易",
+          "description": "$N手中$w一抡，使出「群魔辟易」往$n的$l恶狠狠的砍去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": "西出紫关",
+          "description": "$N一招「西出紫关」，$w一带，轻轻划向$n$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -60,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": "乾坤一掷",
+          "description": "$N身剑合一，幻化成一道光华，一招「乾坤一掷」扑向$n",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": 50,
+          "parry": null,
+          "force": null,
+          "damage": 150
+        }
+      ],
+      "valid_learn": "{ if( (int)me->query(\"max_force\") < 80 ) return notify_fail(\"你的内力不够，没有办法练天师剑法。\\n\"); return 1; }",
+      "practice": "{ object ob; if( !(ob = me->query_temp(\"weapon\")) ||      (string)ob->query(\"skill_type\") != \"sword\" ) return notify_fail(\"你必须先找一把剑才能练剑法。\\n\"); if( (int)me->query(\"kee\") < 30 ||      (int)me->query(\"force\") < 5 ) return notify_fail(\"你的内力或气不够，没有办法练习天师剑法。\\ \"); me->receive_damage(\"kee\", 30); me->add(\"force\", -5); write(\"你按著所学练了一遍天师剑法。\\n\"); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "effect_requirement",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "serpentforce",
+      "source_path": "mudlib/daemon/skill/serpentforce.c",
+      "status": "structured",
+      "display_name": "serpentforce",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ if( !environment(me)->query(\"resource/water\") ) return notify_fail(\"伏蛟功只能在有水的地方练。\\n\"); if( (int)me->query(\"kee\") < 30 ) return notify_fail(\"你的气不够。\\n\"); if( (int)me->query(\"force\") < 10 ) return notify_fail(\"你的内力不够\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -10); return 1; }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "shortsong-blade",
+      "source_path": "mudlib/daemon/skill/shortsong-blade.c",
+      "status": "structured",
+      "display_name": "shortsong-blade",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "blade",
+        "parry"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「对酒当歌」，手中$w风似地向$n的$l斩去！",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": 70,
+          "parry": null,
+          "force": null,
+          "damage": 70
+        },
+        {
+          "name": null,
+          "description": "$N弯刀似月，$w随著一招「人生几何」由下而上撩往$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N身形一转，一招「譬如朝露」$w如朝露闪烁，斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": null,
+          "description": "$N舞动$w，一招「去日苦多」往$n的$l斜斜砍出一刀",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N手中$w一晃，一招「慨当以慷」迅捷无伦地劈向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 70
+        },
+        {
+          "name": null,
+          "description": "$N提气丹田，身型咋展，一招「忧思难忘」直劈$n$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": null,
+          "description": "$N移步侧身，使一招「何以解忧」刀光霍霍斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 50
+        }
+      ],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ object weapon; if( !objectp(weapon = me->query_temp(\"weapon\")) ||      (string)weapon->query(\"skill_type\") != \"blade\" ) return notify_fail(\"你必须先找一把刀，才能练刀法。\\n\"); if( (int)me->query(\"kee\") < 40 ) return notify_fail(\"你的体力不够练这门刀法，还是先休息休息吧。\\n\"); me->receive_damage(\"kee\", 40); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_bonus",
+        "parry_messages",
+        "practice_bonus",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "six-chaos-sword",
+      "source_path": "mudlib/daemon/skill/six-chaos-sword.c",
+      "status": "structured",
+      "display_name": "六阴追魂剑法",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "sword"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": "群魔乱舞",
+          "description": "$N使一招「群魔乱舞」，手中$w狂风骤雨般地向$n的$l连攻数剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": 50,
+          "parry": null,
+          "force": null,
+          "damage": 170
+        },
+        {
+          "name": "厉鬼缠身",
+          "description": "$N身形一转，一招「厉鬼缠身」$w斩向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -50,
+          "parry": null,
+          "force": null,
+          "damage": 60
+        },
+        {
+          "name": "百鬼夜行",
+          "description": "$N舞动$w，一招「百鬼夜行」挟著闪闪剑光刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": "饿鬼拦路",
+          "description": "$N手中$w一抖，使出「饿鬼拦路」往$n的$l刺出一剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": "鬼影幢幢",
+          "description": "$N手中$w剑光暴长，一招「鬼影幢幢」往$n$l刺去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -60,
+          "parry": null,
+          "force": null,
+          "damage": 120
+        },
+        {
+          "name": "秋坟鬼唱",
+          "description": "$N手中$w直指$n$l，一招「秋坟鬼唱」发出逼人剑气刺去",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 50
+        }
+      ],
+      "valid_learn": "{ object ob; if( (int)me->query(\"max_force\") < 100 ) return notify_fail(\"你的内力不够，没有办法练六阴追魂剑。\\n\"); if( !(ob = me->query_temp(\"weapon\")) ||\t(string)ob->query(\"skill_type\") != \"sword\" ) return notify_fail(\"你必须先找一把剑才能练剑法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||\t(int)me->query(\"force\") < 5 ) return notify_fail(\"你的内力或气不够，没有办法练习六阴追魂剑。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -5); write(\"你按著所学练了一遍六阴追魂剑法。\\n\"); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "effect_requirement",
+        "learning_requirement",
+        "level_hook",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "snowshade-force",
+      "source_path": "mudlib/daemon/skill/snowshade-force.c",
+      "status": "structured",
+      "display_name": "snowshade-force",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ return notify_fail(\"天山雪影心法只能用学的或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [],
+      "behavior_flags": [
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "snowshade-sword",
+      "source_path": "mudlib/daemon/skill/snowshade-sword.c",
+      "status": "structured",
+      "display_name": "snowshade-sword",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "parry",
+        "sword"
+      ],
+      "dependencies": [
+        "force"
+      ],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「回光幻电」，手中$w幻一条疾光刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": null,
+          "description": "$N使出天山雪影剑中的「风霜碎影」，$w连挥剑光霍霍斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": -20,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": null,
+          "description": "$N一招「残阳照雪」，纵身飘开数尺，手中$w斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": -30,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": null,
+          "description": "$N手中$w中宫直进，一式「冰谷初虹」对准$n的$l刺出一剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N纵身一跃，手中$w一招「长空雷隐」对准$n的$l斜斜刺出一剑",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N的$w凭空一指，一招「断石狼烟」刺向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": 20,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        }
+      ],
+      "valid_learn": "{ object ob; if( (int)me->query(\"max_force\") < 50 ) return notify_fail(\"你的内力不够，没有办法练雪影剑法。\\n\"); if( (string)me->query_skill_mapped(\"force\")!= \"snowshade-force\") return notify_fail(\"雪影剑法必须配合天山魔教的独门雪影心法才能练。\\n\"); if( !(ob = me->query_temp(\"weapon\")) ||\t(string)ob->query(\"skill_type\") != \"sword\" ) return notify_fail(\"你必须先找一把剑才能练剑法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||\t(int)me->query(\"force\") < 3 ) return notify_fail(\"你的内力或气不够，没有办法练习雪影剑法。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -3); write(\"你按著所学练了一遍雪影剑法。\\n\"); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "snowwhip",
+      "source_path": "mudlib/daemon/skill/snowwhip.c",
+      "status": "structured",
+      "display_name": "snowwhip",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "whip"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": "寒风起兮",
+          "description": "$N使一招「寒风起兮」，手中$w抖得笔直向$n的$l连刺数鞭",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -10,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": "漫天飞雪",
+          "description": "$N身形一转，一招「漫天飞雪」$w幻出满天鞭影，虚虚实实地袭向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -50,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": "雪花翩翩",
+          "description": "$N力贯$w，一招「雪花翩翩」点点鞭影飘浮不定地点向$n的$l",
+          "weapon": null,
+          "damage_type": "刺伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 25
+        },
+        {
+          "name": "积雪三尺",
+          "description": "$N手中$w一抖，一招「积雪三尺」以一个怪异的角度往$n下盘卷去",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -40,
+          "parry": null,
+          "force": null,
+          "damage": 30
+        },
+        {
+          "name": "狂风骤雪",
+          "description": "$N手中一紧，使招「狂风骤雪」，手里$w一鞭接著一鞭不停地抽向$n的$l",
+          "weapon": null,
+          "damage_type": "鞭伤",
+          "dodge": -50,
+          "parry": null,
+          "force": null,
+          "damage": 100
+        },
+        {
+          "name": "风雪交加",
+          "description": "$N一招「风雪交加」手中$w舞出一片鞭影扫向$n全身",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -60,
+          "parry": null,
+          "force": null,
+          "damage": 150
+        }
+      ],
+      "valid_learn": "{ object ob; if( (int)me->query(\"max_force\") < 150 ) return notify_fail(\"你的内力不够，没有办法练寒雪鞭法, 多练些内力再来吧。\\n\"); if( !(ob = me->query_temp(\"weapon\")) ||\t(string)ob->query(\"skill_type\") != \"whip\" ) return notify_fail(\"你必须先找一条鞭子才能练鞭法。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 30 ||\t(int)me->query(\"force\") < 5 ) return notify_fail(\"你的内力或气不够，没有办法练习寒雪鞭法。\\n\"); me->receive_damage(\"kee\", 30); me->add(\"force\", -5); write(\"你按著所学练了一遍寒雪鞭法。\\n\"); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "effect_requirement",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "spells",
+      "source_path": "mudlib/daemon/skill/spells.c",
+      "status": "structured",
+      "display_name": "spells",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "spicyclaw",
+      "source_path": "mudlib/daemon/skill/spicyclaw.c",
+      "status": "structured",
+      "display_name": "spicyclaw",
+      "category": "unarmed",
+      "skill_type": "martial",
+      "usages": [
+        "unarmed"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N左掌微分，右手一长使出一招「毒龙扑舟」，抓向$n的$l",
+          "weapon": null,
+          "damage_type": "抓伤",
+          "dodge": -30,
+          "parry": -70,
+          "force": 160,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N倏地一个转身，双手一翻「撺锅手」直掼$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -10,
+          "parry": -60,
+          "force": 140,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N身子微斜，随即跨出一步，左手忽掌忽爪使出「撮灰手」，拍向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": -40,
+          "force": 120,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出「青蛇十段锦」，双手滑溜异常对准$n的$l抓去",
+          "weapon": null,
+          "damage_type": "抓伤",
+          "dodge": 10,
+          "parry": -60,
+          "force": 140,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左手虚晃，右掌飘飘，一招「梁上君子」击向$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -20,
+          "parry": -50,
+          "force": 150,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出「拨草寻履」，凌空跃起，冷不防在落地前对准$n$l踢出一脚",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -70,
+          "parry": -40,
+          "force": 180,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N右手在$n$l划过，随後一招「随棍上身」左爪又向同一方位抓到",
+          "weapon": null,
+          "damage_type": "抓伤",
+          "dodge": null,
+          "parry": -90,
+          "force": 100,
+          "damage": null
+        }
+      ],
+      "valid_learn": "{ if( me->query_temp(\"weapon\") || me->query_temp(\"secondary_weapon\") ) return notify_fail(\"练油流麻香手必须空手。\\n\"); if( (int)me->query(\"max_force\") < 80 ) return notify_fail(\"你的内力太弱，无法练油流麻香手。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 25 ) return notify_fail(\"你的体力不够了，休息一下再练吧。\\n\"); if( (int)me->query(\"force\") < 3 ) return notify_fail(\"你的内力不够了，休息一下再练吧。\\n\"); me->receive_damage(\"kee\", 25); me->add(\"force\", -3); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "combat_hook",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "spider-array",
+      "source_path": "mudlib/daemon/skill/spider-array.c",
+      "status": "structured",
+      "display_name": "spider-array",
+      "category": "formation",
+      "skill_type": "martial",
+      "usages": [
+        "array"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "spring-blade",
+      "source_path": "mudlib/daemon/skill/spring-blade.c",
+      "status": "structured",
+      "display_name": "spring-blade",
+      "category": "weapon",
+      "skill_type": "martial",
+      "usages": [
+        "blade",
+        "parry"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N使一招「春风拂人醉」，手中$w轻飘飘地向$n的$l斩去！",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": 70,
+          "parry": null,
+          "force": null,
+          "damage": 200
+        },
+        {
+          "name": null,
+          "description": "$N金刃劈风，$w随著一招「远山伴人痴」由下而上撩往$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N身形一转，一招「飞花逐人香」$w刀光不定，斩向$n的$l",
+          "weapon": null,
+          "damage_type": "割伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 20
+        },
+        {
+          "name": null,
+          "description": "$N舞动$w，一招「柳叶随人笑」迅捷无伦地劈向$n的$l",
+          "weapon": null,
+          "damage_type": "□伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N手中$w一晃，一招「倩影惹人怜」往$n的$l斜斜砍出一刀",
+          "weapon": null,
+          "damage_type": "□伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N提刀过肩，蓄劲发力，一招「芦雪碎人影」直劈$n$l",
+          "weapon": null,
+          "damage_type": "□伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        },
+        {
+          "name": null,
+          "description": "$N移步侧身，使一招「彩蝶灼人衣」刀光霍霍斩向$n的$l",
+          "weapon": null,
+          "damage_type": "□伤",
+          "dodge": null,
+          "parry": null,
+          "force": null,
+          "damage": 40
+        }
+      ],
+      "valid_learn": "{ return 1; }",
+      "practice": "{ object weapon; if( !objectp(weapon = me->query_temp(\"weapon\")) ||\t(string)weapon->query(\"skill_type\") != \"blade\" ) return notify_fail(\"你必须先找一把刀，才能练刀法。\\n\"); if( (int)me->query(\"kee\") < 40 ) return notify_fail(\"你的体力不够练这门刀法，还是先休息休息吧。\\n\"); me->receive_damage(\"kee\", 40); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "staff",
+      "source_path": "mudlib/daemon/skill/staff.c",
+      "status": "structured",
+      "display_name": "staff",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "stealing",
+      "source_path": "mudlib/daemon/skill/stealing.c",
+      "status": "structured",
+      "display_name": "stealing",
+      "category": "utility",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "stormdance",
+      "source_path": "mudlib/daemon/skill/stormdance.c",
+      "status": "structured",
+      "display_name": "stormdance",
+      "category": "movement",
+      "skill_type": "martial",
+      "usages": [
+        "dodge"
+      ],
+      "dependencies": [
+        "dodge"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( (string)me->query(\"gender\") != \"女性\" ) return notify_fail(\"七宝天岚舞只有女性才能练。\\n\"); if( (int)me->query(\"spi\") < 20 ) return notify_fail(\"你的灵性不够，没有办法练七宝天岚舞。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"sen\") < 30 ) return notify_fail(\"你的精神太差了，不能练七宝天岚舞。\\n\"); me->receive_damage(\"sen\", 30); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "dodge_messages",
+        "learning_requirement",
+        "level_hook",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "sword",
+      "source_path": "mudlib/daemon/skill/sword.c",
+      "status": "structured",
+      "display_name": "sword",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "tao-mystery",
+      "source_path": "mudlib/daemon/skill/tao-mystery.c",
+      "status": "structured",
+      "display_name": "tao-mystery",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": "{ return notify_fail(\"法术类技能必须用学的或是从实战中获取经验。\\n\"); }",
+      "routers": [],
+      "behavior_flags": [
+        "level_hook",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "taoism",
+      "source_path": "mudlib/daemon/skill/taoism.c",
+      "status": "structured",
+      "display_name": "天师正道",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query(\"bellicosity\") > 100 ) return notify_fail(\"你的杀气太重，无法修炼天师正道。\\n\"); return 1; }",
+      "practice": "{ return notify_fail(\"法术类技能必须用学的或是从实战中获取经验。\\n\"); }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "tenderzhi",
+      "source_path": "mudlib/daemon/skill/tenderzhi.c",
+      "status": "structured",
+      "display_name": "tenderzhi",
+      "category": "unarmed",
+      "skill_type": "martial",
+      "usages": [
+        "unarmed"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N左手一挥，一招「菊楼采月」右手点向$n$l",
+          "weapon": "右手食指",
+          "damage_type": "刺伤",
+          "dodge": -30,
+          "parry": 30,
+          "force": 80,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使一招「雪桥翦梅」，身影忽前忽後，突然一转身左手往$n的$l点去",
+          "weapon": "左手中指",
+          "damage_type": "刺伤",
+          "dodge": -30,
+          "parry": 30,
+          "force": 90,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N身法稍顿，左手一扬使出「柳亭簪花」往$n的$l点去",
+          "weapon": "左手中指",
+          "damage_type": "刺伤",
+          "dodge": -30,
+          "parry": 30,
+          "force": 140,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "只见$N纤腰一摆，陡然滑出数尺，右手顺著来势一招「桃坟扑蝶」往$n的$l点去",
+          "weapon": "右手食指",
+          "damage_type": "刺伤",
+          "dodge": -30,
+          "parry": 30,
+          "force": 90,
+          "damage": null
+        }
+      ],
+      "valid_learn": "{ if( (string)me->query(\"gender\") != \"女性\" ) return notify_fail(\"柔虹指是只有女子才能练的武功。\\n\"); if( me->query_temp(\"weapon\") || me->query_temp(\"secondary_weapon\") ) return notify_fail(\"练柔虹指必须空手。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"sen\") < 30 ) return notify_fail(\"你的精神无法集中了，休息一下再练吧。\\n\"); if( (int)me->query(\"force\") < 10 ) return notify_fail(\"你的内力不够了。\\n\"); me->receive_damage(\"sen\", 30); me->add(\"force\", -10); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "throwing",
+      "source_path": "mudlib/daemon/skill/throwing.c",
+      "status": "structured",
+      "display_name": "throwing",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "ts-fist",
+      "source_path": "mudlib/daemon/skill/ts-fist.c",
+      "status": "structured",
+      "display_name": "ts-fist",
+      "category": "unarmed",
+      "skill_type": "martial",
+      "usages": [
+        "unarmed"
+      ],
+      "dependencies": [],
+      "actions": [
+        {
+          "name": null,
+          "description": "$N左掌轻动右手向上一探一招「梅影疏斜」抓向$n的$l，姿态美妙",
+          "weapon": null,
+          "damage_type": "抓伤",
+          "dodge": -30,
+          "parry": -70,
+          "force": 210,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N倏地一个转身双手一送「梅香袭人」直銎$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -10,
+          "parry": -60,
+          "force": 190,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N身子微斜随即跨出一步右手一划使出「踏雪寻梅」拍向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -30,
+          "parry": -40,
+          "force": 110,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N双手一抖「老梅虬枝」从一个匪夷所思的角度对准$n的$l抓去",
+          "weapon": null,
+          "damage_type": "抓伤",
+          "dodge": 10,
+          "parry": -60,
+          "force": 190,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N左手虚晃右掌飘飘一招「映雪红梅」击向$n$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -20,
+          "parry": -50,
+          "force": 250,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N使出「梅凋无声」凌空跃起冷不防在落地前对准$n$l拍出一掌",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": -70,
+          "parry": -40,
+          "force": 180,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N右手在$n$l划过随後一招「梅妻鹤子」左手又向同一方位抓到",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": null,
+          "parry": -90,
+          "force": 150,
+          "damage": null
+        },
+        {
+          "name": null,
+          "description": "$N右手连摇左手使出「暗香浮动」，波的一声击向$n的$l",
+          "weapon": null,
+          "damage_type": "瘀伤",
+          "dodge": null,
+          "parry": -90,
+          "force": 360,
+          "damage": null
+        }
+      ],
+      "valid_learn": "{ if( me->query_temp(\"weapon\") || me->query_temp(\"secondary_weapon\") ) return notify_fail(\"练天山折梅手必须空手。\\n\"); if( (int)me->query(\"max_force\") < 80 ) return notify_fail(\"你的内力太弱无法练天山折梅手。\\n\"); return 1; }",
+      "practice": "{ if( (int)me->query(\"kee\") < 25 ) return notify_fail(\"你的体力不够了休息一下再练吧。\\n\"); if( (int)me->query(\"force\") < 3 ) return notify_fail(\"你的内力不够了休息一下再练吧。\\n\"); me->receive_damage(\"kee\", 25); me->add(\"force\", -3); return 1; }",
+      "routers": [],
+      "behavior_flags": [
+        "combat_hook",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "unarmed",
+      "source_path": "mudlib/daemon/skill/unarmed.c",
+      "status": "structured",
+      "display_name": "unarmed",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": [
+        "level_hook"
+      ]
+    },
+    {
+      "id": "whip",
+      "source_path": "mudlib/daemon/skill/whip.c",
+      "status": "structured",
+      "display_name": "whip",
+      "category": "basic",
+      "skill_type": "martial",
+      "usages": [],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "wu-shun",
+      "source_path": "mudlib/daemon/skill/wu-shun.c",
+      "status": "structured",
+      "display_name": "wu-shun",
+      "category": "internal",
+      "skill_type": "martial",
+      "usages": [
+        "force"
+      ],
+      "dependencies": [
+        "literate"
+      ],
+      "actions": [],
+      "valid_learn": "{ if( (int)me->query_skill(\"literate\") < (int)me->query_skill(\"wu-shun\") ) return notify_fail(\"你的文学素养不够无法提升小无相功的造诣。\\n\"); return 1; }",
+      "practice": "{ return notify_fail(\"小无相功只能用学的或是从运用(exert)中增加熟练度。\\n\"); }",
+      "routers": [
+        "exert_function_file"
+      ],
+      "behavior_flags": [
+        "exert_router",
+        "learning_requirement",
+        "practice_cost"
+      ]
+    },
+    {
+      "id": "yirong",
+      "source_path": "mudlib/daemon/skill/yirong.c",
+      "status": "structured",
+      "display_name": "yirong",
+      "category": "knowledge",
+      "skill_type": "knowledge",
+      "usages": [
+        "move"
+      ],
+      "dependencies": [],
+      "actions": [],
+      "valid_learn": null,
+      "practice": null,
+      "routers": [],
+      "behavior_flags": []
+    }
+  ],
+  "teachers": [
+    {
+      "id": "assassin",
+      "source_path": "mudlib/daemon/class/assassin/master.c",
+      "status": "structured",
+      "name": "金□",
+      "faction": "月牙神教",
+      "intelligence": 24,
+      "skills": {
+        "blade": 70,
+        "dodge": 100,
+        "force": 100,
+        "parry": 60,
+        "perception": 80,
+        "serpentforce": 100,
+        "spicyclaw": 100,
+        "staff": 90,
+        "stealing": 40,
+        "throwing": 60,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "serpentforce",
+        "unarmed": "spicyclaw"
+      },
+      "apprentice_behavior": "{ command(\"look \" + me->query(\"id\")); if( me->can_afford(100) ) { command(\"say 我们花紫会只收化子，\" + RANK_D->query_respect(me) + \"您还是回去享福吧。\\n\"); return; } else { command(\"nod\"); command(\"recruit \" + me->query(\"id\")); } }"
+    },
+    {
+      "id": "beggar",
+      "source_path": "mudlib/daemon/class/beggar/master.c",
+      "status": "structured",
+      "name": "陆得财",
+      "faction": "花紫会",
+      "intelligence": 24,
+      "skills": {
+        "blade": 70,
+        "dodge": 100,
+        "force": 100,
+        "parry": 60,
+        "perception": 80,
+        "serpentforce": 100,
+        "spicyclaw": 100,
+        "staff": 90,
+        "stealing": 40,
+        "throwing": 60,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "serpentforce",
+        "unarmed": "spicyclaw"
+      },
+      "apprentice_behavior": "{ command(\"look \" + me->query(\"id\")); if( me->can_afford(100) ) { command(\"say 我们花紫会只收化子，\" + RANK_D->query_respect(me) + \"您还是回去享福吧。\\n\"); return; } else { command(\"nod\"); command(\"recruit \" + me->query(\"id\")); } }"
+    },
+    {
+      "id": "bonze",
+      "source_path": "mudlib/daemon/class/bonze/master.c",
+      "status": "structured",
+      "name": "玄智和尚",
+      "faction": "山烟寺",
+      "intelligence": 30,
+      "skills": {
+        "buddhism": 100,
+        "chanting": 100,
+        "cloudstaff": 100,
+        "dodge": 30,
+        "essencemagic": 100,
+        "force": 100,
+        "literate": 60,
+        "lotusforce": 100,
+        "magic": 100,
+        "parry": 50,
+        "staff": 100,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "lotusforce",
+        "magic": "essencemagic",
+        "parry": "cloudstaff",
+        "staff": "cloudstaff"
+      },
+      "apprentice_behavior": "{ if( query(\"apprentice_available\") ) { if( find_call_out(\"do_recruit\") != -1 ) command(\"say 慢著，一个一个来。\"); else call_out(\"do_recruit\", 2, ob); } else { command(\"say 老纳今天已经收了十个弟子，不想再收徒了。\"); } }"
+    },
+    {
+      "id": "dancer",
+      "source_path": "mudlib/daemon/class/dancer/master.c",
+      "status": "structured",
+      "name": "蓝止萍",
+      "faction": "晚月庄",
+      "intelligence": 28,
+      "skills": {
+        "dodge": 100,
+        "force": 30,
+        "iceforce": 100,
+        "literate": 100,
+        "parry": 70,
+        "perception": 100,
+        "snowwhip": 90,
+        "stormdance": 100,
+        "sword": 70,
+        "tenderzhi": 100,
+        "throwing": 100,
+        "unarmed": 40,
+        "whip": 100
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "force": "iceforce",
+        "unarmed": "tenderzhi",
+        "whip": "snowwhip"
+      },
+      "apprentice_behavior": "{ if( query(\"apprentice_available\") ) { if( find_call_out(\"do_recruit\") != -1 ) command(\"say 慢著，一个一个来。\"); else call_out(\"do_recruit\", 2, ob); } else { command(\"say 本庄主今天已经收了十个弟子，不想再收徒了。\"); } }"
+    },
+    {
+      "id": "fighter",
+      "source_path": "mudlib/daemon/class/fighter/master.c",
+      "status": "structured",
+      "name": "萧辟尘",
+      "faction": "天邪派",
+      "intelligence": 24,
+      "skills": {
+        "blade": 40,
+        "celestial": 100,
+        "celestrike": 100,
+        "dodge": 60,
+        "force": 100,
+        "literate": 60,
+        "parry": 60,
+        "perception": 80,
+        "pyrobat-steps": 50,
+        "six-chaos-sword": 80,
+        "stormdance": 50,
+        "sword": 60,
+        "throwing": 40,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "force": "celestial",
+        "move": "pyrobat-steps",
+        "parry": "six-chaos-sword",
+        "sword": "six-chaos-sword",
+        "unarmed": "celestrike"
+      },
+      "apprentice_behavior": "{ if( me->query_temp(\"pending/celestial_swear\") ) { command(\"say 多说无益，若不发誓恪守门规，便是跪著求我也没用。\"); return; } else { command(\"say 我天邪派门规甚严，\" + RANK_D->query_respect(me) + \"如果真的有心，且发个誓(swear)来。\"); me->set_temp(\"pending/celestial_swear\", 1); } }"
+    },
+    {
+      "id": "juechen",
+      "source_path": "mudlib/daemon/class/juechen/master.c",
+      "status": "structured",
+      "name": "绝尘子",
+      "faction": "绝尘派",
+      "intelligence": 30,
+      "skills": {
+        "dodge": 100,
+        "force": 120,
+        "jingang-staff": 100,
+        "juechen-force": 120,
+        "literate": 120,
+        "magic": 150,
+        "magic-array": 120,
+        "parry": 120,
+        "perception": 100,
+        "spells": 150,
+        "staff": 100,
+        "sword": 100,
+        "tao-mystery": 120,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "juechen-force",
+        "spells": "magic-array",
+        "staff": "jingang-staff"
+      },
+      "apprentice_behavior": "{ if((string)ob->query(\"title\")!=\"普通百姓\") { command(\"chat \"+ob->query(\"title\")+ob->query(\"nickname\")+ ob->query(\"name\")+\"要叛师！！！\"); command(\"grin\"); kill_ob(ob); return; } if( ((int)ob->query(\"spi\") < 24)) {     command(\"say 入我派者，需有慧根。\" + RANK_D->query_respect(ob) + \"的资质不宜！\"); return; } if ( ob->query(\"combat_exp\") < 100000 ) { command(\"say \"+RANK_D->query_respect(ob) + \"似乎尚缺江湖历练，不宜投入绝尘门下。\" ); return ; } command(\"smile\"); command(\"say 很好\" + RANK_D->query_respect(ob) + \"多加努力他日必定有成。\\n\"); command(\"recruit \" + ob->query(\"id\") );}"
+    },
+    {
+      "id": "lama",
+      "source_path": "mudlib/daemon/class/lama/master.c",
+      "status": "structured",
+      "name": "龙若法王",
+      "faction": "日陀罗寺",
+      "intelligence": 30,
+      "skills": {
+        "buddhism": 100,
+        "chanting": 100,
+        "cloudstaff": 100,
+        "dodge": 30,
+        "essencemagic": 100,
+        "force": 100,
+        "literate": 60,
+        "lotusforce": 100,
+        "magic": 100,
+        "parry": 50,
+        "staff": 100,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "lotusforce",
+        "magic": "essencemagic",
+        "parry": "cloudstaff",
+        "staff": "cloudstaff"
+      },
+      "apprentice_behavior": "{ if( query(\"apprentice_available\") ) { if( find_call_out(\"do_recruit\") != -1 ) command(\"say 慢著，一个一个来。\"); else call_out(\"do_recruit\", 2, ob); } else { command(\"say 老纳今天已经收了十个弟子，不想再收徒了。\"); } }"
+    },
+    {
+      "id": "ninja",
+      "source_path": "mudlib/daemon/class/ninja/master.c",
+      "status": "structured",
+      "name": "逍遥子",
+      "faction": "逍遥派",
+      "intelligence": 30,
+      "skills": {
+        "dodge": 150,
+        "force": 150,
+        "linbo-steps": 150,
+        "literate": 150,
+        "parry": 120,
+        "sword": 100,
+        "ts-fist": 120,
+        "unarmed": 150,
+        "wu-shun": 120
+      },
+      "mappings": {
+        "dodge": "linbo-steps",
+        "force": "wu-shun",
+        "unarmed": "ts-fist"
+      },
+      "apprentice_behavior": "{ if( ((int)ob->query(\"per\") < 25)) {     command(\"say 入我派者，需人品文采，无一不是上上之选。\" + RANK_D->query_respect(ob) + \"的资质不宜！\"); return; } if (  ((int)ob->query_skill(\"literate\",1) < 50) ) {\tcommand(\"say 入我派者，需人品文采，无一不是上上之选。\" + RANK_D->query_respect(ob) + \"的文采不宜！\"); return;\t} if((string)ob->query(\"title\")!=\"普通百姓\") { command(\"chat \"+ob->query(\"title\")+ob->query(\"nickname\")+ ob->query(\"name\")+\"要叛师！！！\"); command(\"grin\"); kill_ob(ob); return; } command(\"smile\"); command(\"say 很好\" + RANK_D->query_respect(ob) + \"多加努力他日必定有成。\\n\"); command(\"recruit \" + ob->query(\"id\") );}"
+    },
+    {
+      "id": "ronin",
+      "source_path": "mudlib/daemon/class/ronin/master.c",
+      "status": "structured",
+      "name": "早川直义",
+      "faction": "鬼笠馆浪人",
+      "intelligence": 24,
+      "skills": {
+        "dodge": 70,
+        "force": 60,
+        "parry": 100,
+        "serpentforce": 100,
+        "spicyclaw": 100,
+        "staff": 50,
+        "sword": 100,
+        "throwing": 60,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "serpentforce",
+        "unarmed": "spicyclaw"
+      },
+      "apprentice_behavior": "{ command(\"look \" + me->query(\"id\")); if( me->can_afford(100) ) { command(\"say 我们花紫会只收化子，\" + RANK_D->query_respect(me) + \"您还是回去享福吧。\\n\"); return; } else { command(\"nod\"); command(\"recruit \" + me->query(\"id\")); } }"
+    },
+    {
+      "id": "scholar",
+      "source_path": "mudlib/daemon/class/scholar/master.c",
+      "status": "structured",
+      "name": "骆云舟",
+      "faction": "步玄派",
+      "intelligence": 28,
+      "skills": {
+        "dodge": 100,
+        "force": 80,
+        "instruments": 70,
+        "literate": 150,
+        "move": 100,
+        "music": 100,
+        "mysterrier": 120,
+        "mystforce": 100,
+        "mystsword": 100,
+        "parry": 90,
+        "perception": 80,
+        "sword": 100,
+        "unarmed": 60
+      },
+      "mappings": {
+        "dodge": "mysterrier",
+        "force": "mystforce",
+        "move": "mysterrier",
+        "parry": "mystsword",
+        "sword": "mystsword"
+      },
+      "apprentice_behavior": "{ if (ob->query(\"marks/桃林\"))  { command(\"smile\"); command(\"say 很好，\" + RANK_D->query_respect(ob) + \"多加努力，他日必定有成。\\n\"); command(\"recruit \" + ob->query(\"id\") ); ob->set(\"marks/书生\", 0); ob->set(\"marks/桃林\", 0); } else { command (\"say 你还是先走一趟东边的桃林吧。\\n\"); ob->set(\"marks/书生\", 1); } }"
+    },
+    {
+      "id": "swordsman",
+      "source_path": "mudlib/daemon/class/swordsman/master.c",
+      "status": "structured",
+      "name": "柳淳风",
+      "faction": "封山剑派",
+      "intelligence": 24,
+      "skills": {
+        "chaos-steps": 100,
+        "dodge": 80,
+        "fonxanforce": 60,
+        "fonxansword": 150,
+        "force": 40,
+        "literate": 60,
+        "liuh-ken": 60,
+        "parry": 120,
+        "spider-array": 85,
+        "sword": 150,
+        "unarmed": 40
+      },
+      "mappings": {
+        "dodge": "chaos-steps",
+        "parry": "fonxansword",
+        "sword": "fonxansword",
+        "unarmed": "liuh-ken"
+      },
+      "apprentice_behavior": "{ if( ((int)ob->query_cor() < 20) ||      ((int)ob->query_cps() < 20)) { command(\"say 学剑之人必须胆大心细，依我看\" + RANK_D->query_respect(ob) + \"的资质似乎不宜？\"); return; } command(\"smile\"); command(\"say 很好，\" + RANK_D->query_respect(ob) + \"多加努力，他日必定有成。\\n\"); command(\"recruit \" + ob->query(\"id\") ); }"
+    }
+  ],
+  "warnings": [
+    "mudlib/daemon/skill/axe.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/blade.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/bloodystrike.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/bloodystrike.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/bloodystrike.c: 技能行为待实现 [parry_messages]",
+    "mudlib/daemon/skill/bloodystrike.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/bloodystrike.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/bloodystrike.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/bolomiduo.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/bolomiduo.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/bolomiduo.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/bolomiduo.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/bolomiduo.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/buddhism.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/buddhism.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/celestial.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/celestial.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/celestial.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/celestial.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/celestrike.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/celestrike.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/celestrike.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/chanting.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/chaos-steps.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/chaos-steps.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/chaos-steps.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/cloudstaff.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/cloudstaff.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/cloudstaff.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/dagger.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/deisword.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/deisword.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/deisword.c: 技能行为待实现 [parry_messages]",
+    "mudlib/daemon/skill/deisword.c: 技能行为待实现 [perform_router]",
+    "mudlib/daemon/skill/deisword.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/deisword.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/deisword.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/dodge.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/dodge.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/essencemagic.c: 技能行为待实现 [conjure_router]",
+    "mudlib/daemon/skill/essencemagic.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/fall-steps.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/fall-steps.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/fall-steps.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/fall-steps.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/fall-steps.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/fall-steps.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/fonxanforce.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/fonxanforce.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/fonxanforce.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/fonxansword.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/fonxansword.c: 技能行为待实现 [perform_router]",
+    "mudlib/daemon/skill/fonxansword.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/force.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/force.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/force.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/fork.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/gouyee.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/gouyee.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/gouyee.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/hammer.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/iceforce.c: 技能行为待实现 [combat_hook]",
+    "mudlib/daemon/skill/iceforce.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/iceforce.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/instruments.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/iron-cloth.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/iron-cloth.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/iron-cloth.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/jin-gang.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/jin-gang.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/jin-gang.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/jin-gang.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/jingang-staff.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/jingang-staff.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/jingang-staff.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/juechen-force.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/juechen-force.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/linbo-steps.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/linbo-steps.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/linbo-steps.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/linbo-steps.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/literate.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/literate.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/liuh-ken.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/liuh-ken.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/lotusforce.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/lotusforce.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/lotusforce.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/magic-array.c: 技能行为待实现 [cast_router]",
+    "mudlib/daemon/skill/magic-array.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/magic-array.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/magic-array.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/magic.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/meihua-shou.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/meihua-shou.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/meihua-shou.c: 技能行为待实现 [parry_messages]",
+    "mudlib/daemon/skill/meihua-shou.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/meihua-shou.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/meihua-shou.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/move.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/music.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/music.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/mysterrier.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/mysterrier.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/mysterrier.c: 技能行为待实现 [perform_router]",
+    "mudlib/daemon/skill/mysterrier.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/mystforce.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/mystforce.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/mystforce.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/mystsword.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/mystsword.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/mystsword.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/necromancy.c: 技能行为待实现 [cast_router]",
+    "mudlib/daemon/skill/necromancy.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/necromancy.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/necromancy.c: 技能行为待实现 [scribe_router]",
+    "mudlib/daemon/skill/nine-moon.c: 技能行为待实现 [effect_requirement]",
+    "mudlib/daemon/skill/nine-moon.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/nine-moon.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/nine-moon.c: 技能行为待实现 [perform_router]",
+    "mudlib/daemon/skill/nine-moon.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/nine-moon.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/notraces.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/notraces.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/notraces.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/notraces.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/notraces.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/notraces.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/parry.c: 技能行为待实现 [parry_messages]",
+    "mudlib/daemon/skill/parry.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/pyrobat-steps.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/pyrobat-steps.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/pyrobat-steps.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/qidaoforce.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/qidaoforce.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/qidaoforce.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/qidaoforce.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/qidaoforce.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/scratching.c: 技能行为待实现 [effect_requirement]",
+    "mudlib/daemon/skill/scratching.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/scratching.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/scratching.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/serpentforce.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/serpentforce.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/serpentforce.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/shortsong-blade.c: 技能行为待实现 [learning_bonus]",
+    "mudlib/daemon/skill/shortsong-blade.c: 技能行为待实现 [parry_messages]",
+    "mudlib/daemon/skill/shortsong-blade.c: 技能行为待实现 [practice_bonus]",
+    "mudlib/daemon/skill/shortsong-blade.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/shortsong-blade.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/six-chaos-sword.c: 技能行为待实现 [effect_requirement]",
+    "mudlib/daemon/skill/six-chaos-sword.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/six-chaos-sword.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/six-chaos-sword.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/snowshade-force.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/snowshade-force.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/snowshade-sword.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/snowshade-sword.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/snowshade-sword.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/snowwhip.c: 技能行为待实现 [effect_requirement]",
+    "mudlib/daemon/skill/snowwhip.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/snowwhip.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/snowwhip.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/spells.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/spicyclaw.c: 技能行为待实现 [combat_hook]",
+    "mudlib/daemon/skill/spicyclaw.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/spicyclaw.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/spicyclaw.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/spider-array.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/spring-blade.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/spring-blade.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/staff.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/stealing.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/stormdance.c: 技能行为待实现 [dodge_messages]",
+    "mudlib/daemon/skill/stormdance.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/stormdance.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/stormdance.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/stormdance.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/sword.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/tao-mystery.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/tao-mystery.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/tao-mystery.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/taoism.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/taoism.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/tenderzhi.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/tenderzhi.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/tenderzhi.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/throwing.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/ts-fist.c: 技能行为待实现 [combat_hook]",
+    "mudlib/daemon/skill/ts-fist.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/ts-fist.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/ts-fist.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/unarmed.c: 技能行为待实现 [level_hook]",
+    "mudlib/daemon/skill/unarmed.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/whip.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/wu-shun.c: 技能行为待实现 [exert_router]",
+    "mudlib/daemon/skill/wu-shun.c: 技能行为待实现 [learning_requirement]",
+    "mudlib/daemon/skill/wu-shun.c: 技能行为待实现 [practice_cost]",
+    "mudlib/daemon/skill/wu-shun.c: 无法从源文档解析中文技能名",
+    "mudlib/daemon/skill/yirong.c: 无法从源文档解析中文技能名"
+  ]
+}

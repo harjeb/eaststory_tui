@@ -5,7 +5,7 @@ use directories::ProjectDirs;
 
 use crate::{content::world, game::Game};
 
-pub const CURRENT_SAVE_VERSION: u32 = 4;
+pub const CURRENT_SAVE_VERSION: u32 = 5;
 
 pub fn default_save_path() -> PathBuf {
     if let Some(dirs) = ProjectDirs::from("org", "mudchina", "dongfang-tui") {
@@ -29,9 +29,19 @@ pub fn load_game(path: &std::path::Path) -> Result<Option<Game>> {
         1 => {
             game.migrate_v1_location_ids();
             game.migrate_legacy_items();
+            game.migrate_v3_statuses();
+            game.migrate_v4_skills();
         }
-        2 => game.migrate_legacy_items(),
-        3 => game.migrate_v3_statuses(),
+        2 => {
+            game.migrate_legacy_items();
+            game.migrate_v3_statuses();
+            game.migrate_v4_skills();
+        }
+        3 => {
+            game.migrate_v3_statuses();
+            game.migrate_v4_skills();
+        }
+        4 => game.migrate_v4_skills(),
         CURRENT_SAVE_VERSION => {}
         version => {
             bail!(
@@ -63,8 +73,8 @@ mod tests {
     use super::*;
     use crate::{
         game::{
-            Action, Activity, ConditionKind, ConditionState, DoorKind, EnemyKind, InteractionKind,
-            LocationId,
+            Action, Activity, CombatMode, ConditionKind, ConditionState, DoorKind, EnemyKind,
+            InteractionKind, LocationId,
         },
         items::{EquipmentSlot, HENGBING_SWORD_ID, ItemId, ItemInstance, WATER_MELON_ID},
     };
@@ -80,6 +90,16 @@ mod tests {
         game.location = LocationId::from(crate::content::TEMPLE_YARD);
         game.player.reputation = 42;
         game.player.food = 73;
+        game.player.faction = Some("天邪派".into());
+        game.player.teacher = Some("fighter".into());
+        game.player.combat_experience = 88_000;
+        game.player.potential = 321;
+        game.player.learned_points = 77;
+        game.player.bellicosity = 9;
+        game.player.wanted = 2;
+        game.player.constitution = 17;
+        game.player.force = 140;
+        game.player.max_force = 180;
         game.player.conditions.push(ConditionState {
             kind: ConditionKind::Poison,
             duration: 4,
@@ -93,6 +113,19 @@ mod tests {
             .unwrap()
             .instance_id;
         game.perform(Action::DropItem(rations));
+        game.activity = Activity::Fighting(crate::game::CombatState {
+            enemy: EnemyKind::TempleDisciple,
+            health: 51,
+            max_health: 95,
+            rounds: 3,
+            mode: CombatMode::Lethal,
+            attack_bonus: 12,
+            dodge_bonus: 8,
+            enemy_busy_rounds: 2,
+            technique_cooldown: 1,
+            power_up_active: true,
+            fake_fault_active: true,
+        });
 
         save_game(&path, &game).unwrap();
         let restored = load_game(&path).unwrap().unwrap();
@@ -104,6 +137,29 @@ mod tests {
         );
         assert_eq!(restored.player.reputation, 42);
         assert_eq!(restored.player.food, 73);
+        assert_eq!(restored.player.faction.as_deref(), Some("天邪派"));
+        assert_eq!(restored.player.teacher.as_deref(), Some("fighter"));
+        assert_eq!(restored.player.combat_experience, 88_000);
+        assert_eq!(restored.player.potential, 321);
+        assert_eq!(restored.player.learned_points, 77);
+        assert_eq!(restored.player.bellicosity, 9);
+        assert_eq!(restored.player.wanted, 2);
+        assert_eq!(restored.player.constitution, 17);
+        assert_eq!(restored.player.force, 140);
+        assert_eq!(restored.player.max_force, 180);
+        assert!(matches!(
+            restored.activity,
+            Activity::Fighting(crate::game::CombatState {
+                mode: CombatMode::Lethal,
+                attack_bonus: 12,
+                dodge_bonus: 8,
+                enemy_busy_rounds: 2,
+                technique_cooldown: 1,
+                power_up_active: true,
+                fake_fault_active: true,
+                ..
+            })
+        ));
         assert_eq!(
             restored.player.condition(ConditionKind::Poison),
             Some(&ConditionState {
@@ -236,6 +292,40 @@ mod tests {
             .find(|item| item.item_id.as_str() == WATER_MELON_ID)
             .unwrap();
         assert_eq!(melon.remaining_uses, Some(8));
+    }
+
+    #[test]
+    fn version_four_skills_gain_stable_basics_and_mappings() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v4-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(4);
+        value["player"]["skills"] = serde_json::json!([
+            { "kind": "Unarmed", "level": 18, "progress": 3 },
+            { "kind": "Sword", "level": 12, "progress": 2 },
+            { "kind": "Dodge", "level": 15, "progress": 1 },
+            { "kind": "Breathing", "level": 9, "progress": 0 },
+            { "kind": "Parry", "level": 7, "progress": 0 }
+        ]);
+        let player = value["player"].as_object_mut().unwrap();
+        player.remove("skill_mappings");
+        player.remove("force");
+        player.remove("max_force");
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert_eq!(restored.player.skill_level(crate::skills::UNARMED_ID), 18);
+        assert_eq!(restored.player.skill_level(crate::skills::SWORD_ID), 12);
+        assert_eq!(restored.player.skill_level(crate::skills::MOVE_ID), 15);
+        assert_eq!(restored.player.skill_mappings.len(), 5);
+        assert_eq!(restored.player.force, 50);
+        assert_eq!(restored.player.max_force, 100);
     }
 
     #[test]

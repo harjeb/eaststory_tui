@@ -44,8 +44,10 @@ jobs:
         run: |
           cargo run --quiet --locked --bin es2-import -- es2-utf8 village /tmp/village.json
           cargo run --quiet --locked --bin es2-import -- es2-utf8 items /tmp/items.json
+          cargo run --quiet --locked --bin es2-import -- es2-utf8 skills /tmp/skills.json
           cmp migration/catalog/village.json /tmp/village.json
           cmp migration/catalog/items.json /tmp/items.json
+          cmp migration/catalog/skills.json /tmp/skills.json
 
   build:
     name: Build ${{ matrix.name }}

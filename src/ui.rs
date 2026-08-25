@@ -8,7 +8,7 @@ use ratatui::{
 
 use crate::{
     app::App,
-    game::{Activity, Game, SkillKind},
+    game::{Activity, CombatMode, Game},
 };
 
 const BORDER: Color = Color::Rgb(74, 89, 80);
@@ -140,24 +140,22 @@ fn render_stats(frame: &mut Frame<'_>, area: Rect, game: &Game, compact: bool) {
             ]),
             Line::from(vec![
                 Span::styled(
-                    format!("饱 {}/{}", player.food, player.max_food),
-                    Style::default().fg(GOLD),
-                ),
-                Span::styled(
-                    format!("   饮 {}/{}", player.water, player.max_water),
-                    Style::default().fg(WATER),
-                ),
-                Span::styled(
-                    format!("   钱 {}", player.money_text()),
-                    Style::default().fg(GOLD),
-                ),
-                Span::styled(
-                    format!("   {}", game.activity_text()),
+                    format!("{}  ", game.activity_text()),
                     Style::default().fg(JADE),
                 ),
                 Span::styled(
-                    format!("   {}", player.conditions_text()),
-                    Style::default().fg(DANGER),
+                    format!("钱 {}  ", player.money_text()),
+                    Style::default().fg(GOLD),
+                ),
+                Span::styled(
+                    format!(
+                        "潜 {}/{}  杀 {}  缉 {}",
+                        player.potential.saturating_sub(player.learned_points),
+                        player.potential,
+                        player.bellicosity,
+                        player.wanted
+                    ),
+                    Style::default().fg(PAPER),
                 ),
             ]),
         ];
@@ -165,12 +163,21 @@ fn render_stats(frame: &mut Frame<'_>, area: Rect, game: &Game, compact: bool) {
         return;
     }
 
+    let faction = player.faction.as_deref().unwrap_or("无门无派");
     let mut lines = vec![
         bar_line("精", player.essence, player.max_essence, JADE),
         bar_line("气", player.qi, player.max_qi, GOLD),
         bar_line("神", player.spirit, player.max_spirit, WATER),
-        bar_line("饱", player.food, player.max_food, GOLD),
-        bar_line("饮", player.water, player.max_water, WATER),
+        Line::from(vec![
+            Span::styled(
+                format!("饱 {}/{}", player.food, player.max_food),
+                Style::default().fg(GOLD),
+            ),
+            Span::styled(
+                format!("  饮 {}/{}", player.water, player.max_water),
+                Style::default().fg(WATER),
+            ),
+        ]),
         Line::from(vec![
             Span::styled("状态  ", Style::default().fg(MUTED)),
             Span::styled(game.activity_text(), Style::default().fg(JADE)),
@@ -180,9 +187,43 @@ fn render_stats(frame: &mut Frame<'_>, area: Rect, game: &Game, compact: bool) {
             ),
         ]),
         Line::from(vec![
-            Span::styled("评价  ", Style::default().fg(MUTED)),
+            Span::styled("师门  ", Style::default().fg(MUTED)),
+            Span::styled(faction, Style::default().fg(PAPER)),
+        ]),
+        Line::from(vec![
+            Span::styled("实战  ", Style::default().fg(MUTED)),
             Span::styled(
-                format!("{:+}", player.reputation),
+                format!(
+                    "{}  潜能 {}/{}",
+                    player.combat_experience,
+                    player.potential.saturating_sub(player.learned_points),
+                    player.potential
+                ),
+                Style::default().fg(WATER),
+            ),
+        ]),
+        Line::from(vec![
+            Span::styled("储备  ", Style::default().fg(MUTED)),
+            Span::styled(
+                format!(
+                    "内 {}/{}  法 {}/{}  灵 {}/{}",
+                    player.force,
+                    player.max_force,
+                    player.mana,
+                    player.max_mana,
+                    player.atman,
+                    player.max_atman
+                ),
+                Style::default().fg(GOLD),
+            ),
+        ]),
+        Line::from(vec![
+            Span::styled("江湖  ", Style::default().fg(MUTED)),
+            Span::styled(
+                format!(
+                    "评价 {:+}  杀气 {}  通缉 {}",
+                    player.reputation, player.bellicosity, player.wanted
+                ),
                 Style::default().fg(PAPER),
             ),
         ]),
@@ -190,28 +231,29 @@ fn render_stats(frame: &mut Frame<'_>, area: Rect, game: &Game, compact: bool) {
             Span::styled("钱财  ", Style::default().fg(MUTED)),
             Span::styled(player.money_text(), Style::default().fg(GOLD)),
         ]),
-        Line::from(vec![
-            Span::styled("领悟  ", Style::default().fg(MUTED)),
-            Span::styled(player.insight.to_string(), Style::default().fg(WATER)),
-        ]),
-        Line::raw(""),
         Line::styled(
-            "武学",
+            "当前武学",
             Style::default().fg(GOLD).add_modifier(Modifier::BOLD),
         ),
     ];
-    for kind in [
-        SkillKind::Unarmed,
-        SkillKind::Sword,
-        SkillKind::Dodge,
-        SkillKind::Breathing,
-        SkillKind::Parry,
-    ] {
-        let skill = player.skill(kind);
-        lines.push(Line::from(vec![
-            Span::styled(format!("{:<12}", kind.name()), Style::default().fg(PAPER)),
-            Span::styled(format!("{:>3}层", skill.level), Style::default().fg(JADE)),
-        ]));
+    let mut shown = Vec::new();
+    for mapping in &player.skill_mappings {
+        if shown.contains(&mapping.skill) {
+            continue;
+        }
+        shown.push(mapping.skill.clone());
+        if let Some(skill) = player.skill_by_id(mapping.skill.as_str()) {
+            lines.push(Line::from(vec![
+                Span::styled(
+                    format!("{:<12}", skill.kind.name()),
+                    Style::default().fg(PAPER),
+                ),
+                Span::styled(format!("{:>3}层", skill.level), Style::default().fg(JADE)),
+            ]));
+        }
+        if shown.len() == 3 {
+            break;
+        }
     }
     frame.render_widget(Paragraph::new(lines).block(panel("人物")), area);
 }
@@ -326,12 +368,16 @@ fn render_combat(frame: &mut Frame<'_>, area: Rect, game: &Game) {
         return;
     };
     let ratio = (combat.health.max(0) as f64 / combat.max_health as f64).clamp(0.0, 1.0);
+    let (mode, color) = match combat.mode {
+        CombatMode::Spar => ("比试", GOLD),
+        CombatMode::Lethal => ("死斗", DANGER),
+    };
     let gauge = Gauge::default()
         .block(Block::new().title(Span::styled(
-            format!("{} · 第{}合", combat.enemy.name(), combat.rounds),
-            Style::default().fg(DANGER),
+            format!("{} · {} · 第{}合", combat.enemy.name(), mode, combat.rounds),
+            Style::default().fg(color),
         )))
-        .gauge_style(Style::default().fg(DANGER).bg(Color::Rgb(48, 36, 36)))
+        .gauge_style(Style::default().fg(color).bg(Color::Rgb(48, 36, 36)))
         .ratio(ratio)
         .label(format!("{}/{}", combat.health.max(0), combat.max_health));
     frame.render_widget(gauge, area);
