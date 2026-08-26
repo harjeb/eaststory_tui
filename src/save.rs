@@ -5,7 +5,7 @@ use directories::ProjectDirs;
 
 use crate::{content::world, game::Game};
 
-pub const CURRENT_SAVE_VERSION: u32 = 5;
+pub const CURRENT_SAVE_VERSION: u32 = 7;
 
 pub fn default_save_path() -> PathBuf {
     if let Some(dirs) = ProjectDirs::from("org", "mudchina", "dongfang-tui") {
@@ -42,6 +42,8 @@ pub fn load_game(path: &std::path::Path) -> Result<Option<Game>> {
             game.migrate_v4_skills();
         }
         4 => game.migrate_v4_skills(),
+        5 => game.migrate_v5_npc_events(),
+        6 => game.migrate_v6_m4_access(),
         CURRENT_SAVE_VERSION => {}
         version => {
             bail!(
@@ -214,6 +216,179 @@ mod tests {
         assert!(restored.available_actions().iter().any(|action| matches!(
             action,
             Action::Move { target, .. } if target.as_str() == crate::content::GARDEN
+        )));
+    }
+
+    #[test]
+    fn m4_npc_event_state_survives_save_round_trip() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-m4-npc-{nonce}.json"));
+        let mut game = Game::new();
+        game.location = LocationId::from("snow.herbshop");
+        game.perform(Action::BuyItem {
+            item_id: ItemId::from(crate::items::WOUND_MEDICINE_ID),
+            npc: crate::npcs::NpcId::from("snow.npc.herbalist"),
+        });
+        let medicine = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == crate::items::WOUND_MEDICINE_ID)
+            .unwrap()
+            .instance_id;
+        game.location = LocationId::from("snow.school");
+        game.perform(Action::GiveItem {
+            instance_id: medicine,
+            npc: crate::npcs::NpcId::from(crate::npcs::SNOW_TEACHER_ID),
+        });
+        game.player.combat_experience = 20_000;
+        game.location = LocationId::from("snow.school1");
+        game.perform(Action::AskNpc {
+            npc: crate::npcs::NpcId::from(crate::npcs::SNOW_GUARD_ID),
+            topic: "血手刘三".into(),
+        });
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(crate::game::CombatState {
+                enemy: EnemyKind::BloodHandLiuSan,
+                ..
+            })
+        ));
+
+        save_game(&path, &game).unwrap();
+        let mut restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert!(matches!(
+            restored.activity,
+            Activity::Fighting(crate::game::CombatState {
+                enemy: EnemyKind::BloodHandLiuSan,
+                ..
+            })
+        ));
+        restored.activity = Activity::Idle;
+        restored.location = LocationId::from("snow.school");
+        assert!(restored.available_actions().iter().any(|action| matches!(
+            action,
+            Action::LearnFromNpc { skill, npc }
+                if skill.as_str() == "literate" && npc.as_str() == crate::npcs::SNOW_TEACHER_ID
+        )));
+    }
+
+    #[test]
+    fn m4_access_state_survives_save_round_trip() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-m4-access-{nonce}.json"));
+        let mut game = Game::new();
+        game.player.banknotes = 1;
+        game.location = LocationId::from(crate::content::CANYON_CAMP8);
+        game.perform(Action::OfferMoney {
+            amount: 800,
+            npc: crate::npcs::NpcId::from(crate::npcs::CANYON_ADVISER_ID),
+        });
+        game.location = LocationId::from("canyon.camp6");
+        game.perform(Action::OfferMoney {
+            amount: 3_000,
+            npc: crate::npcs::NpcId::from(crate::npcs::CANYON_CAPTAIN_ID),
+        });
+        game.location = LocationId::from(crate::content::CITY_INN);
+        game.perform(Action::OfferMoney {
+            amount: 1_000,
+            npc: crate::npcs::NpcId::from(crate::npcs::CITY_WAITER_ID),
+        });
+
+        save_game(&path, &game).unwrap();
+        let mut restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+
+        restored.location = LocationId::from(crate::content::CANYON_SECRET_WALL);
+        assert!(restored.available_actions().contains(&Action::Interact(
+            crate::game::InteractionKind::SwearCanyonSecret
+        )));
+        restored.location = LocationId::from(crate::content::CANYON_CAMP7);
+        assert!(restored.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == crate::content::CANYON_CAMP8
+        )));
+        restored.location = LocationId::from(crate::content::CITY_INN);
+        assert!(restored.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == crate::content::CITY_INN_UPSTAIRS
+        )));
+    }
+
+    #[test]
+    fn version_five_saves_gain_default_m4_npc_state() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v5-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(5);
+        let root = value.as_object_mut().unwrap();
+        root.remove("snow_teacher_paid");
+        root.remove("snow_guard_revealed");
+        root.remove("snow_guard_defeated");
+        root.remove("canyon_secret_clue");
+        root.remove("canyon_camp_access");
+        root.remove("canyon_fake_seal_bought");
+        root.remove("canyon_general_rejected_fake");
+        root.remove("canyon_general_rewarded");
+        root.remove("city_inn_access");
+        root.remove("city_manor_pass");
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let mut restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        restored.location = LocationId::from("snow.school");
+        assert!(
+            restored
+                .available_actions()
+                .iter()
+                .all(|action| { !matches!(action, Action::LearnFromNpc { .. }) })
+        );
+    }
+
+    #[test]
+    fn version_six_saves_gain_default_m4_access_state() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v6-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(6);
+        let root = value.as_object_mut().unwrap();
+        for field in [
+            "canyon_secret_clue",
+            "canyon_camp_access",
+            "canyon_fake_seal_bought",
+            "canyon_general_rejected_fake",
+            "canyon_general_rewarded",
+            "city_inn_access",
+            "city_manor_pass",
+        ] {
+            root.remove(field);
+        }
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let mut restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        restored.location = LocationId::from(crate::content::CANYON_CAMP7);
+        assert!(restored.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == crate::content::CANYON_CAMP8
         )));
     }
 

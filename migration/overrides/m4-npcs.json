@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M4",
+  "status": "in_progress",
+  "catalog": {
+    "definitions": 73,
+    "placed_definitions": 59,
+    "runtime_room_references": 78,
+    "vendors": 9,
+    "vendor_goods": 27,
+    "inquiry_npcs": 30,
+    "inquiry_topics": 75,
+    "static_inquiries": 57,
+    "scripted_inquiries": 18,
+    "runtime_inquiry_npcs": 21,
+    "runtime_inquiries": 50,
+    "runtime_inquiry_references": 95,
+    "runtime_scripted_inquiries": 10,
+    "total_runtime_inquiry_npcs": 26,
+    "total_runtime_inquiries": 60,
+    "total_runtime_inquiry_references": 105
+  },
+  "runtime_features": [
+    {
+      "feature": "multi_npc_rooms",
+      "status": "verified",
+      "decision": "房间支持多个稳定 NpcId；同房间交谈、赠予与购买行动分别绑定具体 NPC。"
+    },
+    {
+      "feature": "source_placements",
+      "status": "verified",
+      "decision": "四区 78 个可解析 NPC 房间引用由规范化源路径自动放置，重复房间引用保持独立。"
+    },
+    {
+      "feature": "source_vendors",
+      "status": "verified",
+      "decision": "京城 7 个、雪亭镇 2 个 F_VENDOR 共 27 种货品接入运行时，售价采用原物品 value。"
+    },
+    {
+      "feature": "source_inquiry_catalog",
+      "status": "verified",
+      "decision": "固定源 30 个 inquiry NPC 的 75 个主题全部进入 schema v2 目录，57 个为纯文本或等价静态回调，18 个含脚本副作用。"
+    },
+    {
+      "feature": "placed_static_inquiries",
+      "status": "verified",
+      "decision": "21 个已被源房间放置的 NPC 提供 50 个静态询问主题；重复放置后共形成 95 个运行时房间主题引用。其余 7 个静态主题属于固定源未放置 NPC，不虚构放置。"
+    },
+    {
+      "feature": "scripted_inquiry_runtime",
+      "status": "adapted",
+      "decision": "三项原版货单回调、黄石隘口故事、杨掌柜三项伤势判断、魏无极学费和刘安禄两项身份揭露已接入运行时；26 个已放置 NPC 共提供 60 个主题，重复放置后形成 105 个房间主题引用。"
+    },
+    {
+      "feature": "object_exchange_audit",
+      "status": "verified",
+      "decision": "19 个 accept_object 候选均有逐源处置；7 项 verified、1 项 adapted 已接入运行时，6 项跨区或世界状态交换 deferred，5 项未放置或空实现 excluded。"
+    },
+    {
+      "feature": "generic_conversation",
+      "status": "adapted",
+      "decision": "没有可运行专用主题的源 NPC 仍提供简短单人交谈反馈；其余脚本主题按 scripted_inquiries 台账延期或排除。"
+    }
+  ],
+  "scripted_inquiries": [
+    {
+      "source_path": "mudlib/d/canyon/npc/captain.c",
+      "topics": ["黄石隘口"],
+      "status": "adapted",
+      "decision": "原版每两秒输出一段的七段隘口故事改为连续写入单人日志，文本顺序和缴钱结尾保留。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/caker.c",
+      "topics": ["大饼"],
+      "status": "verified",
+      "decision": "原版回调等价于 vendor list；询问时显示卖饼大叔的当前源货品和原价值。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/dumpling_seller.c",
+      "topics": ["包子"],
+      "status": "verified",
+      "decision": "原版回调等价于 vendor list；询问时显示卖包子的当前源货品和原价值。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/vendor.c",
+      "topics": ["金疮药"],
+      "status": "verified",
+      "decision": "原版回调等价于 vendor list；询问时显示卖艺壮汉的当前源货品和原价值。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/guard.c",
+      "topics": ["刘老三", "血手刘三"],
+      "status": "adapted",
+      "decision": "保留两万实战经验门槛与五成揭露概率；揭露后以血手刘三身份主动进入不可认输的死斗，胜利掉落固定源残破刀谱。随机追杀移动延期到 M8。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/herbalist.c",
+      "topics": ["治伤", "疗伤", "开药"],
+      "status": "adapted",
+      "decision": "按原版有效气血比例返回无伤或轻伤建议；源函数在低于 95% 后无返回且不执行治疗，单人版只补充无药方叙述，不虚构恢复。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/mercenary.c",
+      "topics": ["赌"],
+      "status": "excluded",
+      "decision": "固定源没有任何房间放置该佣兵；目录保留回调，不虚构运行时位置。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/post_officer.c",
+      "topics": ["寄信", "收信"],
+      "status": "excluded",
+      "decision": "回调只创建多人玩家邮箱并读取服务器邮件；单人本地游戏没有收件人或服务器信箱，保留静态驿站问答。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/proposer.c",
+      "topics": ["employment", "提亲"],
+      "status": "excluded",
+      "decision": "固定源未放置媒婆，回调还要求另一名在线女性玩家完成提亲流程；不生成虚构位置或多人婚姻替身。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/teacher.c",
+      "topics": ["学费"],
+      "status": "verified",
+      "decision": "询问保留五两银子门槛说明；给予总价值至少五两的未装备物品后持久开放向魏无极请教读书识字，源上限 60。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/teacher.c",
+      "topics": ["刘安禄"],
+      "status": "source_noop",
+      "decision": "固定使用的 teacher.c 仅声明 follow_player，函数实现被完整注释；不借用未放置 teacher1.c 的实现，不生成跟随行为。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/teacher1.c",
+      "topics": ["学费", "刘安禄"],
+      "status": "excluded",
+      "decision": "与 teacher.c 重复且固定源没有任何房间放置；目录保留，不虚构第二位魏无极。"
+    }
+  ],
+  "object_exchanges": [
+    {
+      "source_path": "mudlib/d/canyon/npc/adviser.c",
+      "status": "verified",
+      "decision": "首次交付价值至少八两的礼物或等值货币取得一次性山壁誓言口令；低价礼物照源没收，使用口令后可再次取得。"
+    },
+    {
+      "source_path": "mudlib/d/canyon/npc/captain.c",
+      "status": "verified",
+      "decision": "交付价值至少三十两的礼物或等值货币后持久开放 camp7 到 camp8 的军营入口；低价礼物照源没收。"
+    },
+    {
+      "source_path": "mudlib/d/canyon/npc/general.c",
+      "status": "verified",
+      "decision": "假印鉴不收并将玩家赶回 camp2；真印鉴收回后给予可研读剑法至 50 级的古剑；其他礼物照源收下。"
+    },
+    {
+      "source_path": "mudlib/d/canyon/npc/seller.c",
+      "status": "adapted",
+      "decision": "三百两等值货币购买假印鉴；被将军识破后可换真印鉴。多人服务器共享临时库存改为每份单人存档唯一状态。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/chen.c",
+      "status": "deferred",
+      "target": "M6",
+      "decision": "拜师信物必须由绮云镇陈剑秋签名，等待来源区域与镖局师承一并接入。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/guard.c",
+      "status": "deferred",
+      "target": "M4-rooms",
+      "decision": "官府通令交验与出城门槛等待京城令牌来源和动态出口审计。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/guardbak.c",
+      "status": "excluded",
+      "decision": "固定源没有房间放置的备份版本；由已放置 guard.c 保留同类行为。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/waiter.c",
+      "status": "verified",
+      "decision": "交付价值至少十两的礼物或等值货币后持久开放酒楼楼梯；低价礼物按源掉回当前房间。"
+    },
+    {
+      "source_path": "mudlib/d/city/shangshu/npc/guard.c",
+      "status": "verified",
+      "decision": "交付价值至少三百两的礼物或等值货币后开放一次尚书府东门；从门口离开时通行标记按源清除。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/beggar.c",
+      "status": "excluded",
+      "decision": "固定源没有房间放置该乞丐，不虚构位置。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/dog.c",
+      "status": "deferred",
+      "target": "M8",
+      "decision": "给予骨头后跟随玩家，等待统一 NPC 移动与日程模型。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/drunk.c",
+      "status": "deferred",
+      "target": "M4-events",
+      "decision": "酒袋剩余量和玉佩、蒙汗药线索依赖沈记商行剧情状态。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/keeper.c",
+      "status": "deferred",
+      "target": "M4-events",
+      "decision": "香火捐献按价值和福缘随机降低杀气，等待福缘属性处置。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/mercenary.c",
+      "status": "excluded",
+      "decision": "固定源没有房间放置该佣兵，不虚构位置或雇佣关系。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/proposer.c",
+      "status": "excluded",
+      "decision": "固定源没有房间放置，accept_object 函数体也为空；不生成多人婚姻替身。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/scavenger.c",
+      "status": "verified",
+      "decision": "已放置的收破烂者按源接受任意未装备物品并道谢，不附加虚构奖励。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/teacher.c",
+      "status": "verified",
+      "decision": "首次只接受总价值至少五两的物品并持久开放读书识字请教；不足时退还，入学后礼物照源收下。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/teacher1.c",
+      "status": "excluded",
+      "decision": "与 teacher.c 重复且固定源没有任何房间放置，不虚构第二位魏无极。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/worker.c",
+      "status": "deferred",
+      "target": "M8",
+      "decision": "按价值计算雇佣天数并跟随玩家，等待统一 NPC 移动与离线计时。"
+    }
+  ],
+  "behavior_flags": [
+    {
+      "flag": "ambient_chat",
+      "candidates": 24,
+      "status": "deferred",
+      "target": "M8",
+      "decision": "依赖 NPC 日程与世界 tick 的环境对白批次。"
+    },
+    {
+      "flag": "apprenticeship",
+      "candidates": 8,
+      "status": "deferred",
+      "target": "M4-combat",
+      "decision": "与四区师门条件、请教位置和 NPC 战斗身份共同接入。"
+    },
+    {
+      "flag": "combat_chat",
+      "candidates": 25,
+      "status": "deferred",
+      "target": "M4-combat",
+      "decision": "与 NPC 战斗属性、绝招和战利品共同接入。"
+    },
+    {
+      "flag": "custom_command",
+      "candidates": 11,
+      "status": "deferred",
+      "target": "M4-events",
+      "decision": "逐项审计给予、购买、邮寄、工作和剧情命令。"
+    },
+    {
+      "flag": "fight_gate",
+      "candidates": 9,
+      "status": "deferred",
+      "target": "M4-combat",
+      "decision": "与 NPC 比试/死斗入口和门派条件共同实现。"
+    },
+    {
+      "flag": "inquiry",
+      "candidates": 30,
+      "status": "deferred",
+      "target": "M4-events",
+      "decision": "75 个源主题中 57 个静态回复已结构化；已放置 NPC 的 50 个静态主题与 10 个脚本主题可运行。18 个脚本回调已全部登记为 4 verified、6 adapted、1 source_noop、7 excluded，无 deferred。"
+    },
+    {
+      "flag": "object_exchange",
+      "candidates": 19,
+      "status": "deferred",
+      "target": "M4-events",
+      "decision": "19 个候选已逐项审计：7 个 verified、1 个 adapted、6 个任务或世界状态交换 deferred、5 个未放置或空实现 excluded。"
+    },
+    {
+      "flag": "random_identity",
+      "candidates": 2,
+      "status": "adapted",
+      "target": "M4-npcs",
+      "decision": "尚书府护院原版姓名由随机姓与名组合；单人版使用稳定显示称号“尚书府护院”，保留不同 NPC ID。"
+    },
+    {
+      "flag": "random_movement",
+      "candidates": 15,
+      "status": "deferred",
+      "target": "M8",
+      "decision": "等待 NPC 日程与刷新模型，避免角色随机离开任务地点后破坏单人流程。"
+    },
+    {
+      "flag": "timed_behavior",
+      "candidates": 13,
+      "status": "deferred",
+      "target": "M8",
+      "decision": "问候、延迟对白和定时动作等待统一世界 tick 调度。"
+    }
+  ],
+  "source_defects": [
+    {
+      "source_path": "mudlib/d/temple/road2.c",
+      "target": "mudlib/d/temple/npc/guard_taoist.c",
+      "status": "blocked",
+      "decision": "固定源提交只有 guard_taoist1-3.c，不存在房间引用的无编号文件；不猜测替代角色。"
+    },
+    {
+      "source_path": "mudlib/d/temple/road2.c",
+      "target": "mudlib/d/temple/npc/taoist_guard.c",
+      "status": "blocked",
+      "decision": "固定源提交只有 taoist_guard1-3.c，不存在房间引用的无编号文件；不猜测替代角色。"
+    }
+  ]
+}

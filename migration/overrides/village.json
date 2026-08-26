@@ -52,7 +52,7 @@
     },
     {
       "source_path": "mudlib/d/village/melonfarm.c",
-      "flags": ["conditional_exit", "random_behavior"],
+      "flags": ["conditional_exit", "custom_command", "random_behavior"],
       "status": "verified",
       "adaptation": "按感知随机寻找熟瓜并判定瓜农发现；被发现后立即交战，认输仍封锁出口，赔付瓜钱或战胜瓜农后解除。",
       "tests": ["game::tests::caught_melon_thief_must_fight_or_settle_debt"]

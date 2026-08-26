@@ -1,0 +1,1873 @@
+{
+  "schema_version": 2,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "scope": "m4-npcs",
+  "status": "structured",
+  "summary": {
+    "total": 73,
+    "placed": 59,
+    "vendors": 9,
+    "vendor_goods": 27,
+    "inquiry_npcs": 30,
+    "inquiry_topics": 75,
+    "static_inquiries": 57,
+    "scripted_inquiries": 18,
+    "runtime_inquiry_npcs": 21,
+    "runtime_inquiries": 50,
+    "runtime_inquiry_references": 95,
+    "by_area": {
+      "canyon": 10,
+      "city": 23,
+      "snow": 26,
+      "temple": 14
+    }
+  },
+  "npcs": [
+    {
+      "id": "canyon.npc.adviser",
+      "source_path": "mudlib/d/canyon/npc/adviser.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "赫造基",
+      "description": "道光满面，□智不言而现，气象万千，显然是茅山术高手中的高\n手，经纶羽扇，和大将军正是绝配。",
+      "combat_exp": 300000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "兵器库",
+          "response": "先看看你的诚意再说罗。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "canyon.npc.captain",
+      "source_path": "mudlib/d/canyon/npc/captain.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "大队长",
+      "description": "他不苟言笑的样子，带领著小兵驻守隘口的队长。",
+      "combat_exp": 120000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "允许",
+          "response": "先给钱再说吧。",
+          "scripted": false
+        },
+        {
+          "topic": "兵器库",
+          "response": "喔！那是我们厉害的军师所设的阵法。",
+          "scripted": false
+        },
+        {
+          "topic": "黄石隘口",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "canyon.npc.door_guard",
+      "source_path": "mudlib/d/canyon/npc/door_guard.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "小兵",
+      "description": "他看起来有点精悍，手中紧握著刀，惊惊颤颤的样子。",
+      "combat_exp": 60000,
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "canyon.npc.general",
+      "source_path": "mudlib/d/canyon/npc/general.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "严廷殷",
+      "description": "容光焕发，左佩刀，右佩剑，威风□□，其高七尺六寸，虎背\n熊腰，年轻时同和大天邪于兰天武同拜一师，武功\\造诣不在大\n天邪之下，但志向不同，后成了京师武功\\第一、人人称羡的镇\n国大将军。",
+      "combat_exp": 900000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "黄石隘口",
+          "response": "你眼睛脱窗啊，这□就是黄石隘口。",
+          "scripted": false
+        },
+        {
+          "topic": "后备兵",
+          "response": "我不管这种事的，你别来烦我。",
+          "scripted": false
+        },
+        {
+          "topic": "兵器库",
+          "response": "你找死啊！问这种问题，你想干麻啊。",
+          "scripted": false
+        },
+        {
+          "topic": "印鉴",
+          "response": "你怎么知道的？帮我找找吧，找到了我送你礼物。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "canyon.npc.guard1",
+      "source_path": "mudlib/d/canyon/npc/guard1.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "小兵",
+      "description": "风沙满面，无精打采，毫无生气的样子，真难以想像是这\n□的守军。",
+      "combat_exp": 40000,
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "canyon.npc.guard2",
+      "source_path": "mudlib/d/canyon/npc/guard2.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "老兵",
+      "description": "风沙满面，无精打采，毫无生气的样子，真难以想像是这\n□的守军。",
+      "combat_exp": 40000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "黄石隘口",
+          "response": "这个问题问我们大队长比较知道。",
+          "scripted": false
+        },
+        {
+          "topic": "后备兵",
+          "response": "嘿嘿！你想做啥？",
+          "scripted": false
+        },
+        {
+          "topic": "军火库",
+          "response": "你问这个喔..........不予回答。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "canyon.npc.leader1",
+      "source_path": "mudlib/d/canyon/npc/leader1.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "小队长",
+      "description": "不苟言笑的样子，带领著小兵驻守隘口的小队长。",
+      "combat_exp": 80000,
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "canyon.npc.leader2",
+      "source_path": "mudlib/d/canyon/npc/leader2.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "老队长",
+      "description": "不苟言笑的样子，带领著小兵驻守隘口的小队长。",
+      "combat_exp": 80000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "黄石隘口",
+          "response": "你问问大队长吧，我不是很清楚。",
+          "scripted": false
+        },
+        {
+          "topic": "后备兵",
+          "response": "后备兵就..........你想做什么？找死啊。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "canyon.npc.seller",
+      "source_path": "mudlib/d/canyon/npc/seller.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "后备兵",
+      "description": "环顾四方，眼神锐利，看来想杀价是不可能的事了。",
+      "combat_exp": 50000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "canyon.npc.vice_general",
+      "source_path": "mudlib/d/canyon/npc/vice_general.c",
+      "status": "structured",
+      "area": "canyon",
+      "name": "李信",
+      "description": "原是禁卫军的队长，也因其强大的声望和实力，被先帝调离京师\n和镇国大将军共同镇守黄石隘口。",
+      "combat_exp": 400000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "city.npc.boss",
+      "source_path": "mudlib/d/city/npc/boss.c",
+      "status": "structured",
+      "area": "city",
+      "name": "钱掌柜",
+      "description": "钱掌柜长得如一个大面团般，白白胖胖的，虽说早已步入知天命\n的年龄，可保养得很好。一双小眼睛如俩枣核嵌在脸上，不时滴\n溜溜地乱转。他开的「太白酒楼」可是京城最大的。",
+      "combat_exp": 1000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "name",
+          "response": "在下姓钱，因少有资产，别人叫我钱千万。",
+          "scripted": false
+        },
+        {
+          "topic": "太白酒楼",
+          "response": "这里就是，客倌是第一次来吗？",
+          "scripted": false
+        },
+        {
+          "topic": "皇上",
+          "response": "小声点。偷偷地告述你，我真见过皇上的。",
+          "scripted": false
+        },
+        {
+          "topic": "作官",
+          "response": "瞧见没有，上面的人才是你应去打听的。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "city.npc.caker",
+      "source_path": "mudlib/d/city/npc/caker.c",
+      "status": "structured",
+      "area": "city",
+      "name": "卖饼大叔",
+      "description": "一个相貌朴实的卖饼大叔，憨厚的脸上挂著和蔼的笑容。",
+      "combat_exp": 30,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "city.npc.obj.cake",
+          "source_path": "mudlib/d/city/npc/obj/cake.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "大饼",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "city.npc.chen",
+      "source_path": "mudlib/d/city/npc/chen.c",
+      "status": "structured",
+      "area": "city",
+      "name": "陈天星",
+      "description": null,
+      "combat_exp": 1000000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "name",
+          "response": "呵呵…你连我都不知道嘛？去打听打听吧。",
+          "scripted": false
+        },
+        {
+          "topic": "振远镖局",
+          "response": "这可是我一手创建的啊！可惜我也老了。",
+          "scripted": false
+        },
+        {
+          "topic": "陈剑秋",
+          "response": "他是我侄子，有什么事找他？",
+          "scripted": false
+        },
+        {
+          "topic": "天邪神掌",
+          "response": "那是我和於兰天武交换武功学的",
+          "scripted": false
+        },
+        {
+          "topic": "拜师",
+          "response": "是剑秋推荐的嘛？可有他的信物？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "city.npc.clother",
+      "source_path": "mudlib/d/city/npc/clother.c",
+      "status": "structured",
+      "area": "city",
+      "name": "老板娘",
+      "description": "李掌柜是不难看的女人，一直经营着祖传鞋店生意。",
+      "combat_exp": 300000,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "city.npc.obj.color_cloth",
+          "source_path": "mudlib/d/city/npc/obj/color_cloth.c"
+        },
+        {
+          "item_id": "city.npc.obj.green_cloth",
+          "source_path": "mudlib/d/city/npc/obj/green_cloth.c"
+        },
+        {
+          "item_id": "city.npc.obj.lady_dress",
+          "source_path": "mudlib/d/city/npc/obj/lady_dress.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "here",
+          "response": "这里是京师绸缎庄，没钱别进来！",
+          "scripted": false
+        },
+        {
+          "topic": "name",
+          "response": "在下姓陶，闺名不能告诉你。",
+          "scripted": false
+        },
+        {
+          "topic": "衣服",
+          "response": "您需要什么样的？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "city.npc.dumpling_seller",
+      "source_path": "mudlib/d/city/npc/dumpling_seller.c",
+      "status": "structured",
+      "area": "city",
+      "name": "卖包子的",
+      "description": "这个卖包子的小贩对你微微一笑，说道：热腾腾的包子，来一笼吧？",
+      "combat_exp": 30,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.example.dumpling",
+          "source_path": "mudlib/obj/example/dumpling.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "包子",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "city.npc.guard",
+      "source_path": "mudlib/d/city/npc/guard.c",
+      "status": "structured",
+      "area": "city",
+      "name": "京师守城兵",
+      "description": "这是个正在这里站岗的京师官兵，虽然和许多武林人物比起来，官兵\n们的武功实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
+      "combat_exp": 100000,
+      "placement_count": 18,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "出城",
+          "response": "你可以在京城里找一找，说不定可以找到一些出城的令牌。",
+          "scripted": false
+        },
+        {
+          "topic": "out",
+          "response": "你可以在京城里找一找，说不定可以找到一些出城的令牌。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "custom_command",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "city.npc.guardbak",
+      "source_path": "mudlib/d/city/npc/guardbak.c",
+      "status": "structured",
+      "area": "city",
+      "name": "京师守城兵",
+      "description": "这是个正在这里站岗的京师官兵，虽然和许多武林人物比起来，官兵\n们的武功实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
+      "combat_exp": 100000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "出城",
+          "response": "你可以在京城里找一找，说不定可以找到一些出城的令牌。",
+          "scripted": false
+        },
+        {
+          "topic": "out",
+          "response": "你可以在京城里找一找，说不定可以找到一些出城的令牌。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "custom_command",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "city.npc.microsof",
+      "source_path": "mudlib/d/city/npc/microsof.c",
+      "status": "structured",
+      "area": "city",
+      "name": "黑你没商量",
+      "description": "黑你没商量是个看起来相当精明的中年人，他的本名叫做“魏阮”。\n不知作了什么黑心的生意，一夜之间暴富起来，开了钱庄后，逐渐地\n把其它钱庄全挤倒闭了，京师的居民对他的很多做法都非常不满，于\n是有了这个绰号。大家都知道他小肚鸡肠，所以谁也不去惹他。",
+      "combat_exp": 100000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "fight_gate",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "city.npc.shoer",
+      "source_path": "mudlib/d/city/npc/shoer.c",
+      "status": "structured",
+      "area": "city",
+      "name": "李掌柜",
+      "description": "李掌柜是不难看的女人，一直经营着祖传鞋店生意。",
+      "combat_exp": 220000,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "city.npc.obj.deer_boot",
+          "source_path": "mudlib/d/city/npc/obj/deer_boot.c"
+        },
+        {
+          "item_id": "city.npc.obj.flower_boot",
+          "source_path": "mudlib/d/city/npc/obj/flower_boot.c"
+        },
+        {
+          "item_id": "city.npc.obj.xiang_boot",
+          "source_path": "mudlib/d/city/npc/obj/xiang_boot.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "鞋",
+          "response": "您需要什么样的？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "city.npc.trader",
+      "source_path": "mudlib/d/city/npc/trader.c",
+      "status": "structured",
+      "area": "city",
+      "name": "商人",
+      "description": "这是一位从关外来的商人。",
+      "combat_exp": 5000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "city.npc.trader2",
+      "source_path": "mudlib/d/city/npc/trader2.c",
+      "status": "structured",
+      "area": "city",
+      "name": "商人",
+      "description": "这是一位从关外来的商人。",
+      "combat_exp": 5000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "city.npc.trader3",
+      "source_path": "mudlib/d/city/npc/trader3.c",
+      "status": "structured",
+      "area": "city",
+      "name": "商人",
+      "description": "这是一位从关外来的商人。",
+      "combat_exp": 5000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "city.npc.vendor",
+      "source_path": "mudlib/d/city/npc/vendor.c",
+      "status": "structured",
+      "area": "city",
+      "name": "卖艺壮汉",
+      "description": "一个满脸横肉的壮汉，口水四溅，正说着什么。",
+      "combat_exp": 30000,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.drug.hurt_drug",
+          "source_path": "mudlib/obj/drug/hurt_drug.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "金疮药",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "city.npc.waiter",
+      "source_path": "mudlib/d/city/npc/waiter.c",
+      "status": "structured",
+      "area": "city",
+      "name": "店小二",
+      "description": "这位店小二正笑咪咪地忙著，还不时拿起挂在脖子上的抹布擦脸。",
+      "combat_exp": 5,
+      "placement_count": 2,
+      "vendor_goods": [
+        {
+          "item_id": "city.npc.obj.cake",
+          "source_path": "mudlib/d/city/npc/obj/cake.c"
+        },
+        {
+          "item_id": "city.npc.obj.fish",
+          "source_path": "mudlib/d/city/npc/obj/fish.c"
+        },
+        {
+          "item_id": "city.npc.obj.wine",
+          "source_path": "mudlib/d/city/npc/obj/wine.c"
+        }
+      ],
+      "inquiries": [],
+      "behavior_flags": [
+        "custom_command",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "city.npc.walker",
+      "source_path": "mudlib/d/city/npc/walker.c",
+      "status": "structured",
+      "area": "city",
+      "name": "行人",
+      "description": null,
+      "combat_exp": 30000,
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "买官",
+          "response": "全是那个该死的尚书作的孽。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "inquiry",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "city.npc.weaponor",
+      "source_path": "mudlib/d/city/npc/weaponor.c",
+      "status": "structured",
+      "area": "city",
+      "name": "万晓生",
+      "description": "万晓生是个须发皆白的老人，闯荡江湖已近五十年。",
+      "combat_exp": 120000,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "city.npc.obj.armor1",
+          "source_path": "mudlib/d/city/npc/obj/armor1.c"
+        },
+        {
+          "item_id": "city.npc.obj.demon_staff",
+          "source_path": "mudlib/d/city/npc/obj/demon_staff.c"
+        },
+        {
+          "item_id": "city.npc.obj.duoqing_blade",
+          "source_path": "mudlib/d/city/npc/obj/duoqing_blade.c"
+        },
+        {
+          "item_id": "city.npc.obj.rain_whip",
+          "source_path": "mudlib/d/city/npc/obj/rain_whip.c"
+        },
+        {
+          "item_id": "city.npc.obj.wuqing_sword",
+          "source_path": "mudlib/d/city/npc/obj/wuqing_sword.c"
+        },
+        {
+          "item_id": "obj.weapon.dagger",
+          "source_path": "mudlib/obj/weapon/dagger.c"
+        },
+        {
+          "item_id": "obj.weapon.shield",
+          "source_path": "mudlib/obj/weapon/shield.c"
+        },
+        {
+          "item_id": "obj.weapon.sixhammer",
+          "source_path": "mudlib/obj/weapon/sixhammer.c"
+        },
+        {
+          "item_id": "obj.weapon.thin_sword",
+          "source_path": "mudlib/obj/weapon/thin_sword.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "武器",
+          "response": "本店专卖各种长短兵器",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "city.shangshu.npc.gardener",
+      "source_path": "mudlib/d/city/shangshu/npc/gardener.c",
+      "status": "structured",
+      "area": "city",
+      "name": "花匠",
+      "description": "一个老老实实、本本分分的庄园花匠，多年的风霜刻满\n了他的额头。多年以来从来没有人认真注意过他，他也\n总是默默地在花园里工作。",
+      "combat_exp": 500000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "茅山派",
+          "response": "那是我的师门。",
+          "scripted": false
+        },
+        {
+          "topic": "林忌",
+          "response": "林忌？。。你问我师兄，好久没见着他了。",
+          "scripted": false
+        },
+        {
+          "topic": "庾清尘",
+          "response": "什么？清尘出事了？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "city.shangshu.npc.guard",
+      "source_path": "mudlib/d/city/shangshu/npc/guard.c",
+      "status": "structured",
+      "area": "city",
+      "name": "门房",
+      "description": "尚书府的门房虽然没什么官衔，但所有想晋见\n尚书的白衣无不对他毕恭毕敬的n",
+      "combat_exp": 1000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "city.shangshu.npc.huyuan",
+      "source_path": "mudlib/d/city/shangshu/npc/huyuan.c",
+      "status": "structured",
+      "area": "city",
+      "name": "尚书府护院",
+      "description": null,
+      "combat_exp": 2000,
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_identity",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "city.shangshu.npc.huyuan1",
+      "source_path": "mudlib/d/city/shangshu/npc/huyuan1.c",
+      "status": "structured",
+      "area": "city",
+      "name": "尚书府护院",
+      "description": null,
+      "combat_exp": 2000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "客人",
+          "response": "我也不知道，主人吩咐我守着的。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "inquiry",
+        "random_identity"
+      ]
+    },
+    {
+      "id": "city.shangshu.npc.maid",
+      "source_path": "mudlib/d/city/shangshu/npc/maid.c",
+      "status": "structured",
+      "area": "city",
+      "name": "丫鬟",
+      "description": "她是尚书府的司职厨务的丫鬟，一年四季呆在厨房中。但粗重的\n杂活也掩不住其天生丽质。",
+      "combat_exp": 1000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.shangshu.npc.qing_chen",
+      "source_path": "mudlib/d/city/shangshu/npc/qing_chen.c",
+      "status": "structured",
+      "area": "city",
+      "name": "庾清尘",
+      "description": "她是尚书府的千金。平时一直呆在自己的绣房里，所以虽然外界\n如何盛传她是如何如何的文雅、娴淑，却极少有能见过她的人。\n不知从何时起，她竺信起道教来，所以一切讲究素雅。",
+      "combat_exp": 70000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "city.shangshu.npc.shangshu",
+      "source_path": "mudlib/d/city/shangshu/npc/shangshu.c",
+      "status": "structured",
+      "area": "city",
+      "name": "庾子建",
+      "description": "他是当今皇上身边的红人，与宫中的关系也很熟络，手中掌管着\n兵马大权。不过能爬上这个位置，绝不是仅仅因为溜须拍马的缘\n故，当年战功赫赫，才有今天的地位。",
+      "combat_exp": 400000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "snow.npc.annihir",
+      "source_path": "mudlib/d/snow/npc/annihir.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "安惜迩",
+      "description": "安惜迩是个看起来相当斯文的年轻人，不过有时候会有些心不在焉的\n样子，雪亭镇的居民对安惜迩都觉得有点神秘莫测的感觉，为什么他\n年纪轻轻就身为一家大钱庄的老板，还有他一身稀奇古怪的武功，所\n幸安惜迩似乎天性恬淡，甚至有些隐者的风骨，只要旁人不去惹他，\n他也绝不会去招惹旁人。",
+      "combat_exp": 200000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "fight_gate",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.beggar",
+      "source_path": "mudlib/d/snow/npc/beggar.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "乞丐",
+      "description": "一个满脸风霜之色的老乞丐。",
+      "combat_exp": 100,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "fight_gate",
+        "object_exchange",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.crazy_dog",
+      "source_path": "mudlib/d/snow/npc/crazy_dog.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "疯狗",
+      "description": "一只浑身脏兮兮的野狗，一双眼睛正恶狠狠地瞪著你。",
+      "combat_exp": 100,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.dog",
+      "source_path": "mudlib/d/snow/npc/dog.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "野狗",
+      "description": "一只浑身脏兮兮的野狗。",
+      "combat_exp": null,
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "object_exchange",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.drunk",
+      "source_path": "mudlib/d/snow/npc/drunk.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "醉汉",
+      "description": null,
+      "combat_exp": 100,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "snow.npc.farmer",
+      "source_path": "mudlib/d/snow/npc/farmer.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "农夫",
+      "description": "你看到一位面色黝黑的农夫。",
+      "combat_exp": 20,
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "snow.npc.fist_trainer",
+      "source_path": "mudlib/d/snow/npc/fist_trainer.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "李火狮",
+      "description": "李火狮是个孔武有力的大块头，他正在训练他的弟子们习练「柳家拳\n法」。",
+      "combat_exp": 3000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "here",
+          "response": "这里当然是淳风武馆，不然还是哪里？",
+          "scripted": false
+        },
+        {
+          "topic": "name",
+          "response": "在下姓李，名字就叫火狮，人称李教头的便是我。",
+          "scripted": false
+        },
+        {
+          "topic": "柳家拳法",
+          "response": "哦....说来惭愧，小弟这套拳法还没学得到家, 柳馆主就教我在这里传艺。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "fight_gate",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "snow.npc.girl",
+      "source_path": "mudlib/d/snow/npc/girl.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "柳绘心",
+      "description": "柳绘心是淳风武馆馆主柳淳风的独生女。",
+      "combat_exp": 1000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship",
+        "combat_chat",
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "snow.npc.guard",
+      "source_path": "mudlib/d/snow/npc/guard.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "刘安禄",
+      "description": "刘安禄是淳风武馆的门房，除了馆主柳淳风没有人知道他的出身来历，只知\n到他的武艺不弱，一手快刀在这一带罕有敌手。",
+      "combat_exp": 20000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "刘老三",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "血手刘三",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "inquiry",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.herbalist",
+      "source_path": "mudlib/d/snow/npc/herbalist.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "杨掌柜",
+      "description": "杨掌柜是这附近相当有名的大善人，常常施舍草药给付不起药钱的穷人\n。此外他的医术也不错，年轻时曾经跟著山烟寺的玄智和尚学医，一般\n的伤寒小病直接问他开药吃比医生还灵。",
+      "combat_exp": 1300,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.drug.hurt_drug",
+          "source_path": "mudlib/obj/drug/hurt_drug.c"
+        },
+        {
+          "item_id": "obj.drug.snake_drug",
+          "source_path": "mudlib/obj/drug/snake_drug.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "治伤",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "疗伤",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "开药",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "snow.npc.keeper",
+      "source_path": "mudlib/d/snow/npc/keeper.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "庙祝",
+      "description": "这个老人看起来七十多岁了，看著他□偻的身影，你忽然觉得心情沈重了下来。",
+      "combat_exp": 1,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "snow.npc.mercenary",
+      "source_path": "mudlib/d/snow/npc/mercenary.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "逄义",
+      "description": "逄义是封山派中和柳淳风同辈的弟子，但是生性好赌的他并不受师父\n及同门师兄弟的喜爱，因此辈分虽高，却未曾担任门中任何重要职务\n。逄义经常外出，美其名曰：旅行，实则避债，碍于门规又不敢做那\n打家劫舍的勾当，因此经常四处寻找赚钱发财的机会。",
+      "combat_exp": null,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "赚钱",
+          "response": "真的？哪里有钱赚？",
+          "scripted": false
+        },
+        {
+          "topic": "发财",
+          "response": "发财我倒不敢想，只要有人肯雇用(employment)我，手边有几百两银子就好了。",
+          "scripted": false
+        },
+        {
+          "topic": "employment",
+          "response": "是的，一天一百两银子，只要不违背侠义道，我可以做任何事。",
+          "scripted": false
+        },
+        {
+          "topic": "柳淳风",
+          "response": "柳淳风是在下同门师兄。",
+          "scripted": false
+        },
+        {
+          "topic": "赌",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "snow.npc.old_farmer",
+      "source_path": "mudlib/d/snow/npc/old_farmer.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "老农夫",
+      "description": "你看到一位面色黝黑的农夫。",
+      "combat_exp": 20,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "snow.npc.post_officer",
+      "source_path": "mudlib/d/snow/npc/post_officer.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "杜宽",
+      "description": "杜宽担任雪亭驿的驿长已经有十几年了，虽然期间有几次升迁的\n机会，但是他都因为舍不得离开这个小山村而放弃了，雪亭镇的\n居民对杜宽的风评相当不错，常常会来到驿站跟他聊天。",
+      "combat_exp": 800,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "驿站",
+          "response": "是啊... 这里就是雪亭驿，你要寄信吗？",
+          "scripted": false
+        },
+        {
+          "topic": "寄信",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "收信",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "snow.npc.proposer",
+      "source_path": "mudlib/d/snow/npc/proposer.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "媒婆",
+      "description": "一个打扮得花枝招展的中年妇人，如果你对哪家姑娘有意思，可以请她\n帮你去提亲。",
+      "combat_exp": null,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "employment",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "提亲",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "snow.npc.rat",
+      "source_path": "mudlib/d/snow/npc/rat.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "老鼠",
+      "description": "一只贼头贼脑的大老鼠。",
+      "combat_exp": null,
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "snow.npc.scavenger",
+      "source_path": "mudlib/d/snow/npc/scavenger.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "收破烂的",
+      "description": "这个人不但自己收破烂，身上也穿得破烂不堪。",
+      "combat_exp": 10,
+      "placement_count": 11,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "fight_gate",
+        "object_exchange",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.smith",
+      "source_path": "mudlib/d/snow/npc/smith.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "王铁匠",
+      "description": "王铁匠正用铁钳夹住一块红热的铁块放进炉中。",
+      "combat_exp": 400,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "name",
+          "response": "小人姓王，单名一个恒字，可是小人西瓜大的字识不到一担，只有王字会写。",
+          "scripted": false
+        },
+        {
+          "topic": "here",
+          "response": "这里是小人糊口的铺子，小人一家五口都住在后边的屋子。",
+          "scripted": false
+        },
+        {
+          "topic": "锄头",
+          "response": "锄头... 抱歉，锄头已经卖光了...",
+          "scripted": false
+        },
+        {
+          "topic": "铲子",
+          "response": "对不起，小人店里的铲子都给人订走了。",
+          "scripted": false
+        },
+        {
+          "topic": "铁锤",
+          "response": "铁锤？小人做的铁锤坚固又耐用，一把只要三百文钱。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "snow.npc.teacher",
+      "source_path": "mudlib/d/snow/npc/teacher.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "魏无极",
+      "description": "魏无极是个博学多闻的教书先生，他年轻时曾经中过举人，但是\n因为生性喜爱自由而不愿做官，魏无极以教书为业，如果你付他\n一笔学费，就可以成为他的弟子学习读书识字。",
+      "combat_exp": null,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "学费",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "读书识字",
+          "response": "对，读书识字。",
+          "scripted": false
+        },
+        {
+          "topic": "刘安禄",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "snow.npc.teacher1",
+      "source_path": "mudlib/d/snow/npc/teacher1.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "魏无极",
+      "description": "魏无极是个博学多闻的教书先生，他年轻时曾经中过举人，但是\n因为生性喜爱自由而不愿做官，魏无极以教书为业，如果你付他\n一笔学费，就可以成为他的弟子学习读书识字。",
+      "combat_exp": null,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "学费",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "读书识字",
+          "response": "对，读书识字。",
+          "scripted": false
+        },
+        {
+          "topic": "刘安禄",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "snow.npc.trainee",
+      "source_path": "mudlib/d/snow/npc/trainee.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "武馆弟子",
+      "description": "你看到一位身材高大的汉子，正在辛苦地操练著。",
+      "combat_exp": 100,
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "snow.npc.trav_blade",
+      "source_path": "mudlib/d/snow/npc/trav_blade.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "旅客",
+      "description": "这是一位来雪亭镇的外地旅客.",
+      "combat_exp": 600,
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.traveller",
+      "source_path": "mudlib/d/snow/npc/traveller.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "旅客",
+      "description": "这是一位来雪亭镇的外地旅客.",
+      "combat_exp": 600,
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.waiter",
+      "source_path": "mudlib/d/snow/npc/waiter.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "店小二",
+      "description": "这位店小二正笑咪咪地忙著，还不时拿起挂在脖子上的抹布擦脸。",
+      "combat_exp": 10000,
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.example.chicken_leg",
+          "source_path": "mudlib/obj/example/chicken_leg.c"
+        },
+        {
+          "item_id": "obj.example.dagger",
+          "source_path": "mudlib/obj/example/dagger.c"
+        },
+        {
+          "item_id": "obj.example.dumpling",
+          "source_path": "mudlib/obj/example/dumpling.c"
+        },
+        {
+          "item_id": "obj.example.wineskin",
+          "source_path": "mudlib/obj/example/wineskin.c"
+        }
+      ],
+      "inquiries": [],
+      "behavior_flags": [
+        "custom_command",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "snow.npc.woodcutter",
+      "source_path": "mudlib/d/snow/npc/woodcutter.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "樵夫",
+      "description": "你看到一个粗壮的大汉，身上穿著普通樵夫的衣服。",
+      "combat_exp": 140,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "snow.npc.worker",
+      "source_path": "mudlib/d/snow/npc/worker.c",
+      "status": "structured",
+      "area": "snow",
+      "name": "苦力",
+      "description": "一个苦力打扮的汉子在这里等人来雇用(employment)。",
+      "combat_exp": null,
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "employment",
+          "response": "小人的工资一天只要一百文钱，大人只管吩咐。",
+          "scripted": false
+        },
+        {
+          "topic": "name",
+          "response": "小人的名字难听得紧，不敢劳大人过问。",
+          "scripted": false
+        },
+        {
+          "topic": "home",
+          "response": "小人是乔阴县雪亭镇人氏。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "temple.npc.guard_taoist1",
+      "source_path": "mudlib/d/temple/npc/guard_taoist1.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "清灵",
+      "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
+      "combat_exp": 50000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "temple.npc.guard_taoist2",
+      "source_path": "mudlib/d/temple/npc/guard_taoist2.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "清平",
+      "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
+      "combat_exp": 49000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "temple.npc.guard_taoist3",
+      "source_path": "mudlib/d/temple/npc/guard_taoist3.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "清玄",
+      "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
+      "combat_exp": 50000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "temple.npc.guest",
+      "source_path": "mudlib/d/temple/npc/guest.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "进香客",
+      "description": "一个福福泰泰的中年人, 他正气喘嘘嘘地走著石梯道",
+      "combat_exp": 600,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "temple.npc.little_taoist1",
+      "source_path": "mudlib/d/temple/npc/little_taoist1.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "玄真",
+      "description": "一个长得眉清目秀的小男孩, 正努力地在打扫石阶",
+      "combat_exp": 1500,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "temple.npc.little_taoist2",
+      "source_path": "mudlib/d/temple/npc/little_taoist2.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "玄和",
+      "description": "一个长得眉清目秀的小男孩, 正忙著浇花除草",
+      "combat_exp": 1000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "temple.npc.old_taoist",
+      "source_path": "mudlib/d/temple/npc/old_taoist.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "老道士",
+      "description": "一位四处云游的老道士, 他正在观心观挂单中。\n看他饱经沧桑的脸孔, 似乎他也是经历过无数的大风大浪。",
+      "combat_exp": 2500,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "temple.npc.taoist",
+      "source_path": "mudlib/d/temple/npc/taoist.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "清虚",
+      "description": "一位神色和平的中年道士, 他正在教授他的徒弟如何运功\\导气",
+      "combat_exp": 10000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "temple.npc.taoist2",
+      "source_path": "mudlib/d/temple/npc/taoist2.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "明心",
+      "description": "一位身材魁武的年轻道士, 他正在练拳, 你看他舞得虎虎生风",
+      "combat_exp": 5000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "temple.npc.taoist_guard1",
+      "source_path": "mudlib/d/temple/npc/taoist_guard1.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "清风",
+      "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
+      "combat_exp": 48000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "temple.npc.taoist_guard2",
+      "source_path": "mudlib/d/temple/npc/taoist_guard2.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "清音",
+      "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
+      "combat_exp": 52000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "temple.npc.taoist_guard3",
+      "source_path": "mudlib/d/temple/npc/taoist_guard3.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "清云",
+      "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
+      "combat_exp": 51000,
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "temple.npc.tfighter",
+      "source_path": "mudlib/d/temple/npc/tfighter.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "僵尸护法",
+      "description": "僵尸护法是茅山派的护法，着一身黑色的道袍",
+      "combat_exp": 50000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "谷衣心法",
+          "response": "谷衣心法是我茅山派为对抗邪魔外道所创的内功心法。",
+          "scripted": false
+        },
+        {
+          "topic": "茅山派",
+          "response": "我茅山派自张天师开山立派至今，世世代代皆以降妖伏魔为己任。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "combat_chat",
+        "fight_gate",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "temple.npc.trainer",
+      "source_path": "mudlib/d/temple/npc/trainer.c",
+      "status": "structured",
+      "area": "temple",
+      "name": "僵尸侍者",
+      "description": "僵尸侍者是林忌的弟子，着一身黑色的道袍",
+      "combat_exp": 14000,
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "谷衣心法",
+          "response": "谷衣心法是我茅山派为对抗邪魔外道所创的内功心法。",
+          "scripted": false
+        },
+        {
+          "topic": "茅山派",
+          "response": "我茅山派自张天师开山立派至今，世世代代皆以降妖伏魔为己任。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "apprenticeship",
+        "combat_chat",
+        "fight_gate",
+        "inquiry",
+        "random_movement"
+      ]
+    }
+  ],
+  "warnings": [
+    "mudlib/d/canyon/npc/adviser.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/canyon/npc/adviser.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/canyon/npc/adviser.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/canyon/npc/adviser.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/canyon/npc/captain.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/canyon/npc/captain.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/canyon/npc/captain.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/canyon/npc/captain.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/canyon/npc/general.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/canyon/npc/general.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/canyon/npc/general.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/canyon/npc/general.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/canyon/npc/guard2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/canyon/npc/guard2.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/canyon/npc/leader2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/canyon/npc/leader2.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/canyon/npc/seller.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/canyon/npc/vice_general.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/canyon/npc/vice_general.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/city/npc/boss.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/boss.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/city/npc/caker.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/caker.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/caker.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/chen.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/city/npc/chen.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/chen.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/city/npc/clother.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/clother.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/clother.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/city/npc/dumpling_seller.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/dumpling_seller.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/dumpling_seller.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/guard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/city/npc/guard.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/guard.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/guard.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/city/npc/guardbak.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/city/npc/guardbak.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/guardbak.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/guardbak.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/city/npc/microsof.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/microsof.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/city/npc/microsof.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/city/npc/microsof.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/city/npc/shoer.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/shoer.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/shoer.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/city/npc/trader.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/trader.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/city/npc/trader.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/city/npc/trader2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/trader2.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/city/npc/trader2.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/city/npc/trader3.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/trader3.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/city/npc/vendor.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/vendor.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/vendor.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/waiter.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/waiter.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/city/npc/walker.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/npc/walker.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/walker.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/city/npc/weaponor.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/city/npc/weaponor.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/npc/weaponor.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/city/shangshu/npc/gardener.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/city/shangshu/npc/gardener.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/shangshu/npc/guard.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/shangshu/npc/guard.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/city/shangshu/npc/huyuan.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/city/shangshu/npc/huyuan.c: NPC 行为待实现 [random_identity]",
+    "mudlib/d/city/shangshu/npc/huyuan.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/city/shangshu/npc/huyuan1.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/city/shangshu/npc/huyuan1.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/city/shangshu/npc/huyuan1.c: NPC 行为待实现 [random_identity]",
+    "mudlib/d/city/shangshu/npc/qing_chen.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/snow/npc/annihir.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/annihir.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/snow/npc/annihir.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/snow/npc/annihir.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/beggar.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/beggar.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/snow/npc/beggar.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/beggar.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/crazy_dog.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/crazy_dog.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/snow/npc/crazy_dog.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/dog.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/dog.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/dog.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/drunk.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/drunk.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/farmer.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/snow/npc/fist_trainer.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/snow/npc/fist_trainer.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/snow/npc/fist_trainer.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/girl.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/snow/npc/girl.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/snow/npc/girl.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/snow/npc/guard.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/guard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/snow/npc/guard.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/guard.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/herbalist.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/snow/npc/herbalist.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/keeper.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/keeper.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/snow/npc/mercenary.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/snow/npc/mercenary.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/mercenary.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/mercenary.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/snow/npc/old_farmer.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/snow/npc/post_officer.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/proposer.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/proposer.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/scavenger.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/scavenger.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/snow/npc/scavenger.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/scavenger.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/smith.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/teacher.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/snow/npc/teacher.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/teacher.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/teacher1.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/snow/npc/teacher1.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/teacher1.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/trav_blade.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/trav_blade.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/traveller.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/traveller.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/waiter.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/snow/npc/waiter.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/snow/npc/woodcutter.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/snow/npc/woodcutter.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/snow/npc/worker.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/snow/npc/worker.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/snow/npc/worker.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/temple/npc/guard_taoist1.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/guard_taoist2.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/guard_taoist3.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/old_taoist.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/temple/npc/taoist_guard1.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/taoist_guard2.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/taoist_guard3.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/tfighter.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/temple/npc/tfighter.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/tfighter.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/temple/npc/tfighter.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [random_movement]"
+  ]
+}

@@ -10,8 +10,11 @@
 - 70 个原版技能、114 个招式、11 位掌门，以及师承、请教、映射、练习和秘笈研读
 - 20 个已验证绝招，基础内功恢复、属性成长和武学命中钩子
 - 区分非致死比试与死斗，支持认输、逃跑、昏迷、杀气和通缉
-- 26 个从原 LPC 导入的 `village` 房间，以及 4 个单人适配地点
+- 173 个从原 LPC 导入的 `village`、`city`、`snow`、`temple`、`canyon` 房间，以及 4 个单人适配地点
 - 连通地点、NPC 对话、任务线、奖励和装备
+- 73 个 M4 原版 NPC 定义与多 NPC 房间，京城和雪亭镇 9 个商人出售 27 种原版货品
+- 30 个 NPC 的 75 个原版询问主题；26 个已放置 NPC 的 50 个静态主题与 10 个已审计脚本主题可用，共形成 105 个房间主题引用
+- 黄石峡黑市口令、军营许可、真假印鉴与古剑链，以及京城酒楼和尚书府的条件入口
 - 451 个原版物品定义，以及实例堆叠、负重、装备槽、耐久和地点掉落
 - 原版货币换算、商店买卖、赠予，以及食物、饮水、药物和持续状态
 - 实时修炼与休息，行动期间游戏时间自动推进
@@ -48,6 +51,7 @@ cargo run --release
 - `src/game.rs`：与终端无关的角色、战斗、任务和时间状态机
 - `src/content.rs`：稳定地点 ID、嵌入式区域目录和游戏规则覆盖
 - `src/items.rs`：稳定物品 ID、451 个源定义和运行时物品实例
+- `src/npcs.rs`：稳定 NPC ID、M4 源定义和数据驱动商店
 - `src/skills.rs`：稳定技能 ID、70 个技能、11 位掌门和绝招定义
 - `src/app.rs`：键盘输入和 UI 选择状态
 - `src/ui.rs`：Ratatui 宽屏与紧凑布局
@@ -58,8 +62,13 @@ cargo run --release
 
 ```bash
 cargo run --bin es2-import -- es2-utf8 village migration/catalog/village.json
+cargo run --bin es2-import -- es2-utf8 city migration/catalog/city.json
+cargo run --bin es2-import -- es2-utf8 snow migration/catalog/snow.json
+cargo run --bin es2-import -- es2-utf8 temple migration/catalog/temple.json
+cargo run --bin es2-import -- es2-utf8 canyon migration/catalog/canyon.json
+cargo run --bin es2-import -- es2-utf8 npcs-m4 migration/catalog/npcs-m4.json
 cargo run --bin es2-import -- es2-utf8 items migration/catalog/items.json
 cargo run --bin es2-import -- es2-utf8 skills migration/catalog/skills.json
 ```
 
-当前 M1-M3 已完成：`village` 的 26 个房间与 19 项动态房间行为、451 个物品的实例/装备/经济/消耗状态，以及 70 个技能的训练与战斗系统。动态物品和技能脚本的实现、延期与排除分别记录在 `migration/overrides/items.json` 和 `migration/overrides/skills.json`。下一阶段是 M4 北部主干区域。完整范围、批次和验收口径见 `docs/MIGRATION_PLAN.md`。
+当前 M1-M3 已完成：`village` 的动态房间行为、451 个物品的实例/装备/经济/消耗状态，以及 70 个技能的训练与战斗系统。M4 北部主干区域正在迁移：147 个新房间和跨区主干已经接入，73 个 NPC 定义可按源房间引用放置，京城与雪亭镇 9 个商人的 27 种货品可购买，已放置 NPC 的 50 个静态询问主题和 10 个脚本主题已接入。18 个脚本问答已全部处置且无延期项；魏无极书院、刘安禄身份死斗、黄石峡黑市与真假印鉴、京城酒楼和尚书府入口可完整运行。19 项物品交换均有台账，其中 7 项 verified、1 项 adapted、6 项等待跨区或世界状态、5 项排除。其余 NPC 战斗、区域事件和刘老农剧情仍待完成。动态物品、技能脚本、M4 拓扑和 NPC 行为的处置分别记录在 `migration/overrides/items.json`、`migration/overrides/skills.json`、`migration/overrides/m4-topology.json` 和 `migration/overrides/m4-npcs.json`。完整范围、批次和验收口径见 `docs/MIGRATION_PLAN.md`。

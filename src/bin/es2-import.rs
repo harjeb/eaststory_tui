@@ -8,6 +8,8 @@ use std::{
 use anyhow::{Context, Result, bail};
 use serde::Serialize;
 
+const SOURCE_REV: &str = "87bba6b";
+
 #[derive(Debug, Serialize)]
 struct AreaCatalog {
     schema_version: u32,
@@ -151,6 +153,67 @@ struct TeacherRecord {
     apprentice_behavior: Option<String>,
 }
 
+#[derive(Debug, Serialize)]
+struct NpcCatalog {
+    schema_version: u32,
+    source_commit: String,
+    scope: &'static str,
+    status: &'static str,
+    summary: NpcSummary,
+    npcs: Vec<NpcRecord>,
+    warnings: Vec<String>,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcSummary {
+    total: usize,
+    placed: usize,
+    vendors: usize,
+    vendor_goods: usize,
+    inquiry_npcs: usize,
+    inquiry_topics: usize,
+    static_inquiries: usize,
+    scripted_inquiries: usize,
+    runtime_inquiry_npcs: usize,
+    runtime_inquiries: usize,
+    runtime_inquiry_references: usize,
+    by_area: BTreeMap<String, usize>,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcRecord {
+    id: String,
+    source_path: String,
+    status: &'static str,
+    area: String,
+    name: String,
+    description: Option<String>,
+    combat_exp: Option<i32>,
+    placement_count: usize,
+    vendor_goods: Vec<VendorGoodRecord>,
+    inquiries: Vec<InquiryRecord>,
+    behavior_flags: Vec<String>,
+}
+
+#[derive(Debug, Serialize)]
+struct VendorGoodRecord {
+    item_id: String,
+    source_path: String,
+}
+
+#[derive(Debug, Serialize)]
+struct InquiryRecord {
+    topic: String,
+    response: Option<String>,
+    scripted: bool,
+}
+
+#[derive(Debug)]
+struct ObjectReference {
+    source_path: String,
+    quantity: usize,
+}
+
 fn main() -> Result<()> {
     let mut args = env::args().skip(1);
     let repository = PathBuf::from(args.next().unwrap_or_else(|| "es2-utf8".into()));
@@ -160,7 +223,7 @@ fn main() -> Result<()> {
             .unwrap_or_else(|| format!("migration/catalog/{area}.json")),
     );
     if args.next().is_some() {
-        bail!("用法: es2-import [源仓库] [区域|items|skills] [输出文件]");
+        bail!("用法: es2-import [源仓库] [区域|items|skills|npcs-m4] [输出文件]");
     }
 
     let (json, summary) = match area.as_str() {
@@ -186,6 +249,19 @@ fn main() -> Result<()> {
             );
             (
                 serde_json::to_string_pretty(&catalog).context("无法序列化技能目录")?,
+                summary,
+            )
+        }
+        "npcs-m4" => {
+            let catalog = import_m4_npcs(&repository)?;
+            let summary = format!(
+                "npcs-m4: 导入 {} 个 NPC、{} 个商人、{} 条告警",
+                catalog.npcs.len(),
+                catalog.summary.vendors,
+                catalog.warnings.len()
+            );
+            (
+                serde_json::to_string_pretty(&catalog).context("无法序列化 NPC 目录")?,
                 summary,
             )
         }
@@ -216,11 +292,13 @@ fn main() -> Result<()> {
 }
 
 fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
-    let source_commit = git(repository, &["rev-parse", "HEAD"])?.trim().to_string();
+    let source_commit = git(repository, &["rev-parse", SOURCE_REV])?
+        .trim()
+        .to_string();
     let root = format!("mudlib/d/{area}");
     let listing = git(
         repository,
-        &["ls-tree", "-r", "--name-only", "HEAD", "--", &root],
+        &["ls-tree", "-r", "--name-only", SOURCE_REV, "--", &root],
     )?;
 
     let mut rooms = Vec::new();
@@ -228,14 +306,14 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
     let mut warnings = Vec::new();
 
     for path in listing.lines().filter(|path| path.ends_with(".c")) {
-        let source = git(repository, &["show", &format!("HEAD:{path}")])?;
+        let source = git(repository, &["show", &format!("{SOURCE_REV}:{path}")])?;
         if !is_room(&source) {
             non_room_files.push(path.to_string());
             continue;
         }
 
         let id = source_path_to_id(path);
-        let name = extract_quoted_value(&source, "set(\"short\",").unwrap_or_else(|| {
+        let name = extract_set_string(&source, "short").unwrap_or_else(|| {
             warnings.push(format!("{path}: 无法解析 short"));
             id.clone()
         });
@@ -243,8 +321,8 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
             warnings.push(format!("{path}: 无法解析 long"));
             String::new()
         });
-        let exits = extract_exits(&source, area);
-        let object_sources = extract_objects(&source);
+        let exits = extract_exits(&source, area, path);
+        let object_sources = extract_objects(&source, path);
         let behavior_flags = detect_behaviors(&source);
         for flag in &behavior_flags {
             warnings.push(format!("{path}: 动态行为待实现 [{flag}]"));
@@ -277,9 +355,145 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
     })
 }
 
+fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
+    const AREAS: [&str; 4] = ["city", "snow", "temple", "canyon"];
+
+    let source_commit = git(repository, &["rev-parse", SOURCE_REV])?
+        .trim()
+        .to_string();
+    let mut sources = BTreeMap::new();
+    let mut placements = BTreeMap::<String, usize>::new();
+
+    for area in AREAS {
+        let root = format!("mudlib/d/{area}");
+        let listing = git(
+            repository,
+            &["ls-tree", "-r", "--name-only", SOURCE_REV, "--", &root],
+        )?;
+        for path in listing.lines().filter(|path| path.ends_with(".c")) {
+            let source = git(repository, &["show", &format!("{SOURCE_REV}:{path}")])?;
+            if is_room(&source) {
+                for object in extract_object_references(&source, path) {
+                    *placements.entry(object.source_path).or_insert(0) += object.quantity;
+                }
+            }
+            if is_npc(&source) {
+                sources.insert(path.to_string(), source);
+            }
+        }
+    }
+
+    let mut npcs = Vec::new();
+    let mut warnings = Vec::new();
+    let mut by_area = BTreeMap::new();
+    for (path, source) in sources {
+        let area = path
+            .strip_prefix("mudlib/d/")
+            .and_then(|tail| tail.split('/').next())
+            .expect("M4 NPC path has an area")
+            .to_string();
+        let id = source_path_to_id(&path);
+        let name = extract_item_name(&source)
+            .or_else(|| extract_set_string(&source, "title"))
+            .unwrap_or_else(|| {
+                warnings.push(format!("{path}: 无法解析 NPC 名称"));
+                id.clone()
+            });
+        let vendor_goods = extract_vendor_goods(&source, &path);
+        let inquiries = extract_inquiries(&source);
+        let behavior_flags = detect_npc_behaviors(&source);
+        for flag in &behavior_flags {
+            warnings.push(format!("{path}: NPC 行为待实现 [{flag}]"));
+        }
+        *by_area.entry(area.clone()).or_insert(0) += 1;
+        npcs.push(NpcRecord {
+            id,
+            source_path: path.clone(),
+            status: "structured",
+            area,
+            name,
+            description: extract_set_text(&source, "long"),
+            combat_exp: extract_set_integer(&source, "combat_exp"),
+            placement_count: placements.get(&path).copied().unwrap_or(0),
+            vendor_goods,
+            inquiries,
+            behavior_flags,
+        });
+    }
+    npcs.sort_by(|left, right| left.id.cmp(&right.id));
+    warnings.sort();
+
+    let placed = npcs.iter().filter(|npc| npc.placement_count > 0).count();
+    let vendors = npcs
+        .iter()
+        .filter(|npc| !npc.vendor_goods.is_empty())
+        .count();
+    let vendor_goods = npcs.iter().map(|npc| npc.vendor_goods.len()).sum();
+    let inquiry_npcs = npcs.iter().filter(|npc| !npc.inquiries.is_empty()).count();
+    let inquiry_topics = npcs.iter().map(|npc| npc.inquiries.len()).sum();
+    let static_inquiries = npcs
+        .iter()
+        .flat_map(|npc| &npc.inquiries)
+        .filter(|inquiry| !inquiry.scripted && inquiry.response.is_some())
+        .count();
+    let scripted_inquiries = inquiry_topics - static_inquiries;
+    let runtime_inquiry_npcs = npcs
+        .iter()
+        .filter(|npc| {
+            npc.placement_count > 0
+                && npc
+                    .inquiries
+                    .iter()
+                    .any(|inquiry| !inquiry.scripted && inquiry.response.is_some())
+        })
+        .count();
+    let runtime_inquiries = npcs
+        .iter()
+        .filter(|npc| npc.placement_count > 0)
+        .flat_map(|npc| &npc.inquiries)
+        .filter(|inquiry| !inquiry.scripted && inquiry.response.is_some())
+        .count();
+    let runtime_inquiry_references = npcs
+        .iter()
+        .map(|npc| {
+            npc.placement_count
+                * npc
+                    .inquiries
+                    .iter()
+                    .filter(|inquiry| !inquiry.scripted && inquiry.response.is_some())
+                    .count()
+        })
+        .sum();
+
+    Ok(NpcCatalog {
+        schema_version: 2,
+        source_commit,
+        scope: "m4-npcs",
+        status: "structured",
+        summary: NpcSummary {
+            total: npcs.len(),
+            placed,
+            vendors,
+            vendor_goods,
+            inquiry_npcs,
+            inquiry_topics,
+            static_inquiries,
+            scripted_inquiries,
+            runtime_inquiry_npcs,
+            runtime_inquiries,
+            runtime_inquiry_references,
+            by_area,
+        },
+        npcs,
+        warnings,
+    })
+}
+
 fn import_items(repository: &Path) -> Result<ItemCatalog> {
     const ITEM_INHERITS: &str = "inherit (ITEM|COMBINED_ITEM|MONEY|EQUIP|CLOTH|HEAD|BOOTS|WAIST|NECK|SURCOAT|SHIELD|WRISTS|FINGER|HANDS|ARMOR|SWORD|BLADE|HAMMER|THROWING|STAFF|WHIP|DAGGER|AXE|FORK|POWDER|PILL|F_FOOD|F_LIQUID);|inherit \"/std/(item|weapon|armor)";
-    let source_commit = git(repository, &["rev-parse", "HEAD"])?.trim().to_string();
+    let source_commit = git(repository, &["rev-parse", SOURCE_REV])?
+        .trim()
+        .to_string();
     let listing = git(
         repository,
         &[
@@ -288,7 +502,7 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
             "-l",
             "-E",
             ITEM_INHERITS,
-            "HEAD",
+            SOURCE_REV,
             "--",
             "mudlib",
         ],
@@ -300,7 +514,7 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
             "ls-tree",
             "-r",
             "--name-only",
-            "HEAD",
+            SOURCE_REV,
             "--",
             "mudlib/daemon/skill",
         ],
@@ -317,12 +531,13 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
     let mut items = Vec::new();
     let mut warnings = Vec::new();
     let mut by_category = BTreeMap::new();
+    let revision_prefix = format!("{SOURCE_REV}:");
     for entry in listing.lines() {
-        let path = entry.strip_prefix("HEAD:").unwrap_or(entry);
+        let path = entry.strip_prefix(&revision_prefix).unwrap_or(entry);
         if !path.ends_with(".c") || !is_player_item_path(path) {
             continue;
         }
-        let source = git(repository, &["show", &format!("HEAD:{path}")])?;
+        let source = git(repository, &["show", &format!("{SOURCE_REV}:{path}")])?;
         let inherited = extract_inherits(&source);
         let category = classify_item(&inherited, &source).to_string();
         let id = source_path_to_id(path);
@@ -408,14 +623,16 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
 }
 
 fn import_skills(repository: &Path) -> Result<SkillCatalog> {
-    let source_commit = git(repository, &["rev-parse", "HEAD"])?.trim().to_string();
+    let source_commit = git(repository, &["rev-parse", SOURCE_REV])?
+        .trim()
+        .to_string();
     let listing = git(
         repository,
         &[
             "ls-tree",
             "-r",
             "--name-only",
-            "HEAD",
+            SOURCE_REV,
             "--",
             "mudlib/daemon/skill",
         ],
@@ -428,7 +645,7 @@ fn import_skills(repository: &Path) -> Result<SkillCatalog> {
     let mut action_count = 0;
 
     for path in listing.lines().filter(|path| path.ends_with(".c")) {
-        let source = git(repository, &["show", &format!("HEAD:{path}")])?;
+        let source = git(repository, &["show", &format!("{SOURCE_REV}:{path}")])?;
         let id = path
             .strip_prefix("mudlib/daemon/skill/")
             .unwrap_or(path)
@@ -455,7 +672,7 @@ fn import_skills(repository: &Path) -> Result<SkillCatalog> {
         }
 
         let doc_path = format!("mudlib/doc/skill/{id}");
-        let display_name = git(repository, &["show", &format!("HEAD:{doc_path}")])
+        let display_name = git(repository, &["show", &format!("{SOURCE_REV}:{doc_path}")])
             .ok()
             .and_then(|document| extract_skill_doc_title(&document))
             .unwrap_or_else(|| {
@@ -510,14 +727,14 @@ fn import_teachers(repository: &Path) -> Result<Vec<TeacherRecord>> {
             "ls-tree",
             "-r",
             "--name-only",
-            "HEAD",
+            SOURCE_REV,
             "--",
             "mudlib/daemon/class",
         ],
     )?;
     let mut teachers = Vec::new();
     for path in listing.lines().filter(|path| path.ends_with("/master.c")) {
-        let source = git(repository, &["show", &format!("HEAD:{path}")])?;
+        let source = git(repository, &["show", &format!("{SOURCE_REV}:{path}")])?;
         let id = path
             .strip_prefix("mudlib/daemon/class/")
             .and_then(|path| path.strip_suffix("/master.c"))
@@ -919,7 +1136,7 @@ fn detect_item_behaviors(source: &str) -> Vec<String> {
 }
 
 fn extract_item_name(source: &str) -> Option<String> {
-    let tail = source.get(source.find("set_name(")? + "set_name(".len()..)?;
+    let tail = find_call_arguments(source, "set_name")?;
     let expression = tail.get(..tail.find(',')?)?;
     let mut fragments = Vec::new();
     let mut remaining = expression;
@@ -937,11 +1154,13 @@ fn extract_item_name(source: &str) -> Option<String> {
 }
 
 fn extract_set_string(source: &str, key: &str) -> Option<String> {
-    extract_quoted_value(source, &format!("set(\"{key}\","))
+    let value = find_set_value(source, key)?;
+    let value = value.strip_prefix('"')?;
+    Some(value.get(..value.find('"')?)?.trim().to_string())
 }
 
 fn extract_set_integer(source: &str, key: &str) -> Option<i32> {
-    extract_first_integer(source, &[&format!("set(\"{key}\",")])
+    parse_leading_integer(find_set_value(source, key)?)
 }
 
 fn extract_mapping_string(source: &str, mapping: &str, key: &str) -> Option<String> {
@@ -955,7 +1174,7 @@ fn extract_mapping_integer(source: &str, mapping: &str, key: &str) -> Option<i32
 }
 
 fn extract_mapping_value<'a>(source: &'a str, mapping: &str, key: &str) -> Option<&'a str> {
-    let block = mapping_block(source, &format!("set(\"{mapping}\""))?;
+    let block = mapping_block(source, mapping)?;
     block.lines().find_map(|line| {
         let line = line.trim();
         let rest = line.strip_prefix('"')?;
@@ -1006,24 +1225,59 @@ fn git(repository: &Path, args: &[&str]) -> Result<String> {
 fn is_room(source: &str) -> bool {
     source.lines().any(|line| {
         let line = line.trim();
-        line == "inherit ROOM;"
-            || line.starts_with("inherit ROOM ")
+        matches!(
+            line,
+            "inherit ROOM;" | "inherit BANK;" | "inherit HOCKSHOP;"
+        ) || line.starts_with("inherit ROOM ")
             || line.contains("inherit \"/std/room\"")
     })
 }
 
-fn extract_quoted_value(source: &str, marker: &str) -> Option<String> {
-    let tail = source
-        .get(source.find(marker)? + marker.len()..)?
-        .trim_start();
-    let rest = tail.strip_prefix('"')?;
-    let end = rest.find('"')?;
-    Some(rest[..end].trim().to_string())
+fn is_npc(source: &str) -> bool {
+    source.lines().any(|line| {
+        let line = line.trim();
+        line == "inherit NPC;"
+            || line.starts_with("inherit NPC ")
+            || line.contains("inherit \"/std/char/npc\"")
+    })
+}
+
+fn find_set_call<F>(source: &str, key_matches: F) -> Option<(&str, &str)>
+where
+    F: Fn(&str) -> bool,
+{
+    for (start, _) in source.match_indices("set") {
+        let tail = source.get(start + "set".len()..)?.trim_start();
+        let Some(tail) = tail.strip_prefix('(') else {
+            continue;
+        };
+        let tail = tail.trim_start();
+        let Some(tail) = tail.strip_prefix('"') else {
+            continue;
+        };
+        let Some(key_end) = tail.find('"') else {
+            continue;
+        };
+        let key = tail.get(..key_end)?;
+        if !key_matches(key) {
+            continue;
+        }
+        let tail = tail.get(key_end + 1..)?.trim_start();
+        let Some(value) = tail.strip_prefix(',') else {
+            continue;
+        };
+        return Some((key, value.trim_start()));
+    }
+    None
+}
+
+fn find_set_value<'a>(source: &'a str, key: &str) -> Option<&'a str> {
+    find_set_call(source, |candidate| candidate == key).map(|(_, value)| value)
 }
 
 fn extract_long(source: &str) -> Option<String> {
-    if let Some(marker) = source.find("set(\"long\", @LONG") {
-        let tail = source.get(marker + "set(\"long\", @LONG".len()..)?;
+    let value = find_set_value(source, "long")?;
+    if let Some(tail) = value.strip_prefix("@LONG") {
         let tail = tail.strip_prefix('\r').unwrap_or(tail);
         let tail = tail.strip_prefix('\n').unwrap_or(tail);
         let end = tail.find("\nLONG")?;
@@ -1037,15 +1291,34 @@ fn extract_long(source: &str) -> Option<String> {
                 .to_string(),
         );
     }
-    extract_quoted_value(source, "set(\"long\",")
+    let value = value.strip_prefix('"')?;
+    Some(value.get(..value.find('"')?)?.trim().to_string())
 }
 
-fn extract_exits(source: &str, area: &str) -> Vec<ExitRecord> {
+fn extract_set_text(source: &str, key: &str) -> Option<String> {
+    let value = find_set_value(source, key)?;
+    let expression = value.get(..value.find(");").unwrap_or(value.len()))?;
+    let mut fragments = Vec::new();
+    let mut remaining = expression;
+    while let Some(start) = remaining.find('"') {
+        let quoted = remaining.get(start + 1..)?;
+        let end = quoted.find('"')?;
+        fragments.push(quoted.get(..end)?);
+        remaining = quoted.get(end + 1..)?;
+    }
+    if fragments.is_empty() {
+        None
+    } else {
+        Some(fragments.concat().replace("\\n", "\n").trim().to_string())
+    }
+}
+
+fn extract_exits(source: &str, area: &str, source_path: &str) -> Vec<ExitRecord> {
     let mut exits = Vec::new();
-    if let Some(block) = mapping_block(source, "set(\"exits\"") {
+    if let Some(block) = mapping_block(source, "exits") {
         for line in block.lines() {
             if let Some((direction, source_target)) = parse_mapping_entry(line)
-                && let Some(target) = normalize_target(&source_target, area)
+                && let Some(target) = normalize_target(&source_target, source_path)
             {
                 exits.push(ExitRecord {
                     direction,
@@ -1058,14 +1331,17 @@ fn extract_exits(source: &str, area: &str) -> Vec<ExitRecord> {
         }
     }
 
-    for line in source.lines().filter(|line| line.contains("set(\"exits/")) {
-        let Some(direction) = between(line, "set(\"exits/", "\"") else {
+    for line in source.lines() {
+        let Some((key, value)) = find_set_call(line, |key| key.starts_with("exits/")) else {
             continue;
         };
-        let Some(source_target) = extract_path_reference(line) else {
+        let Some(direction) = key.strip_prefix("exits/") else {
             continue;
         };
-        let Some(target) = normalize_target(&source_target, area) else {
+        let Some(source_target) = extract_path_reference(value) else {
+            continue;
+        };
+        let Some(target) = normalize_target(&source_target, source_path) else {
             continue;
         };
         if !exits.iter().any(|exit| exit.direction == direction) {
@@ -1083,22 +1359,209 @@ fn extract_exits(source: &str, area: &str) -> Vec<ExitRecord> {
     exits
 }
 
-fn extract_objects(source: &str) -> Vec<String> {
-    let Some(block) = mapping_block(source, "set(\"objects\"") else {
-        return Vec::new();
-    };
-    let mut objects = BTreeSet::new();
-    for line in block.lines() {
-        if let Some(path) = extract_path_reference(line) {
-            objects.insert(path);
-        }
-    }
-    objects.into_iter().collect()
+fn extract_objects(source: &str, source_path: &str) -> Vec<String> {
+    extract_object_references(source, source_path)
+        .into_iter()
+        .map(|object| object.source_path)
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect()
 }
 
-fn mapping_block<'a>(source: &'a str, marker: &str) -> Option<&'a str> {
-    let start = source.find(marker)?;
-    let tail = source.get(start..)?;
+fn extract_object_references(source: &str, source_path: &str) -> Vec<ObjectReference> {
+    let Some(block) = mapping_block(source, "objects") else {
+        return Vec::new();
+    };
+    block
+        .lines()
+        .filter_map(|line| {
+            let reference = extract_path_reference(line)?;
+            let source_path = resolve_source_path(&reference, source_path)?;
+            let quantity = line
+                .rsplit_once(':')
+                .and_then(|(_, value)| parse_leading_integer(value))
+                .unwrap_or(1)
+                .max(1) as usize;
+            Some(ObjectReference {
+                source_path,
+                quantity,
+            })
+        })
+        .collect()
+}
+
+fn extract_inquiries(source: &str) -> Vec<InquiryRecord> {
+    let Some(block) = mapping_block(source, "inquiry") else {
+        return Vec::new();
+    };
+    let Some(start) = block.find("([") else {
+        return Vec::new();
+    };
+    let Some(end) = block.rfind("])") else {
+        return Vec::new();
+    };
+
+    split_lpc_top_level(&block[start + 2..end], b',')
+        .into_iter()
+        .filter_map(|entry| {
+            let separator = find_lpc_top_level(entry, b':')?;
+            let topic = parse_lpc_string_expression(entry.get(..separator)?.trim())?;
+            let value = entry.get(separator + 1..)?.trim();
+            let response = parse_lpc_string_expression(value).or_else(|| {
+                value
+                    .strip_prefix("(:")?
+                    .strip_suffix(":)")
+                    .and_then(|inner| parse_lpc_string_expression(inner.trim()))
+            });
+            Some(InquiryRecord {
+                topic,
+                scripted: response.is_none(),
+                response,
+            })
+        })
+        .collect()
+}
+
+fn split_lpc_top_level(source: &str, delimiter: u8) -> Vec<&str> {
+    let mut parts = Vec::new();
+    let mut start = 0;
+    let mut cursor = 0;
+    while let Some(index) = find_lpc_top_level(source.get(cursor..).unwrap_or_default(), delimiter)
+    {
+        let absolute = cursor + index;
+        parts.push(&source[start..absolute]);
+        start = absolute + 1;
+        cursor = start;
+    }
+    parts.push(&source[start..]);
+    parts
+}
+
+fn find_lpc_top_level(source: &str, delimiter: u8) -> Option<usize> {
+    let bytes = source.as_bytes();
+    let mut parens = 0_u32;
+    let mut brackets = 0_u32;
+    let mut braces = 0_u32;
+    let mut quoted = false;
+    let mut escaped = false;
+
+    for (index, byte) in bytes.iter().copied().enumerate() {
+        if quoted {
+            if escaped {
+                escaped = false;
+            } else if byte == b'\\' {
+                escaped = true;
+            } else if byte == b'"' {
+                quoted = false;
+            }
+            continue;
+        }
+        match byte {
+            b'"' => quoted = true,
+            b'(' => parens += 1,
+            b')' => parens = parens.saturating_sub(1),
+            b'[' => brackets += 1,
+            b']' => brackets = brackets.saturating_sub(1),
+            b'{' => braces += 1,
+            b'}' => braces = braces.saturating_sub(1),
+            _ if byte == delimiter && parens == 0 && brackets == 0 && braces == 0 => {
+                return Some(index);
+            }
+            _ => {}
+        }
+    }
+    None
+}
+
+fn parse_lpc_string_expression(source: &str) -> Option<String> {
+    let bytes = source.as_bytes();
+    let mut cursor = 0;
+    let mut fragments = Vec::new();
+
+    while cursor < bytes.len() {
+        while cursor < bytes.len() && bytes[cursor].is_ascii_whitespace() {
+            cursor += 1;
+        }
+        if cursor == bytes.len() {
+            break;
+        }
+        if bytes[cursor] != b'"' {
+            return None;
+        }
+        cursor += 1;
+        let mut fragment = String::new();
+        while cursor < bytes.len() {
+            match bytes[cursor] {
+                b'"' => {
+                    cursor += 1;
+                    break;
+                }
+                b'\\' if cursor + 1 < bytes.len() => {
+                    cursor += 1;
+                    match bytes[cursor] {
+                        b'n' => {
+                            fragment.push('\n');
+                            cursor += 1;
+                        }
+                        b'r' => {
+                            fragment.push('\r');
+                            cursor += 1;
+                        }
+                        b't' => {
+                            fragment.push('\t');
+                            cursor += 1;
+                        }
+                        b'"' => {
+                            fragment.push('"');
+                            cursor += 1;
+                        }
+                        b'\\' => {
+                            fragment.push('\\');
+                            cursor += 1;
+                        }
+                        _ => {
+                            let character = source.get(cursor..)?.chars().next()?;
+                            fragment.push(character);
+                            cursor += character.len_utf8();
+                        }
+                    }
+                }
+                _ => {
+                    let tail = source.get(cursor..)?;
+                    let character = tail.chars().next()?;
+                    fragment.push(character);
+                    cursor += character.len_utf8();
+                }
+            }
+        }
+        fragments.push(fragment);
+    }
+
+    (!fragments.is_empty()).then(|| fragments.concat().trim().to_string())
+}
+
+fn extract_vendor_goods(source: &str, source_path: &str) -> Vec<VendorGoodRecord> {
+    let Some(block) = mapping_block(source, "vendor_goods") else {
+        return Vec::new();
+    };
+    let mut goods = BTreeMap::new();
+    for line in block.lines() {
+        let Some(reference) = extract_path_reference(line) else {
+            continue;
+        };
+        let Some(item_path) = resolve_source_path(&reference, source_path) else {
+            continue;
+        };
+        goods.entry(item_path.clone()).or_insert(VendorGoodRecord {
+            item_id: source_path_to_id(&item_path),
+            source_path: item_path,
+        });
+    }
+    goods.into_values().collect()
+}
+
+fn mapping_block<'a>(source: &'a str, key: &str) -> Option<&'a str> {
+    let tail = find_set_value(source, key)?;
     let end = tail.find("])")? + 2;
     tail.get(..end)
 }
@@ -1119,22 +1582,53 @@ fn extract_path_reference(line: &str) -> Option<String> {
         let tail = line.get(start + "__DIR__\"".len()..)?;
         return Some(format!("__DIR__{}", tail.get(..tail.find('"')?)?));
     }
-    for prefix in ["\"/d/", "\"/obj/", "\"/daemon/"] {
-        if let Some(start) = line.find(prefix) {
-            let tail = line.get(start + 1..)?;
-            return Some(tail.get(..tail.find('"')?)?.to_string());
+    let mut remaining = line;
+    while let Some(start) = remaining.find('"') {
+        let quoted = remaining.get(start + 1..)?;
+        let end = quoted.find('"')?;
+        let value = quoted.get(..end)?;
+        if ["/d/", "/obj/", "/daemon/", "d/", "obj/", "daemon/"]
+            .iter()
+            .any(|prefix| value.starts_with(prefix))
+        {
+            return Some(value.to_string());
         }
+        remaining = quoted.get(end + 1..)?;
     }
     None
 }
 
-fn normalize_target(source_target: &str, area: &str) -> Option<String> {
-    let path = if let Some(local) = source_target.strip_prefix("__DIR__") {
-        format!("/d/{area}/{local}")
+fn resolve_source_path(reference: &str, owner_path: &str) -> Option<String> {
+    let path = if let Some(local) = reference.strip_prefix("__DIR__") {
+        let source_dir = owner_path.rsplit_once('/')?.0;
+        format!("{source_dir}/{local}")
+    } else if reference.starts_with("mudlib/") {
+        reference.to_string()
+    } else if reference.starts_with('/') {
+        format!("mudlib{reference}")
     } else {
-        source_target.to_string()
+        format!("mudlib/{reference}")
     };
-    let path = path.strip_prefix("/d/")?.trim_end_matches(".c");
+    let mut components = Vec::new();
+    for component in path.split('/') {
+        match component {
+            "" | "." => {}
+            ".." => {
+                components.pop()?;
+            }
+            value => components.push(value),
+        }
+    }
+    let mut normalized = components.join("/");
+    if !normalized.ends_with(".c") {
+        normalized.push_str(".c");
+    }
+    Some(normalized)
+}
+
+fn normalize_target(source_target: &str, source_path: &str) -> Option<String> {
+    let path = resolve_source_path(source_target, source_path)?;
+    let path = path.strip_prefix("mudlib/d/")?.trim_end_matches(".c");
     Some(path.replace('/', "."))
 }
 
@@ -1146,27 +1640,83 @@ fn source_path_to_id(path: &str) -> String {
         .replace('/', ".")
 }
 
-fn detect_behaviors(source: &str) -> Vec<String> {
-    let checks = [
-        ("add_action(", "custom_command"),
-        ("valid_leave(", "conditional_exit"),
-        ("create_door(", "door"),
-        ("set(\"exits/", "dynamic_exit"),
-        ("call_out(", "timed_behavior"),
-        ("receive_damage(", "environment_damage"),
-        ("set(\"item_desc\"", "item_interaction"),
-        ("random(", "random_behavior"),
-    ];
-    checks
-        .iter()
-        .filter(|(needle, _)| source.contains(needle))
-        .map(|(_, flag)| (*flag).to_string())
-        .collect()
+fn find_call_arguments<'a>(source: &'a str, name: &str) -> Option<&'a str> {
+    source.match_indices(name).find_map(|(start, _)| {
+        source
+            .get(start + name.len()..)?
+            .trim_start()
+            .strip_prefix('(')
+    })
 }
 
-fn between<'a>(value: &'a str, start: &str, end: &str) -> Option<&'a str> {
-    let tail = value.get(value.find(start)? + start.len()..)?;
-    tail.get(..tail.find(end)?)
+fn contains_call(source: &str, name: &str) -> bool {
+    find_call_arguments(source, name).is_some()
+}
+
+fn detect_behaviors(source: &str) -> Vec<String> {
+    let mut behaviors = Vec::new();
+    for (name, flag) in [
+        ("add_action", "custom_command"),
+        ("valid_leave", "conditional_exit"),
+        ("create_door", "door"),
+        ("call_out", "timed_behavior"),
+        ("receive_damage", "environment_damage"),
+        ("random", "random_behavior"),
+    ] {
+        if contains_call(source, name) {
+            behaviors.push(flag.to_string());
+        }
+    }
+    if find_set_call(source, |key| key.starts_with("exits/")).is_some() {
+        behaviors.push("dynamic_exit".into());
+    }
+    if find_set_value(source, "item_desc").is_some() {
+        behaviors.push("item_interaction".into());
+    }
+    behaviors
+}
+
+fn detect_npc_behaviors(source: &str) -> Vec<String> {
+    let mut behaviors = BTreeSet::new();
+    for (key, flag) in [
+        ("inquiry", "inquiry"),
+        ("chat_msg", "ambient_chat"),
+        ("chat_msg_combat", "combat_chat"),
+    ] {
+        if find_set_value(source, key).is_some() {
+            behaviors.insert(flag);
+        }
+    }
+    for (function, flag) in [
+        ("accept_object", "object_exchange"),
+        ("receive_object", "object_exchange"),
+        ("accept_fight", "fight_gate"),
+        ("accept_kill", "kill_gate"),
+        ("add_action", "custom_command"),
+        ("call_out", "timed_behavior"),
+        ("die", "death_hook"),
+    ] {
+        if contains_call(source, function) {
+            behaviors.insert(flag);
+        }
+    }
+    if source.contains("random_move") {
+        behaviors.insert("random_movement");
+    }
+    if ["recognize_apprentice", "accept_apprentice", "create_family"]
+        .iter()
+        .any(|function| contains_call(source, function))
+    {
+        behaviors.insert("apprenticeship");
+    }
+    if find_call_arguments(source, "set_name").is_some_and(|arguments| {
+        arguments
+            .get(..arguments.find(',').unwrap_or(arguments.len()))
+            .is_some_and(|name| name.contains("random("))
+    }) {
+        behaviors.insert("random_identity");
+    }
+    behaviors.into_iter().map(str::to_string).collect()
 }
 
 #[cfg(test)]
@@ -1182,7 +1732,7 @@ set("exits", ([
 ]));
 set("exits/west",__DIR__"valley2");
 "#;
-        let exits = extract_exits(source, "village");
+        let exits = extract_exits(source, "village", "mudlib/d/village/road1.c");
         assert_eq!(exits.len(), 3);
         assert!(
             exits
@@ -1199,12 +1749,44 @@ set("exits/west",__DIR__"valley2");
                 .iter()
                 .any(|exit| exit.target == "village.valley2" && exit.dynamic)
         );
+        assert_eq!(
+            normalize_target("__DIR__xiaowu", "mudlib/d/city/shangshu/road1.c").as_deref(),
+            Some("city.shangshu.xiaowu")
+        );
+        assert_eq!(
+            normalize_target("__DIR__../road", "mudlib/d/canyon/bamboo/train.c").as_deref(),
+            Some("canyon.road")
+        );
     }
 
     #[test]
     fn parses_heredoc_description() {
-        let source = "set(\"long\", @LONG\n第一行\n第二行\nLONG\n);";
+        let source = r#"
+set ("short", "谷物加工厂");
+set ("long", @LONG
+第一行
+第二行
+LONG
+);
+set ("exits", ([
+    "west": "/d/snow/mstreet2",
+]));
+set ("item_desc", ([ "sign": "告示" ]));
+add_action ("do_work", "work");
+"#;
+        assert_eq!(
+            extract_set_string(source, "short").as_deref(),
+            Some("谷物加工厂")
+        );
         assert_eq!(extract_long(source).as_deref(), Some("第一行\n第二行"));
+        assert_eq!(
+            extract_exits(source, "snow", "mudlib/d/snow/workplace.c").len(),
+            1
+        );
+        assert_eq!(
+            detect_behaviors(source),
+            ["custom_command", "item_interaction"]
+        );
     }
 
     #[test]
@@ -1301,6 +1883,59 @@ set("liquid", ([
     }
 
     #[test]
+    fn parses_static_and_scripted_npc_inquiries() {
+        let source = r#"
+set("inquiry", ([
+    "静态" : "第一句" "第二句\n",
+    "静态回调" : (: "直接回复。\n" :),
+    "函数" : (: ask_me :),
+    "序列" : ({ "开场", (: command, "nod" :), "收尾" }),
+]));
+"#;
+        let inquiries = extract_inquiries(source);
+        assert_eq!(inquiries.len(), 4);
+        assert_eq!(inquiries[0].topic, "静态");
+        assert_eq!(inquiries[0].response.as_deref(), Some("第一句第二句"));
+        assert!(!inquiries[0].scripted);
+        assert_eq!(inquiries[1].response.as_deref(), Some("直接回复。"));
+        assert!(!inquiries[1].scripted);
+        assert!(inquiries[2].scripted);
+        assert!(inquiries[2].response.is_none());
+        assert!(inquiries[3].scripted);
+        assert!(inquiries[3].response.is_none());
+    }
+
+    #[test]
+    fn generated_m4_npc_catalog_matches_fixed_source_baseline() {
+        let catalog: serde_json::Value =
+            serde_json::from_str(include_str!("../../migration/catalog/npcs-m4.json")).unwrap();
+        let npcs = catalog["npcs"].as_array().unwrap();
+        let behavior_total: u64 = npcs
+            .iter()
+            .flat_map(|npc| npc["behavior_flags"].as_array().unwrap())
+            .count() as u64;
+
+        assert_eq!(catalog["schema_version"], 2);
+        assert_eq!(
+            catalog["source_commit"],
+            "87bba6bd2249beec8424b0d6623486a0dd1f7b30"
+        );
+        assert_eq!(npcs.len(), 73);
+        assert_eq!(catalog["summary"]["placed"], 59);
+        assert_eq!(catalog["summary"]["vendors"], 9);
+        assert_eq!(catalog["summary"]["vendor_goods"], 27);
+        assert_eq!(catalog["summary"]["inquiry_npcs"], 30);
+        assert_eq!(catalog["summary"]["inquiry_topics"], 75);
+        assert_eq!(catalog["summary"]["static_inquiries"], 57);
+        assert_eq!(catalog["summary"]["scripted_inquiries"], 18);
+        assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 21);
+        assert_eq!(catalog["summary"]["runtime_inquiries"], 50);
+        assert_eq!(catalog["summary"]["runtime_inquiry_references"], 95);
+        assert_eq!(behavior_total, 156);
+        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 156);
+    }
+
+    #[test]
     fn parses_skill_metadata_and_actions() {
         let source = r#"
 mapping *action = ({
@@ -1382,9 +2017,51 @@ set("objects", ([
   "/d/village/npc/woman1": 1,
 ]) );
 "#;
-        let exits = extract_exits(source, "village");
+        let exits = extract_exits(source, "village", "mudlib/d/village/farmhouse1.c");
         assert_eq!(exits.len(), 1);
         assert_eq!(exits[0].target, "village.farmhouse1");
-        assert_eq!(extract_objects(source), ["/d/village/npc/woman1"]);
+        assert_eq!(
+            extract_objects(source, "mudlib/d/village/farmhouse1.c"),
+            ["mudlib/d/village/npc/woman1.c"]
+        );
+    }
+
+    #[test]
+    fn parses_npc_vendor_goods_and_room_quantities() {
+        let room = r#"
+set("objects", ([
+  __DIR__"npc/trainee": 6,
+  "/obj/weapon/shield": 1,
+]));
+"#;
+        let objects = extract_object_references(room, "mudlib/d/snow/school2.c");
+        assert_eq!(objects.len(), 2);
+        assert!(objects.iter().any(|object| {
+            object.source_path == "mudlib/d/snow/npc/trainee.c" && object.quantity == 6
+        }));
+
+        let vendor = r#"
+set_name("店小二", ({ "waiter" }));
+set("long",
+    "第一行。\n"
+    "第二行。\n");
+set("vendor_goods", ([
+  "dumpling": "obj/example/dumpling",
+  "cake": __DIR__"obj/cake",
+]));
+"#;
+        assert_eq!(extract_item_name(vendor).as_deref(), Some("店小二"));
+        assert_eq!(
+            extract_set_text(vendor, "long").as_deref(),
+            Some("第一行。\n第二行。")
+        );
+        let goods = extract_vendor_goods(vendor, "mudlib/d/city/npc/waiter.c");
+        assert_eq!(goods.len(), 2);
+        assert!(
+            goods
+                .iter()
+                .any(|good| good.item_id == "obj.example.dumpling")
+        );
+        assert!(goods.iter().any(|good| good.item_id == "city.npc.obj.cake"));
     }
 }

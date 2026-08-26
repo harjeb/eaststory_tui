@@ -63,7 +63,7 @@
         }
       ],
       "object_sources": [
-        "/d/village/npc/woman1"
+        "mudlib/d/village/npc/woman1.c"
       ],
       "behavior_flags": []
     },
@@ -90,7 +90,7 @@
         }
       ],
       "object_sources": [
-        "__DIR__npc/oldliu"
+        "mudlib/d/village/npc/oldliu.c"
       ],
       "behavior_flags": [
         "door",
@@ -159,7 +159,7 @@
         }
       ],
       "object_sources": [
-        "__DIR__npc/dragon"
+        "mudlib/d/village/npc/dragon.c"
       ],
       "behavior_flags": []
     },
@@ -186,7 +186,7 @@
         }
       ],
       "object_sources": [
-        "__DIR__npc/fisher"
+        "mudlib/d/village/npc/fisher.c"
       ],
       "behavior_flags": [
         "custom_command",
@@ -217,7 +217,7 @@
         }
       ],
       "object_sources": [
-        "__DIR__npc/flowergirl"
+        "mudlib/d/village/npc/flowergirl.c"
       ],
       "behavior_flags": [
         "door"
@@ -320,6 +320,7 @@
       ],
       "object_sources": [],
       "behavior_flags": [
+        "custom_command",
         "conditional_exit",
         "random_behavior"
       ]
@@ -347,7 +348,7 @@
         }
       ],
       "object_sources": [
-        "__DIR__npc/meloner"
+        "mudlib/d/village/npc/meloner.c"
       ],
       "behavior_flags": []
     },
@@ -406,7 +407,7 @@
         }
       ],
       "object_sources": [
-        "__DIR__npc/trader1"
+        "mudlib/d/village/npc/trader1.c"
       ],
       "behavior_flags": []
     },
@@ -540,8 +541,8 @@
       "object_sources": [],
       "behavior_flags": [
         "custom_command",
-        "dynamic_exit",
         "timed_behavior",
+        "dynamic_exit",
         "item_interaction"
       ]
     },
@@ -659,7 +660,7 @@
         }
       ],
       "object_sources": [
-        "__DIR__npc/rat"
+        "mudlib/d/village/npc/rat.c"
       ],
       "behavior_flags": []
     },
@@ -743,6 +744,7 @@
     "mudlib/d/village/lordhouse3.c: 动态行为待实现 [custom_command]",
     "mudlib/d/village/lordhouse3.c: 动态行为待实现 [item_interaction]",
     "mudlib/d/village/melonfarm.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/village/melonfarm.c: 动态行为待实现 [custom_command]",
     "mudlib/d/village/melonfarm.c: 动态行为待实现 [random_behavior]",
     "mudlib/d/village/road3.c: 动态行为待实现 [item_interaction]",
     "mudlib/d/village/road6.c: 动态行为待实现 [custom_command]",

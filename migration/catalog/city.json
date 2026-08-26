@@ -1,0 +1,1614 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "area": "city",
+  "status": "structured",
+  "rooms": [
+    {
+      "id": "city.bank",
+      "source_path": "mudlib/d/city/bank.c",
+      "status": "structured",
+      "name": "旺金钱庄",
+      "description": "这是一间素来不讲信用的钱庄，钱庄的老板倒是读过几年书，脑筋\n很活络，你可以看到钱庄里里外外都打扫得乾乾净净，一个精瘦精瘦的\n中年人坐在柜台后面，柜台上放著一块牌子(sign)，往南是通往京城街\n道的大门。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "city.street8",
+          "source_target": "/d/city/street8",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/microsof.c"
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.biaoju",
+      "source_path": "mudlib/d/city/biaoju.c",
+      "status": "structured",
+      "name": "振远总局",
+      "description": "你来到了振远总局里。镖局虽然不大，但在京师这块土地上，已无人\n不知其名。尤其是其总镖头，俨然是以京城武林领袖自居。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "city.street1",
+          "source_target": "__DIR__street1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/chen.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.boots",
+      "source_path": "mudlib/d/city/boots.c",
+      "status": "structured",
+      "name": "李记鞋店",
+      "description": "这里是京师中最大的一家鞋店。店主姓李，历经几代，已是百\n年老店。店铺挺大，弥漫着一种特殊皮革的气味。大柜台后面的架\n子上放满了各式的皮靴。店中几个伙计正在忙碌。\n    店门口有一块金字招牌(sign)。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "city.street11",
+          "source_target": "__DIR__street11",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/shoer.c"
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.bridge",
+      "source_path": "mudlib/d/city/bridge.c",
+      "status": "structured",
+      "name": "天桥",
+      "description": "你来到京师的天桥。这里热闹非凡，人声鼎沸。杂耍的、卖艺\n的、做小买卖的应有尽有。若是仔细寻找，说不定可以买到什么奇\n珍异宝呢。柱子和墙壁上贴满着花花绿绿的广告（post）。\n    北边是校武场。再往北就到京师中心……紫禁城了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street11",
+          "source_target": "__DIR__street11",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.jiaowu",
+          "source_target": "__DIR__jiaowu",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.street17",
+          "source_target": "__DIR__street17",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street12",
+          "source_target": "__DIR__street12",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/caker.c",
+        "mudlib/d/city/npc/dumpling_seller.c",
+        "mudlib/d/city/npc/vendor.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.cloth",
+      "source_path": "mudlib/d/city/cloth.c",
+      "status": "structured",
+      "name": "四喜绸缎庄",
+      "description": "四喜绸缎庄是京师中的一家刚刚开业的专营衣帽的商店。店内\n顾客稀少，显得店铺空荡荡的。柜台上凌乱地摊着几匹绸缎。绸缎\n庄的老板出去进货了，只有老板娘空守店铺。据说这家店铺很有来\n历。一般的地痞也很少到店中闹事。\n    店堂上挂有一块崭新的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street6",
+          "source_target": "__DIR__street6",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/clother.c"
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.eastdoor1",
+      "source_path": "mudlib/d/city/eastdoor1.c",
+      "status": "structured",
+      "name": "京师东一门",
+      "description": "你来到京师的东一门。城门口十来个手持刀枪的士兵正在检查\n过往的行人。经常有一些富丽堂皇的大车缓缓驶入城来，那是京师\n的官宦人家出游归来。城墙上有一张陈旧的布告(notice)。东边是\n城外，风景如画。西边是京师的街道。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "city.street9",
+          "source_target": "__DIR__street9",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/guard.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.eastdoor2",
+      "source_path": "mudlib/d/city/eastdoor2.c",
+      "status": "structured",
+      "name": "京师东二门",
+      "description": "这里是京师的东二门。城门上插着几面旗帜，标志了本门的守\n城将领。城楼里坐着几个将军打扮的人，城墙上有一张刚刚粘贴上\n去的布告(notice)，一群人正围着观看。东边是城外，西边是京师\n的街道。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "city.street10",
+          "source_target": "__DIR__street10",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/guard.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.feiyuan",
+      "source_path": "mudlib/d/city/feiyuan.c",
+      "status": "structured",
+      "name": "废园",
+      "description": "你来到一所废园里。据说废园的主人原也是位极人臣的，后来却\n以「莫须有」的罪名被皇上斩了全族，其他的官员怕晦气，都不敢来\n此住，遂形成废园。废园里荒草丛生，往日的辉煌已不再现，仅留下\n几个残垣供人凭吊。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "city.street6",
+          "source_target": "__DIR__street6",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command",
+        "conditional_exit",
+        "random_behavior"
+      ]
+    },
+    {
+      "id": "city.house1",
+      "source_path": "mudlib/d/city/house1.c",
+      "status": "structured",
+      "name": "空房间",
+      "description": "这是一间什麽也没有的空房间。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.street11",
+          "source_target": "__DIR__street11",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.jiaowu",
+      "source_path": "mudlib/d/city/jiaowu.c",
+      "status": "structured",
+      "name": "校武场",
+      "description": "这里是京师的校武场。一些御林军正在这里日夜操练，喊杀声\n此起彼伏。几个骑着高头大马的将领，在场上来回地巡视。每年武\n考也是在此举行的，当年淤兰天武、萧避尘、蓝芷萍就是在此出尽\n了风头，一时间声名传遍长城内外、大江南北。\n    北边是午门，南边是热闹的天桥了。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.wumen",
+          "source_target": "__DIR__wumen",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.bridge",
+          "source_target": "__DIR__bridge",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.jitan",
+      "source_path": "mudlib/d/city/jitan.c",
+      "status": "structured",
+      "name": "祭坛",
+      "description": "这是一片宽阔的小广场，广场的中间是皇家的祭坛(altar)，每年\n朝廷庆祝丰收或祈祷的重大典礼都在这里举行，皇上、皇后和文武百\n官能上祭坛，其他人只能从旁边绕过去。除了禁卫军的官兵和宫里的\n杂役偶尔出入外，很少有人来往。往南是紫禁城的神武门，北面是一\n个非常热闹的十字路口。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "city.midao1",
+          "source_target": "/d/city/midao1",
+          "internal": true,
+          "dynamic": true
+        },
+        {
+          "direction": "north",
+          "target": "city.street7",
+          "source_target": "/d/city/street7",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.shenwumen",
+          "source_target": "/d/city/shenwumen",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command",
+        "timed_behavior",
+        "dynamic_exit",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.jiulou",
+      "source_path": "mudlib/d/city/jiulou.c",
+      "status": "structured",
+      "name": "太白酒楼",
+      "description": "你走到了一家大酒楼里。四周的装饰金壁辉煌，令人眼花缭乱，连餐\n具的做工也极讲究，不愧是京城的第一大酒楼。酒楼的菜肴是远近闻名的\n，在这经常可以看到一些达官贵族，据连当今皇上也曾微服来此以一饱口\n福。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street5",
+          "source_target": "__DIR__street5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "city.jiulou_2",
+          "source_target": "__DIR__jiulou_2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/boss.c",
+        "mudlib/d/city/npc/waiter.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.jiulou_2",
+      "source_path": "mudlib/d/city/jiulou_2.c",
+      "status": "structured",
+      "name": "太白酒楼二楼",
+      "description": "你走上了太白酒楼的二楼，酒楼的雅座便设于此。大凡有来头\n的客人都到此饮酒作乐。在此经常可以遇上一些达官贵族，一些为\n做官的富家子弟就来此打进阶的消息。墙边有一道楼梯通往一楼的\n茶座。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "city.jiulou",
+          "source_target": "__DIR__jiulou",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/waiter.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.midao1",
+      "source_path": "mudlib/d/city/midao1.c",
+      "status": "structured",
+      "name": "地下密室",
+      "description": "这里是一间窄小的密室，你的面前只有一个破旧的小床(bed)跟一\n些乾草。",
+      "exits": [],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.northdoor",
+      "source_path": "mudlib/d/city/northdoor.c",
+      "status": "structured",
+      "name": "京师北门",
+      "description": "这是京师的北门，若干年前曾经遭到异族的攻打，因而显得有\n些陈旧。城门正上方清析可见当朝名家书写的“京师北门”几个金\n字，城墙上贴着几张告示(sign)。这里是罪犯逃往北方的必经之地，\n官兵们戒备森严，动不动就截住行人盘问。一条笔直的青石板大道\n向南北两边延伸。北边是郊外，骑马的、座轿的、走路的，行人匆\n匆涌入京师。南边是城里，隐约传来阵阵的喧闹声。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.nroad1",
+          "source_target": "__DIR__nroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.street16",
+          "source_target": "__DIR__street16",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/guard.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.nroad1",
+      "source_path": "mudlib/d/city/nroad1.c",
+      "status": "structured",
+      "name": "北驿道",
+      "description": "你正走在一条青石铺地的大驿道上，四周人来人往。挑担子的\n苦力，赶着大车的马夫，赴京传书的军人，熙熙攘攘，非常热闹。\n不时还有两三骑快马从身边飞驰而过，引起一阵骚动。道路两旁各\n有一片小树林，南边就是京师。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.nroad2",
+          "source_target": "/d/city/nroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.northdoor",
+          "source_target": "/d/city/northdoor",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "city.room",
+          "source_target": "__DIR__room",
+          "internal": true,
+          "dynamic": true
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command",
+        "door",
+        "dynamic_exit"
+      ]
+    },
+    {
+      "id": "city.nroad2",
+      "source_path": "mudlib/d/city/nroad2.c",
+      "status": "structured",
+      "name": "北驿道",
+      "description": "这是一条青石铺地的大驿道，地处京师的北郊。北方入京必经\n此地。往南走就可以到京师了。东北是连绵的群山。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "village.road2",
+          "source_target": "/d/village/road2",
+          "internal": false,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.nroad1",
+          "source_target": "__DIR__nroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.shangshu.chufang",
+      "source_path": "mudlib/d/city/shangshu/chufang.c",
+      "status": "structured",
+      "name": "厨房",
+      "description": "你来到了尚书府的厨房。厨房里各种烹饪用品与设备应有尽有，\n而且用品的做工也都很精细，一眼便知是官家的用品。厨房里的炉火\n烧得旺旺的，一个烧火丫鬟正忙着即将出锅的「西湖醋鱼」。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "city.shangshu.road3",
+          "source_target": "__DIR__road3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/shangshu/npc/maid.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.shangshu.feiwu",
+      "source_path": "mudlib/d/city/shangshu/feiwu.c",
+      "status": "structured",
+      "name": "废屋",
+      "description": "这是一间已被废弃的小屋。小屋很阴暗，也很潮湿。就着微弱的光线\n，隐约看见小屋里胡乱地堆放着一些杂物。小屋里到处挂着蜘蛛网，显然\n很久没有人来过了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.road4",
+          "source_target": "__DIR__road4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.shangshu.gate",
+      "source_path": "mudlib/d/city/shangshu/gate.c",
+      "status": "structured",
+      "name": "尚书府大门",
+      "description": "你来到尚书府大门。门上悬挂着一块很大的黑色牌匾，上面用隶\n书写着三个金字「尚书府」。牌匾上的一行小字表明这是当今皇上所\n题，可以看出其官势显赫。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.yuan",
+          "source_target": "__DIR__yuan",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street3",
+          "source_target": "/d/city/street3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/shangshu/npc/guard.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door"
+      ]
+    },
+    {
+      "id": "city.shangshu.huayuan",
+      "source_path": "mudlib/d/city/shangshu/huayuan.c",
+      "status": "structured",
+      "name": "花园",
+      "description": "尚书府的花园里搜集了许多名贵花卉。从洛阳的牡丹到扬州的琼\n花，你不能不惊诧于这里的全来。四时的花卉竞相开放着，发出沁人\n的香味。从花园东行就是内宅，而西边似乎有一间破屋。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.neizhai",
+          "source_target": "__DIR__neizhai",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.shangshu.road3",
+          "source_target": "__DIR__road3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.shangshu.road4",
+          "source_target": "__DIR__road4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/shangshu/npc/gardener.c"
+      ],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "city.shangshu.kefang",
+      "source_path": "mudlib/d/city/shangshu/kefang.c",
+      "status": "structured",
+      "name": "客房",
+      "description": "你走进了尚书府的客房。客房不大，但布置得比较整洁。靠窗的\n小桌上摞放着几本书(book)，另一侧的墙上则挂了把宝剑，似乎告诉\n来人此地主人竞是文武双全。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "city.shangshu.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.shangshu.keting",
+      "source_path": "mudlib/d/city/shangshu/keting.c",
+      "status": "structured",
+      "name": "尚书府客厅",
+      "description": "这里是尚书府的会客厅，平常主人就在此接待客人。客厅的装饰\n倒并不多，但都极其讲究。所有的家具都是用沉香木做的，时时发出\n一股淡淡的香味。家具被擦得一尘不染的，整齐地排列在两旁。当中\n的椅子尤其大，并铺以少见的白虎皮。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "city.shangshu.yuan",
+          "source_target": "__DIR__yuan",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/shangshu/npc/shangshu.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.shangshu.neizhai",
+      "source_path": "mudlib/d/city/shangshu/neizhai.c",
+      "status": "structured",
+      "name": "内宅",
+      "description": "你轻轻地走进尚书府的内宅，男客一般是不让来此的。内宅的布\n置很素雅，一切的摆设都显得很自然，有「天然去雕饰，清水出芙蓉\n」的意味。西边就是你来时经过的花园。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "city.shangshu.huayuan",
+          "source_target": "__DIR__huayuan",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/shangshu/npc/qing_chen.c"
+      ],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "city.shangshu.road1",
+      "source_path": "mudlib/d/city/shangshu/road1.c",
+      "status": "structured",
+      "name": "小径",
+      "description": "尚书府的小径走到这似乎到了尽头。小径的东边是一间小屋，平\n时房门总是关的，每天按时由一名又聋又哑的仆役送饭进去，其他人\n一概不让入内。南边不远处就是尚书府庭院了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.xiaowu",
+          "source_target": "__DIR__xiaowu",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.shangshu.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/shangshu/npc/huyuan.c"
+      ],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "city.shangshu.road2",
+      "source_path": "mudlib/d/city/shangshu/road2.c",
+      "status": "structured",
+      "name": "小径",
+      "description": "这里是尚书府的小径。小径继续向北延伸着，透过树丛隐隐约约\n地看到那儿似乎有一间小屋。从这儿向东走就是一间客房，据说客房\n里住的是一位贵客。不过一般人不允许进。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.kefang",
+          "source_target": "__DIR__kefang",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.shangshu.road1",
+          "source_target": "__DIR__road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.shangshu.yuan",
+          "source_target": "__DIR__yuan",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/shangshu/npc/huyuan.c",
+        "mudlib/d/city/shangshu/npc/huyuan1.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door"
+      ]
+    },
+    {
+      "id": "city.shangshu.road3",
+      "source_path": "mudlib/d/city/shangshu/road3.c",
+      "status": "structured",
+      "name": "花园小径",
+      "description": "这里是尚书府的花园小径。小径的南方就是花园，阵阵花香随风\n飘过来，使人精神大振。厨房在小径的东面，而往南则去往尚书府的\n庭院。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.chufang",
+          "source_target": "__DIR__chufang",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.shangshu.yuan",
+          "source_target": "__DIR__yuan",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.shangshu.huayuan",
+          "source_target": "__DIR__huayuan",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.shangshu.road4",
+      "source_path": "mudlib/d/city/shangshu/road4.c",
+      "status": "structured",
+      "name": "小路",
+      "description": "你走在尚书府的一条僻静的小路上。这条小路连接着花园和一间\n废弃的杂货屋，平常很少有人来此。东面的花园渐渐地远了，西面的\n门都已经脱落的废屋已历历在目。北面是高耸的院墙。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.huayuan",
+          "source_target": "__DIR__huayuan",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.shangshu.feiwu",
+          "source_target": "__DIR__feiwu",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.shangshu.xiaowu",
+      "source_path": "mudlib/d/city/shangshu/xiaowu.c",
+      "status": "structured",
+      "name": "小屋",
+      "description": "你步入尚书府内的一间小屋。小屋内很黑，什么也看不见，但莫\n名地感到一股杀气，让人有转身就跑的念头。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "city.shangshu.road1",
+          "source_target": "__DIR__road1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "city.shangshu.yuan",
+      "source_path": "mudlib/d/city/shangshu/yuan.c",
+      "status": "structured",
+      "name": "尚书府庭院",
+      "description": "你走到了尚书府的庭院。院子很大，地面规规整整地用清一色的\n大青石铺就，显示出主人的气派。东边的府门时常关着，不是高官可\n甭想进来。西向是主人会客的客厅。北行的石路通向客房，而向南则\n是去往内院。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.keting",
+          "source_target": "__DIR__keting",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.shangshu.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.shangshu.road3",
+          "source_target": "__DIR__road3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.shangshu.gate",
+          "source_target": "__DIR__gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "conditional_exit",
+        "door"
+      ]
+    },
+    {
+      "id": "city.shenwumen",
+      "source_path": "mudlib/d/city/shenwumen.c",
+      "status": "structured",
+      "name": "神武门",
+      "description": "你来到紫禁城的北门--神武门。南向的大门通向紫禁城，但这门\n很少开。门上缠着大铁链，还有士兵把守。往北走是皇家祭坛，不是\n一年一度祭天时那总很冷清。东西向的道路分别通向京师东，西路。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street1",
+          "source_target": "__DIR__street1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.jitan",
+          "source_target": "__DIR__jitan",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street6",
+          "source_target": "__DIR__street6",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.southdoor",
+      "source_path": "mudlib/d/city/southdoor.c",
+      "status": "structured",
+      "name": "京师南门",
+      "description": "这是京师的南门。高大的城门正上“京师南门”几个大字格外\n显眼。城墙上贴着几张官家布告(notice)。西北方是京师的监狱，\n关押着一些要犯，因此这里的官兵们也戒备森严。南边是城外，不\n时走来几个赴京赶考的举子。北边就是京师，一个灯红酒绿的地方。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.street17",
+          "source_target": "__DIR__street17",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/guard.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.street1",
+      "source_path": "mudlib/d/city/street1.c",
+      "status": "structured",
+      "name": "京师东街",
+      "description": "这里是京师东街的北段。往北走有一个大院子，院里立着根老高\n老高的旗杆，上书一个斗大的「镖」字，隔很远就可以看见。镖局的\n生意似乎很好，人络绎不绝。西向是庄严的神武门。向南则去向尚书\n府和午门。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.biaoju",
+          "source_target": "__DIR__biaoju",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.street2",
+          "source_target": "__DIR__street2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.shenwumen",
+          "source_target": "__DIR__shenwumen",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street10",
+      "source_path": "mudlib/d/city/street10.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "这里是京师的大街。东边是京师的东二门，一些刚进城的行人\n坐在路边休息，不时发出一阵哄笑声。往西就可以到京师中心了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.eastdoor2",
+          "source_target": "__DIR__eastdoor2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street11",
+          "source_target": "__DIR__street11",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street11",
+      "source_path": "mudlib/d/city/street11.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "这里是京师的大街。西边是京师的热闹场所天桥，一些行人匆\n匆往西走去。据说天桥的夜市也不差哦。南边是一片民宅，炊烟缭\n绕。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street10",
+          "source_target": "__DIR__street10",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.boots",
+          "source_target": "__DIR__boots",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.house1",
+          "source_target": "__DIR__house1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.bridge",
+          "source_target": "__DIR__bridge",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street12",
+      "source_path": "mudlib/d/city/street12.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "这里是京师的大街，青石铺道，街面很干净。东边是京师的热\n闹场所天桥，来到京师可不能不去哦。南边是京师的刑场，逢上处\n决一些重要的犯人的时候，那里肯定是人山人海，不过平时人就少\n得多了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.bridge",
+          "source_target": "__DIR__bridge",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street13",
+          "source_target": "__DIR__street13",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street13",
+      "source_path": "mudlib/d/city/street13.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "你来到京师的大街上。西边是京师的西二门，西去的人不时经\n过这里。南边是京师的监狱，关押着一些重要的犯人。站在这里可\n以清楚地听到狱卒拷打犯人的皮鞭声和犯人的惨叫声。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street12",
+          "source_target": "__DIR__street12",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.westdoor2",
+          "source_target": "__DIR__westdoor2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street14",
+      "source_path": "mudlib/d/city/street14.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "这里是京师的大街上。西边是京师的西一门，护国寺的僧人西\n去取经必经此地。福缘好的话还可以看到几个有道高僧路过。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street15",
+          "source_target": "__DIR__street15",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.westdoor1",
+          "source_target": "__DIR__westdoor1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street15",
+      "source_path": "mudlib/d/city/street15.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "你来到京师的大街。北边是护国寺的大门，寺内香烟缭绕。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street7",
+          "source_target": "__DIR__street7",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street14",
+          "source_target": "__DIR__street14",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street16",
+      "source_path": "mudlib/d/city/street16.c",
+      "status": "structured",
+      "name": "大栅栏",
+      "description": "从这里再往北走就出了京师的北城门，在与异族交战的时期，为\n方便盘查行人，官兵在这儿放了一道很大的栅栏。后来尽管战争结束\n了，栅栏拿走了，但老人们还是习惯地把这叫做“大栅栏”，用京音\n读起来就变成了“大世烂儿”。西面是护国寺的侧门。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.northdoor",
+          "source_target": "__DIR__northdoor",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.street7",
+          "source_target": "__DIR__street7",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street17",
+      "source_path": "mudlib/d/city/street17.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "你来到京师的大街上。南边是京师的南门，出了南门就可去南\n方重镇……南海镇。北边是天桥，人声鼎沸。西边是刑场，一个一\n般人极少去的地方。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.bridge",
+          "source_target": "__DIR__bridge",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.southdoor",
+          "source_target": "__DIR__southdoor",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street2",
+      "source_path": "mudlib/d/city/street2.c",
+      "status": "structured",
+      "name": "京师东街",
+      "description": "你走在京师东街的中段。这里夹在紫禁城城墙与尚书府院墙之间\n，南向的道路通向午门和尚书府的大门，而北方不远处振远总局的旗\n杆依稀可见，令人隐隐约约地感到一种杀气。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.street1",
+          "source_target": "__DIR__street1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.street3",
+          "source_target": "__DIR__street3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/walker.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street3",
+      "source_path": "mudlib/d/city/street3.c",
+      "status": "structured",
+      "name": "京师东街",
+      "description": "这是京师东街的南段。整个东街都被掌管天下兵马印的尚书府占\n据了，东边便是尚书府的大门，南边则是尚书府高耸的围墙(wall)，\n北去的道路一直通向振远总局。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shangshu.gate",
+          "source_target": "__DIR__shangshu/gate",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.street2",
+          "source_target": "__DIR__street2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.wumen",
+          "source_target": "__DIR__wumen",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.street4",
+      "source_path": "mudlib/d/city/street4.c",
+      "status": "structured",
+      "name": "京师西街",
+      "description": "你现在正走在京师的街道上。东边是进出紫禁城的午门，西边则\n是当朝地位显赫的相国的府宅，而北边不远处“太白酒楼”的喧哗声\n依稀可闻。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.wumen",
+          "source_target": "__DIR__wumen",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.street5",
+          "source_target": "__DIR__street5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.xiangguo.gate",
+          "source_target": "__DIR__xiangguo/gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/trader.c",
+        "mudlib/d/city/npc/walker.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street5",
+      "source_path": "mudlib/d/city/street5.c",
+      "status": "structured",
+      "name": "京师西街",
+      "description": "你现在正走在京师的街道上，西边是京师最有名的“太白酒楼”，\n酒楼里三教九流的人物都有，嘈杂声不绝于耳。东边紧邻着紫禁城的\n城墙(wall)。街道向南北方向延伸着。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "city.street6",
+          "source_target": "__DIR__street6",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.street4",
+          "source_target": "__DIR__street4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.jiulou",
+          "source_target": "__DIR__jiulou",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street6",
+      "source_path": "mudlib/d/city/street6.c",
+      "status": "structured",
+      "name": "京师西街",
+      "description": "你现在正走在京师的街道上。往东走便是紫禁城的后门--神武门\n，南面似乎有一家酒楼，酒肉的香味一阵阵飘来。北边是一个废园，\n据说里面经常闹鬼，所以没人敢去。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.shenwumen",
+          "source_target": "__DIR__shenwumen",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.feiyuan",
+          "source_target": "__DIR__feiyuan",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.street5",
+          "source_target": "__DIR__street5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.cloth",
+          "source_target": "__DIR__cloth",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street7",
+      "source_path": "mudlib/d/city/street7.c",
+      "status": "structured",
+      "name": "十字路口",
+      "description": "京师的中轴线和北面的主要街道护国道在这里交叉，东西向的护\n国道上人来人往，热闹非凡，南面的皇家祭坛反倒冷冷清清，往北可\n以望到大红颜色的北城门。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street8",
+          "source_target": "__DIR__street8",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.street16",
+          "source_target": "__DIR__street16",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.jitan",
+          "source_target": "__DIR__jitan",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street15",
+          "source_target": "__DIR__street15",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street8",
+      "source_path": "mudlib/d/city/street8.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "你现在正走在京师的大街上，往东可以隐约看到城门铜扣上的反\n光，在你的北边是京城唯一的钱庄，往西有熙熙攘攘的人群，偶尔还\n能见到一俩个僧侣。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street9",
+          "source_target": "__DIR__street9",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.bank",
+          "source_target": "/d/city/bank",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street7",
+          "source_target": "/d/city/street7",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.street9",
+      "source_path": "mudlib/d/city/street9.c",
+      "status": "structured",
+      "name": "京师街道",
+      "description": "你现在正走在京师的大街上。东边就是京师的东一门了，隐约\n传来官兵搜查行人的吆喝声。在你的北边是京城的武器店，据说江\n湖上半数以上的武器精品出于此店。从店中走出的人都是一副心满\n意足的模样。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.eastdoor1",
+          "source_target": "__DIR__eastdoor1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "city.weapon",
+          "source_target": "__DIR__weapon",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street8",
+          "source_target": "__DIR__street8",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "city.wall",
+      "source_path": "mudlib/d/city/wall.c",
+      "status": "structured",
+      "name": "院墙",
+      "description": "你爬上了尚书府的院墙，墙里面人来人往的，很是\n热闹。你是跳进去(jump in)，还是回去(jump out)呢？",
+      "exits": [],
+      "object_sources": [],
+      "behavior_flags": [
+        "custom_command"
+      ]
+    },
+    {
+      "id": "city.weapon",
+      "source_path": "mudlib/d/city/weapon.c",
+      "status": "structured",
+      "name": "京师武器店",
+      "description": "这里是江湖中人人所向往的京师武器店。店铺宽敞，红砖铺地。\n四周的墙壁上挂满了各式的刀剑。东边的武器架上的枪戟的反光令\n你睁不开眼。靠北墙的大柜台一尘不染，几个伙计正在忙碌。\n    靠近店门的地方有一块金字招牌(sign)。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "city.street9",
+          "source_target": "__DIR__street9",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/weaponor.c"
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.westdoor1",
+      "source_path": "mudlib/d/city/westdoor1.c",
+      "status": "structured",
+      "name": "京师西一门",
+      "description": "你来到京师的西一门。城墙上贴着几张官家布告(notice)。东\n北方是大相国寺，不时传来几声钟声。西边是城外，抬头可见远处\n连绵的群山。东边就是京师的街道了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street14",
+          "source_target": "__DIR__street14",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/guard.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.westdoor2",
+      "source_path": "mudlib/d/city/westdoor2.c",
+      "status": "structured",
+      "name": "京师西二门",
+      "description": "你来到京师的西二门，西二门虽不如京师的其他几个城门高大。\n但高高的城墙也非一般人所能攀越，城墙上贴着几张布告(notice)。\n西边是城外，据说一直往西就可到达一个仙境。东边就是京师的街\n道了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street13",
+          "source_target": "__DIR__street13",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/city/npc/guard.c"
+      ],
+      "behavior_flags": [
+        "conditional_exit",
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "city.wumen",
+      "source_path": "mudlib/d/city/wumen.c",
+      "status": "structured",
+      "name": "午门",
+      "description": "这里是京师的午门。午门进出紫禁城的要道，北面那庄严的大门\n(gate)后面便是神秘的紫禁城。大门的两侧放着一对石狮(statue)，\n虎视眈眈地盯着来往的人群。南面是历年选武状元的校武场，也不知\n现在有没有人。东西向的街道围绕着紫禁城。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street3",
+          "source_target": "__DIR__street3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "city.jiaowu",
+          "source_target": "__DIR__jiaowu",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "city.street4",
+          "source_target": "__DIR__street4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "city.xiangguo.gate",
+      "source_path": "mudlib/d/city/xiangguo/gate.c",
+      "status": "structured",
+      "name": "相国府大门",
+      "description": "你来到相国府的大门处。虽然相国在朝中也是地位显赫，但与对\n面尚书府比起来，相国的府第显的寒酸得多。一切都十分简单，只有\n牌匾上的「相国府」还提醒着人们主人的地位。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "city.street4",
+          "source_target": "/d/city/street4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "object_sources": [],
+      "behavior_flags": []
+    }
+  ],
+  "non_room_files": [
+    "mudlib/d/city/npc/boss.c",
+    "mudlib/d/city/npc/caker.c",
+    "mudlib/d/city/npc/chen.c",
+    "mudlib/d/city/npc/clother.c",
+    "mudlib/d/city/npc/dumpling_seller.c",
+    "mudlib/d/city/npc/guard.c",
+    "mudlib/d/city/npc/guardbak.c",
+    "mudlib/d/city/npc/microsof.c",
+    "mudlib/d/city/npc/obj/armor1.c",
+    "mudlib/d/city/npc/obj/blade.c",
+    "mudlib/d/city/npc/obj/cake.c",
+    "mudlib/d/city/npc/obj/color_cloth.c",
+    "mudlib/d/city/npc/obj/deer_boot.c",
+    "mudlib/d/city/npc/obj/demon_staff.c",
+    "mudlib/d/city/npc/obj/duoqing_blade.c",
+    "mudlib/d/city/npc/obj/fish.c",
+    "mudlib/d/city/npc/obj/flower_boot.c",
+    "mudlib/d/city/npc/obj/green_cloth.c",
+    "mudlib/d/city/npc/obj/hu-blade.c",
+    "mudlib/d/city/npc/obj/lady_dress.c",
+    "mudlib/d/city/npc/obj/passport.c",
+    "mudlib/d/city/npc/obj/rain_whip.c",
+    "mudlib/d/city/npc/obj/wine.c",
+    "mudlib/d/city/npc/obj/wuqing_sword.c",
+    "mudlib/d/city/npc/obj/xiang_boot.c",
+    "mudlib/d/city/npc/shoer.c",
+    "mudlib/d/city/npc/trader.c",
+    "mudlib/d/city/npc/trader2.c",
+    "mudlib/d/city/npc/trader3.c",
+    "mudlib/d/city/npc/vendor.c",
+    "mudlib/d/city/npc/waiter.c",
+    "mudlib/d/city/npc/walker.c",
+    "mudlib/d/city/npc/weaponor.c",
+    "mudlib/d/city/obj/token.c",
+    "mudlib/d/city/shangshu/npc/gardener.c",
+    "mudlib/d/city/shangshu/npc/guard.c",
+    "mudlib/d/city/shangshu/npc/huyuan.c",
+    "mudlib/d/city/shangshu/npc/huyuan1.c",
+    "mudlib/d/city/shangshu/npc/maid.c",
+    "mudlib/d/city/shangshu/npc/obj/blade.c",
+    "mudlib/d/city/shangshu/npc/obj/pink_cloth.c",
+    "mudlib/d/city/shangshu/npc/obj/sword.c",
+    "mudlib/d/city/shangshu/npc/obj/white_cloth.c",
+    "mudlib/d/city/shangshu/npc/qing_chen.c",
+    "mudlib/d/city/shangshu/npc/shangshu.c"
+  ],
+  "warnings": [
+    "mudlib/d/city/bank.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/boots.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/cloth.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/eastdoor1.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/eastdoor1.c: 动态行为待实现 [door]",
+    "mudlib/d/city/eastdoor1.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/eastdoor2.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/eastdoor2.c: 动态行为待实现 [door]",
+    "mudlib/d/city/eastdoor2.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/feiyuan.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/feiyuan.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/city/feiyuan.c: 动态行为待实现 [random_behavior]",
+    "mudlib/d/city/jitan.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/city/jitan.c: 动态行为待实现 [dynamic_exit]",
+    "mudlib/d/city/jitan.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/jitan.c: 动态行为待实现 [timed_behavior]",
+    "mudlib/d/city/northdoor.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/northdoor.c: 动态行为待实现 [door]",
+    "mudlib/d/city/northdoor.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/nroad1.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/city/nroad1.c: 动态行为待实现 [door]",
+    "mudlib/d/city/nroad1.c: 动态行为待实现 [dynamic_exit]",
+    "mudlib/d/city/shangshu/gate.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/shangshu/gate.c: 动态行为待实现 [door]",
+    "mudlib/d/city/shangshu/huayuan.c: 动态行为待实现 [door]",
+    "mudlib/d/city/shangshu/kefang.c: 动态行为待实现 [door]",
+    "mudlib/d/city/shangshu/kefang.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/shangshu/neizhai.c: 动态行为待实现 [door]",
+    "mudlib/d/city/shangshu/road1.c: 动态行为待实现 [door]",
+    "mudlib/d/city/shangshu/road2.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/shangshu/road2.c: 动态行为待实现 [door]",
+    "mudlib/d/city/shangshu/xiaowu.c: 动态行为待实现 [door]",
+    "mudlib/d/city/shangshu/yuan.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/shangshu/yuan.c: 动态行为待实现 [door]",
+    "mudlib/d/city/southdoor.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/southdoor.c: 动态行为待实现 [door]",
+    "mudlib/d/city/southdoor.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/street3.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/city/street3.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/wall.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/city/weapon.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/westdoor1.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/westdoor1.c: 动态行为待实现 [door]",
+    "mudlib/d/city/westdoor1.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/westdoor2.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/city/westdoor2.c: 动态行为待实现 [door]",
+    "mudlib/d/city/westdoor2.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/city/wumen.c: 动态行为待实现 [door]"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M4",
+  "status": "in_progress",
+  "transitions": [
+    {
+      "source_path": "mudlib/d/canyon/road.c",
+      "targets": [
+        "canyon.canyon1",
+        "canyon.road"
+      ],
+      "status": "verified",
+      "decision": "原版 climb chain 双向移动已实现，并保留上下行不同的精、气、神消耗。"
+    },
+    {
+      "source_path": "mudlib/d/city/street3.c",
+      "targets": [
+        "city.wall",
+        "city.shangshu.feiwu",
+        "city.street3"
+      ],
+      "status": "verified",
+      "decision": "原版 climb wall 与院墙 jump in/out 三条移动路径已实现。"
+    },
+    {
+      "source_path": "mudlib/d/canyon/stone_forest1.c",
+      "targets": [
+        "canyon.canyon2",
+        "canyon.stone_forest1"
+      ],
+      "status": "adapted",
+      "decision": "固定源提交只有穿林路返回 canyon2 的单向出口；单人版在 canyon2 增加 west 入口，使整组黄石穿林与梦幻迷境房间可进入。"
+    },
+    {
+      "source_path": "mudlib/d/canyon/canyon4.c",
+      "targets": [
+        "canyon.blackmarket"
+      ],
+      "status": "verified",
+      "decision": "向军师交付足额诚意后取得一次性誓言口令；在 canyon4 山壁执行原版誓言可进入黑市，口令随即消耗。"
+    }
+  ],
+  "source_defects": [
+    {
+      "source_path": "mudlib/d/city/nroad1.c",
+      "target": "city.room",
+      "status": "excluded",
+      "decision": "yell 动态出口指向固定源提交中不存在的 room.c；运行时保留为不可用引用以便审计，不生成虚构房间。"
+    },
+    {
+      "source_path": "mudlib/d/snow/herbshop1.c",
+      "target": "snow.herbshop1",
+      "status": "blocked",
+      "decision": "固定源提交中没有任何房间或脚本引用该密室，等待雪亭镇剧情审计决定单人入口。"
+    },
+    {
+      "source_path": "mudlib/d/temple/broom1.c",
+      "target": "temple.broom1",
+      "status": "excluded",
+      "decision": "与 book_room1.c 内容重复且没有入向引用，由可达的 book_room1.c 版本取代。"
+    },
+    {
+      "source_path": "mudlib/d/temple/broom2.c",
+      "target": "temple.broom2",
+      "status": "excluded",
+      "decision": "与 book_room2.c 属于同一经楼旧版本且没有入向引用，由可达的 book_room2.c 版本取代。"
+    }
+  ]
+}
