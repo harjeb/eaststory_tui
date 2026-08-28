@@ -1,0 +1,533 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "area": "goathill",
+  "status": "structured",
+  "rooms": [
+    {
+      "id": "goathill.canyon1",
+      "source_path": "mudlib/d/goathill/canyon1.c",
+      "status": "structured",
+      "name": "峡谷",
+      "description": "你现在正走在一条狭长的峡谷之中，东西两边都是高不可攀的峭壁\n，一根五、六丈宽的石梁正横跨在你头顶的谷口，看起来摇摇欲坠，万\n一掉下来只怕当场就会被压成一个肉饼，往南就是峡谷的出口，峡谷谷\n底的地面看起来像是乾涸的山涧，弯弯曲曲往北通入峡谷深处。",
+      "exits": [
+        {
+          "direction": "northdown",
+          "target": "goathill.canyon2",
+          "source_target": "__DIR__canyon2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "goathill.mroad6",
+          "source_target": "__DIR__mroad6",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.canyon2",
+      "source_path": "mudlib/d/goathill/canyon2.c",
+      "status": "structured",
+      "name": "峡谷",
+      "description": "你现在正走在一条狭长的深谷之中，东西两面都是高不可攀的峭壁\n，往南沿著谷底一条乾涸的山涧可以通往峡谷的出口，北边的峭壁从这\n里斜斜向上宛如从天上掉下来倒插进地面，形势更是危峻，连天空都被\n北边的峭壁遮去了七、八分。",
+      "exits": [
+        {
+          "direction": "northeast",
+          "target": "goathill.canyon3",
+          "source_target": "__DIR__canyon3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southup",
+          "target": "goathill.canyon1",
+          "source_target": "__DIR__canyon1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.canyon3",
+      "source_path": "mudlib/d/goathill/canyon3.c",
+      "status": "structured",
+      "name": "峡谷",
+      "description": "你现在正走在一条峡谷的谷底，这里的峭壁斜度之大让你胆颤心惊\n，只消有人在这里一声大喝将上面的土石震了下来，只怕立刻就得被活\n埋，东边的峭壁上有一个黑漆漆的洞穴，里面似乎有什么东西蠕蠕而动\n，峡谷往西南和西北两边各有狭窄的出口。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "goathill.cavern1",
+          "source_target": "__DIR__cavern1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southwest",
+          "target": "goathill.canyon2",
+          "source_target": "__DIR__canyon2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.cavern1",
+      "source_path": "mudlib/d/goathill/cavern1.c",
+      "status": "structured",
+      "name": "岩洞",
+      "description": "这个岩洞的内部似乎远比你想像得大，岩壁上有一条条的深沟彷佛\n是被什么蛀虫给蛀出来的，可是有什么虫会去啃咬这又硬又厚的岩壁呢\n？洞穴的出口在你的西边透著微光，东北边跟西北边各有一个洞穴，黑\n暗中似乎有什么东西在蠕蠕而动。",
+      "exits": [
+        {
+          "direction": "northeast",
+          "target": "goathill.cavern2",
+          "source_target": "__DIR__cavern2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southeast",
+          "target": "goathill.cavern4",
+          "source_target": "__DIR__cavern4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "goathill.canyon3",
+          "source_target": "__DIR__canyon3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/goathill/npc/worm.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/goathill/npc/worm.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.cavern1.c",
+      "source_path": "mudlib/d/goathill/cavern1.c.c",
+      "status": "structured",
+      "name": "空房间",
+      "description": "这是一间什么也没有的空房间。\\n",
+      "exits": [],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.cavern2",
+      "source_path": "mudlib/d/goathill/cavern2.c",
+      "status": "structured",
+      "name": "岩洞",
+      "description": "你现在正在一个黑漆漆的岩洞中摸索前进，西南边隐隐有些光亮，\n想必是洞穴的出口，东边似乎有些滴水的声音，不过你得走过去才能听\n得仔细，你感觉脚边有一些东西在蠕蠕而动，举脚又有些黏黏的，一阵\n恶心的感觉压迫著你的胃。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "goathill.cavern3",
+          "source_target": "__DIR__cavern3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southwest",
+          "target": "goathill.cavern1",
+          "source_target": "__DIR__cavern1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/goathill/npc/fat_worm.c",
+        "mudlib/d/goathill/npc/worm.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/goathill/npc/fat_worm.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/goathill/npc/worm.c",
+          "quantity": 3
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.cavern3",
+      "source_path": "mudlib/d/goathill/cavern3.c",
+      "status": "structured",
+      "name": "岩穴",
+      "description": "这里一片黑漆漆，你必须全靠摸索才能不至于撞到岩壁，你听到东\n边传来阵阵滴水的声音，可是伸手一摸却仍是冷冰冰、又乾又硬的岩石\n，地上布满了许多又黏又稠的不知名东西，使你每一步都走得异常艰辛\n。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "goathill.cavern2",
+          "source_target": "__DIR__cavern2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/goathill/npc/big_worm.c",
+        "mudlib/d/goathill/npc/huge_worm.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/goathill/npc/big_worm.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/goathill/npc/huge_worm.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.cavern4",
+      "source_path": "mudlib/d/goathill/cavern4.c",
+      "status": "structured",
+      "name": "岩洞",
+      "description": "这里是一处阴暗的岩洞，等你走近这个岩洞才发现原来是死路，东\n北边隐隐透出几道微光，想必是洞穴的出口，地上一滩滩暗黄色的黏稠\n物不知道士什么东西，闻起来竟一点味道也没有。",
+      "exits": [
+        {
+          "direction": "northwest",
+          "target": "goathill.cavern1",
+          "source_target": "__DIR__cavern1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/goathill/npc/big_worm.c",
+        "mudlib/d/goathill/npc/worm.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/goathill/npc/worm.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/goathill/npc/big_worm.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.mroad1",
+      "source_path": "mudlib/d/goathill/mroad1.c",
+      "status": "structured",
+      "name": "山路",
+      "description": "你现在正走在一条崎岖的山路上，凹凹凸凸的山石刺得你的脚底隐\n隐生疼，山路往南不远处通往一个山腰的台地，这一带最大的镇甸就位\n在台地上，东边跟西边都是陡峭的山壁，山路往北通往层层叠叠的群山\n之中。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "goathill.mroad2",
+          "source_target": "__DIR__mroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "snow.crossroad",
+          "source_target": "/d/snow/crossroad",
+          "internal": false,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.mroad2",
+      "source_path": "mudlib/d/goathill/mroad2.c",
+      "status": "structured",
+      "name": "山路",
+      "description": "你现在正走在一条崎岖的山路上，路面到处生满了及膝的杂草丛，\n显示这里已经有一段时间没有车马经过了，从这里往北就是野羊山的地\n界，野羊山有一座山寨，住著许多凶恶的盗匪，你最好绕道而行。",
+      "exits": [
+        {
+          "direction": "northeast",
+          "target": "goathill.mroad3",
+          "source_target": "__DIR__mroad3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "goathill.mroad1",
+          "source_target": "__DIR__mroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.mroad3",
+      "source_path": "mudlib/d/goathill/mroad3.c",
+      "status": "structured",
+      "name": "山路",
+      "description": "你现在正走在一条崎岖的山路上，东边的路旁一个山壁的裂缝里有\n一间小庙，从这里看过去黑漆漆的似乎没有人照顾，山路往北是一段陡\n峭的上坡，往西南的山路就平缓得多。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "goathill.temple1",
+          "source_target": "__DIR__temple1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "northup",
+          "target": "goathill.mroad4",
+          "source_target": "__DIR__mroad4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southwest",
+          "target": "goathill.mroad2",
+          "source_target": "__DIR__mroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.mroad4",
+      "source_path": "mudlib/d/goathill/mroad4.c",
+      "status": "structured",
+      "name": "山路转角",
+      "description": "你现在正走在一条崎岖山路的转角处，山路望东通往野羊山上，从\n这里可以望见东边不远处有一个石屋立在岩壁边上，看起来像是冈哨或\n什么的，北边的山壁有一个裂口(crack)，不过离地约有三到四丈， 往\n南的山路是段陡峭的下坡，如果你要下山，大概就是这条路了。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "goathill.mroad5",
+          "source_target": "__DIR__mroad5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southdown",
+          "target": "goathill.mroad3",
+          "source_target": "__DIR__mroad3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/goathill/npc/bandit.c",
+        "mudlib/d/goathill/npc/bandit_leader.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/goathill/npc/bandit.c",
+          "quantity": 3
+        },
+        {
+          "source_path": "mudlib/d/goathill/npc/bandit_leader.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.mroad5",
+      "source_path": "mudlib/d/goathill/mroad5.c",
+      "status": "structured",
+      "name": "山路",
+      "description": "这里是一段狭窄的山路，往东不远处的岩壁边上有一座石屋，路旁\n生满了及腰的长草，山风吹过一起一伏的有如波浪一般，南北两边有许\n多大石，看起来倒是个埋伏的好地点，往西是一个山路的转角。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "goathill.slope1",
+          "source_target": "__DIR__slope1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "northeast",
+          "target": "goathill.mroad6",
+          "source_target": "__DIR__mroad6",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "goathill.mroad4",
+          "source_target": "__DIR__mroad4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.mroad6",
+      "source_path": "mudlib/d/goathill/mroad6.c",
+      "status": "structured",
+      "name": "山路",
+      "description": "你现在正走在一条崎岖的山路上，往北是一个峡谷，通过「飞火崖\n」的正下方，从这里可以看到一条五、六丈宽的石梁魏颤颤地跨过峡谷\n，山路往西南转过，南边则是一片岩石斜坡。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "goathill.canyon1",
+          "source_target": "__DIR__canyon1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "goathill.slope1",
+          "source_target": "__DIR__slope1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southwest",
+          "target": "goathill.mroad5",
+          "source_target": "__DIR__mroad5",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.slope1",
+      "source_path": "mudlib/d/goathill/slope1.c",
+      "status": "structured",
+      "name": "岩石坡",
+      "description": "这里是一处岩石斜坡，斜坡上到处布满乱石及杂草，东边的岩壁边\n有一间石屋，往西跟往北则可以回到铺满碎石的山路。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "goathill.mroad6",
+          "source_target": "__DIR__mroad6",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "goathill.mroad5",
+          "source_target": "__DIR__mroad5",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.temple1",
+      "source_path": "mudlib/d/goathill/temple1.c",
+      "status": "structured",
+      "name": "小土地庙",
+      "description": "你现在正站在一间小土地庙中，这座庙的南北两面都是利用了山壁\n而建的，只有东面一面土墙，墙上嵌著一个小小的神龛，里面供著一尊\n残破不堪的土地爷爷，庙门在你的西边。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "goathill.mroad3",
+          "source_target": "__DIR__mroad3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/goathill/npc/bandit_hwang.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/goathill/npc/bandit_hwang.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    }
+  ],
+  "non_room_files": [
+    "mudlib/d/goathill/npc/bandit.c",
+    "mudlib/d/goathill/npc/bandit_hwang.c",
+    "mudlib/d/goathill/npc/bandit_leader.c",
+    "mudlib/d/goathill/npc/big_worm.c",
+    "mudlib/d/goathill/npc/fat_worm.c",
+    "mudlib/d/goathill/npc/huge_worm.c",
+    "mudlib/d/goathill/npc/obj/boots.c",
+    "mudlib/d/goathill/npc/obj/breast_mirror.c",
+    "mudlib/d/goathill/npc/obj/dead_leech.c",
+    "mudlib/d/goathill/npc/obj/hand_axe.c",
+    "mudlib/d/goathill/npc/obj/sledge_hammer.c",
+    "mudlib/d/goathill/npc/obj/steel_blade.c",
+    "mudlib/d/goathill/npc/silver_worm.c",
+    "mudlib/d/goathill/npc/worm.c",
+    "mudlib/d/goathill/obj/boots.c",
+    "mudlib/d/goathill/obj/breast_mirror.c",
+    "mudlib/d/goathill/obj/dead_leech.c",
+    "mudlib/d/goathill/obj/hand_axe.c",
+    "mudlib/d/goathill/obj/sledge_hammer.c",
+    "mudlib/d/goathill/obj/steel_blade.c"
+  ],
+  "warnings": []
+}

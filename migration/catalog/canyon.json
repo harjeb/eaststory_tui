@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "canyon",
   "status": "structured",
@@ -26,7 +26,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -51,7 +54,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -76,7 +82,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "environment_damage",
@@ -98,7 +107,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "bookcase",
+          "description": "看起来是个普普通通的柜子，或许你可以search看看。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "item_interaction"
@@ -119,8 +137,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/seller.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/seller.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -160,8 +186,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/door_guard.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/door_guard.c",
+          "quantity": 2
+        }
       ],
       "behavior_flags": []
     },
@@ -201,7 +235,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -219,8 +256,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/guard1.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/guard1.c",
+          "quantity": 2
+        }
       ],
       "behavior_flags": []
     },
@@ -239,9 +284,21 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/guard1.c",
         "mudlib/d/canyon/npc/guard2.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/guard1.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/canyon/npc/guard2.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -260,8 +317,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/leader1.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/leader1.c",
+          "quantity": 2
+        }
       ],
       "behavior_flags": []
     },
@@ -280,9 +345,21 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/captain.c",
         "mudlib/d/canyon/npc/leader2.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/captain.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/canyon/npc/leader2.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -308,8 +385,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/vice_general.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/vice_general.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "conditional_exit"
@@ -330,9 +415,21 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/canyon/npc/adviser.c",
         "mudlib/d/canyon/npc/general.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/canyon/npc/general.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/canyon/npc/adviser.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -351,7 +448,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "chain",
+          "description": "一长条铁索缘山壁而上，若无绝佳的体力就好不要轻意攀爬(climb)。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "environment_damage",
@@ -380,7 +486,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -405,7 +514,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -437,7 +549,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command"
       ]
@@ -464,7 +579,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "door",
+          "description": "这巨大的铁门锈迹斑斑，它是上下开合的，现在已经高高的抬起，\n若它失控砸下，可能什么东西都会被砸扁。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "item_interaction"
       ]
@@ -491,7 +615,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "mechine",
+          "description": "这是个很大的绞盘，可能是开关铁门用的。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "item_interaction"
       ]
@@ -518,7 +651,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -536,7 +672,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -554,7 +693,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -593,7 +735,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -611,7 +756,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "chain",
+          "description": "一长条铁索缘山壁而下，或许你可以试著攀爬(climb)。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "environment_damage",
@@ -640,7 +794,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -665,7 +822,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -690,7 +850,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     }
   ],

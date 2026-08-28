@@ -1,0 +1,348 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "area": "death",
+  "status": "structured",
+  "rooms": [
+    {
+      "id": "death.block",
+      "source_path": "mudlib/d/death/block.c",
+      "status": "structured",
+      "name": "空房间",
+      "description": "这里是 ES2 的「离岛」管训所, 如果你被送到这里, 表示:\n你违反了游戏规则, 请好好的反省一下你的所作所为, 想离\n开的话只要断线超过 15 分钟即可 :-)",
+      "exits": [],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "custom_command"
+      ]
+    },
+    {
+      "id": "death.bridge",
+      "source_path": "mudlib/d/death/bridge.c",
+      "status": "structured",
+      "name": "奈何桥",
+      "description": "你现在正站在一条极长的石桥上，桥头一块石碑上面刻著「奈何桥\n」三个古篆，东、西两面都是大雾，连桥底下是不是水都看不到，浓雾\n中有许多朦胧的人影鱼贯地向北走去，奈何桥往南延伸到一片大雾之中\n，北边引隐约约有一座城楼的影子。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "death.gate",
+          "source_target": "__DIR__gate",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "death.bridge1",
+          "source_target": "__DIR__bridge1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/death/npc/hell_guard.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/death/npc/hell_guard.c",
+          "quantity": 4
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "death.bridge1",
+      "source_path": "mudlib/d/death/bridge1.c",
+      "status": "structured",
+      "name": "奈何桥",
+      "description": "这里是一条漫长的石桥，往南石桥延伸进大雾之中，望不到尽头，\n往北引隐约约有一座城楼，不过你分不清是真实的影像还是幻觉，东西\n两面都是一望无际的大雾，一阵阵阴冷的微风从雾中吹过。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "death.bridge",
+          "source_target": "__DIR__bridge",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "death.gate",
+      "source_path": "mudlib/d/death/gate.c",
+      "status": "structured",
+      "name": "\u001b[1;37m鬼门关\u001b[2;37;0m",
+      "description": "这里就是著名的阴间入口「鬼门关」，在你面前矗立著一座高大的\n黑色城楼，许多亡魂正哭哭啼啼地列队前进，因为一进鬼门关就无法再\n回阳间了。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "death.gateway",
+          "source_target": "__DIR__gateway",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "death.bridge",
+          "source_target": "__DIR__bridge",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/death/npc/wgargoyle.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/death/npc/wgargoyle.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "death.gateway",
+      "source_path": "mudlib/d/death/gateway.c",
+      "status": "structured",
+      "name": "酆都城门",
+      "description": "你现在来到一座黑色城楼之前，城楼上刻著三个大字：酆都城。往\n南不远处有一座桥，桥上鬼影幢幢，但是却听不到半点声音，往北走进\n城楼只见一片黑漆漆的，只有少许暗红色的火光若隐若现地闪烁著。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "death.road1",
+          "source_target": "/d/death/road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "death.gate",
+          "source_target": "/d/death/gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/death/npc/bgargoyle.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/death/npc/bgargoyle.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "conditional_exit"
+      ]
+    },
+    {
+      "id": "death.inn1",
+      "source_path": "mudlib/d/death/inn1.c",
+      "status": "structured",
+      "name": "小店",
+      "description": "你一进来就发现屋里异常的温暖, 墙角壁炉里微弱的火光将你\n的影子投射在对面的墙上. 几个人影(shadows)围在炉旁不知在讨\n论些什么. 屋内有几张木桌, 椅, 墙上挂了几幅字画, 一切看来非\n常的详和宁静, 你几乎忘了自己身在何处.",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "death.road1",
+          "source_target": "/d/death/road1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "custom_command",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "death.inn2",
+      "source_path": "mudlib/d/death/inn2.c",
+      "status": "structured",
+      "name": "黑店",
+      "description": "屋里相当冷清, 外面的浓雾还不时地从半开著的门缝飘进来,\n地面上散著一些破旧的物品, 不过光从外表已经无法分辨出那是些\n什么东西了. 墙上(wall)刻著一些潦草的字体, 墙角的一盏灯笼挣\n扎似地发出一阵阵微弱的光芒, 也始得那些字看来格外的诡异.",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "death.road1",
+          "source_target": "/d/death/road1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "wall",
+          "description": "几行你勉强分辨得出来的字:\n我被困在这里了.... 我要回家啦!!!!!!!!!!!\n                      ^^^^\n                        靠自己啦...\n什么叫靠自己啊?!?!? 这里连个活人都没有...\n\n看到你自己时问一下吧... 自己人都会互相帮忙的说..\n                                    ^^^^\n                                 你... 确... 定?!?!\n喔..",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "death.jail",
+      "source_path": "mudlib/d/death/jail.c",
+      "status": "structured",
+      "name": "绿岛",
+      "description": "....... 唱小夜曲吧 ... :)",
+      "exits": [],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "death.road1",
+      "source_path": "mudlib/d/death/road1.c",
+      "status": "structured",
+      "name": "鬼门大道",
+      "description": "你走在一条阴森森的路上, 浓浓的雾环绕在你的四周, 好像永\n远都不会散去似的. 往南看去你勉强可以分辨出一个城楼的模样,\n往北隐约可以看到几盏灯笼, 在浓雾中显得格外的诡异. 路的两旁\n各有一栋木造的建筑, 门都是半开的, 但你看不清楚里面有什么.",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "death.inn2",
+          "source_target": "/d/death/inn2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "death.road2",
+          "source_target": "/d/death/road2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "death.gateway",
+          "source_target": "/d/death/gateway",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "death.inn1",
+          "source_target": "/d/death/inn1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "death.road2",
+      "source_path": "mudlib/d/death/road2.c",
+      "status": "structured",
+      "name": "鬼门大道",
+      "description": "你走在一条阴森森的路上, 浓浓的雾环绕在你的四周, 好像永\n远都不会散去似的. 整条路前后只看到零星的几盏灯笼........",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "death.road3",
+          "source_target": "/d/death/road3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "death.road1",
+          "source_target": "/d/death/road1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "conditional_exit"
+      ]
+    },
+    {
+      "id": "death.road3",
+      "source_path": "mudlib/d/death/road3.c",
+      "status": "structured",
+      "name": "路的尽头",
+      "description": "..... 还没想到 ....",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "death.road2",
+          "source_target": "/d/death/road2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "death.spath1",
+      "source_path": "mudlib/d/death/spath1.c",
+      "status": "structured",
+      "name": "墙边小路",
+      "description": "这是一条沿著城墙的小路，东边是一座高大巍峨的城楼，城楼前有\n一条长长的石桥，桥上许多模糊的影子正列队走进城门。小路往西南延\n伸进入一片沼地。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "death.gateway",
+          "source_target": "__DIR__gateway",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    }
+  ],
+  "non_room_files": [
+    "mudlib/d/death/npc/bgargoyle.c",
+    "mudlib/d/death/npc/hell_guard.c",
+    "mudlib/d/death/npc/obj/fork.c",
+    "mudlib/d/death/npc/obj/hell_armor.c",
+    "mudlib/d/death/npc/wgargoyle.c",
+    "mudlib/d/death/obj/fork.c",
+    "mudlib/d/death/obj/hell_armor.c"
+  ],
+  "warnings": [
+    "mudlib/d/death/block.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/death/gateway.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/death/inn1.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/death/inn1.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/death/inn2.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/death/road2.c: 动态行为待实现 [conditional_exit]"
+  ]
+}

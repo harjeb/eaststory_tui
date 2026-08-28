@@ -15,6 +15,7 @@ pub const WOUND_MEDICINE_ID: &str = "obj.drug.hurt_drug";
 pub const SNAKE_MEDICINE_ID: &str = "obj.drug.snake_drug";
 pub const SLUMBER_DRUG_ID: &str = "obj.slumber_drug";
 pub const POISON_DUST_ID: &str = "obj.toy.poison_dust";
+pub const CHUENYU_PIGMEAT_IDS: [&str; 2] = ["chuenyu.npc.obj.pigmeat", "chuenyu.obj.pigmeat"];
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
 #[serde(transparent)]
@@ -119,7 +120,7 @@ impl ItemDefinition {
         }
     }
     pub fn equipment_slot(&self) -> Option<EquipmentSlot> {
-        if self.category == ItemCategory::Weapon {
+        if self.category == ItemCategory::Weapon || self.is_food_weapon() {
             return Some(EquipmentSlot::Weapon);
         }
         self.inherited
@@ -150,7 +151,7 @@ impl ItemDefinition {
         self.equipment_slot().map(|_| 100)
     }
     pub fn weapon_skill(&self) -> Option<&'static str> {
-        if self.category != ItemCategory::Weapon {
+        if self.category != ItemCategory::Weapon && !self.is_food_weapon() {
             return None;
         }
         self.inherited
@@ -169,6 +170,25 @@ impl ItemDefinition {
             })
             .or(Some("sword"))
     }
+    fn is_food_weapon(&self) -> bool {
+        self.category == ItemCategory::Food
+            && self.weapon_damage.is_some()
+            && self.inherited.iter().any(|marker| {
+                matches!(
+                    marker.as_str(),
+                    "AXE"
+                        | "BLADE"
+                        | "DAGGER"
+                        | "FORK"
+                        | "HAMMER"
+                        | "STAFF"
+                        | "SWORD"
+                        | "THROWING"
+                        | "WHIP"
+                )
+            })
+    }
+
     pub fn initial_uses(&self) -> Option<u32> {
         if self.stackable() && self.id.as_str() == DRY_RATIONS_ID {
             return None;
@@ -218,6 +238,19 @@ impl ItemRepository {
             .cloned()
             .map(|item| (item.id.clone(), item))
             .collect::<HashMap<_, _>>();
+        for (id, name) in [
+            ("choyin.npc.obj.book", "「嘉德文选」"),
+            ("choyin.npc.obj.book1", "「笑傲江湖」"),
+            ("choyin.npc.obj.book2", "「秘传八步赶蝉」"),
+            ("choyin.obj.book", "「嘉德文选」"),
+            ("choyin.npc.obj.denotation", "功德箱"),
+            ("choyin.obj.denotation", "功德箱"),
+        ] {
+            definitions
+                .get_mut(&ItemId::from(id))
+                .expect("M5 item override must exist")
+                .name = name.into();
+        }
         definitions.insert(
             ItemId::from(DRY_RATIONS_ID),
             ItemDefinition {
@@ -291,6 +324,12 @@ impl ItemRepository {
     pub fn definition(&self, id: &ItemId) -> Option<&ItemDefinition> {
         self.definitions.get(id)
     }
+    pub fn id_for_source(&self, source_path: &str) -> Option<&ItemId> {
+        self.definitions
+            .values()
+            .find(|item| item.source_path == source_path)
+            .map(|item| &item.id)
+    }
     pub fn contains(&self, id: &ItemId) -> bool {
         self.definitions.contains_key(id)
     }
@@ -323,6 +362,7 @@ pub struct ItemInstance {
     pub transformed_weight: Option<u32>,
     pub transformed_value: Option<i32>,
     pub slumber_effect: u32,
+    pub filled_with_water: bool,
 }
 impl ItemInstance {
     pub fn new(instance_id: u64, item_id: ItemId, quantity: u32) -> Self {
@@ -340,6 +380,7 @@ impl ItemInstance {
             transformed_weight: None,
             transformed_value: None,
             slumber_effect: 0,
+            filled_with_water: false,
         }
     }
     pub fn definition(&self) -> &'static ItemDefinition {
@@ -410,6 +451,8 @@ impl<'de> Deserialize<'de> for ItemInstance {
             transformed_value: Option<i32>,
             #[serde(default)]
             slumber_effect: u32,
+            #[serde(default)]
+            filled_with_water: bool,
         }
         #[derive(Deserialize)]
         #[serde(untagged)]
@@ -432,6 +475,7 @@ impl<'de> Deserialize<'de> for ItemInstance {
                     transformed_weight: v.transformed_weight,
                     transformed_value: v.transformed_value,
                     slumber_effect: v.slumber_effect,
+                    filled_with_water: v.filled_with_water,
                 })
             }
             Input::Legacy(v) => Ok(Self::new(0, v.item_id(), 1)),

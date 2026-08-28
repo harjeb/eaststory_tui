@@ -1,0 +1,4464 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "scope": "m7-npcs",
+  "status": "structured",
+  "summary": {
+    "total": 85,
+    "placed": 65,
+    "vendors": 8,
+    "vendor_goods": 29,
+    "inquiry_npcs": 34,
+    "inquiry_topics": 67,
+    "static_inquiries": 56,
+    "scripted_inquiries": 11,
+    "runtime_inquiry_npcs": 25,
+    "runtime_inquiries": 49,
+    "runtime_inquiry_references": 68,
+    "combat_profiles": 85,
+    "combat_skill_entries": 343,
+    "combat_mapping_entries": 75,
+    "combat_apply_entries": 36,
+    "combat_chat_npcs": 13,
+    "combat_chat_entries": 27,
+    "carried_item_npcs": 60,
+    "carried_item_entries": 122,
+    "worn_item_entries": 78,
+    "wielded_item_entries": 28,
+    "placed_combat_npcs": 65,
+    "placed_combat_chat_npcs": 10,
+    "placed_carried_item_npcs": 49,
+    "by_area": {
+      "cloud": 32,
+      "death": 3,
+      "jail": 1,
+      "latemoon": 49
+    }
+  },
+  "npcs": [
+    {
+      "id": "death.npc.bgargoyle",
+      "source_path": "mudlib/d/death/npc/bgargoyle.c",
+      "status": "structured",
+      "area": "death",
+      "name": "黑无常",
+      "description": "黑无常伸著长长的舌头瞪著你，黝黑的脸上看不出任何喜怒哀乐。",
+      "combat_exp": 20000,
+      "attributes": {},
+      "resources": {
+        "max_gin": 900,
+        "max_sen": 200
+      },
+      "skills": {
+        "dodge": 40,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 60,
+        "damage": 20
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "death.npc.hell_guard",
+      "source_path": "mudlib/d/death/npc/hell_guard.c",
+      "status": "structured",
+      "area": "death",
+      "name": "阴鬼牙将",
+      "description": "一个负责看守鬼门关的阴卒，他们是鬼卒中的精锐，负责阻挡想要\n侵入酆都城的妖魔鬼怪。",
+      "combat_exp": 400000,
+      "attributes": {
+        "cor": 50,
+        "cps": 50,
+        "str": 50
+      },
+      "resources": {
+        "atman": 900,
+        "mana": 900,
+        "max_atman": 900,
+        "max_gin": 1500,
+        "max_mana": 900,
+        "max_sen": 1500
+      },
+      "skills": {
+        "dodge": 90,
+        "fork": 100,
+        "parry": 90
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 50,
+        "attack": 75,
+        "damage": 50,
+        "defense": 75
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "death.npc.obj.hell_armor",
+          "source_path": "mudlib/d/death/npc/obj/hell_armor.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "death.npc.obj.fork",
+          "source_path": "mudlib/d/death/npc/obj/fork.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "random_identity"
+      ]
+    },
+    {
+      "id": "death.npc.wgargoyle",
+      "source_path": "mudlib/d/death/npc/wgargoyle.c",
+      "status": "structured",
+      "area": "death",
+      "name": "白无常",
+      "description": "白无常伸著长长的舌头瞪著你，死白的脸上看不出任何喜怒哀乐。",
+      "combat_exp": 20000,
+      "attributes": {},
+      "resources": {
+        "max_gin": 900,
+        "max_sen": 200
+      },
+      "skills": {
+        "dodge": 40,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "jail.cityguard",
+      "source_path": "mudlib/d/jail/cityguard.c",
+      "status": "structured",
+      "area": "jail",
+      "name": "守城官兵",
+      "description": "这是个正在这里站岗的守城官兵，虽然和许\\多武林人物比起来，官兵\n们的武功\\实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
+      "combat_exp": 100000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 70,
+        "move": 100,
+        "parry": 70,
+        "sword": 70,
+        "unarmed": 70
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 70,
+        "attack": 70,
+        "damage": 30,
+        "defense": 70,
+        "move": 100
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：还不快放下武器束手就缚？"
+          },
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：大胆刁民！竟敢杀官造反？"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "latemoon.npc.bird",
+      "source_path": "mudlib/d/latemoon/npc/bird.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "金丝雀",
+      "description": "一只翩翩起舞的小蝴蝶哦!",
+      "combat_exp": 1000,
+      "attributes": {
+        "str": 20
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 100
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.npc.butterfly",
+      "source_path": "mudlib/d/latemoon/npc/butterfly.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "蝴蝶",
+      "description": "一只翩翩起舞的小蝴蝶哦!",
+      "combat_exp": 100,
+      "attributes": {
+        "cor": 8,
+        "per": 33,
+        "str": 6
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 50
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.npc.cockroach",
+      "source_path": "mudlib/d/latemoon/npc/cockroach.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "大蟑螂",
+      "description": "一只非常恶心的蟑螂。",
+      "combat_exp": 7000,
+      "attributes": {},
+      "resources": {
+        "force": 200,
+        "max_force": 200
+      },
+      "skills": {
+        "dodge": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.dodo",
+      "source_path": "mudlib/d/latemoon/npc/dodo.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "大蟑螂",
+      "description": "一只非常恶心的蟑螂。",
+      "combat_exp": 7000,
+      "attributes": {},
+      "resources": {
+        "force": 200,
+        "max_force": 200
+      },
+      "skills": {
+        "dodge": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.npc.funlin",
+      "source_path": "mudlib/d/latemoon/npc/funlin.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "芳绫",
+      "description": null,
+      "combat_exp": 2000,
+      "attributes": {},
+      "resources": {
+        "force": 500,
+        "force_factor": 2,
+        "max_force": 300
+      },
+      "skills": {
+        "dodge": 30,
+        "force": 15,
+        "move": 30,
+        "stormdance": 20,
+        "unarmed": 20,
+        "whip": 20
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {
+        "armor": 30
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.npc.obj.whip",
+          "source_path": "mudlib/d/latemoon/npc/obj/whip.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "latemoon.npc.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/npc/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.npc.obj.skirt5",
+          "source_path": "mudlib/d/latemoon/npc/obj/skirt5.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "apprenticeship",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "latemoon.npc.fuyun",
+      "source_path": "mudlib/d/latemoon/npc/fuyun.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "芙云",
+      "description": null,
+      "combat_exp": 5000000,
+      "attributes": {},
+      "resources": {
+        "force": 4500,
+        "force_factor": 20,
+        "max_force": 4500
+      },
+      "skills": {
+        "blade": 100,
+        "dodge": 100,
+        "force": 100,
+        "spring-blade": 100,
+        "unarmed": 20
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.girl",
+      "source_path": "mudlib/d/latemoon/npc/girl.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "昭仪",
+      "description": null,
+      "combat_exp": 4000,
+      "attributes": {},
+      "resources": {
+        "force": 450,
+        "force_factor": 2,
+        "max_force": 450
+      },
+      "skills": {
+        "blade": 10,
+        "dodge": 30,
+        "force": 50,
+        "spring-blade": 7,
+        "unarmed": 30
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {
+        "armor": 30
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.npc.obj.yu_blade",
+          "source_path": "mudlib/d/latemoon/npc/obj/yu_blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "latemoon.npc.obj.flower_boot",
+          "source_path": "mudlib/d/latemoon/npc/obj/flower_boot.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "图",
+          "response": "这是一张非常真贵的湘绣舞曲图，我也在研究中。",
+          "scripted": false
+        },
+        {
+          "topic": "沧海龙吟",
+          "response": "嗯 ...为这舞曲名。似乎雨梅姊知道。",
+          "scripted": false
+        },
+        {
+          "topic": "有凤来仪",
+          "response": "嗯 ...为这舞曲名。(dancing yu-fong)很有名！",
+          "scripted": false
+        },
+        {
+          "topic": "西出阳关",
+          "response": "「幻影式舞步」步法与地点都很重要。",
+          "scripted": false
+        },
+        {
+          "topic": "芳绫",
+          "response": "她聪明伶俐，会跳一些自创的舞步。",
+          "scripted": false
+        },
+        {
+          "topic": "画",
+          "response": "沧海龙吟是一幅湘绣舞曲图，记载一些珍贵舞步。",
+          "scripted": false
+        },
+        {
+          "topic": "寒谷龙舞",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "舞",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "latemoon.npc.guest",
+      "source_path": "mudlib/d/latemoon/npc/guest.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "芙云",
+      "description": null,
+      "combat_exp": 50000,
+      "attributes": {},
+      "resources": {
+        "force": 4500,
+        "force_factor": 20,
+        "max_force": 4500
+      },
+      "skills": {
+        "force": 100,
+        "unarmed": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "latemoon.npc.sell",
+      "source_path": "mudlib/d/latemoon/npc/sell.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "颜慧如",
+      "description": "她是一位美女，真是红颜似玉，绿鬓如云，明丽的眼睛，\n洁白的牙齿。容色俊俏，风度飘逸，令人心动。",
+      "combat_exp": 70000,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "max_force": 1000
+      },
+      "skills": {
+        "dodge": 30,
+        "force": 10,
+        "stormdance": 30,
+        "unarmed": 10
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.example.dagger",
+          "source_path": "mudlib/obj/example/dagger.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "buy",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "apprenticeship",
+        "custom_command",
+        "death_hook",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.sell1",
+      "source_path": "mudlib/d/latemoon/npc/sell1.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "颜慧如",
+      "description": "她是一位美女，真是红颜似玉，绿鬓如云，明丽的眼睛，\n洁白的牙齿。容色俊俏，风度飘逸，令人心动。",
+      "combat_exp": 70000,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "max_force": 1000
+      },
+      "skills": {
+        "dodge": 30,
+        "force": 10,
+        "stormdance": 30,
+        "unarmed": 10
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.example.dagger",
+          "source_path": "mudlib/obj/example/dagger.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "buy",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "apprenticeship",
+        "custom_command",
+        "death_hook",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.servant",
+      "source_path": "mudlib/d/latemoon/npc/servant.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "婢女",
+      "description": null,
+      "combat_exp": 100,
+      "attributes": {},
+      "resources": {
+        "force": 50,
+        "max_force": 50
+      },
+      "skills": {
+        "dodge": 10,
+        "force": 50,
+        "unarmed": 5
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.skirt",
+          "source_path": "mudlib/d/latemoon/obj/skirt.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "latemoon.npc.servant2",
+      "source_path": "mudlib/d/latemoon/npc/servant2.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "婢女",
+      "description": null,
+      "combat_exp": 1000,
+      "attributes": {},
+      "resources": {
+        "force": 50,
+        "max_force": 50
+      },
+      "skills": {
+        "dodge": 20,
+        "force": 50,
+        "unarmed": 5
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.skirt",
+          "source_path": "mudlib/d/latemoon/obj/skirt.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.whip",
+          "source_path": "mudlib/d/latemoon/obj/whip.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "latemoon.npc.shaode",
+      "source_path": "mudlib/d/latemoon/npc/shaode.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "蓝小蝶",
+      "description": null,
+      "combat_exp": 60000,
+      "attributes": {},
+      "resources": {
+        "force": 2000,
+        "force_factor": 2,
+        "max_force": 2000
+      },
+      "skills": {
+        "dodge": 50,
+        "force": 50,
+        "unarmed": 60
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 50
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.npc.obj.needle",
+          "source_path": "mudlib/d/latemoon/npc/obj/needle.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "latemoon.npc.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/npc/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.npc.obj.skirt3",
+          "source_path": "mudlib/d/latemoon/npc/obj/skirt3.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.shaowei",
+      "source_path": "mudlib/d/latemoon/npc/shaowei.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "蓝筱薇",
+      "description": null,
+      "combat_exp": 200000,
+      "attributes": {},
+      "resources": {
+        "force": 3000,
+        "force_factor": 10,
+        "max_force": 600
+      },
+      "skills": {
+        "dodge": 80,
+        "force": 70,
+        "stormdance": 50,
+        "sword": 70,
+        "unarmed": 70
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.clasp",
+          "source_path": "mudlib/d/latemoon/obj/clasp.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.skirt2",
+          "source_path": "mudlib/d/latemoon/obj/skirt2.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.bamboo_sword",
+          "source_path": "mudlib/d/latemoon/obj/bamboo_sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "舞",
+          "response": "我舞跳的不好!我比较喜欢静态的活动。",
+          "scripted": false
+        },
+        {
+          "topic": "竹蜻蜓",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "芳绫",
+          "response": "听说她贪玩被关在禁闭室。她最爱玩竹蜻蜓了!",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.shinyu",
+      "source_path": "mudlib/d/latemoon/npc/shinyu.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "阮欣郁",
+      "description": null,
+      "combat_exp": 5000000,
+      "attributes": {},
+      "resources": {
+        "force": 4500,
+        "force_factor": 20,
+        "max_force": 4500
+      },
+      "skills": {
+        "blade": 100,
+        "dodge": 100,
+        "force": 100,
+        "spring-blade": 100,
+        "unarmed": 20
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.shiren",
+      "source_path": "mudlib/d/latemoon/npc/shiren.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "袭人",
+      "description": null,
+      "combat_exp": 2000,
+      "attributes": {},
+      "resources": {
+        "force": 400,
+        "force_factor": 2,
+        "max_force": 400
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 40,
+        "unarmed": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.npc.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/npc/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.npc.obj.belt",
+          "source_path": "mudlib/d/latemoon/npc/obj/belt.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.npc.obj.skirt4",
+          "source_path": "mudlib/d/latemoon/npc/obj/skirt4.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.npc.yumay",
+      "source_path": "mudlib/d/latemoon/npc/yumay.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "蓝雨梅",
+      "description": null,
+      "combat_exp": 60000,
+      "attributes": {
+        "per": 30
+      },
+      "resources": {
+        "force": 2000,
+        "force_factor": 2,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 50,
+        "stormdance": 30,
+        "throwing": 90,
+        "unarmed": 60
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.npc.obj.needle",
+          "source_path": "mudlib/d/latemoon/npc/obj/needle.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "latemoon.npc.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/npc/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.npc.obj.skirt3",
+          "source_path": "mudlib/d/latemoon/npc/obj/skirt3.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "西出阳关",
+          "response": "『西出阳关』是一种幻影式舞步。可以移形换影。",
+          "scripted": false
+        },
+        {
+          "topic": "学舞",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "舞",
+          "response": "我会的舞是属于「幻影式舞步」。",
+          "scripted": false
+        },
+        {
+          "topic": "芳绫",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "竹蜻蜓",
+          "response": "庄内有人会用竹子作成不同物品。",
+          "scripted": false
+        },
+        {
+          "topic": "沧海龙吟",
+          "response": "是一种失传以久的「寒谷龙舞」",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "apprenticeship",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.npc.zauron",
+      "source_path": "mudlib/d/latemoon/npc/zauron.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "昭蓉",
+      "description": null,
+      "combat_exp": 200000,
+      "attributes": {},
+      "resources": {
+        "force": 3000,
+        "force_factor": 10,
+        "max_force": 600
+      },
+      "skills": {
+        "dodge": 80,
+        "force": 70,
+        "stormdance": 50,
+        "sword": 70,
+        "unarmed": 70
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.clasp",
+          "source_path": "mudlib/d/latemoon/obj/clasp.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.skirt2",
+          "source_path": "mudlib/d/latemoon/obj/skirt2.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.bamboo_sword",
+          "source_path": "mudlib/d/latemoon/obj/bamboo_sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "舞",
+          "response": "我舞跳的不好!我比较喜欢静态的活动。",
+          "scripted": false
+        },
+        {
+          "topic": "芳绫",
+          "response": "听说她贪玩被关在禁闭室。她最爱玩竹蜻蜓了!",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.park.npc.bird",
+      "source_path": "mudlib/d/latemoon/park/npc/bird.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "金丝雀",
+      "description": "一只羽毛鲜艳的小金丝雀。",
+      "combat_exp": 1000,
+      "attributes": {
+        "str": 20
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 40
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.park.npc.dodo1",
+      "source_path": "mudlib/d/latemoon/park/npc/dodo1.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "小金鼠",
+      "description": "一只可爱的长尾巴的小金鼠。",
+      "combat_exp": 1000,
+      "attributes": {
+        "cor": 17,
+        "str": 20
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.park.npc.flwgirl",
+      "source_path": "mudlib/d/latemoon/park/npc/flwgirl.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "采花少女",
+      "description": "采花少女是绮云镇居民的小孩，从小就到晚月庄来摘桂花，蓝止\n萍很喜欢她们，也教给她们了些基本的武功，时间久了，这些少\n女的功夫还都不错。",
+      "combat_exp": 20000,
+      "attributes": {
+        "per": 30
+      },
+      "resources": {
+        "force": 500,
+        "force_factor": 0,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 15,
+        "parry": 30,
+        "stormdance": 45,
+        "throwing": 150,
+        "unarmed": 120
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 10,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "采花少女秀眉微蹙，说道：你欺负我年纪小是吗？"
+          },
+          {
+            "kind": "text",
+            "value": "采花少女说道：你要是再无理取闹，让火玫瑰毒死你！"
+          },
+          {
+            "kind": "text",
+            "value": "采花少女骂道：你这无赖，别死缠着我！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.girl.pink_cloth",
+          "source_path": "mudlib/u/cloud/obj/npc/girl/pink_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.park.npc.obj.guihua",
+          "source_path": "mudlib/d/latemoon/park/npc/obj/guihua.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "桂花",
+          "response": "华中理工大学的桂花树比晚月庄多多了，你知道吗？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "latemoon.park.npc.girl_yu",
+      "source_path": "mudlib/d/latemoon/park/npc/girl_yu.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "上官钰翎",
+      "description": null,
+      "combat_exp": 80000,
+      "attributes": {},
+      "resources": {
+        "force": 4500,
+        "force_factor": 20,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 90,
+        "force": 100,
+        "stormdance": 50,
+        "unarmed": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.park.npc.obj.ring",
+          "source_path": "mudlib/d/latemoon/park/npc/obj/ring.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "latemoon.park.npc.maysan",
+      "source_path": "mudlib/d/latemoon/park/npc/maysan.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "美珊",
+      "description": null,
+      "combat_exp": 5000,
+      "attributes": {},
+      "resources": {
+        "force": 300,
+        "max_force": 300
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 50,
+        "stormdance": 5,
+        "tenderzhi": 10,
+        "unarmed": 40
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.flower_boot",
+          "source_path": "mudlib/d/latemoon/obj/flower_boot.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.park.npc.rabbit",
+      "source_path": "mudlib/d/latemoon/park/npc/rabbit.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "小白兔",
+      "description": "一只红眼睛的小白兔。",
+      "combat_exp": 1000,
+      "attributes": {
+        "str": 20
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 30
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.park.npc.shiren",
+      "source_path": "mudlib/d/latemoon/park/npc/shiren.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "袭人",
+      "description": null,
+      "combat_exp": 7000,
+      "attributes": {},
+      "resources": {
+        "force": 400,
+        "force_factor": 2,
+        "max_force": 400
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 40,
+        "tenderzhi": 10,
+        "unarmed": 40
+      },
+      "mappings": {
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.skirt4",
+          "source_path": "mudlib/d/latemoon/obj/skirt4.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.park.npc.obj.amulet",
+          "source_path": "mudlib/d/latemoon/park/npc/obj/amulet.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.aaa",
+      "source_path": "mudlib/d/latemoon/room/npc/aaa.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "於兰天武",
+      "description": "於兰天武是当今皇上的叔父，但是他毕生浸淫武学，甘愿抛弃荣华富\n以换取水烟阁传功使一职，以便阅读水烟阁中所藏的武学典籍，无论\n你有什麽武学上的疑难，他都能为你解答。",
+      "combat_exp": 1000000,
+      "attributes": {
+        "con": 30,
+        "cor": 30,
+        "cps": 30,
+        "int": 30,
+        "str": 30
+      },
+      "resources": {
+        "force": 4000,
+        "force_factor": 30,
+        "max_force": 2200
+      },
+      "skills": {
+        "blade": 80,
+        "celestial": 100,
+        "celestrike": 100,
+        "dodge": 80,
+        "force": 100,
+        "parry": 100,
+        "pyrobat-steps": 90,
+        "spring-blade": 80,
+        "sword": 80,
+        "throwing": 50,
+        "unarmed": 100
+      },
+      "mappings": {
+        "blade": "spring-blade",
+        "dodge": "pyrobat-steps",
+        "force": "celestial",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 80,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "武学",
+          "response": "武学之道....嗯....只可意会，不可言喻。",
+          "scripted": false
+        },
+        {
+          "topic": "水烟阁",
+          "response": "水烟阁乃是历届武林盟主的行馆，你有什麽事要见武林盟主？",
+          "scripted": false
+        },
+        {
+          "topic": "拜师",
+          "response": "哦....老夫向来有个规矩，凡是想拜我为师的，得接我三招不死，你想试试(accept \ntest)？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "combat_chat",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.annihi",
+      "source_path": "mudlib/d/latemoon/room/npc/annihi.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "安妮儿",
+      "description": null,
+      "combat_exp": 5000000,
+      "attributes": {},
+      "resources": {
+        "force": 5000,
+        "force_factor": 10,
+        "max_force": 5000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "parry": 100,
+        "pyrobat-steps": 100,
+        "snowshade-force": 100,
+        "snowshade-sword": 100,
+        "sword": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "force": "snowshade-force",
+        "parry": "snowshade-sword",
+        "sword": "snowshade-sword"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.redbelt",
+          "source_path": "mudlib/d/latemoon/obj/redbelt.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.sword",
+          "source_path": "mudlib/d/latemoon/obj/sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.elon",
+      "source_path": "mudlib/d/latemoon/room/npc/elon.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "瑷伦",
+      "description": null,
+      "combat_exp": 3000000,
+      "attributes": {
+        "int": 28,
+        "str": 21
+      },
+      "resources": {
+        "force": 4000,
+        "force_factor": 5,
+        "max_force": 3000
+      },
+      "skills": {
+        "dodge": 150,
+        "force": 150,
+        "iceforce": 130,
+        "parry": 120,
+        "snowwhip": 130,
+        "stormdance": 130,
+        "sword": 120,
+        "tenderzhi": 130,
+        "throwing": 150,
+        "unarmed": 150,
+        "whip": 150
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "force": "iceforce",
+        "unarmed": "tenderzhi",
+        "whip": "snowwhip"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.blue_dress",
+          "source_path": "mudlib/d/latemoon/obj/blue_dress.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.weapon.whip",
+          "source_path": "mudlib/obj/weapon/whip.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "拜师",
+          "response": "哦....想拜老身为师，好...\n不过得先接受测试(accept test)，接下我三鞭。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.eton",
+      "source_path": "mudlib/d/latemoon/room/npc/eton.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "金仪彤",
+      "description": null,
+      "combat_exp": 70000,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 50,
+        "stormdance": 50,
+        "tenderzhi": 50,
+        "unarmed": 50
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.necklace",
+          "source_path": "mudlib/d/latemoon/obj/necklace.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.fireangel",
+      "source_path": "mudlib/d/latemoon/room/npc/fireangel.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "凤凰",
+      "description": null,
+      "combat_exp": 50000000,
+      "attributes": {},
+      "resources": {
+        "force": 7000,
+        "force_factor": 30,
+        "max_force": 7000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "iceforce": 100,
+        "stormdance": 100,
+        "tenderzhi": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "force": "iceforce",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 100
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.fochin",
+      "source_path": "mudlib/d/latemoon/room/npc/fochin.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "曲馥琪",
+      "description": null,
+      "combat_exp": 99000,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 50,
+        "stormdance": 50,
+        "tenderzhi": 70,
+        "unarmed": 50
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 70
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.belt",
+          "source_path": "mudlib/d/latemoon/obj/belt.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.clasp",
+          "source_path": "mudlib/d/latemoon/obj/clasp.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.room.npc.obj.fire",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/fire.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.fong",
+      "source_path": "mudlib/d/latemoon/room/npc/fong.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "凤姐",
+      "description": null,
+      "combat_exp": 5000000,
+      "attributes": {},
+      "resources": {
+        "force": 9000,
+        "force_factor": 50,
+        "max_force": 9000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.npc.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/npc/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.npc.obj.blue_dress",
+          "source_path": "mudlib/d/latemoon/npc/obj/blue_dress.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.guest",
+      "source_path": "mudlib/d/latemoon/room/npc/guest.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "芙云",
+      "description": null,
+      "combat_exp": 50000,
+      "attributes": {},
+      "resources": {
+        "force": 1600,
+        "force_factor": 10,
+        "max_force": 800
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 100,
+        "stormdance": 30,
+        "sword": 100,
+        "unarmed": 50
+      },
+      "mappings": {
+        "dodge": "stormdance"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.example.sword",
+          "source_path": "mudlib/obj/example/sword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.example.dumpling",
+          "source_path": "mudlib/obj/example/dumpling.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "latemoon.room.npc.obj.letter",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/letter.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.jane",
+      "source_path": "mudlib/d/latemoon/room/npc/jane.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "娟姐",
+      "description": null,
+      "combat_exp": 5000000,
+      "attributes": {},
+      "resources": {
+        "force": 7000,
+        "force_factor": 30,
+        "max_force": 7000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.npc.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/npc/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.npc.obj.redbelt",
+          "source_path": "mudlib/d/latemoon/npc/obj/redbelt.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.killer",
+      "source_path": "mudlib/d/latemoon/room/npc/killer.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "杀手",
+      "description": "这是个蒙面杀手，眉眼看起来有些面熟。",
+      "combat_exp": 12000,
+      "attributes": {
+        "cor": 26,
+        "cps": 15,
+        "per": 28,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 20,
+        "move": 30,
+        "parry": 40,
+        "pyrobat-steps": 20,
+        "six-chaos-sword": 27,
+        "sword": 40,
+        "unarmed": 40
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "sword": "six-chaos-sword"
+      },
+      "combat_apply": {
+        "armor": 70,
+        "attack": 20,
+        "damage": 10,
+        "defense": 70,
+        "move": 30
+      },
+      "combat_chat": {
+        "chance": 10,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "蒙面杀手喝道：为什么杀我？"
+          },
+          {
+            "kind": "text",
+            "value": "蒙面杀手叹道：你知道我心里有多痛苦吗？！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.pink_cloth",
+          "source_path": "mudlib/d/snow/npc/obj/pink_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "snow.npc.obj.thin_sword",
+          "source_path": "mudlib/d/snow/npc/obj/thin_sword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "latemoon.room.npc.obj.token",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/token.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.old",
+      "source_path": "mudlib/d/latemoon/room/npc/old.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "无名老妇",
+      "description": "这个老妇人不知姓甚名谁, 她在晚月很久了, 一直看管\n书房, 连庄主都对她很尊敬。",
+      "combat_exp": 500000,
+      "attributes": {
+        "cor": 26,
+        "cps": 26,
+        "per": 29,
+        "str": 20
+      },
+      "resources": {
+        "force": 1000,
+        "force_factor": 10,
+        "max_force": 800
+      },
+      "skills": {
+        "dodge": 70,
+        "snowwhip": 60,
+        "stormdance": 70,
+        "tenderzhi": 70
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi",
+        "whip": "snowwhip"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.blue_dress",
+          "source_path": "mudlib/d/latemoon/obj/blue_dress.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.lm_guard.whip",
+          "source_path": "mudlib/u/cloud/obj/npc/lm_guard/whip.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "here",
+          "response": "这里是书房，有些鞭法教材存放在这儿。",
+          "scripted": false
+        },
+        {
+          "topic": "trouble",
+          "response": "实不相瞒，这杀手是我的私生女，但已误入歧途 ...\n我一直舍不得亲手杀了她，你若能帮忙我会非常感谢。 \n只是要以令牌为证，唉 ...",
+          "scripted": false
+        },
+        {
+          "topic": "令牌",
+          "response": "就在我儿身上 ...你拿到了就给我。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.servant",
+      "source_path": "mudlib/d/latemoon/room/npc/servant.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "婢女",
+      "description": null,
+      "combat_exp": 10000,
+      "attributes": {},
+      "resources": {
+        "force": 50,
+        "max_force": 50
+      },
+      "skills": {
+        "dodge": 50,
+        "force": 50,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.room.npc.obj.needle",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/needle.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "latemoon.obj.skirt",
+          "source_path": "mudlib/d/latemoon/obj/skirt.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "latemoon.room.npc.shaoin",
+      "source_path": "mudlib/d/latemoon/room/npc/shaoin.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "龙韶吟",
+      "description": null,
+      "combat_exp": 20000,
+      "attributes": {},
+      "resources": {
+        "force": 900,
+        "force_factor": 5,
+        "max_force": 450
+      },
+      "skills": {
+        "dodge": 50,
+        "force": 100,
+        "stormdance": 50,
+        "tenderzhi": 50,
+        "unarmed": 70
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 70
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.shinyu",
+      "source_path": "mudlib/d/latemoon/room/npc/shinyu.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "阮欣郁",
+      "description": null,
+      "combat_exp": 5000000,
+      "attributes": {},
+      "resources": {
+        "force": 4500,
+        "force_factor": 20,
+        "max_force": 4500
+      },
+      "skills": {
+        "blade": 100,
+        "dodge": 100,
+        "force": 100,
+        "spring-blade": 100,
+        "unarmed": 20
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.spring1",
+      "source_path": "mudlib/d/latemoon/room/npc/spring1.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "惜春",
+      "description": null,
+      "combat_exp": 5000,
+      "attributes": {},
+      "resources": {
+        "force": 300,
+        "max_force": 300
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 50,
+        "stormdance": 5,
+        "tenderzhi": 10,
+        "unarmed": 40
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.flower_boot",
+          "source_path": "mudlib/d/latemoon/obj/flower_boot.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.spring2",
+      "source_path": "mudlib/d/latemoon/room/npc/spring2.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "圆春",
+      "description": null,
+      "combat_exp": 5000,
+      "attributes": {},
+      "resources": {
+        "force": 300,
+        "max_force": 300
+      },
+      "skills": {
+        "dodge": 25,
+        "force": 50,
+        "stormdance": 5,
+        "tenderzhi": 5,
+        "unarmed": 25
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.skirt5",
+          "source_path": "mudlib/d/latemoon/obj/skirt5.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.tenlon",
+      "source_path": "mudlib/d/latemoon/room/npc/tenlon.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "天龙",
+      "description": null,
+      "combat_exp": 5000000,
+      "attributes": {},
+      "resources": {
+        "force": 4500,
+        "force_factor": 20,
+        "max_force": 4500
+      },
+      "skills": {
+        "blade": 100,
+        "dodge": 100,
+        "force": 100,
+        "spring-blade": 100,
+        "unarmed": 20
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.tguest",
+      "source_path": "mudlib/d/latemoon/room/npc/tguest.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "梦玉楼",
+      "description": null,
+      "combat_exp": 70000,
+      "attributes": {},
+      "resources": {
+        "force": 2000,
+        "force_factor": 15,
+        "max_force": 1000
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 100,
+        "snowshade-sword": 30,
+        "stormdance": 10,
+        "sword": 70,
+        "unarmed": 50
+      },
+      "mappings": {
+        "sword": "snowshade-sword"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.room.npc.obj.token",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/token.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.room.npc.obj.longsword",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.yuchoun",
+      "source_path": "mudlib/d/latemoon/room/npc/yuchoun.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "虞琼衣",
+      "description": null,
+      "combat_exp": 40000,
+      "attributes": {},
+      "resources": {
+        "force": 900,
+        "force_factor": 5,
+        "max_force": 450
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 100,
+        "stormdance": 50,
+        "tenderzhi": 70,
+        "unarmed": 70
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 70
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.skirt3",
+          "source_path": "mudlib/d/latemoon/obj/skirt3.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.room.npc.yushou",
+      "source_path": "mudlib/d/latemoon/room/npc/yushou.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "苗郁淑",
+      "description": null,
+      "combat_exp": 15000,
+      "attributes": {},
+      "resources": {
+        "force": 400,
+        "max_force": 400
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 50,
+        "stormdance": 50,
+        "tenderzhi": 60,
+        "unarmed": 40
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 100
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.room.npc.obj.earring",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/earring.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.room.npc.obj.brooch",
+          "source_path": "mudlib/d/latemoon/room/npc/obj/brooch.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "latemoon.upstar.npc.bird",
+      "source_path": "mudlib/d/latemoon/upstar/npc/bird.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "金丝雀",
+      "description": "一只羽毛鲜艳的小金丝雀。",
+      "combat_exp": 1000,
+      "attributes": {
+        "str": 20
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 40
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "latemoon.upstar.npc.huei",
+      "source_path": "mudlib/d/latemoon/upstar/npc/huei.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "邢千慧",
+      "description": null,
+      "combat_exp": 250000,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 50,
+        "stormdance": 50,
+        "tenderzhi": 70,
+        "unarmed": 50
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 70,
+        "attack": 50
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.redbelt",
+          "source_path": "mudlib/d/latemoon/obj/redbelt.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.clasp",
+          "source_path": "mudlib/d/latemoon/obj/clasp.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship"
+      ]
+    },
+    {
+      "id": "latemoon.upstar.npc.shinfun",
+      "source_path": "mudlib/d/latemoon/upstar/npc/shinfun.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "莫欣芳",
+      "description": null,
+      "combat_exp": 200000,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 50,
+        "stormdance": 50,
+        "tenderzhi": 70,
+        "unarmed": 50
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 70,
+        "attack": 50
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.belt",
+          "source_path": "mudlib/d/latemoon/obj/belt.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.clasp",
+          "source_path": "mudlib/d/latemoon/obj/clasp.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "舞曲谱",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "latemoon.upstar.npc.statue",
+      "source_path": "mudlib/d/latemoon/upstar/npc/statue.c",
+      "status": "structured",
+      "area": "latemoon",
+      "name": "人灵「区冥」",
+      "description": null,
+      "combat_exp": 50000000,
+      "attributes": {},
+      "resources": {
+        "force": 7000,
+        "force_factor": 30,
+        "max_force": 7000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "iceforce": 100,
+        "stormdance": 100,
+        "tenderzhi": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "force": "iceforce",
+        "unarmed": "tenderzhi"
+      },
+      "combat_apply": {
+        "armor": 100
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.b_header",
+      "source_path": "mudlib/u/cloud/npc/b_header.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "陈剑秋",
+      "description": null,
+      "combat_exp": 1000000,
+      "attributes": {
+        "cor": 27,
+        "cps": 25,
+        "int": 23,
+        "str": 28
+      },
+      "resources": {
+        "force": 1000,
+        "force_factor": 3,
+        "max_force": 1000
+      },
+      "skills": {
+        "blade": 100,
+        "dodge": 60,
+        "force": 20,
+        "literate": 40,
+        "parry": 100,
+        "spring-blade": 120,
+        "unarmed": 60
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 60,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "perform",
+            "value": "//                (: perform_action, \"sword.counterattack\" :) //"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.b_header.moon_blade",
+          "source_path": "mudlib/u/cloud/obj/npc/b_header/moon_blade.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "淳风武馆",
+          "response": "淳风武馆是先父所创，在下辱承其名，虽忝掌封山门户，不敢忘了先人遗志。",
+          "scripted": false
+        },
+        {
+          "topic": "name",
+          "response": "在下姓陈，人称霹雳刀",
+          "scripted": false
+        },
+        {
+          "topic": "霹雳刀",
+          "response": "江湖上的弟兄看得起在下就这么叫开了，实在是惭愧。",
+          "scripted": false
+        },
+        {
+          "topic": "陈天星",
+          "response": "他是我师叔，如果你帮我找到忘忧草并交给我，我就介绍你去那学艺。",
+          "scripted": false
+        },
+        {
+          "topic": "忘忧草",
+          "response": "我在乔阴县城游玩时丢的，据说被藏在一个隐蔽的地方了。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "combat_chat",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.beggar",
+      "source_path": "mudlib/u/cloud/npc/beggar.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "乞丐",
+      "description": "一个满脸风霜之色的老乞丐。",
+      "combat_exp": 100,
+      "attributes": {
+        "str": 27
+      },
+      "resources": {
+        "force": 200,
+        "force_factor": 2,
+        "max_force": 200
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "fight_gate",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.bfighter",
+      "source_path": "mudlib/u/cloud/npc/bfighter.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "趟子手",
+      "description": null,
+      "combat_exp": 10000,
+      "attributes": {
+        "cor": 27,
+        "cps": 25,
+        "int": 23,
+        "str": 28
+      },
+      "resources": {
+        "force": 100,
+        "force_factor": 3,
+        "max_force": 100
+      },
+      "skills": {
+        "blade": 50,
+        "dodge": 30,
+        "force": 20,
+        "literate": 10,
+        "parry": 50,
+        "spring-blade": 40,
+        "unarmed": 60
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "趟子手喊道：教你尝尝我的厉害！"
+          },
+          {
+            "kind": "text",
+            "value": "趟子手叫道：我们镖局可不是好惹的！\n趟子手大叫：我一定要杀了你，替镖局扬名！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.weapon.blade",
+          "source_path": "mudlib/obj/weapon/blade.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "apprenticeship",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.boater",
+      "source_path": "mudlib/u/cloud/npc/boater.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "船夫",
+      "description": "船夫的皮肤晒得黝黑，脸上的沧桑是多年摆渡的痕迹。",
+      "combat_exp": 1500,
+      "attributes": {
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 30,
+        "parry": 50,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "过江",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "摆渡",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.book_seller",
+      "source_path": "mudlib/u/cloud/npc/book_seller.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "潘若秋",
+      "description": "潘老板长得很白净，一副读书人的老实相。",
+      "combat_exp": 5000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 50,
+        "unarmed": 70
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "u.cloud.obj.literate_book",
+          "source_path": "mudlib/u/cloud/obj/literate_book.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "书局",
+          "response": "为读书人办点事也是尽一份心意。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.box_boss",
+      "source_path": "mudlib/u/cloud/npc/box_boss.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "林三爷",
+      "description": "这位面目慈善的老人经营棺材铺已经有很多年了。",
+      "combat_exp": 2000,
+      "attributes": {
+        "int": 14,
+        "str": 29
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 70,
+        "parry": 60,
+        "unarmed": 60
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 20
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "棺材",
+          "response": "您这么年轻就要棺材，早了点吧？",
+          "scripted": false
+        },
+        {
+          "topic": "香茗坊",
+          "response": "您也知道'碧海银针'？茶楼就在街对面，我常去的。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.box_waiter",
+      "source_path": "mudlib/u/cloud/npc/box_waiter.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "伙计",
+      "description": "他一副垂头丧气的样子，一脸倒霉相。",
+      "combat_exp": 1000,
+      "attributes": {
+        "cor": 35,
+        "int": 14,
+        "str": 30
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 70,
+        "parry": 60,
+        "unarmed": 60
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 25
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 8,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.npc.butcher",
+      "source_path": "mudlib/u/cloud/npc/butcher.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "郑屠夫",
+      "description": "你看到一个剽悍的大块头, 正在用钢刀剔牛骨。",
+      "combat_exp": 2500,
+      "attributes": {
+        "int": 14,
+        "str": 29
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 100,
+        "parry": 100,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.butcher.knife",
+          "source_path": "mudlib/u/cloud/obj/npc/butcher/knife.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.butcher.skin_belt",
+          "source_path": "mudlib/u/cloud/obj/npc/butcher/skin_belt.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "u.cloud.obj.meat.b_beef",
+          "source_path": "mudlib/u/cloud/obj/meat/b_beef.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.dog_m",
+          "source_path": "mudlib/u/cloud/obj/meat/dog_m.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.hind",
+          "source_path": "mudlib/u/cloud/obj/meat/hind.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.tail",
+          "source_path": "mudlib/u/cloud/obj/meat/tail.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.zasui",
+          "source_path": "mudlib/u/cloud/obj/meat/zasui.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "碧玉刀",
+          "response": "这刀可是个宝物, \n据说是当年张家老祖宗退隐时皇上赐的。",
+          "scripted": false
+        },
+        {
+          "topic": "香茗坊",
+          "response": "您也知道'碧海银针'？茶楼就在街对面，我常去的。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.chess_player",
+      "source_path": "mudlib/u/cloud/npc/chess_player.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "弈者",
+      "description": "一位十分文气的男子，装束象个雅儒。",
+      "combat_exp": 500,
+      "attributes": {
+        "int": 28,
+        "str": 12
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 80,
+        "throwing": 30,
+        "unarmed": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.chess_player.chess",
+          "source_path": "mudlib/u/cloud/obj/npc/chess_player/chess.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "下棋",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.doctor",
+      "source_path": "mudlib/u/cloud/npc/doctor.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "伙计",
+      "description": "药店的小伙计，正在学着配药。",
+      "combat_exp": 100,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 10,
+        "parry": 10,
+        "unarmed": 30
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.drug.hurt_drug",
+          "source_path": "mudlib/obj/drug/hurt_drug.c"
+        },
+        {
+          "item_id": "obj.drug.snake_drug",
+          "source_path": "mudlib/obj/drug/snake_drug.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "抓药",
+          "response": "这里是附近最好的药店，您要什么？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.fly",
+      "source_path": "mudlib/u/cloud/npc/fly.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "苍蝇",
+      "description": "一只绿头金翅的大苍蝇。",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.npc.gangster",
+      "source_path": "mudlib/u/cloud/npc/gangster.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "卧龙岗强盗",
+      "description": null,
+      "combat_exp": 10000,
+      "attributes": {
+        "int": 12,
+        "per": 10,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "blade": 40,
+        "dodge": 40,
+        "parry": 50,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 1,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "强盗显是以劫为生，刀刀冲要害而来。"
+          },
+          {
+            "kind": "text",
+            "value": "强盗高喊：叫你人财两空。"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.gangster.blade",
+          "source_path": "mudlib/u/cloud/obj/npc/gangster/blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.dust",
+          "source_path": "mudlib/obj/dust.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "obj.example.dart",
+          "source_path": "mudlib/obj/example/dart.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "买路钱",
+          "response": "看你也不象有钱的样子，大爷我只要十两金子意思一下。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "fight_gate",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.girl",
+      "source_path": "mudlib/u/cloud/npc/girl.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "李师师",
+      "description": null,
+      "combat_exp": 10,
+      "attributes": {
+        "per": 30,
+        "str": 10
+      },
+      "resources": {},
+      "skills": {
+        "literate": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 25,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "李师师秀眉微蹙，说道：喂！我哪里得罪您了？干嘛这样跟我拼死拼活？"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.girl.pink_cloth",
+          "source_path": "mudlib/u/cloud/obj/npc/girl/pink_cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "过夜",
+          "response": "官人可要洁身自好啊！",
+          "scripted": false
+        },
+        {
+          "topic": "嫖妓",
+          "response": "官人可要洁身自好啊！",
+          "scripted": false
+        },
+        {
+          "topic": "学艺",
+          "response": "请您留件信物！",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "apprenticeship",
+        "combat_chat",
+        "fight_gate",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.god",
+      "source_path": "mudlib/u/cloud/npc/god.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "朱鸿雪",
+      "description": "朱鸿雪慈眉善目，可又有谁能想到她竟是杀手组织中人。",
+      "combat_exp": 1000000,
+      "attributes": {
+        "cor": 30,
+        "cps": 30,
+        "int": 24,
+        "str": 26000
+      },
+      "resources": {
+        "force": 40000,
+        "force_factor": 1000,
+        "max_force": 80000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "pyrobat-steps": 100,
+        "snowshade-force": 100,
+        "snowshade-sword": 100,
+        "sword": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "force": "snowshade-force",
+        "sword": "snowshade-sword"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.sword",
+          "source_path": "mudlib/d/latemoon/obj/sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship",
+        "custom_command",
+        "fight_gate",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.goddd",
+      "source_path": "mudlib/u/cloud/npc/goddd.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "朱鸿雪",
+      "description": "朱鸿雪慈眉善目，可又有谁能想到她竟是杀手组织中人。",
+      "combat_exp": 1000000,
+      "attributes": {
+        "cor": 30,
+        "cps": 30,
+        "int": 24,
+        "str": 26000
+      },
+      "resources": {
+        "force": 40000,
+        "force_factor": 1000,
+        "max_force": 80000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "pyrobat-steps": 100,
+        "snowshade-force": 100,
+        "snowshade-sword": 100,
+        "sword": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "force": "snowshade-force",
+        "sword": "snowshade-sword"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "latemoon.obj.deer_boot",
+          "source_path": "mudlib/d/latemoon/obj/deer_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "latemoon.obj.sword",
+          "source_path": "mudlib/d/latemoon/obj/sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship",
+        "custom_command",
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.jiading",
+      "source_path": "mudlib/u/cloud/npc/jiading.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "家丁",
+      "description": "张府的家丁的俸禄极高，当然能在张府做事武功也不弱",
+      "combat_exp": 40000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "blade": 70,
+        "dodge": 70,
+        "parry": 90,
+        "spring-blade": 40
+      },
+      "mappings": {
+        "blade": "spring-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.weapon.blade",
+          "source_path": "mudlib/obj/weapon/blade.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.npc.judge",
+      "source_path": "mudlib/u/cloud/npc/judge.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "宝官",
+      "description": "他脸上的表情仿佛是看到了你口袋里的钱一般。",
+      "combat_exp": 500,
+      "attributes": {
+        "per": 25
+      },
+      "resources": {},
+      "skills": {
+        "parry": 70,
+        "unarmed": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.example.dagger",
+          "source_path": "mudlib/obj/example/dagger.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "赌",
+          "response": "客官您把钱给我就行了。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.lm_guard",
+      "source_path": "mudlib/u/cloud/npc/lm_guard.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "彩衣少女",
+      "description": null,
+      "combat_exp": 1000,
+      "attributes": {
+        "cor": 18,
+        "cps": 21,
+        "int": 25,
+        "per": 27,
+        "str": 18
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 40,
+        "parry": 20,
+        "snowwhip": 30,
+        "stormdance": 40,
+        "whip": 40
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "whip": "snowwhip"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "少女说道：你当这里是什么地方，敢来这里骚扰？"
+          },
+          {
+            "kind": "text",
+            "value": "少女说道：你要是再无理取闹，当心庄主的鞭子！"
+          },
+          {
+            "kind": "text",
+            "value": "少女手中的鞭子越舞越快，让你应接不暇。"
+          },
+          {
+            "kind": "text",
+            "value": "少女说道：你当晚月庄的女子好欺负么？！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.lm_guard.whip",
+          "source_path": "mudlib/u/cloud/obj/npc/lm_guard/whip.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.lm_guard.color_cloth",
+          "source_path": "mudlib/u/cloud/obj/npc/lm_guard/color_cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "蓝止萍",
+          "response": "庄主的名字也是你这等人随便叫的么？",
+          "scripted": false
+        },
+        {
+          "topic": "晚月庄",
+          "response": "庄主吩咐过，不许乱讲。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.mei_po",
+      "source_path": "mudlib/u/cloud/npc/mei_po.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "媒婆",
+      "description": "一位精明能干的老媒婆",
+      "combat_exp": 10000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 500,
+        "literate": 70,
+        "unarmed": 300
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "婚约",
+          "response": "是啊... 这里就可以缔结和解除婚约",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.millinare",
+      "source_path": "mudlib/u/cloud/npc/millinare.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "张百万",
+      "description": "一位精明能干的大奸商",
+      "combat_exp": 10000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 300,
+        "literate": 70,
+        "unarmed": 200
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.npc.monk",
+      "source_path": "mudlib/u/cloud/npc/monk.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "化缘和尚",
+      "description": null,
+      "combat_exp": 10000,
+      "attributes": {
+        "con": 27,
+        "cor": 26,
+        "cps": 29,
+        "int": 22,
+        "kar": 25,
+        "per": 18,
+        "spi": 23,
+        "str": 29
+      },
+      "resources": {
+        "atman": 1000,
+        "force": 500,
+        "force_factor": 2,
+        "mana": 100,
+        "max_atman": 1000,
+        "max_force": 500,
+        "max_mana": 100
+      },
+      "skills": {
+        "chanting": 30,
+        "cloudstaff": 20,
+        "dodge": 40,
+        "force": 60,
+        "literate": 50,
+        "lotusforce": 20,
+        "parry": 60,
+        "staff": 60,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "lotusforce",
+        "parry": "cloudstaff"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "和尚道：我佛慈悲，望住持不会怪罪我。"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.monk.jiasha",
+          "source_path": "mudlib/u/cloud/obj/npc/monk/jiasha.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "山烟寺",
+          "response": "贫僧即是山烟寺来的，从此南行便是。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "fight_gate",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.monk_guard",
+      "source_path": "mudlib/u/cloud/npc/monk_guard.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "护寺武僧",
+      "description": null,
+      "combat_exp": 6000,
+      "attributes": {
+        "con": 24,
+        "cor": 20,
+        "cps": 22,
+        "int": 16,
+        "kar": 22,
+        "per": 20,
+        "spi": 22,
+        "str": 30
+      },
+      "resources": {
+        "atman": 300,
+        "force": 300,
+        "force_factor": 2,
+        "mana": 100,
+        "max_atman": 300,
+        "max_force": 300,
+        "max_mana": 100
+      },
+      "skills": {
+        "chanting": 30,
+        "dodge": 40,
+        "force": 40,
+        "literate": 10,
+        "parry": 50,
+        "staff": 50,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.monk.stick",
+          "source_path": "mudlib/u/cloud/obj/npc/monk/stick.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.monk.jiasha",
+          "source_path": "mudlib/u/cloud/obj/npc/monk/jiasha.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "山烟寺",
+          "response": "这里就是山烟寺，施主有何贵干?",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "fight_gate",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.monk_waiter",
+      "source_path": "mudlib/u/cloud/npc/monk_waiter.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "知客僧",
+      "description": null,
+      "combat_exp": 10000,
+      "attributes": {
+        "con": 27,
+        "cor": 26,
+        "cps": 29,
+        "int": 22,
+        "kar": 25,
+        "per": 18,
+        "spi": 23,
+        "str": 29
+      },
+      "resources": {
+        "atman": 1000,
+        "force": 800,
+        "force_factor": 3,
+        "mana": 200,
+        "max_atman": 1000,
+        "max_force": 800,
+        "max_mana": 200
+      },
+      "skills": {
+        "buddhism": 20,
+        "chanting": 30,
+        "cloudstaff": 20,
+        "dodge": 40,
+        "essencemagic": 20,
+        "force": 60,
+        "literate": 50,
+        "lotusforce": 20,
+        "magic": 30,
+        "parry": 60,
+        "staff": 60,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "lotusforce",
+        "magic": "essencemagic",
+        "parry": "cloudstaff",
+        "staff": "cloudstaff"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "知客僧说道：佛门清净，施主还是放下屠刀吧！"
+          },
+          {
+            "kind": "text",
+            "value": "知客僧说道：趁住持不在此，施主还是速速离开的好！"
+          },
+          {
+            "kind": "text",
+            "value": "知客僧招数出到一半又收回，似乎有些疑虑。"
+          },
+          {
+            "kind": "text",
+            "value": "知客僧说道：我佛慈悲，愿施主手下留情。"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.monk.jiasha",
+          "source_path": "mudlib/u/cloud/obj/npc/monk/jiasha.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "山烟寺",
+          "response": "这里就是山烟寺，施主有何贵干?",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "fight_gate",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.mother",
+      "source_path": "mudlib/u/cloud/npc/mother.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "鸨母",
+      "description": null,
+      "combat_exp": 10,
+      "attributes": {
+        "per": 26,
+        "str": 10
+      },
+      "resources": {},
+      "skills": {
+        "parry": 50,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "鸨母说道：你当这里是什么地方，敢来这里骚扰？"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.npc.lm_guard.color_cloth",
+          "source_path": "mudlib/u/cloud/obj/npc/lm_guard/color_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.toy.poison_dust",
+          "source_path": "mudlib/obj/toy/poison_dust.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "怡红院",
+          "response": "哎呀！就是我们这里啊，您里面请",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "combat_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.room_gua",
+      "source_path": "mudlib/u/cloud/npc/room_gua.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "保镖",
+      "description": "你看到一个剽悍的大块头。",
+      "combat_exp": 10000,
+      "attributes": {
+        "cor": 56,
+        "int": 14,
+        "str": 29
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 220,
+        "parry": 140,
+        "unarmed": 200
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 5,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "碧玉刀",
+          "response": "这刀可是个宝物, \n据说是当年张家老祖宗退隐时皇上赐的。",
+          "scripted": false
+        },
+        {
+          "topic": "镇关西",
+          "response": "这雪亭镇有谁不知道我家老爷镇大官人！",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.seller",
+      "source_path": "mudlib/u/cloud/npc/seller.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "杂货贩",
+      "description": "卖杂货的是个年轻汉子，面带微笑。",
+      "combat_exp": 1000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 50,
+        "throwing": 30,
+        "unarmed": 60
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.example.dart",
+          "source_path": "mudlib/obj/example/dart.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.dust",
+          "source_path": "mudlib/obj/dust.c"
+        },
+        {
+          "item_id": "obj.example.bag",
+          "source_path": "mudlib/obj/example/bag.c"
+        },
+        {
+          "item_id": "u.cloud.obj.etc.rope",
+          "source_path": "mudlib/u/cloud/obj/etc/rope.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "杂货铺",
+          "response": "这是祖上传下来的产业，小的在勉力维持。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.tailor",
+      "source_path": "mudlib/u/cloud/npc/tailor.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "裁缝",
+      "description": "一位看上去很和蔼的老裁缝，正在缝制衣服。",
+      "combat_exp": 500,
+      "attributes": {
+        "int": 24,
+        "str": 12
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 30,
+        "parry": 30,
+        "sword": 30
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.tailor.ruler",
+          "source_path": "mudlib/u/cloud/obj/npc/tailor/ruler.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.tailor.scissors",
+          "source_path": "mudlib/u/cloud/obj/npc/tailor/scissors.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "u.cloud.obj.cloth.cloth",
+          "source_path": "mudlib/u/cloud/obj/cloth/cloth.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "香茗坊",
+          "response": "您也知道'碧海银针'？茶楼就在斜对面，我常去的。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.tea_waiter",
+      "source_path": "mudlib/u/cloud/npc/tea_waiter.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "茶博士",
+      "description": "茶博士正忙着招呼客人, 一手提着茶壶, 一手拿着抹布",
+      "combat_exp": 5,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.example.chicken_leg",
+          "source_path": "mudlib/obj/example/chicken_leg.c"
+        },
+        {
+          "item_id": "obj.example.dagger",
+          "source_path": "mudlib/obj/example/dagger.c"
+        },
+        {
+          "item_id": "obj.example.dumpling",
+          "source_path": "mudlib/obj/example/dumpling.c"
+        },
+        {
+          "item_id": "obj.example.wineskin",
+          "source_path": "mudlib/obj/example/wineskin.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "香茗坊",
+          "response": "这里就是香茗坊呀! 客官。",
+          "scripted": false
+        },
+        {
+          "topic": "碧海银针",
+          "response": "您算是问着啦! 这可是百年的贡品啦，可惜...",
+          "scripted": false
+        },
+        {
+          "topic": "金匾",
+          "response": "这是当今皇上的高祖御笔亲书的，好不威风!",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.teacher",
+      "source_path": "mudlib/u/cloud/npc/teacher.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "郑屠夫",
+      "description": "你看到一个剽悍的大块头, 正在用钢刀剔牛骨。",
+      "combat_exp": 2500,
+      "attributes": {
+        "int": 14,
+        "str": 29
+      },
+      "resources": {},
+      "skills": {
+        "parry": 80,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.butcher.knife",
+          "source_path": "mudlib/u/cloud/obj/npc/butcher/knife.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.butcher.skin_belt",
+          "source_path": "mudlib/u/cloud/obj/npc/butcher/skin_belt.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [
+        {
+          "item_id": "u.cloud.obj.meat.b_beef",
+          "source_path": "mudlib/u/cloud/obj/meat/b_beef.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.dog_m",
+          "source_path": "mudlib/u/cloud/obj/meat/dog_m.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.hind",
+          "source_path": "mudlib/u/cloud/obj/meat/hind.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.tail",
+          "source_path": "mudlib/u/cloud/obj/meat/tail.c"
+        },
+        {
+          "item_id": "u.cloud.obj.meat.zasui",
+          "source_path": "mudlib/u/cloud/obj/meat/zasui.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "碧玉刀",
+          "response": "这刀可是个宝物, 据说是当年张家老祖宗退隐时皇上赐的。",
+          "scripted": false
+        },
+        {
+          "topic": "香茗坊",
+          "response": "您也知道'碧海银针'？茶楼就在街对面，我常去的。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.thief",
+      "source_path": "mudlib/u/cloud/npc/thief.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "飞贼",
+      "description": null,
+      "combat_exp": 3000,
+      "attributes": {
+        "con": 28,
+        "int": 25
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 140,
+        "move": 100,
+        "parry": 100,
+        "stealing": 70,
+        "unarmed": 30
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 20,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "飞贼恶狠狠的说道: 快滚！这没你的事！"
+          },
+          {
+            "kind": "text",
+            "value": "飞贼喝道: 你要是敢惹我, 咱们以后可没完!"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "u.cloud.obj.cloth.black_cloth",
+          "source_path": "mudlib/u/cloud/obj/cloth/black_cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "fight_gate",
+        "random_movement",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.weaponor",
+      "source_path": "mudlib/u/cloud/npc/weaponor.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "兵器贩子",
+      "description": "卖兵器的是个中年人，满脸伤疤。",
+      "combat_exp": 20000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 100,
+        "sword": 60,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.weapon.longsword",
+          "source_path": "mudlib/obj/weapon/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "obj.weapon.blade",
+          "source_path": "mudlib/obj/weapon/blade.c"
+        },
+        {
+          "item_id": "obj.weapon.dagger",
+          "source_path": "mudlib/obj/weapon/dagger.c"
+        },
+        {
+          "item_id": "obj.weapon.dart",
+          "source_path": "mudlib/obj/weapon/dart.c"
+        },
+        {
+          "item_id": "obj.weapon.longsword",
+          "source_path": "mudlib/obj/weapon/longsword.c"
+        },
+        {
+          "item_id": "obj.weapon.shield",
+          "source_path": "mudlib/obj/weapon/shield.c"
+        },
+        {
+          "item_id": "obj.weapon.sixhammer",
+          "source_path": "mudlib/obj/weapon/sixhammer.c"
+        },
+        {
+          "item_id": "obj.weapon.thin_sword",
+          "source_path": "mudlib/obj/weapon/thin_sword.c"
+        },
+        {
+          "item_id": "obj.weapon.whip",
+          "source_path": "mudlib/obj/weapon/whip.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "兵器屋",
+          "response": "本店专卖各种长短兵器",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "u.cloud.npc.worker",
+      "source_path": "mudlib/u/cloud/npc/worker.c",
+      "status": "structured",
+      "area": "cloud",
+      "name": "茶工",
+      "description": "茶工正在忙碌着。",
+      "combat_exp": 500,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 20,
+        "parry": 20,
+        "throwing": 10,
+        "unarmed": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "u.cloud.obj.npc.worker.tea_leaf",
+          "source_path": "mudlib/u/cloud/obj/npc/worker/tea_leaf.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "碧海银针",
+          "response": "这要到香茗坊去问。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "inquiry",
+        "random_movement"
+      ]
+    }
+  ],
+  "warnings": [
+    "mudlib/d/death/npc/bgargoyle.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/death/npc/bgargoyle.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/death/npc/bgargoyle.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/death/npc/hell_guard.c: NPC 行为待实现 [random_identity]",
+    "mudlib/d/death/npc/wgargoyle.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/death/npc/wgargoyle.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/death/npc/wgargoyle.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/jail/cityguard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/latemoon/npc/bird.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/bird.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/npc/butterfly.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/butterfly.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/npc/cockroach.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/cockroach.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/npc/cockroach.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/dodo.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/dodo.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/npc/funlin.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/funlin.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/funlin.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/latemoon/npc/fuyun.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/girl.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/girl.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/npc/sell.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/sell.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/sell.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/latemoon/npc/sell.c: NPC 行为待实现 [death_hook]",
+    "mudlib/d/latemoon/npc/sell.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/npc/sell.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/latemoon/npc/sell.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/sell1.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/sell1.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/sell1.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/latemoon/npc/sell1.c: NPC 行为待实现 [death_hook]",
+    "mudlib/d/latemoon/npc/sell1.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/npc/sell1.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/latemoon/npc/sell1.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/shaode.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/shaode.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/shaowei.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/shaowei.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/npc/shaowei.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/latemoon/npc/shaowei.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/shinyu.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/shiren.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/yumay.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/npc/yumay.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/yumay.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/npc/yumay.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/npc/zauron.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/npc/zauron.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/npc/zauron.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/park/npc/bird.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/park/npc/bird.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/park/npc/dodo1.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/park/npc/dodo1.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/park/npc/flwgirl.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/park/npc/flwgirl.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/latemoon/park/npc/flwgirl.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/park/npc/maysan.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/park/npc/rabbit.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/park/npc/rabbit.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/park/npc/shiren.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/aaa.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/aaa.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/latemoon/room/npc/aaa.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/latemoon/room/npc/aaa.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/room/npc/annihi.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/elon.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/elon.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/latemoon/room/npc/elon.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/room/npc/eton.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/fireangel.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/room/npc/fochin.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/fong.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/guest.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/jane.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/killer.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/room/npc/killer.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/latemoon/room/npc/killer.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/room/npc/old.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/old.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/room/npc/old.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/latemoon/room/npc/shaoin.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/room/npc/shinyu.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/room/npc/spring1.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/spring2.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/tenlon.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/room/npc/tguest.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/yuchoun.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/room/npc/yushou.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/room/npc/yushou.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/latemoon/upstar/npc/bird.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/latemoon/upstar/npc/bird.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/latemoon/upstar/npc/huei.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/upstar/npc/shinfun.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/latemoon/upstar/npc/shinfun.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/latemoon/upstar/npc/statue.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/b_header.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/u/cloud/npc/b_header.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/b_header.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/b_header.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/beggar.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/u/cloud/npc/beggar.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/beggar.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/bfighter.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/u/cloud/npc/bfighter.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/u/cloud/npc/bfighter.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/bfighter.c: NPC 行为待实现 [random_movement]",
+    "mudlib/u/cloud/npc/boater.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/boater.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/book_seller.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/book_seller.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/book_seller.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/box_boss.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/butcher.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/butcher.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/butcher.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/chess_player.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/doctor.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/doctor.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/doctor.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/gangster.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/u/cloud/npc/gangster.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/gangster.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/gangster.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/gangster.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/gangster.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/girl.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/u/cloud/npc/girl.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/girl.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/girl.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/girl.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/god.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/u/cloud/npc/god.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/god.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/god.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/goddd.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/u/cloud/npc/goddd.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/goddd.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/judge.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/judge.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/judge.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/lm_guard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/lm_guard.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/mei_po.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/mei_po.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/mei_po.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/monk.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/monk.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/monk.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/monk.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/u/cloud/npc/monk_guard.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/monk_guard.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/monk_waiter.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/monk_waiter.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/monk_waiter.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/mother.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/mother.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/room_gua.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/seller.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/seller.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/seller.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/tailor.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/tailor.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/tailor.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/tea_waiter.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/tea_waiter.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/tea_waiter.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/teacher.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/teacher.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/teacher.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/thief.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/u/cloud/npc/thief.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/u/cloud/npc/thief.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/u/cloud/npc/thief.c: NPC 行为待实现 [random_movement]",
+    "mudlib/u/cloud/npc/thief.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/weaponor.c: NPC 行为待实现 [custom_command]",
+    "mudlib/u/cloud/npc/weaponor.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/weaponor.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/npc/worker.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/u/cloud/npc/worker.c: NPC 行为待实现 [inquiry]",
+    "mudlib/u/cloud/npc/worker.c: NPC 行为待实现 [random_movement]"
+  ]
+}

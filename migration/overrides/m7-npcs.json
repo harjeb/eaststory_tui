@@ -1,0 +1,335 @@
+{
+  "schema_version": 2,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M7",
+  "status": "complete",
+  "catalog": {
+    "definitions": 85,
+    "by_area": { "cloud": 32, "death": 3, "jail": 1, "latemoon": 49 },
+    "placed_definitions": 65,
+    "unplaced_definitions": 20,
+    "runtime_instances": 101,
+    "cross_stage_runtime_instances": 4,
+    "world_m7_npc_instances": 105,
+    "vendors": 8,
+    "vendor_goods": 29,
+    "inquiry_npcs": 34,
+    "inquiry_topics": 67,
+    "static_inquiries": 56,
+    "scripted_inquiries": 11,
+    "runtime_inquiry_npcs": 25,
+    "runtime_inquiries": 49,
+    "runtime_inquiry_references": 68,
+    "combat_profiles": 85,
+    "combat_skill_entries": 343,
+    "combat_mapping_entries": 75,
+    "combat_apply_entries": 36,
+    "combat_chat_npcs": 13,
+    "combat_chat_entries": 27,
+    "carried_item_npcs": 60,
+    "carried_item_entries": 122,
+    "worn_item_entries": 78,
+    "wielded_item_entries": 28,
+    "save_schema": 25
+  },
+  "importer_resolutions": [
+    {
+      "source_path": "mudlib/d/snow/npc/beggar.c",
+      "status": "alias",
+      "owner": "M4",
+      "decision": "青云境房间引用由全局来源索引解析为既有 M4 定义；M7 NPC 目录不重复收录。"
+    },
+    {
+      "source_path": "mudlib/obj/npc/garrison.c",
+      "status": "alias",
+      "owner": "M5",
+      "decision": "青云境房间引用由全局来源索引解析为既有 M5 定义；M7 NPC 目录不重复收录。"
+    },
+    {
+      "source_path": "mudlib/d/latemoon/room/npc/houndbane.c",
+      "status": "excluded",
+      "decision": "固定提交不存在该携带物文件，导入器明确省略该掉落，不伪造物品定义。"
+    },
+    {
+      "source_path": "mudlib/d/latemoon/room/npc/obj/deer_boot.c",
+      "resolved_source_path": "mudlib/d/latemoon/npc/obj/deer_boot.c",
+      "status": "adapted",
+      "decision": "来源 NPC 使用错误路径；按固定提交中真实同名物品文件解析。"
+    },
+    {
+      "source_path": "mudlib/d/latemoon/room/npc/obj/blue_dress.c",
+      "resolved_source_path": "mudlib/d/latemoon/npc/obj/blue_dress.c",
+      "status": "adapted",
+      "decision": "来源 NPC 使用错误路径；按固定提交中真实同名物品文件解析。"
+    },
+    {
+      "source_path": "mudlib/d/latemoon/room/npc/obj/redbelt.c",
+      "resolved_source_path": "mudlib/d/latemoon/npc/obj/redbelt.c",
+      "status": "adapted",
+      "decision": "来源 NPC 使用错误路径；按固定提交中真实同名物品文件解析。"
+    }
+  ],
+  "runtime_features": [
+    {
+      "feature": "source_static_runtime",
+      "status": "adapted",
+      "decision": "65 个新定义的 101 个实例及 4 个跨阶段实例进入通用商店、问答、战斗档案、战斗消息与携带物运行层。"
+    },
+    {
+      "feature": "latemoon_dancer_and_clues",
+      "status": "adapted",
+      "decision": "来源宏掌门蓝止萍只在晚月庄主厅授业并限女性拜师；竹蜻蜓、手镯、舞曲谱、舞谱与旧令牌奖励形成可持久化单人链。"
+    },
+    {
+      "feature": "cloud_escort_letter_chain",
+      "status": "adapted",
+      "decision": "勇气门槛加入振远镖局，交忘忧草取得署名荐书，再交陈天星解锁来源课程；省略单角色中无意义的 master_id 所有权字段。"
+    },
+    {
+      "feature": "cloud_crossing_and_exchanges",
+      "status": "adapted",
+      "decision": "船夫付费开放一次渡河，强盗高价值买路、少女认礼、赌场押物和和尚香火捐献均按来源约束进入本地状态机。"
+    },
+    {
+      "feature": "source_fight_policies",
+      "status": "audited",
+      "decision": "已放置少女、神仙与和尚拒绝比试；强盗与小偷将比试强制升级为死斗；未放置门槛不伪造实例。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "183 项 M7 NPC 行为标记逐源处置为 33 verified、50 adapted、51 deferred、38 excluded、10 alias、1 source_noop，无未处置项。"
+    }
+  ],
+  "behavior_flags": {
+    "total": 183,
+    "disposed": 183,
+    "remaining": 0,
+    "status": "audited",
+    "by_category": {
+      "ambient_chat": 22,
+      "apprenticeship": 30,
+      "combat_chat": 13,
+      "custom_command": 15,
+      "death_hook": 2,
+      "fight_gate": 9,
+      "inquiry": 34,
+      "object_exchange": 13,
+      "random_identity": 1,
+      "random_movement": 14,
+      "timed_behavior": 30
+    },
+    "by_status": {
+      "verified": 33,
+      "adapted": 50,
+      "deferred": 51,
+      "excluded": 38,
+      "alias": 10,
+      "source_noop": 1
+    },
+    "dispositions": [
+      {
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "target": "M8",
+        "source_paths": [
+          "mudlib/d/death/npc/bgargoyle.c", "mudlib/d/death/npc/wgargoyle.c", "mudlib/d/latemoon/npc/butterfly.c", "mudlib/d/latemoon/npc/funlin.c", "mudlib/d/latemoon/npc/girl.c", "mudlib/d/latemoon/npc/yumay.c", "mudlib/d/latemoon/park/npc/bird.c", "mudlib/d/latemoon/park/npc/dodo1.c", "mudlib/d/latemoon/park/npc/flwgirl.c", "mudlib/d/latemoon/park/npc/rabbit.c", "mudlib/d/latemoon/room/npc/killer.c", "mudlib/d/latemoon/upstar/npc/bird.c", "mudlib/u/cloud/npc/bfighter.c", "mudlib/u/cloud/npc/gangster.c", "mudlib/u/cloud/npc/thief.c", "mudlib/u/cloud/npc/worker.c"
+        ],
+        "decision": "环境闲聊绑定 M8 世界调度，不影响当前静态问答与剧情。"
+      },
+      {
+        "flags": ["random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "source_paths": [
+          "mudlib/d/death/npc/bgargoyle.c", "mudlib/d/death/npc/wgargoyle.c", "mudlib/d/latemoon/npc/butterfly.c", "mudlib/d/latemoon/park/npc/bird.c", "mudlib/d/latemoon/park/npc/dodo1.c", "mudlib/d/latemoon/park/npc/rabbit.c", "mudlib/d/latemoon/room/npc/killer.c", "mudlib/d/latemoon/upstar/npc/bird.c", "mudlib/u/cloud/npc/bfighter.c", "mudlib/u/cloud/npc/thief.c", "mudlib/u/cloud/npc/worker.c"
+        ],
+        "decision": "随机移动统一绑定 M8 日程/刷新系统。"
+      },
+      {
+        "flags": ["timed_behavior"],
+        "status": "deferred",
+        "target": "M8",
+        "source_paths": [
+          "mudlib/d/death/npc/bgargoyle.c", "mudlib/d/death/npc/wgargoyle.c", "mudlib/d/latemoon/npc/shaowei.c", "mudlib/d/latemoon/npc/yumay.c", "mudlib/d/latemoon/npc/zauron.c", "mudlib/d/latemoon/room/npc/fireangel.c", "mudlib/d/latemoon/room/npc/shaoin.c", "mudlib/d/latemoon/room/npc/shinyu.c", "mudlib/d/latemoon/room/npc/yuchoun.c", "mudlib/d/latemoon/room/npc/yushou.c", "mudlib/d/latemoon/upstar/npc/statue.c", "mudlib/u/cloud/npc/book_seller.c", "mudlib/u/cloud/npc/butcher.c", "mudlib/u/cloud/npc/doctor.c", "mudlib/u/cloud/npc/gangster.c", "mudlib/u/cloud/npc/judge.c", "mudlib/u/cloud/npc/mei_po.c", "mudlib/u/cloud/npc/seller.c", "mudlib/u/cloud/npc/tailor.c", "mudlib/u/cloud/npc/tea_waiter.c", "mudlib/u/cloud/npc/thief.c", "mudlib/u/cloud/npc/weaponor.c"
+        ],
+        "decision": "定时问候、动作和刷新绑定 M8 调度，不阻塞当前交易与主线。"
+      },
+      {
+        "flags": ["inquiry"],
+        "status": "deferred",
+        "target": "M8",
+        "source_paths": ["mudlib/u/cloud/npc/chess_player.c"],
+        "decision": "下棋问答依赖尚未迁移的棋局命令。"
+      },
+      {
+        "flags": ["custom_command"],
+        "status": "deferred",
+        "target": "M8",
+        "source_paths": ["mudlib/u/cloud/npc/god.c"],
+        "decision": "动态任务分配依赖 M8 任务列表与时间系统。"
+      },
+      {
+        "flags": ["random_identity"],
+        "status": "adapted",
+        "source_paths": ["mudlib/d/death/npc/hell_guard.c"],
+        "decision": "多人随机身份收敛为稳定源定义和四个房间实例。"
+      },
+      {
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "source_paths": [
+          "mudlib/d/latemoon/park/npc/flwgirl.c", "mudlib/d/latemoon/room/npc/killer.c", "mudlib/u/cloud/npc/b_header.c", "mudlib/u/cloud/npc/bfighter.c", "mudlib/u/cloud/npc/gangster.c", "mudlib/u/cloud/npc/girl.c", "mudlib/u/cloud/npc/lm_guard.c", "mudlib/u/cloud/npc/monk.c", "mudlib/u/cloud/npc/mother.c", "mudlib/u/cloud/npc/thief.c"
+        ],
+        "decision": "已放置定义的文本、force 与通用战斗消息进入单人战斗换算。"
+      },
+      {
+        "flags": ["apprenticeship"],
+        "status": "adapted",
+        "source_paths": [
+          "mudlib/d/latemoon/npc/funlin.c", "mudlib/d/latemoon/npc/shaowei.c", "mudlib/d/latemoon/npc/yumay.c", "mudlib/d/latemoon/npc/zauron.c", "mudlib/d/latemoon/park/npc/maysan.c", "mudlib/d/latemoon/park/npc/shiren.c", "mudlib/d/latemoon/room/npc/annihi.c", "mudlib/d/latemoon/room/npc/elon.c", "mudlib/d/latemoon/room/npc/eton.c", "mudlib/d/latemoon/room/npc/fochin.c", "mudlib/d/latemoon/room/npc/guest.c", "mudlib/d/latemoon/room/npc/old.c", "mudlib/d/latemoon/room/npc/spring1.c", "mudlib/d/latemoon/room/npc/spring2.c", "mudlib/d/latemoon/room/npc/tguest.c", "mudlib/d/latemoon/room/npc/yushou.c", "mudlib/d/latemoon/upstar/npc/huei.c", "mudlib/d/latemoon/upstar/npc/shinfun.c", "mudlib/u/cloud/npc/b_header.c", "mudlib/u/cloud/npc/bfighter.c", "mudlib/u/cloud/npc/girl.c", "mudlib/u/cloud/npc/god.c"
+        ],
+        "decision": "晚月成员统一指向唯一来源宏掌门蓝止萍；陈剑秋使用勇气门槛振远镖局剧情，其他成员不伪造独立掌门。"
+      },
+      {
+        "flags": ["object_exchange"],
+        "status": "adapted",
+        "source_paths": [
+          "mudlib/d/latemoon/npc/funlin.c", "mudlib/d/latemoon/npc/shaowei.c", "mudlib/d/latemoon/room/npc/old.c", "mudlib/u/cloud/npc/b_header.c", "mudlib/u/cloud/npc/boater.c", "mudlib/u/cloud/npc/gangster.c", "mudlib/u/cloud/npc/girl.c", "mudlib/u/cloud/npc/judge.c", "mudlib/u/cloud/npc/monk.c"
+        ],
+        "decision": "竹蜻蜓/手镯、旧令牌、荐书、渡船、买路、认礼、赌博与香火交换均进入持久化单人状态机。"
+      },
+      {
+        "flags": ["inquiry"],
+        "status": "adapted",
+        "source_paths": [
+          "mudlib/d/latemoon/npc/girl.c", "mudlib/d/latemoon/npc/shaowei.c", "mudlib/d/latemoon/npc/yumay.c", "mudlib/d/latemoon/upstar/npc/shinfun.c", "mudlib/u/cloud/npc/boater.c"
+        ],
+        "decision": "五个脚本问答保留来源文本或设置可持久化线索。"
+      },
+      {
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "source_paths": ["mudlib/d/latemoon/room/npc/elon.c"],
+        "decision": "三招测试收敛到来源唯一蓝止萍掌门与女性门槛，不建立第二套师承。"
+      },
+      {
+        "flags": ["fight_gate"],
+        "status": "adapted",
+        "source_paths": ["mudlib/u/cloud/npc/gangster.c", "mudlib/u/cloud/npc/thief.c"],
+        "decision": "来源比试请求直接升级为死斗。"
+      },
+      {
+        "flags": ["combat_chat"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/jail/cityguard.c", "mudlib/d/latemoon/room/npc/aaa.c", "mudlib/u/cloud/npc/monk_waiter.c"],
+        "decision": "定义未被固定源房间放置，不伪造实例。"
+      },
+      {
+        "flags": ["ambient_chat"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/bird.c", "mudlib/d/latemoon/npc/cockroach.c", "mudlib/d/latemoon/npc/dodo.c", "mudlib/d/latemoon/npc/sell.c", "mudlib/u/cloud/npc/beggar.c"],
+        "decision": "定义未被固定源房间放置，不伪造环境实例。"
+      },
+      {
+        "flags": ["random_movement"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/bird.c", "mudlib/d/latemoon/npc/cockroach.c", "mudlib/d/latemoon/npc/dodo.c"],
+        "decision": "未放置定义不执行随机移动。"
+      },
+      {
+        "flags": ["timed_behavior"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/cockroach.c", "mudlib/d/latemoon/npc/fuyun.c", "mudlib/d/latemoon/npc/sell.c", "mudlib/d/latemoon/npc/shaode.c", "mudlib/d/latemoon/npc/shinyu.c", "mudlib/d/latemoon/room/npc/tenlon.c", "mudlib/u/cloud/npc/teacher.c"],
+        "decision": "未放置定义不执行定时行为。"
+      },
+      {
+        "flags": ["apprenticeship"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/sell.c", "mudlib/d/latemoon/npc/shaode.c", "mudlib/d/latemoon/npc/shiren.c", "mudlib/d/latemoon/room/npc/aaa.c", "mudlib/d/latemoon/room/npc/fong.c", "mudlib/d/latemoon/room/npc/jane.c"],
+        "decision": "未放置或测试定义不创建额外掌门。"
+      },
+      {
+        "flags": ["custom_command"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/sell.c", "mudlib/d/latemoon/room/npc/aaa.c", "mudlib/u/cloud/npc/teacher.c"],
+        "decision": "未放置定义的命令不进入运行时。"
+      },
+      {
+        "flags": ["death_hook"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/sell.c"],
+        "decision": "未放置测试商人不创建死亡钩子。"
+      },
+      {
+        "flags": ["inquiry"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/sell.c", "mudlib/d/latemoon/room/npc/aaa.c", "mudlib/u/cloud/npc/monk_guard.c", "mudlib/u/cloud/npc/monk_waiter.c", "mudlib/u/cloud/npc/teacher.c"],
+        "decision": "未放置定义不暴露问答。"
+      },
+      {
+        "flags": ["object_exchange"],
+        "status": "excluded",
+        "source_paths": ["mudlib/d/latemoon/npc/sell.c", "mudlib/u/cloud/npc/beggar.c"],
+        "decision": "未放置定义不接受运行时物品。"
+      },
+      {
+        "flags": ["fight_gate"],
+        "status": "excluded",
+        "source_paths": ["mudlib/u/cloud/npc/beggar.c", "mudlib/u/cloud/npc/monk_guard.c", "mudlib/u/cloud/npc/monk_waiter.c"],
+        "decision": "未放置定义的比试门槛不制造房间实例。"
+      },
+      {
+        "flags": ["ambient_chat", "apprenticeship", "custom_command", "death_hook", "inquiry", "object_exchange", "timed_behavior"],
+        "status": "alias",
+        "source_paths": ["mudlib/d/latemoon/npc/sell1.c"],
+        "decision": "未放置重复商人定义与 sell.c 同源同义，不制造第二实例。"
+      },
+      {
+        "flags": ["apprenticeship", "custom_command", "fight_gate"],
+        "status": "alias",
+        "source_paths": ["mudlib/u/cloud/npc/goddd.c"],
+        "decision": "未放置重复神仙定义与 god.c 共用处置。"
+      },
+      {
+        "flags": ["inquiry"],
+        "status": "verified",
+        "source_paths": [
+          "mudlib/d/latemoon/npc/zauron.c", "mudlib/d/latemoon/park/npc/flwgirl.c", "mudlib/d/latemoon/room/npc/elon.c", "mudlib/d/latemoon/room/npc/old.c", "mudlib/u/cloud/npc/b_header.c", "mudlib/u/cloud/npc/book_seller.c", "mudlib/u/cloud/npc/box_boss.c", "mudlib/u/cloud/npc/butcher.c", "mudlib/u/cloud/npc/doctor.c", "mudlib/u/cloud/npc/gangster.c", "mudlib/u/cloud/npc/girl.c", "mudlib/u/cloud/npc/judge.c", "mudlib/u/cloud/npc/lm_guard.c", "mudlib/u/cloud/npc/mei_po.c", "mudlib/u/cloud/npc/monk.c", "mudlib/u/cloud/npc/mother.c", "mudlib/u/cloud/npc/room_gua.c", "mudlib/u/cloud/npc/seller.c", "mudlib/u/cloud/npc/tailor.c", "mudlib/u/cloud/npc/tea_waiter.c", "mudlib/u/cloud/npc/weaponor.c", "mudlib/u/cloud/npc/worker.c"
+        ],
+        "decision": "静态问答由通用目录运行层直接提供。"
+      },
+      {
+        "flags": ["custom_command"],
+        "status": "verified",
+        "source_paths": ["mudlib/u/cloud/npc/book_seller.c", "mudlib/u/cloud/npc/butcher.c", "mudlib/u/cloud/npc/doctor.c", "mudlib/u/cloud/npc/mei_po.c", "mudlib/u/cloud/npc/seller.c", "mudlib/u/cloud/npc/tailor.c", "mudlib/u/cloud/npc/tea_waiter.c", "mudlib/u/cloud/npc/weaponor.c"],
+        "decision": "来源 list 命令由通用数据驱动商店动作替代。"
+      },
+      {
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "source_paths": ["mudlib/u/cloud/npc/girl.c", "mudlib/u/cloud/npc/god.c", "mudlib/u/cloud/npc/monk.c"],
+        "decision": "三名已放置 NPC 的来源拒绝比试策略直接执行。"
+      },
+      {
+        "flags": ["object_exchange"],
+        "status": "source_noop",
+        "source_paths": ["mudlib/u/cloud/npc/god.c"],
+        "decision": "固定源任务完成交换函数主体全部被注释，不存在可执行奖励。"
+      }
+    ],
+    "decision": "分组 dispositions 展开后与 npcs-m7.json 的 183 个 (source_path, behavior_flag) 构成精确集合。"
+  },
+  "dependencies": [
+    {
+      "target": "M7-death-corpse",
+      "scope": "尸体动画、腐败与跨里程碑死亡生命周期",
+      "status": "deferred"
+    },
+    {
+      "target": "M8",
+      "scope": "51 项环境对白、随机移动、定时行为、棋局和动态任务调度",
+      "status": "deferred"
+    }
+  ]
+}

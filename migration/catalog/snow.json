@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "snow",
   "status": "structured",
@@ -19,8 +19,22 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "这里是钱庄，目前我们提供的服务有：\n兑换(convert)钱币。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [
         "mudlib/d/snow/npc/annihir.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/annihir.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "item_interaction"
@@ -55,7 +69,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -73,7 +90,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "房门",
+          "reverse_direction": "east",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -107,7 +134,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -132,8 +162,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/dog.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/dog.c",
+          "quantity": 2
+        }
       ],
       "behavior_flags": []
     },
@@ -166,7 +204,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -184,7 +225,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -202,9 +246,32 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "cabinet",
+          "description": "一座巨大的杉木药柜，从它暗红色的纹理跟几处磨得发亮的痕迹，\n这个药柜年代想必相当久远了，有一点很特殊的是，药柜和墙壁似乎贴\n得非常紧密，看不出丝毫缝隙。",
+          "door_direction": null
+        },
+        {
+          "key": "sign",
+          "description": "纸片上写著：价目表请用 list 向掌柜查询。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [
         "mudlib/d/snow/npc/herbalist.c",
         "mudlib/d/snow/npc/woodcutter.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/herbalist.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/snow/npc/woodcutter.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "item_interaction"
@@ -217,7 +284,10 @@
       "name": "药铺密室",
       "description": "这是一间光线阴暗的密室，从地上厚厚的灰尘看得出来这里很少有\n人出入，靠西边的地上放著一副脚镣，连著一条铁链镶在墙上，不知道\n是用来锁什么人，南面的墙(wall)是用红杉木做的，跟另外三面的灰土\n墙比起来显得有些不寻常。",
       "exits": [],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -242,7 +312,23 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "木雕门",
+          "reverse_direction": "east",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "sign",
+          "description": "本当铺财力雄厚，童叟无欺，欢迎惠顾，绝对保密。\n客倌可以在这里典当(pawn)、卖断(sell)各种货物，铜钱、银两、黄金一概通用。\n要赎回(retrieve)典物，请保持当票完整。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door",
         "item_interaction"
@@ -263,7 +349,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -295,9 +384,39 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "northwest",
+          "name": "木门",
+          "reverse_direction": "southeast",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "door",
+          "description": null,
+          "door_direction": "northwest"
+        },
+        {
+          "key": "sign",
+          "description": "招牌写著：饮风客栈。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [
         "mudlib/d/snow/npc/traveller.c",
         "mudlib/d/snow/npc/waiter.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/traveller.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/snow/npc/waiter.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "door",
@@ -340,8 +459,35 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "房门",
+          "reverse_direction": "south",
+          "initially_closed": true
+        },
+        {
+          "direction": "east",
+          "name": "房门",
+          "reverse_direction": "west",
+          "initially_closed": true
+        },
+        {
+          "direction": "west",
+          "name": "房门",
+          "reverse_direction": "east",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/rat.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/rat.c",
+          "quantity": 6
+        }
       ],
       "behavior_flags": [
         "door"
@@ -362,7 +508,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -401,7 +550,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "pillar",
+          "description": "石柱上刻著：剑气指天、剑心内敛、剑芒不显、剑神如电。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "item_interaction"
       ]
@@ -442,7 +600,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -481,9 +642,21 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/drunk.c",
         "mudlib/d/snow/npc/scavenger.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/drunk.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/snow/npc/scavenger.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -523,7 +696,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "east",
+          "name": "店铺门",
+          "reverse_direction": "west",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -557,7 +740,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -575,7 +761,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "房门",
+          "reverse_direction": "north",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -595,8 +791,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/girl.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/girl.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -615,8 +819,22 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "牌子上写道：\n    奉乔阴府知县令喻，本驿著日起收发事宜扩及官员百姓上下人\n等通办，官员及兵部该管军士、官府衙役免费，一般良民百姓书信\n收费每通十文，收信免费，物品收费依份量大小另计，贵重细软倘\n有遗失退费加五成赔偿，不得异议。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [
         "mudlib/d/snow/npc/post_officer.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/post_officer.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "conditional_exit",
@@ -638,8 +856,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/teacher.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/teacher.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -665,8 +891,29 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "east",
+          "name": "红漆大门",
+          "reverse_direction": "west",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "door",
+          "description": null,
+          "door_direction": "east"
+        }
+      ],
       "object_sources": [
         "mudlib/d/snow/npc/guard.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/guard.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "door",
@@ -702,9 +949,28 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "红漆大门",
+          "reverse_direction": "east",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/fist_trainer.c",
         "mudlib/d/snow/npc/trainee.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/trainee.c",
+          "quantity": 6
+        },
+        {
+          "source_path": "mudlib/d/snow/npc/fist_trainer.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "door"
@@ -732,7 +998,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -742,8 +1011,16 @@
       "name": "地下密室",
       "description": "这里是一间窄小的密室，你的面前只有一个破旧的小床(bed)跟一\n些乾草。",
       "exits": [],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/obj/shield.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/obj/shield.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -762,8 +1039,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/smith.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/smith.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -803,9 +1088,21 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/trav_blade.c",
         "mudlib/d/snow/npc/worker.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/worker.c",
+          "quantity": 4
+        },
+        {
+          "source_path": "mudlib/d/snow/npc/trav_blade.c",
+          "quantity": 3
+        }
       ],
       "behavior_flags": []
     },
@@ -831,6 +1128,13 @@
           "dynamic": false
         },
         {
+          "direction": "south",
+          "target": "u.cloud.dragonhill.nroad",
+          "source_target": "/u/cloud/dragonhill/nroad",
+          "internal": false,
+          "dynamic": false
+        },
+        {
           "direction": "west",
           "target": "snow.sroad2",
           "source_target": "__DIR__sroad2",
@@ -838,7 +1142,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -870,8 +1177,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/farmer.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/farmer.c",
+          "quantity": 2
+        }
       ],
       "behavior_flags": []
     },
@@ -897,7 +1212,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -929,8 +1247,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/crazy_dog.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/crazy_dog.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -956,7 +1282,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -981,10 +1310,26 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/snow/npc/keeper.c",
         "mudlib/d/snow/obj/denotation.c",
         "mudlib/obj/paper_seal.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/obj/paper_seal.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/snow/npc/keeper.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/snow/obj/denotation.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -1003,7 +1348,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "east",
+          "name": "房门",
+          "reverse_direction": "west",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -1030,8 +1385,22 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "shelf",
+          "description": "这个架子上空荡荡的，什么都没有。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [
         "mudlib/d/snow/npc/obj/bamboo_sword.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/snow/npc/obj/bamboo_sword.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "custom_command",
@@ -1055,7 +1424,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "告示\n现在正紧缺人手，急需雇佣一批短工来干活。\n工作(work)一次，给工钱纹银一两。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "environment_damage",

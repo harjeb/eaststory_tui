@@ -1,0 +1,447 @@
+{
+  "schema_version": 3,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M6",
+  "status": "complete",
+  "areas": [
+    "chuenyu",
+    "green",
+    "sanyen",
+    "waterfog"
+  ],
+  "catalog": {
+    "rooms": 121,
+    "by_area": {
+      "chuenyu": 37,
+      "green": 39,
+      "sanyen": 18,
+      "waterfog": 27
+    },
+    "warning_entries": 65,
+    "door_definitions": 16,
+    "room_details": 38,
+    "object_mappings": 60,
+    "object_instances": 105,
+    "npc_mappings": 56,
+    "npc_instances": 92,
+    "fixed_room_item_mappings": 3,
+    "fixed_room_item_instances": 11,
+    "unresolved_object_mappings": 1,
+    "unresolved_object_instances": 2
+  },
+  "static_runtime": {
+    "status": "implemented",
+    "embedded_rooms": 121,
+    "embedded_npc_instances": 92,
+    "fixed_room_item_instances": 11,
+    "save_schema": 21,
+    "decisions": [
+      {
+        "source": "mudlib/d/snow/crossroad.c <-> mudlib/d/green/path6.c",
+        "status": "verified",
+        "decision": "青石村西路与雪亭山坳的双向固定源出口直接接入。"
+      },
+      {
+        "source": "mudlib/d/snow/sroad5.c <-> mudlib/d/waterfog/sroad1.c",
+        "status": "verified",
+        "decision": "水烟阁东侧青石官道与雪亭南路的双向固定源出口直接接入。"
+      },
+      {
+        "source": "mudlib/d/chuenyu/croad1.c -> mudlib/d/village/road1.c",
+        "status": "adapted",
+        "decision": "固定源只有绮云镇出城方向；为单人世界在 village.road1 增加返回 chuenyu.croad1 的东北岔路，不覆盖原有天驼关北路。"
+      },
+      {
+        "source": "mudlib/d/sanyen/tunnel.c <-> mudlib/d/latemoon/sroad5.c",
+        "status": "deferred",
+        "target": "M7",
+        "decision": "三烟寺唯一固定源入口依赖 M7 月迟山，保留外部出口，不伪造第二条主干。"
+      }
+    ]
+  },
+  "fixed_source_defects": [
+    {
+      "source_path": "mudlib/d/sanyen/front_yard.c",
+      "reference": "mudlib/d/sanyen/npc/monk_guard.c",
+      "quantity": 2,
+      "status": "excluded",
+      "decision": "固定提交不存在该对象文件，目录保留原始引用，运行时不伪造 NPC 定义。"
+    },
+    {
+      "source_path": "mudlib/d/waterfog/entrance.c",
+      "reference": "mudlib/d/waterfog/guildhall.c",
+      "status": "excluded",
+      "decision": "固定提交不存在目标房间，保留悬空出口供拓扑审计，运行时不提供移动动作。"
+    }
+  ],
+  "runtime_features": [
+    {
+      "feature": "source_doors_and_details",
+      "status": "verified",
+      "decision": "16 个固定源门端点进入通用双向门状态；22 个 item_interaction 房间的 38 条查看细节全部可执行。"
+    },
+    {
+      "feature": "chuenyu_castle_events",
+      "status": "adapted",
+      "decision": "大厅拉绳坠落、四处城墙攀爬、吊桥下攀、地牢五次推石板与五拍双向通道、暗箭延迟和持续伤害均进入单人状态机。"
+    },
+    {
+      "feature": "green_bagua_events",
+      "status": "adapted",
+      "decision": "十万实战门槛、八卦阵完成标记、溪底一次性风波剑、巨石内力门槛与伤害、井水装填及蛛网最多三只蜘蛛均可运行。"
+    },
+    {
+      "feature": "sanyen_steamer",
+      "status": "adapted",
+      "decision": "厨子在场时阻止开蒸笼；厨子死斗离场后最多取得五个来源馒头，进度进入存档。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "M6 四区 65 项房间行为标记与固定源逐项对应：29 verified、34 adapted、2 excluded，无未处置项。"
+    }
+  ],
+  "behavior_flags": {
+    "total": 65,
+    "disposed": 65,
+    "remaining": 0,
+    "status": "audited",
+    "by_category": {
+      "conditional_exit": 4,
+      "custom_command": 11,
+      "door": 16,
+      "dynamic_exit": 1,
+      "environment_damage": 1,
+      "item_interaction": 22,
+      "random_behavior": 4,
+      "timed_behavior": 6
+    },
+    "by_status": {
+      "verified": 29,
+      "adapted": 34,
+      "excluded": 2
+    },
+    "dispositions": [
+      {
+        "source_path": "mudlib/d/chuenyu/bedroom.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "卧房木门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/center.c",
+        "flags": ["custom_command", "random_behavior", "item_interaction"],
+        "status": "adapted",
+        "decision": "查看绳索并拉下后坠入 tunnel1，按来源随机损失 5 至 14 点气。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/dustyroad3.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "灰尘官道门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/east_castle.c",
+        "flags": ["custom_command", "timed_behavior", "item_interaction"],
+        "status": "adapted",
+        "decision": "查看城墙/石板并沿藤蔓攀至 east_garden；石板开启时提供返回 tunnel4 的动态下行出口。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/east_garden.c",
+        "flags": ["custom_command", "timed_behavior", "item_interaction"],
+        "status": "adapted",
+        "decision": "查看藤蔓并攀回 east_castle，保留来源成对落点。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/gate_castle.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "城堡门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/home.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "民宅门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/kitchen.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "厨房门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/north_garden.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "千斤巨石查看文本由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/rope_bridge.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "沿吊桥向下攀爬转为显式行动并到达 base_b_m。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/storage.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "储藏室门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/trap_castle.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "陷阱房门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/trap_castle.c",
+        "flags": ["timed_behavior", "random_behavior", "item_interaction"],
+        "status": "adapted",
+        "decision": "四类房间细节可查看；进入两拍后暗箭按来源随机损失 35 至 44 点气，并在停留期间持续触发。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/tunnel4.c",
+        "flags": ["custom_command", "timed_behavior", "dynamic_exit", "item_interaction"],
+        "status": "adapted",
+        "decision": "查看并累计推动石板五次后开启五拍通道；tunnel4 向上与 east_castle 向下共享同一动态状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/west_blackge.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "西厢门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/west_castle.c",
+        "flags": ["custom_command", "timed_behavior", "item_interaction"],
+        "status": "adapted",
+        "decision": "查看藤蔓并攀至 west_garden，保留来源成对落点。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/west_garden.c",
+        "flags": ["custom_command", "timed_behavior", "item_interaction"],
+        "status": "adapted",
+        "decision": "查看藤蔓并攀回 west_castle，保留来源成对落点。"
+      },
+      {
+        "source_path": "mudlib/d/green/cave0.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "山洞石门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/green/cave1.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "洞内石门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/green/closed.c",
+        "flags": ["custom_command", "environment_damage", "random_behavior"],
+        "status": "adapted",
+        "decision": "推巨石要求 max_force 560、force_factor 40 与 force 技能 40；成功扣精20/气60/神20，并按来源三分之一概率脱出至入口。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight0.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "坤卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight1.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "艮卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight2.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "坎卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight3.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "巽卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight4.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "震卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight5.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "离卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight6.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "兑卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight7.c",
+        "flags": ["conditional_exit"],
+        "status": "adapted",
+        "decision": "从乾位向南进入石室时记录八卦阵完成状态，供溪底奖励判定。"
+      },
+      {
+        "source_path": "mudlib/d/green/eight7.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "乾卦路牌由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/entrance.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "八卦阵入口门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/green/entrance.c",
+        "flags": ["conditional_exit"],
+        "status": "adapted",
+        "decision": "进入 eight0 前按来源要求十万点实战经验，不满足时阻止移动。"
+      },
+      {
+        "source_path": "mudlib/d/green/entrance.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "八卦阵图由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/green/house3.c",
+        "flags": ["item_interaction"],
+        "status": "adapted",
+        "decision": "查看蛛网按来源最多生成三只 green.npc.spider；生成记录持久化并进入通用 NPC 战斗层。"
+      },
+      {
+        "source_path": "mudlib/d/green/outdoor.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "青石门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/green/outdoor.c",
+        "flags": ["conditional_exit"],
+        "status": "excluded",
+        "decision": "来源要求 master outer，但固定提交唯一相关掌门为未放置的 master neon，条件不可满足；不伪造师承或额外出口。"
+      },
+      {
+        "source_path": "mudlib/d/green/station0.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "携带液体容器时可倒净并装入十五口清水；清除酒/蒙汗状态，容器水状态进入存档。"
+      },
+      {
+        "source_path": "mudlib/d/green/stoneroom.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "石室门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/green/water.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "溪边门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/green/water.c",
+        "flags": ["custom_command", "random_behavior"],
+        "status": "adapted",
+        "decision": "完成八卦阵后搜索溪底按来源二分之一概率取得风波剑；修复来源可重复领取缺陷，成功奖励只发一次。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/heal_room.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "医馆牌匾由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/kitchen.c",
+        "flags": ["custom_command", "item_interaction"],
+        "status": "adapted",
+        "decision": "铁锅与蒸笼可查看；厨子在场时阻止开笼，离场后最多取得五个 sanyen.npc.obj.bun。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/road1.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "寺外道路门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/temple.c",
+        "flags": ["door"],
+        "status": "verified",
+        "decision": "寺门使用通用固定源门状态。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/entrance.c",
+        "flags": ["conditional_exit"],
+        "status": "excluded",
+        "decision": "北向目标 guildhall.c 在固定提交中不存在；不提供指向缺失房间的移动动作。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/swordtomb.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "剑冢石碑由通用房间细节运行层提供。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/wpath2.c",
+        "flags": ["item_interaction"],
+        "status": "verified",
+        "decision": "虹谷石台碑文由通用房间细节运行层提供。"
+      }
+    ],
+    "decision": "65 项标记与四个 M6 区域目录的全部 behavior_flags 构成精确集合；房间行为审计完成，并与 NPC、物品及共享剧情验收共同收口 M6。"
+  },
+  "regional_acceptance": {
+    "status": "complete",
+    "save_schema": 22,
+    "ledgers": [
+      "migration/overrides/m6-topology.json",
+      "migration/overrides/m6-npcs.json",
+      "migration/overrides/m6-items.json"
+    ],
+    "areas": [
+      {
+        "area": "chuenyu",
+        "status": "verified",
+        "coverage": "城堡攀爬、地牢石板与暗箭、固定门/细节、进场死斗及小娟/刘老农营救和复仇链均有自动回归。"
+      },
+      {
+        "area": "green",
+        "status": "verified",
+        "coverage": "十万实战入口、八卦阵、巨石、井水、蛛网蜘蛛，以及老人/醉汉/沈万三玉佩与蒙汗药链均有自动回归。"
+      },
+      {
+        "area": "sanyen",
+        "status": "verified",
+        "coverage": "固定门/细节、六项拒绝比试与厨子死斗后的五个馒头蒸笼链均有自动回归。"
+      },
+      {
+        "area": "waterfog",
+        "status": "verified",
+        "coverage": "固定门/细节、来源战斗消息、红衣武士拒绝比试和强化死斗均有自动回归；缺失 guildhall 明确排除。"
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "target": "M7",
+      "scope": "三烟寺经月迟山入口、园丁 animate corpse 尸体生命周期，以及遗漏区域 u/cloud 振远镖局的陈剑秋荐书链",
+      "status": "deferred"
+    },
+    {
+      "target": "M8",
+      "scope": "环境对白、随机移动与非关键延迟问候的统一 NPC 调度",
+      "status": "deferred"
+    }
+  ]
+}

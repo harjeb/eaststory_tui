@@ -1,8 +1,356 @@
 {
-  "schema_version": 1,
+  "schema_version": 6,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "milestone": "M4",
-  "status": "in_progress",
+  "status": "complete",
+  "room_behavior_audit": {
+    "warning_entries": 107,
+    "rooms_with_warnings": 60,
+    "by_region": {
+      "city": 48,
+      "snow": 24,
+      "temple": 20,
+      "canyon": 15
+    },
+    "by_flag": {
+      "conditional_exit": 15,
+      "custom_command": 12,
+      "door": 35,
+      "dynamic_exit": 4,
+      "environment_damage": 4,
+      "item_interaction": 32,
+      "random_behavior": 3,
+      "timed_behavior": 2
+    },
+    "event_batch_1": {
+      "warning_entries_disposed": 22,
+      "status_counts": {
+        "verified": 2,
+        "adapted": 5,
+        "excluded": 1
+      },
+      "dispositions": [
+        {
+          "source_path": "mudlib/d/city/jitan.c",
+          "flags": ["custom_command", "timed_behavior", "dynamic_exit", "item_interaction"],
+          "status": "adapted",
+          "decision": "顺一逆三后按动按钮可开启三 tick 双向密道；单人进入密道时暂停关闭倒计时，错误组合按动后复位，避免没有区域 reset 的单人存档永久锁死机关。"
+        },
+        {
+          "source_path": "mudlib/d/city/nroad1.c",
+          "flags": ["custom_command", "door", "dynamic_exit"],
+          "status": "excluded",
+          "decision": "yell 写入的 city.room 在固定源中不存在，create_door 的方向参数也与实际出口不一致；保留悬空引用，不生成虚构目的地。"
+        },
+        {
+          "source_path": "mudlib/d/snow/weapon_storage.c",
+          "flags": ["custom_command", "timed_behavior", "dynamic_exit", "item_interaction"],
+          "status": "adapted",
+          "decision": "左推兵器架三次开启十 tick 双向密道；玩家身处密室时暂停倒计时，保证单人模式可以返程。"
+        },
+        {
+          "source_path": "mudlib/d/snow/workplace.c",
+          "flags": ["custom_command", "environment_damage", "item_interaction"],
+          "status": "verified",
+          "decision": "精与神均不少于 30 时可做工，各消耗 30 并获得一两纹银；不足时拒绝。"
+        },
+        {
+          "source_path": "mudlib/d/canyon/bamboo/bamboo3.c",
+          "flags": ["custom_command", "environment_damage", "dynamic_exit"],
+          "status": "adapted",
+          "decision": "内力与最大内力达到 560、基本内功达到 40 后消耗精 20、气 60、神 20 开缝；以基本内功代替运行时尚无的 force_factor，进入后巨石立即闭合。"
+        },
+        {
+          "source_path": "mudlib/d/canyon/bamboo/train.c",
+          "flags": ["custom_command", "item_interaction"],
+          "status": "adapted",
+          "decision": "书柜只能搜索一次，直接给予来源书匣及其唯一招架秘笈；M7 容器系统接入后改回书在匣内。"
+        },
+        {
+          "source_path": "mudlib/d/temple/road1.c",
+          "flags": ["conditional_exit", "random_behavior"],
+          "status": "adapted",
+          "decision": "按原 random(kar) < 3 概率阻断南/西北移动；当前没有昏厥活动状态，以精气神减半表达摔倒后果。"
+        },
+        {
+          "source_path": "mudlib/d/temple/road2.c",
+          "flags": ["conditional_exit"],
+          "status": "verified",
+          "decision": "只有茅山派玩家可由 enter 进入藏经楼；随机守卫从两组三人源池各确定化一人，石碑细节由区域目录提供查看。"
+        }
+      ]
+    },
+    "door_audit": {
+      "warning_entries_disposed": 35,
+      "source_definitions": 36,
+      "runtime_pairs": 14,
+      "runtime_endpoints": 28,
+      "status_counts": {
+        "verified": 26,
+        "excluded": 9
+      },
+      "dispositions": [
+        {
+          "source_paths": "mudlib/d/city/shangshu/*.c + mudlib/d/snow/{e_room,hockshop,inn_2f,mstreet3,n_room,school1,school2,w_room}.c + mudlib/d/temple/{corridor3,corridor4,corridor5,corridor7,restroom1,restroom2,square,temple1,temple2,trainroom}.c",
+          "status": "verified",
+          "warning_entries": 26,
+          "source_definitions": 28,
+          "runtime_pairs": 14,
+          "decision": "区域目录 schema v3 保留门方向、名称、反向方向和初始状态；只有两端出口与门方向互认的定义才接入运行时。14 对门可从任一侧开关，共享状态并进入存档 schema v13。"
+        },
+        {
+          "source_paths": "mudlib/d/city/{eastdoor1,eastdoor2,northdoor,nroad1,southdoor,westdoor1,westdoor2,wumen}.c",
+          "status": "excluded",
+          "warning_entries": 8,
+          "source_definitions": 7,
+          "decision": "六座城门的 out/enter 出口被注释或与现存出口方向不符，wumen 的 create_door 本身也被注释；目录保留 7 个实际定义，但不生成无目标的运行时门。"
+        },
+        {
+          "source_paths": "mudlib/d/snow/inn.c",
+          "status": "excluded",
+          "warning_entries": 1,
+          "source_definitions": 1,
+          "decision": "西北门通往未纳入 M4 的 wiz.entrance，且没有可配对的反向房间定义；保留外部引用，不开放门行动。"
+        }
+      ]
+    },
+    "room_detail_audit": {
+      "warning_entries_disposed": 32,
+      "rooms": 32,
+      "details": 42,
+      "text_details": 30,
+      "door_details": 12,
+      "status_counts": {
+        "verified": 16,
+        "adapted": 16
+      },
+      "dispositions": [
+        {
+          "source_paths": "16 个仅含静态 item_desc 的 M4 房间（city 4、snow 6、temple 1、canyon 5）",
+          "status": "verified",
+          "warning_entries": 16,
+          "details": 19,
+          "decision": "区域目录 schema v3 保留原文与查看键；当前房间直接生成查看行动并输出固定源文本。"
+        },
+        {
+          "source_paths": "16 个使用 look_sign/look_notice/look_door 回调的 M4 房间（city 9、snow 3、temple 4）",
+          "status": "adapted",
+          "warning_entries": 16,
+          "details": 23,
+          "decision": "普通玩家分支的 11 条回调文本在导入时确定化；12 条门细节绑定当前源门状态，开关后即时更新描述。管理员专用文本不进入单人运行时。"
+        }
+      ]
+    },
+    "dynamic_behavior_audit": {
+      "warning_entries_disposed": 40,
+      "status_counts": {
+        "verified": 12,
+        "adapted": 19,
+        "source_noop": 1,
+        "deferred": 1,
+        "excluded": 7
+      },
+      "dispositions": [
+        {
+          "source_paths": "mudlib/d/city/{eastdoor1,eastdoor2,southdoor,westdoor1,westdoor2}.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 5,
+          "status": "excluded",
+          "decision": "valid_leave 只检查已被注释的 out 出口；没有可执行方向，不生成虚构城外路线。"
+        },
+        {
+          "source_paths": "mudlib/d/city/feiyuan.c",
+          "flags": ["custom_command", "conditional_exit", "random_behavior"],
+          "warning_entries": 3,
+          "status": "adapted",
+          "decision": "废园搜索按灵性概率取得唯一出城令牌；行动常驻显示代替离开时的文字提示。"
+        },
+        {
+          "source_paths": "mudlib/d/city/jitan.c",
+          "flags": ["custom_command", "timed_behavior", "dynamic_exit"],
+          "warning_entries": 3,
+          "status": "adapted",
+          "decision": "顺一逆三祭坛机关开启三 tick 双向密道，身处目标密道时暂停关闭。"
+        },
+        {
+          "source_paths": "mudlib/d/city/northdoor.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "adapted",
+          "decision": "把来源错误检查 out 的令牌门槛绑定实际 north 出口，通行后消耗许可。"
+        },
+        {
+          "source_paths": "mudlib/d/city/nroad1.c",
+          "flags": ["custom_command", "dynamic_exit"],
+          "warning_entries": 2,
+          "status": "excluded",
+          "decision": "yell 目标 city.room 在固定源不存在，不生成悬空动态出口。"
+        },
+        {
+          "source_paths": "mudlib/d/city/shangshu/gate.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "adapted",
+          "decision": "护院厚礼取得一次性入府许可，另须打开来源铁门；进入庭院后许可清除。"
+        },
+        {
+          "source_paths": "mudlib/d/city/shangshu/road2.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "verified",
+          "decision": "两名 trainer 护院任一存活时阻挡北、东出口；死斗清除该房间实例后恢复通行。"
+        },
+        {
+          "source_paths": "mudlib/d/city/shangshu/yuan.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "source_noop",
+          "decision": "来源条件只阻止非 user 对象向东/西移动，对单人玩家没有限制。"
+        },
+        {
+          "source_paths": "mudlib/d/city/street3.c",
+          "flags": ["custom_command"],
+          "warning_entries": 1,
+          "status": "verified",
+          "decision": "climb wall 进入院墙已接入。"
+        },
+        {
+          "source_paths": "mudlib/d/city/wall.c",
+          "flags": ["custom_command"],
+          "warning_entries": 1,
+          "status": "verified",
+          "decision": "jump in/out 双向进入废屋或返回街道已接入。"
+        },
+        {
+          "source_paths": "mudlib/d/snow/postoffice.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "deferred",
+          "target_milestone": "M8",
+          "decision": "valid_leave 仅回收邮件系统的临时信箱对象；M8 世界交互/调度导入邮驿后接入，不影响当前出口。"
+        },
+        {
+          "source_paths": "mudlib/d/snow/weapon_storage.c",
+          "flags": ["custom_command", "timed_behavior", "dynamic_exit"],
+          "warning_entries": 3,
+          "status": "adapted",
+          "decision": "左推兵器架三次开启十 tick 双向密道，身处密室时暂停关闭。"
+        },
+        {
+          "source_paths": "mudlib/d/snow/workplace.c",
+          "flags": ["custom_command", "environment_damage"],
+          "warning_entries": 2,
+          "status": "verified",
+          "decision": "精神各消耗 30 完成一次做工并取得一两纹银。"
+        },
+        {
+          "source_paths": "mudlib/d/temple/book_room1.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "adapted",
+          "decision": "来源只附加开门离场广播、不阻止移动；单人版保留正常 out 路线和到达日志。"
+        },
+        {
+          "source_paths": "mudlib/d/temple/road1.c",
+          "flags": ["conditional_exit", "random_behavior"],
+          "warning_entries": 2,
+          "status": "adapted",
+          "decision": "保留 random(kar) < 3 阻断移动，以精气神减半替代尚无的昏厥活动状态。"
+        },
+        {
+          "source_paths": "mudlib/d/temple/road2.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "verified",
+          "decision": "藏经楼入口只允许茅山派玩家。"
+        },
+        {
+          "source_paths": "mudlib/d/temple/road2.c",
+          "flags": ["random_behavior"],
+          "warning_entries": 1,
+          "status": "adapted",
+          "decision": "来源每次 reset 从两组三人守卫池各随机一人；单人存档确定化为清灵与清风，保留各自战斗档案、法术消息和掉落。"
+        },
+        {
+          "source_paths": "mudlib/d/canyon/bamboo/bamboo3.c",
+          "flags": ["custom_command", "environment_damage", "dynamic_exit"],
+          "warning_entries": 3,
+          "status": "adapted",
+          "decision": "达到内力与基本内功门槛后消耗精气神开缝，进入即关闭。"
+        },
+        {
+          "source_paths": "mudlib/d/canyon/bamboo/train.c",
+          "flags": ["custom_command"],
+          "warning_entries": 1,
+          "status": "adapted",
+          "decision": "书柜只可搜索一次，M7 容器接入前直接取得书匣和匣内秘笈。"
+        },
+        {
+          "source_paths": "mudlib/d/canyon/camp7.c",
+          "flags": ["conditional_exit"],
+          "warning_entries": 1,
+          "status": "verified",
+          "decision": "向副将取得军营许可后才开放东向将军营帐。"
+        },
+        {
+          "source_paths": "mudlib/d/canyon/canyon1.c",
+          "flags": ["custom_command", "environment_damage"],
+          "warning_entries": 2,
+          "status": "verified",
+          "decision": "攀上铁索消耗精 30、气 40、神 20 并到达碎石路。"
+        },
+        {
+          "source_paths": "mudlib/d/canyon/canyon4.c",
+          "flags": ["custom_command"],
+          "warning_entries": 1,
+          "status": "verified",
+          "decision": "军师口令只可使用一次，正确发誓后进入黑市。"
+        },
+        {
+          "source_paths": "mudlib/d/canyon/road.c",
+          "flags": ["custom_command", "environment_damage"],
+          "warning_entries": 2,
+          "status": "verified",
+          "decision": "攀下铁索消耗精 20、气 30、神 10 并到达黄石隘口。"
+        }
+      ]
+    }
+  },
+  "room_object_audit": {
+    "source_mappings": 84,
+    "source_instances": 120,
+    "runtime_npc_definitions": 61,
+    "runtime_npc_instances": 115,
+    "runtime_item_placements": 4,
+    "runtime_item_instances": 5,
+    "status_counts": {
+      "verified": 2,
+      "adapted": 1
+    },
+    "dispositions": [
+      {
+        "kind": "static_npcs",
+        "status": "verified",
+        "source_mappings": 78,
+        "source_instances": 113,
+        "decision": "区域目录 schema v4 保留 objects 映射数量；59 个静态定义按数量展开为 113 个房间实例。同源同房间多人只显示一组交互入口，但比试、死斗、移除和战利品均逐个结算。"
+      },
+      {
+        "kind": "temple_reset_guards",
+        "status": "adapted",
+        "source_mappings": 2,
+        "source_instances": 2,
+        "decision": "temple.road2 的两组三人随机守卫池在单人存档中各确定化一人，形成 2 个稳定运行时实例；其源定义、战斗档案、消息和掉落保持不变。"
+      },
+      {
+        "kind": "fixed_room_items",
+        "status": "verified",
+        "source_mappings": 4,
+        "source_instances": 5,
+        "decision": "雪亭兵器储藏室竹剑、密室牛皮盾、城隍庙功德箱与两张桃符按源数量生成独立地面实例；初始化状态进入存档 schema v14，拾取后不会因读档重复生成。区域 reset 再生留待 M8 调度。"
+      }
+    ]
+  },
   "transitions": [
     {
       "source_path": "mudlib/d/canyon/road.c",
@@ -39,6 +387,16 @@
       ],
       "status": "verified",
       "decision": "向军师交付足额诚意后取得一次性誓言口令；在 canyon4 山壁执行原版誓言可进入黑市，口令随即消耗。"
+    },
+    {
+      "source_path": "mudlib/d/city/feiyuan.c + mudlib/d/city/npc/guard.c + mudlib/d/city/northdoor.c",
+      "targets": [
+        "city.feiyuan",
+        "city.northdoor",
+        "city.nroad1"
+      ],
+      "status": "adapted",
+      "decision": "废园搜索取得出城令牌，守城兵交验后开放一次北门通行。固定源五座城门的 out 出口被注释，唯一可用的 north 路线又错误检查 dir == out；单人版将许可绑定实际 northdoor -> nroad1 路线并在离城时消耗。"
     }
   ],
   "source_defects": [
@@ -51,8 +409,8 @@
     {
       "source_path": "mudlib/d/snow/herbshop1.c",
       "target": "snow.herbshop1",
-      "status": "blocked",
-      "decision": "固定源提交中没有任何房间或脚本引用该密室，等待雪亭镇剧情审计决定单人入口。"
+      "status": "excluded",
+      "decision": "全库审计确认固定源提交中没有任何房间或脚本引用该密室；它是无入向、无交互脚本的孤立源房间，运行时保留目录内容但不虚构入口。"
     },
     {
       "source_path": "mudlib/d/temple/broom1.c",

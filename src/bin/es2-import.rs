@@ -29,7 +29,10 @@ struct RoomRecord {
     name: String,
     description: String,
     exits: Vec<ExitRecord>,
+    doors: Vec<DoorRecord>,
+    details: Vec<RoomDetailRecord>,
     object_sources: Vec<String>,
+    object_placements: Vec<ObjectReference>,
     behavior_flags: Vec<String>,
 }
 
@@ -40,6 +43,21 @@ struct ExitRecord {
     source_target: String,
     internal: bool,
     dynamic: bool,
+}
+
+#[derive(Debug, Serialize)]
+struct DoorRecord {
+    direction: String,
+    name: String,
+    reverse_direction: String,
+    initially_closed: bool,
+}
+
+#[derive(Debug, Serialize)]
+struct RoomDetailRecord {
+    key: String,
+    description: Option<String>,
+    door_direction: Option<String>,
 }
 
 #[derive(Debug, Serialize)]
@@ -177,6 +195,19 @@ struct NpcSummary {
     runtime_inquiry_npcs: usize,
     runtime_inquiries: usize,
     runtime_inquiry_references: usize,
+    combat_profiles: usize,
+    combat_skill_entries: usize,
+    combat_mapping_entries: usize,
+    combat_apply_entries: usize,
+    combat_chat_npcs: usize,
+    combat_chat_entries: usize,
+    carried_item_npcs: usize,
+    carried_item_entries: usize,
+    worn_item_entries: usize,
+    wielded_item_entries: usize,
+    placed_combat_npcs: usize,
+    placed_combat_chat_npcs: usize,
+    placed_carried_item_npcs: usize,
     by_area: BTreeMap<String, usize>,
 }
 
@@ -189,10 +220,37 @@ struct NpcRecord {
     name: String,
     description: Option<String>,
     combat_exp: Option<i32>,
+    attributes: BTreeMap<String, i32>,
+    resources: BTreeMap<String, i32>,
+    skills: BTreeMap<String, i32>,
+    mappings: BTreeMap<String, String>,
+    combat_apply: BTreeMap<String, i32>,
+    combat_chat: Option<NpcCombatChatRecord>,
+    carried_items: Vec<NpcCarriedItemRecord>,
     placement_count: usize,
     vendor_goods: Vec<VendorGoodRecord>,
     inquiries: Vec<InquiryRecord>,
     behavior_flags: Vec<String>,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcCombatChatRecord {
+    chance: Option<i32>,
+    chance_expression: Option<String>,
+    entries: Vec<NpcCombatChatEntryRecord>,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcCombatChatEntryRecord {
+    kind: &'static str,
+    value: String,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcCarriedItemRecord {
+    item_id: String,
+    source_path: String,
+    state: &'static str,
 }
 
 #[derive(Debug, Serialize)]
@@ -208,7 +266,7 @@ struct InquiryRecord {
     scripted: bool,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Serialize)]
 struct ObjectReference {
     source_path: String,
     quantity: usize,
@@ -223,7 +281,9 @@ fn main() -> Result<()> {
             .unwrap_or_else(|| format!("migration/catalog/{area}.json")),
     );
     if args.next().is_some() {
-        bail!("用法: es2-import [源仓库] [区域|items|skills|npcs-m4] [输出文件]");
+        bail!(
+            "用法: es2-import [源仓库] [区域|items|skills|npcs-m4|npcs-m5|npcs-m6|npcs-m7] [输出文件]"
+        );
     }
 
     let (json, summary) = match area.as_str() {
@@ -252,10 +312,54 @@ fn main() -> Result<()> {
                 summary,
             )
         }
-        "npcs-m4" => {
-            let catalog = import_m4_npcs(&repository)?;
+        "npcs-m4" | "npcs-m5" | "npcs-m6" | "npcs-m7" => {
+            let catalog = match area.as_str() {
+                "npcs-m4" => import_npcs(
+                    &repository,
+                    &["city", "snow", "temple", "canyon"],
+                    "m4-npcs",
+                    &[],
+                    &[],
+                )?,
+                "npcs-m5" => import_npcs(
+                    &repository,
+                    &["oldpine", "goathill", "choyin"],
+                    "m5-npcs",
+                    &[],
+                    &[],
+                )?,
+                "npcs-m6" => import_npcs(
+                    &repository,
+                    &["chuenyu", "green", "sanyen", "waterfog"],
+                    "m6-npcs",
+                    &[],
+                    &[],
+                )?,
+                "npcs-m7" => import_npcs(
+                    &repository,
+                    &["latemoon", "death", "graveyard", "jail", "cloud"],
+                    "m7-npcs",
+                    &["mudlib/d/snow/npc/beggar.c", "mudlib/obj/npc/garrison.c"],
+                    &[
+                        ("mudlib/d/latemoon/room/npc/houndbane.c", None),
+                        (
+                            "mudlib/d/latemoon/room/npc/obj/deer_boot.c",
+                            Some("mudlib/d/latemoon/npc/obj/deer_boot.c"),
+                        ),
+                        (
+                            "mudlib/d/latemoon/room/npc/obj/blue_dress.c",
+                            Some("mudlib/d/latemoon/npc/obj/blue_dress.c"),
+                        ),
+                        (
+                            "mudlib/d/latemoon/room/npc/obj/redbelt.c",
+                            Some("mudlib/d/latemoon/npc/obj/redbelt.c"),
+                        ),
+                    ],
+                )?,
+                _ => unreachable!(),
+            };
             let summary = format!(
-                "npcs-m4: 导入 {} 个 NPC、{} 个商人、{} 条告警",
+                "{area}: 导入 {} 个 NPC、{} 个商人、{} 条告警",
                 catalog.npcs.len(),
                 catalog.summary.vendors,
                 catalog.warnings.len()
@@ -291,11 +395,25 @@ fn main() -> Result<()> {
     Ok(())
 }
 
+fn area_source_root(area: &str) -> String {
+    match area {
+        "cloud" => "mudlib/u/cloud".into(),
+        _ => format!("mudlib/d/{area}"),
+    }
+}
+
+fn area_id_prefix(area: &str) -> &str {
+    match area {
+        "cloud" => "u.cloud",
+        _ => area,
+    }
+}
+
 fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
     let source_commit = git(repository, &["rev-parse", SOURCE_REV])?
         .trim()
         .to_string();
-    let root = format!("mudlib/d/{area}");
+    let root = area_source_root(area);
     let listing = git(
         repository,
         &["ls-tree", "-r", "--name-only", SOURCE_REV, "--", &root],
@@ -321,8 +439,16 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
             warnings.push(format!("{path}: 无法解析 long"));
             String::new()
         });
-        let exits = extract_exits(&source, area, path);
-        let object_sources = extract_objects(&source, path);
+        let exits = extract_exits(&source, area_id_prefix(area), path);
+        let doors = extract_doors(&source);
+        let details = extract_room_details(&source);
+        let object_placements = extract_object_references(&source, path);
+        let object_sources = object_placements
+            .iter()
+            .map(|object| object.source_path.clone())
+            .collect::<BTreeSet<_>>()
+            .into_iter()
+            .collect();
         let behavior_flags = detect_behaviors(&source);
         for flag in &behavior_flags {
             warnings.push(format!("{path}: 动态行为待实现 [{flag}]"));
@@ -335,7 +461,10 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
             name,
             description,
             exits,
+            doors,
+            details,
             object_sources,
+            object_placements,
             behavior_flags,
         });
     }
@@ -345,7 +474,7 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
     warnings.sort();
 
     Ok(AreaCatalog {
-        schema_version: 1,
+        schema_version: 4,
         source_commit,
         area: area.to_string(),
         status: "structured",
@@ -355,17 +484,21 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
     })
 }
 
-fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
-    const AREAS: [&str; 4] = ["city", "snow", "temple", "canyon"];
-
+fn import_npcs(
+    repository: &Path,
+    areas: &[&str],
+    scope: &'static str,
+    excluded_sources: &[&str],
+    carried_item_resolutions: &[(&str, Option<&str>)],
+) -> Result<NpcCatalog> {
     let source_commit = git(repository, &["rev-parse", SOURCE_REV])?
         .trim()
         .to_string();
     let mut sources = BTreeMap::new();
     let mut placements = BTreeMap::<String, usize>::new();
 
-    for area in AREAS {
-        let root = format!("mudlib/d/{area}");
+    for area in areas {
+        let root = area_source_root(area);
         let listing = git(
             repository,
             &["ls-tree", "-r", "--name-only", SOURCE_REV, "--", &root],
@@ -377,9 +510,20 @@ fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
                     *placements.entry(object.source_path).or_insert(0) += object.quantity;
                 }
             }
-            if is_npc(&source) {
+            if is_npc(&source) && !excluded_sources.contains(&path) {
                 sources.insert(path.to_string(), source);
             }
+        }
+    }
+
+    for path in placements.keys() {
+        if sources.contains_key(path) || excluded_sources.contains(&path.as_str()) {
+            continue;
+        }
+        if let Ok(source) = git(repository, &["show", &format!("{SOURCE_REV}:{path}")])
+            && is_npc(&source)
+        {
+            sources.insert(path.clone(), source);
         }
     }
 
@@ -387,11 +531,15 @@ fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
     let mut warnings = Vec::new();
     let mut by_area = BTreeMap::new();
     for (path, source) in sources {
-        let area = path
-            .strip_prefix("mudlib/d/")
-            .and_then(|tail| tail.split('/').next())
-            .expect("M4 NPC path has an area")
-            .to_string();
+        let area = if path.starts_with("mudlib/u/cloud/") {
+            "cloud".to_string()
+        } else {
+            path.strip_prefix("mudlib/d/")
+                .or_else(|| path.strip_prefix("mudlib/"))
+                .and_then(|tail| tail.split('/').next())
+                .expect("NPC path has a scope")
+                .to_string()
+        };
         let id = source_path_to_id(&path);
         let name = extract_item_name(&source)
             .or_else(|| extract_set_string(&source, "title"))
@@ -402,6 +550,53 @@ fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
         let vendor_goods = extract_vendor_goods(&source, &path);
         let inquiries = extract_inquiries(&source);
         let behavior_flags = detect_npc_behaviors(&source);
+        let create = extract_function(&source, "create(").unwrap_or(&source);
+        let attributes = extract_static_set_integers(
+            create,
+            &["str", "int", "con", "spi", "kar", "per", "cor", "cps"],
+        );
+        let resources = extract_static_set_integers(
+            create,
+            &[
+                "gin",
+                "eff_gin",
+                "max_gin",
+                "sen",
+                "eff_sen",
+                "max_sen",
+                "force",
+                "max_force",
+                "force_factor",
+                "atman",
+                "max_atman",
+                "atman_factor",
+                "mana",
+                "max_mana",
+                "mana_factor",
+            ],
+        );
+        let skills = extract_named_integer_calls(create, "set_skill(");
+        let mappings = extract_named_string_calls(create, "map_skill(");
+        let combat_apply = extract_prefixed_named_integer_calls(create, "set_temp(", "apply/");
+        let combat_chat = extract_npc_combat_chat(create);
+        let carried_items = extract_npc_carried_items(create, &path)
+            .into_iter()
+            .filter_map(|mut item| {
+                match carried_item_resolutions
+                    .iter()
+                    .find(|(source, _)| *source == item.source_path)
+                    .map(|(_, replacement)| *replacement)
+                {
+                    Some(Some(replacement)) => {
+                        item.source_path = replacement.to_string();
+                        item.item_id = source_path_to_id(replacement);
+                        Some(item)
+                    }
+                    Some(None) => None,
+                    None => Some(item),
+                }
+            })
+            .collect();
         for flag in &behavior_flags {
             warnings.push(format!("{path}: NPC 行为待实现 [{flag}]"));
         }
@@ -414,6 +609,13 @@ fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
             name,
             description: extract_set_text(&source, "long"),
             combat_exp: extract_set_integer(&source, "combat_exp"),
+            attributes,
+            resources,
+            skills,
+            mappings,
+            combat_apply,
+            combat_chat,
+            carried_items,
             placement_count: placements.get(&path).copied().unwrap_or(0),
             vendor_goods,
             inquiries,
@@ -464,11 +666,53 @@ fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
                     .count()
         })
         .sum();
+    let combat_profiles = npcs
+        .iter()
+        .filter(|npc| {
+            npc.combat_exp.is_some()
+                || !npc.attributes.is_empty()
+                || !npc.skills.is_empty()
+                || !npc.combat_apply.is_empty()
+        })
+        .count();
+    let combat_skill_entries = npcs.iter().map(|npc| npc.skills.len()).sum();
+    let combat_mapping_entries = npcs.iter().map(|npc| npc.mappings.len()).sum();
+    let combat_apply_entries = npcs.iter().map(|npc| npc.combat_apply.len()).sum();
+    let combat_chat_npcs = npcs.iter().filter(|npc| npc.combat_chat.is_some()).count();
+    let combat_chat_entries = npcs
+        .iter()
+        .filter_map(|npc| npc.combat_chat.as_ref())
+        .map(|chat| chat.entries.len())
+        .sum();
+    let carried_item_npcs = npcs
+        .iter()
+        .filter(|npc| !npc.carried_items.is_empty())
+        .count();
+    let carried_item_entries = npcs.iter().map(|npc| npc.carried_items.len()).sum();
+    let worn_item_entries = npcs
+        .iter()
+        .flat_map(|npc| &npc.carried_items)
+        .filter(|item| item.state == "worn")
+        .count();
+    let wielded_item_entries = npcs
+        .iter()
+        .flat_map(|npc| &npc.carried_items)
+        .filter(|item| item.state == "wielded")
+        .count();
+    let placed_combat_npcs = npcs.iter().filter(|npc| npc.placement_count > 0).count();
+    let placed_combat_chat_npcs = npcs
+        .iter()
+        .filter(|npc| npc.placement_count > 0 && npc.combat_chat.is_some())
+        .count();
+    let placed_carried_item_npcs = npcs
+        .iter()
+        .filter(|npc| npc.placement_count > 0 && !npc.carried_items.is_empty())
+        .count();
 
     Ok(NpcCatalog {
-        schema_version: 2,
+        schema_version: 4,
         source_commit,
-        scope: "m4-npcs",
+        scope,
         status: "structured",
         summary: NpcSummary {
             total: npcs.len(),
@@ -482,6 +726,19 @@ fn import_m4_npcs(repository: &Path) -> Result<NpcCatalog> {
             runtime_inquiry_npcs,
             runtime_inquiries,
             runtime_inquiry_references,
+            combat_profiles,
+            combat_skill_entries,
+            combat_mapping_entries,
+            combat_apply_entries,
+            combat_chat_npcs,
+            combat_chat_entries,
+            carried_item_npcs,
+            carried_item_entries,
+            worn_item_entries,
+            wielded_item_entries,
+            placed_combat_npcs,
+            placed_combat_chat_npcs,
+            placed_carried_item_npcs,
             by_area,
         },
         npcs,
@@ -802,6 +1059,175 @@ fn extract_named_string_calls(source: &str, marker: &str) -> BTreeMap<String, St
         remaining = &tail[call.len()..];
     }
     values
+}
+
+fn extract_static_set_integers(source: &str, keys: &[&str]) -> BTreeMap<String, i32> {
+    keys.iter()
+        .filter_map(|key| extract_set_integer(source, key).map(|value| ((*key).into(), value)))
+        .collect()
+}
+
+fn extract_prefixed_named_integer_calls(
+    source: &str,
+    marker: &str,
+    prefix: &str,
+) -> BTreeMap<String, i32> {
+    extract_named_integer_calls(source, marker)
+        .into_iter()
+        .filter_map(|(key, value)| key.strip_prefix(prefix).map(|key| (key.to_string(), value)))
+        .collect()
+}
+
+fn extract_npc_carried_items(source: &str, owner_path: &str) -> Vec<NpcCarriedItemRecord> {
+    let code = strip_lpc_comments(source);
+    let mut items = Vec::new();
+    let mut remaining = code.as_str();
+    while let Some(start) = remaining.find("carry_object(") {
+        let tail = &remaining[start + "carry_object(".len()..];
+        let Some(end) = tail.find(')') else {
+            break;
+        };
+        let call = &tail[..end];
+        let suffix = tail[end + 1..].trim_start();
+        let state = if suffix.starts_with("->wear()") {
+            "worn"
+        } else if suffix.starts_with("->wield()") {
+            "wielded"
+        } else {
+            "carried"
+        };
+        if let Some(reference) = extract_path_reference(call)
+            && let Some(source_path) = resolve_source_path(&reference, owner_path)
+        {
+            items.push(NpcCarriedItemRecord {
+                item_id: source_path_to_id(&source_path),
+                source_path,
+                state,
+            });
+        }
+        remaining = &tail[end + 1..];
+    }
+    items
+}
+
+fn strip_lpc_comments(source: &str) -> String {
+    #[derive(Clone, Copy)]
+    enum State {
+        Code,
+        String,
+        LineComment,
+        BlockComment,
+    }
+
+    let mut output = String::with_capacity(source.len());
+    let mut state = State::Code;
+    let mut characters = source.chars().peekable();
+    while let Some(character) = characters.next() {
+        match state {
+            State::Code if character == '"' => {
+                output.push(character);
+                state = State::String;
+            }
+            State::Code if character == '/' && characters.peek() == Some(&'/') => {
+                characters.next();
+                state = State::LineComment;
+            }
+            State::Code if character == '/' && characters.peek() == Some(&'*') => {
+                characters.next();
+                state = State::BlockComment;
+            }
+            State::Code => output.push(character),
+            State::String if character == '\\' => {
+                output.push(character);
+                if let Some(escaped) = characters.next() {
+                    output.push(escaped);
+                }
+            }
+            State::String => {
+                output.push(character);
+                if character == '"' {
+                    state = State::Code;
+                }
+            }
+            State::LineComment if character == '\n' => {
+                output.push(character);
+                state = State::Code;
+            }
+            State::LineComment => {}
+            State::BlockComment if character == '*' && characters.peek() == Some(&'/') => {
+                characters.next();
+                state = State::Code;
+            }
+            State::BlockComment if character == '\n' => output.push(character),
+            State::BlockComment => {}
+        }
+    }
+    output
+}
+
+fn extract_npc_combat_chat(source: &str) -> Option<NpcCombatChatRecord> {
+    let value = find_set_value(source, "chat_msg_combat")?;
+    let start = value.find("({")? + 2;
+    let end = value.get(start..)?.find("})")? + start;
+    let entries = split_lpc_top_level(value.get(start..end)?, b',')
+        .into_iter()
+        .filter_map(parse_npc_combat_chat_entry)
+        .collect();
+    let chance_value = find_set_value(source, "chat_chance_combat")
+        .or_else(|| find_set_value(source, "chat_chance"));
+    let chance = chance_value.and_then(parse_leading_integer);
+    let chance_expression = chance_value.and_then(|value| {
+        chance.is_none().then(|| {
+            normalize_fragment(
+                value
+                    .get(..value.find(");").unwrap_or(value.len()))
+                    .unwrap_or(value),
+            )
+        })
+    });
+    Some(NpcCombatChatRecord {
+        chance,
+        chance_expression,
+        entries,
+    })
+}
+
+fn parse_npc_combat_chat_entry(source: &str) -> Option<NpcCombatChatEntryRecord> {
+    let source = source.trim();
+    if source.is_empty() {
+        return None;
+    }
+    if source.contains("(:") {
+        let kind = if source.contains("cast_spell") {
+            "spell"
+        } else if source.contains("exert_function") {
+            "force"
+        } else if source.contains("perform_action") {
+            "perform"
+        } else if source.contains("random_move") {
+            "movement"
+        } else if source.contains("destruct") {
+            "destruct"
+        } else if source.contains("command") {
+            "command"
+        } else {
+            "callback"
+        };
+        return Some(NpcCombatChatEntryRecord {
+            kind,
+            value: normalize_fragment(source),
+        });
+    }
+
+    let value = extract_quoted_strings(source)
+        .concat()
+        .replace("\\n", "\n")
+        .trim()
+        .to_string();
+    (!value.is_empty()).then_some(NpcCombatChatEntryRecord {
+        kind: "text",
+        value,
+    })
 }
 
 fn classify_skill(id: &str, source: &str, usages: &[String]) -> &'static str {
@@ -1359,6 +1785,151 @@ fn extract_exits(source: &str, area: &str, source_path: &str) -> Vec<ExitRecord>
     exits
 }
 
+fn extract_doors(source: &str) -> Vec<DoorRecord> {
+    let code = strip_lpc_comments(source);
+    let mut doors = Vec::new();
+    let mut remaining = code.as_str();
+    while let Some(start) = remaining.find("create_door") {
+        let tail = &remaining[start + "create_door".len()..];
+        let Some(open) = tail.find('(') else {
+            break;
+        };
+        let arguments = &tail[open + 1..];
+        let Some(end) = arguments.find(");") else {
+            break;
+        };
+        let call = &arguments[..end];
+        let strings = extract_quoted_strings(call);
+        if strings.len() >= 3 {
+            doors.push(DoorRecord {
+                direction: strings[0].clone(),
+                name: strings[1].clone(),
+                reverse_direction: strings[2].clone(),
+                initially_closed: call.contains("DOOR_CLOSED"),
+            });
+        }
+        remaining = &arguments[end + 2..];
+    }
+    doors
+}
+
+fn extract_room_details(source: &str) -> Vec<RoomDetailRecord> {
+    let code = strip_lpc_comments(source);
+    let Some(block) = mapping_block(&code, "item_desc") else {
+        return Vec::new();
+    };
+    let block = block.trim();
+    let Some(inner) = block
+        .strip_prefix("([")
+        .and_then(|value| value.strip_suffix("])"))
+    else {
+        return Vec::new();
+    };
+
+    let mut details = split_lpc_top_level(inner, b',')
+        .into_iter()
+        .filter_map(|entry| {
+            let separator = find_lpc_top_level(entry, b':')?;
+            let key = parse_lpc_string_expression(entry.get(..separator)?.trim())?;
+            let value = entry.get(separator + 1..)?.trim();
+            let door_direction = value
+                .contains("look_door")
+                .then(|| extract_quoted_strings(value).last().cloned())
+                .flatten();
+            let description = if door_direction.is_some() {
+                None
+            } else {
+                parse_room_detail_description(&code, value)
+            };
+            (description.is_some() || door_direction.is_some()).then_some(RoomDetailRecord {
+                key,
+                description,
+                door_direction,
+            })
+        })
+        .collect::<Vec<_>>();
+    details.sort_by(|left, right| left.key.cmp(&right.key));
+    details
+}
+
+fn parse_room_detail_description(source: &str, value: &str) -> Option<String> {
+    if let Some(heredoc) = parse_lpc_heredoc(value) {
+        return Some(heredoc);
+    }
+    if let Some(description) = parse_lpc_string_expression(value) {
+        return Some(description);
+    }
+
+    let closure = value.strip_prefix("(:")?.strip_suffix(":)")?.trim();
+    if let Some(description) = parse_lpc_string_expression(closure) {
+        return Some(description);
+    }
+    let function_name = closure
+        .split(|character: char| !(character.is_ascii_alphanumeric() || character == '_'))
+        .find(|fragment| !fragment.is_empty() && *fragment != "this_object")?;
+    let function = extract_function_definition(source, function_name)?;
+    extract_quoted_strings(function)
+        .last()
+        .map(|description| description.replace("\\n", "\n").trim().to_string())
+        .filter(|description| !description.is_empty())
+}
+
+fn parse_lpc_heredoc(value: &str) -> Option<String> {
+    let value = value.strip_prefix('@')?;
+    let marker_end = value.find(['\r', '\n'])?;
+    let marker = value.get(..marker_end)?.trim();
+    let body = value.get(marker_end..)?.trim_start_matches(['\r', '\n']);
+    let end_marker = format!("\n{marker}");
+    let end = body.find(&end_marker)?;
+    Some(
+        body.get(..end)?
+            .lines()
+            .map(str::trim_end)
+            .collect::<Vec<_>>()
+            .join("\n")
+            .trim()
+            .to_string(),
+    )
+}
+
+fn extract_function_definition<'a>(source: &'a str, name: &str) -> Option<&'a str> {
+    for (start, _) in source
+        .match_indices(name)
+        .collect::<Vec<_>>()
+        .into_iter()
+        .rev()
+    {
+        let tail = source.get(start + name.len()..)?.trim_start();
+        if !tail.starts_with('(') {
+            continue;
+        }
+        let close = find_matching_delimiter(tail, b'(', b')')?;
+        let body = tail.get(close + 1..)?.trim_start();
+        if !body.starts_with('{') {
+            continue;
+        }
+        let end = find_matching_delimiter(body, b'{', b'}')?;
+        return body.get(..=end);
+    }
+    None
+}
+
+fn find_matching_delimiter(source: &str, open: u8, close: u8) -> Option<usize> {
+    let mut depth = 0_u32;
+    for (index, byte) in source.bytes().enumerate() {
+        if byte == open {
+            depth += 1;
+        } else if byte == close {
+            depth = depth.checked_sub(1)?;
+            if depth == 0 {
+                return Some(index);
+            }
+        }
+    }
+    None
+}
+
+#[cfg(test)]
 fn extract_objects(source: &str, source_path: &str) -> Vec<String> {
     extract_object_references(source, source_path)
         .into_iter()
@@ -1568,6 +2139,7 @@ fn mapping_block<'a>(source: &'a str, key: &str) -> Option<&'a str> {
 
 fn parse_mapping_entry(line: &str) -> Option<(String, String)> {
     let line = line.trim();
+    let line = line.strip_prefix("([").unwrap_or(line).trim_start();
     if !line.starts_with('"') {
         return None;
     }
@@ -1587,9 +2159,11 @@ fn extract_path_reference(line: &str) -> Option<String> {
         let quoted = remaining.get(start + 1..)?;
         let end = quoted.find('"')?;
         let value = quoted.get(..end)?;
-        if ["/d/", "/obj/", "/daemon/", "d/", "obj/", "daemon/"]
-            .iter()
-            .any(|prefix| value.starts_with(prefix))
+        if [
+            "/d/", "/u/", "/obj/", "/daemon/", "d/", "u/", "obj/", "daemon/",
+        ]
+        .iter()
+        .any(|prefix| value.starts_with(prefix))
         {
             return Some(value.to_string());
         }
@@ -1628,16 +2202,16 @@ fn resolve_source_path(reference: &str, owner_path: &str) -> Option<String> {
 
 fn normalize_target(source_target: &str, source_path: &str) -> Option<String> {
     let path = resolve_source_path(source_target, source_path)?;
-    let path = path.strip_prefix("mudlib/d/")?.trim_end_matches(".c");
-    Some(path.replace('/', "."))
+    path.starts_with("mudlib/")
+        .then(|| source_path_to_id(&path))
 }
 
 fn source_path_to_id(path: &str) -> String {
-    path.strip_prefix("mudlib/d/")
+    let path = path
+        .strip_prefix("mudlib/d/")
         .or_else(|| path.strip_prefix("mudlib/"))
-        .unwrap_or(path)
-        .trim_end_matches(".c")
-        .replace('/', ".")
+        .unwrap_or(path);
+    path.strip_suffix(".c").unwrap_or(path).replace('/', ".")
 }
 
 fn find_call_arguments<'a>(source: &'a str, name: &str) -> Option<&'a str> {
@@ -1724,6 +2298,18 @@ mod tests {
     use super::*;
 
     #[test]
+    fn parses_compact_single_line_exit_mapping() {
+        let source = r#"void create() { set("exits",(["out":__DIR__"tongbhill",])); }"#;
+        let exits = extract_exits(source, "choyin", "mudlib/d/choyin/stove.c");
+        assert_eq!(exits.len(), 1);
+        assert_eq!(exits[0].direction, "out");
+        assert_eq!(exits[0].target, "choyin.tongbhill");
+        assert_eq!(exits[0].source_target, "__DIR__tongbhill");
+        assert!(exits[0].internal);
+        assert!(!exits[0].dynamic);
+    }
+
+    #[test]
     fn parses_static_and_dynamic_exits() {
         let source = r#"
 set("exits", ([
@@ -1757,6 +2343,270 @@ set("exits/west",__DIR__"valley2");
             normalize_target("__DIR__../road", "mudlib/d/canyon/bamboo/train.c").as_deref(),
             Some("canyon.road")
         );
+    }
+
+    #[test]
+    fn parses_source_doors_and_ignores_commented_calls() {
+        let source = r#"
+create_door ("east", "大铁门", "west", DOOR_CLOSED);
+create_door("north", "帘子", "south");
+// create_door("out", "假门", "enter");
+/* create_door("down", "旧门", "up", DOOR_CLOSED); */
+"#;
+        let doors = extract_doors(source);
+        assert_eq!(doors.len(), 2);
+        assert_eq!(doors[0].direction, "east");
+        assert_eq!(doors[0].name, "大铁门");
+        assert_eq!(doors[0].reverse_direction, "west");
+        assert!(doors[0].initially_closed);
+        assert_eq!(doors[1].direction, "north");
+        assert!(!doors[1].initially_closed);
+    }
+
+    #[test]
+    fn parses_static_callback_and_door_room_details() {
+        let source = r#"
+set("item_desc", ([
+    "sign": @TEXT
+告示第一行
+告示第二行
+TEXT
+    ,
+    "book": (: "一本旧书。\n" :),
+    "notice": (: look_notice :),
+    "door": (: look_door, "east" :),
+]));
+string look_notice(object me)
+{
+    if (wizardp(me)) return "管理员告示。\n";
+    return "行人告示。\n";
+}
+"#;
+        let details = extract_room_details(source);
+        assert_eq!(details.len(), 4);
+        assert_eq!(details[0].key, "book");
+        assert_eq!(details[0].description.as_deref(), Some("一本旧书。"));
+        assert_eq!(details[1].key, "door");
+        assert_eq!(details[1].door_direction.as_deref(), Some("east"));
+        assert_eq!(details[2].key, "notice");
+        assert_eq!(details[2].description.as_deref(), Some("行人告示。"));
+        assert_eq!(details[3].key, "sign");
+        assert_eq!(
+            details[3].description.as_deref(),
+            Some("告示第一行\n告示第二行")
+        );
+    }
+
+    #[test]
+    fn generated_area_catalogs_retain_fixed_source_doors_and_details() {
+        let catalogs = [
+            (
+                "village",
+                include_str!("../../migration/catalog/village.json"),
+                4,
+                4,
+                4,
+                8,
+                27,
+            ),
+            (
+                "city",
+                include_str!("../../migration/catalog/city.json"),
+                15,
+                13,
+                21,
+                38,
+                51,
+            ),
+            (
+                "snow",
+                include_str!("../../migration/catalog/snow.json"),
+                11,
+                9,
+                11,
+                25,
+                44,
+            ),
+            (
+                "temple",
+                include_str!("../../migration/catalog/temple.json"),
+                10,
+                5,
+                5,
+                10,
+                10,
+            ),
+            (
+                "canyon",
+                include_str!("../../migration/catalog/canyon.json"),
+                0,
+                5,
+                5,
+                11,
+                15,
+            ),
+            (
+                "oldpine",
+                include_str!("../../migration/catalog/oldpine.json"),
+                0,
+                11,
+                14,
+                19,
+                37,
+            ),
+            (
+                "goathill",
+                include_str!("../../migration/catalog/goathill.json"),
+                0,
+                0,
+                0,
+                10,
+                18,
+            ),
+            (
+                "choyin",
+                include_str!("../../migration/catalog/choyin.json"),
+                4,
+                8,
+                11,
+                39,
+                83,
+            ),
+            (
+                "chuenyu",
+                include_str!("../../migration/catalog/chuenyu.json"),
+                8,
+                8,
+                23,
+                27,
+                59,
+            ),
+            (
+                "green",
+                include_str!("../../migration/catalog/green.json"),
+                6,
+                10,
+                10,
+                14,
+                20,
+            ),
+            (
+                "sanyen",
+                include_str!("../../migration/catalog/sanyen.json"),
+                2,
+                2,
+                3,
+                9,
+                11,
+            ),
+            (
+                "waterfog",
+                include_str!("../../migration/catalog/waterfog.json"),
+                0,
+                2,
+                2,
+                10,
+                15,
+            ),
+            (
+                "latemoon",
+                include_str!("../../migration/catalog/latemoon.json"),
+                28,
+                6,
+                6,
+                46,
+                55,
+            ),
+            (
+                "death",
+                include_str!("../../migration/catalog/death.json"),
+                0,
+                1,
+                1,
+                3,
+                6,
+            ),
+            (
+                "graveyard",
+                include_str!("../../migration/catalog/graveyard.json"),
+                0,
+                0,
+                0,
+                0,
+                0,
+            ),
+            (
+                "jail",
+                include_str!("../../migration/catalog/jail.json"),
+                0,
+                0,
+                0,
+                0,
+                0,
+            ),
+            (
+                "cloud",
+                include_str!("../../migration/catalog/cloud.json"),
+                4,
+                14,
+                15,
+                29,
+                56,
+            ),
+        ];
+
+        for (
+            area,
+            json,
+            expected_doors,
+            expected_detail_rooms,
+            expected_details,
+            expected_object_placements,
+            expected_object_instances,
+        ) in catalogs
+        {
+            let catalog: serde_json::Value = serde_json::from_str(json).unwrap();
+            assert_eq!(catalog["schema_version"], 4, "{area}");
+            assert_eq!(
+                catalog["rooms"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|room| room["doors"].as_array().unwrap().len())
+                    .sum::<usize>(),
+                expected_doors,
+                "{area}"
+            );
+            let detail_rooms = catalog["rooms"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|room| !room["details"].as_array().unwrap().is_empty())
+                .collect::<Vec<_>>();
+            assert_eq!(detail_rooms.len(), expected_detail_rooms, "{area}");
+            assert_eq!(
+                detail_rooms
+                    .iter()
+                    .map(|room| room["details"].as_array().unwrap().len())
+                    .sum::<usize>(),
+                expected_details,
+                "{area}"
+            );
+            let object_placements = catalog["rooms"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .flat_map(|room| room["object_placements"].as_array().unwrap());
+            let (placements, instances) =
+                object_placements.fold((0usize, 0u64), |(placements, instances), object| {
+                    (
+                        placements + 1,
+                        instances + object["quantity"].as_u64().unwrap(),
+                    )
+                });
+            assert_eq!(placements, expected_object_placements, "{area}");
+            assert_eq!(instances, expected_object_instances, "{area}");
+        }
     }
 
     #[test]
@@ -1906,6 +2756,76 @@ set("inquiry", ([
     }
 
     #[test]
+    fn parses_npc_combat_profile_and_typed_chat() {
+        let source = r#"
+set("str", 29);
+set("max_force", 1800);
+set_skill("sword", 80);
+map_skill("sword", "six-chaos-sword");
+set_temp("apply/attack", 90);
+set("chat_chance_combat", random(40));
+set("chat_msg_combat", ({
+    CYN "第一句。\n" NOR,
+    (: cast_spell, "drainerbolt" :),
+    (: command, "surrender" :),
+}) );
+"#;
+        assert_eq!(extract_static_set_integers(source, &["str"])["str"], 29);
+        assert_eq!(
+            extract_static_set_integers(source, &["max_force"])["max_force"],
+            1800
+        );
+        assert_eq!(
+            extract_named_integer_calls(source, "set_skill(")["sword"],
+            80
+        );
+        assert_eq!(
+            extract_named_string_calls(source, "map_skill(")["sword"],
+            "six-chaos-sword"
+        );
+        assert_eq!(
+            extract_prefixed_named_integer_calls(source, "set_temp(", "apply/")["attack"],
+            90
+        );
+
+        let chat = extract_npc_combat_chat(source).unwrap();
+        assert_eq!(chat.chance, None);
+        assert_eq!(chat.chance_expression.as_deref(), Some("random(40)"));
+        assert_eq!(chat.entries.len(), 3);
+        assert_eq!(chat.entries[0].kind, "text");
+        assert_eq!(chat.entries[0].value, "第一句。");
+        assert_eq!(chat.entries[1].kind, "spell");
+        assert_eq!(chat.entries[2].kind, "command");
+
+        let ambient_chance_chat = extract_npc_combat_chat(
+            r#"
+set("chat_chance", 15);
+set("chat_msg_combat", ({ "战斗消息。" }));
+"#,
+        )
+        .unwrap();
+        assert_eq!(ambient_chance_chat.chance, Some(15));
+        assert_eq!(ambient_chance_chat.chance_expression, None);
+
+        let carried = extract_npc_carried_items(
+            r#"
+carry_object("/obj/cloth")->wear();
+carry_object(__DIR__"obj/blade")->wield();
+carry_object("/obj/old_book");
+// carry_object("/obj/commented");
+/* carry_object("/obj/commented_too"); */
+"#,
+            "mudlib/d/snow/npc/example.c",
+        );
+        assert_eq!(carried.len(), 3);
+        assert_eq!(carried[0].item_id, "obj.cloth");
+        assert_eq!(carried[0].state, "worn");
+        assert_eq!(carried[1].item_id, "snow.npc.obj.blade");
+        assert_eq!(carried[1].state, "wielded");
+        assert_eq!(carried[2].state, "carried");
+    }
+
+    #[test]
     fn generated_m4_npc_catalog_matches_fixed_source_baseline() {
         let catalog: serde_json::Value =
             serde_json::from_str(include_str!("../../migration/catalog/npcs-m4.json")).unwrap();
@@ -1915,7 +2835,7 @@ set("inquiry", ([
             .flat_map(|npc| npc["behavior_flags"].as_array().unwrap())
             .count() as u64;
 
-        assert_eq!(catalog["schema_version"], 2);
+        assert_eq!(catalog["schema_version"], 4);
         assert_eq!(
             catalog["source_commit"],
             "87bba6bd2249beec8424b0d6623486a0dd1f7b30"
@@ -1931,8 +2851,140 @@ set("inquiry", ([
         assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 21);
         assert_eq!(catalog["summary"]["runtime_inquiries"], 50);
         assert_eq!(catalog["summary"]["runtime_inquiry_references"], 95);
+        assert_eq!(catalog["summary"]["combat_profiles"], 72);
+        assert_eq!(catalog["summary"]["combat_skill_entries"], 316);
+        assert_eq!(catalog["summary"]["combat_mapping_entries"], 94);
+        assert_eq!(catalog["summary"]["combat_apply_entries"], 21);
+        assert_eq!(catalog["summary"]["combat_chat_npcs"], 25);
+        assert_eq!(catalog["summary"]["combat_chat_entries"], 87);
+        assert_eq!(catalog["summary"]["carried_item_npcs"], 55);
+        assert_eq!(catalog["summary"]["carried_item_entries"], 93);
+        assert_eq!(catalog["summary"]["worn_item_entries"], 56);
+        assert_eq!(catalog["summary"]["wielded_item_entries"], 32);
+        assert_eq!(catalog["summary"]["placed_combat_npcs"], 59);
+        assert_eq!(catalog["summary"]["placed_combat_chat_npcs"], 16);
+        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 42);
         assert_eq!(behavior_total, 156);
         assert_eq!(catalog["warnings"].as_array().unwrap().len(), 156);
+    }
+
+    #[test]
+    fn generated_m5_npc_catalog_matches_fixed_source_baseline() {
+        let catalog: serde_json::Value =
+            serde_json::from_str(include_str!("../../migration/catalog/npcs-m5.json")).unwrap();
+        let npcs = catalog["npcs"].as_array().unwrap();
+        let behavior_total = npcs
+            .iter()
+            .map(|npc| npc["behavior_flags"].as_array().unwrap().len())
+            .sum::<usize>();
+
+        assert_eq!(catalog["schema_version"], 4);
+        assert_eq!(catalog["scope"], "m5-npcs");
+        assert_eq!(npcs.len(), 49);
+        assert_eq!(catalog["summary"]["placed"], 46);
+        assert_eq!(catalog["summary"]["vendors"], 4);
+        assert_eq!(catalog["summary"]["vendor_goods"], 5);
+        assert_eq!(catalog["summary"]["inquiry_npcs"], 12);
+        assert_eq!(catalog["summary"]["inquiry_topics"], 31);
+        assert_eq!(catalog["summary"]["combat_profiles"], 48);
+        assert_eq!(catalog["summary"]["combat_skill_entries"], 105);
+        assert_eq!(catalog["summary"]["combat_mapping_entries"], 10);
+        assert_eq!(catalog["summary"]["combat_apply_entries"], 85);
+        assert_eq!(catalog["summary"]["combat_chat_npcs"], 10);
+        assert_eq!(catalog["summary"]["combat_chat_entries"], 29);
+        assert_eq!(catalog["summary"]["carried_item_npcs"], 29);
+        assert_eq!(catalog["summary"]["carried_item_entries"], 53);
+        assert_eq!(catalog["summary"]["placed_combat_chat_npcs"], 9);
+        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 28);
+        assert_eq!(behavior_total, 59);
+        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 59);
+        assert!(npcs.iter().any(|npc| {
+            npc["source_path"] == "mudlib/obj/npc/garrison.c" && npc["placement_count"] == 2
+        }));
+    }
+
+    #[test]
+    fn generated_m6_npc_catalog_matches_fixed_source_baseline() {
+        let catalog: serde_json::Value =
+            serde_json::from_str(include_str!("../../migration/catalog/npcs-m6.json")).unwrap();
+        let npcs = catalog["npcs"].as_array().unwrap();
+        let behavior_total = npcs
+            .iter()
+            .map(|npc| npc["behavior_flags"].as_array().unwrap().len())
+            .sum::<usize>();
+
+        assert_eq!(catalog["schema_version"], 4);
+        assert_eq!(catalog["scope"], "m6-npcs");
+        assert_eq!(npcs.len(), 57);
+        assert_eq!(catalog["summary"]["placed"], 48);
+        assert_eq!(catalog["summary"]["vendors"], 1);
+        assert_eq!(catalog["summary"]["vendor_goods"], 6);
+        assert_eq!(catalog["summary"]["inquiry_topics"], 17);
+        assert_eq!(catalog["summary"]["static_inquiries"], 10);
+        assert_eq!(catalog["summary"]["scripted_inquiries"], 7);
+        assert_eq!(catalog["summary"]["combat_profiles"], 53);
+        assert_eq!(catalog["summary"]["combat_skill_entries"], 162);
+        assert_eq!(catalog["summary"]["combat_mapping_entries"], 31);
+        assert_eq!(catalog["summary"]["combat_apply_entries"], 28);
+        assert_eq!(catalog["summary"]["combat_chat_npcs"], 18);
+        assert_eq!(catalog["summary"]["combat_chat_entries"], 33);
+        assert_eq!(catalog["summary"]["carried_item_npcs"], 42);
+        assert_eq!(catalog["summary"]["carried_item_entries"], 81);
+        assert_eq!(behavior_total, 81);
+        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 81);
+    }
+
+    #[test]
+    fn generated_m7_npc_catalog_matches_fixed_source_baseline() {
+        let catalog: serde_json::Value =
+            serde_json::from_str(include_str!("../../migration/catalog/npcs-m7.json")).unwrap();
+        let npcs = catalog["npcs"].as_array().unwrap();
+        let behavior_total = npcs
+            .iter()
+            .map(|npc| npc["behavior_flags"].as_array().unwrap().len())
+            .sum::<usize>();
+
+        assert_eq!(catalog["schema_version"], 4);
+        assert_eq!(catalog["scope"], "m7-npcs");
+        assert_eq!(npcs.len(), 85);
+        assert_eq!(catalog["summary"]["placed"], 65);
+        assert_eq!(catalog["summary"]["vendors"], 8);
+        assert_eq!(catalog["summary"]["vendor_goods"], 29);
+        assert_eq!(catalog["summary"]["inquiry_topics"], 67);
+        assert_eq!(catalog["summary"]["static_inquiries"], 56);
+        assert_eq!(catalog["summary"]["scripted_inquiries"], 11);
+        assert_eq!(catalog["summary"]["combat_profiles"], 85);
+        assert_eq!(catalog["summary"]["combat_skill_entries"], 343);
+        assert_eq!(catalog["summary"]["combat_mapping_entries"], 75);
+        assert_eq!(catalog["summary"]["combat_apply_entries"], 36);
+        assert_eq!(catalog["summary"]["combat_chat_npcs"], 13);
+        assert_eq!(catalog["summary"]["combat_chat_entries"], 27);
+        assert_eq!(catalog["summary"]["carried_item_npcs"], 60);
+        assert_eq!(catalog["summary"]["carried_item_entries"], 122);
+        assert_eq!(behavior_total, 183);
+        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 183);
+        assert!(
+            npcs.iter()
+                .find(|npc| npc["id"] == "latemoon.room.npc.aaa")
+                .unwrap()["carried_items"]
+                .as_array()
+                .unwrap()
+                .is_empty()
+        );
+        assert!(npcs.iter().any(|npc| {
+            npc["id"] == "latemoon.room.npc.fong"
+                && npc["carried_items"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .any(|item| item["source_path"] == "mudlib/d/latemoon/npc/obj/deer_boot.c")
+        }));
+        assert!(npcs.iter().all(|npc| {
+            !matches!(
+                npc["source_path"].as_str().unwrap(),
+                "mudlib/d/snow/npc/beggar.c" | "mudlib/obj/npc/garrison.c"
+            )
+        }));
     }
 
     #[test]
@@ -2008,6 +3060,22 @@ int practice_skill(object me) { return 1; }
     }
 
     #[test]
+    fn source_ids_remove_only_one_c_extension() {
+        assert_eq!(
+            source_path_to_id("mudlib/u/cloud/biaoju.c"),
+            "u.cloud.biaoju"
+        );
+        assert_eq!(
+            source_path_to_id("mudlib/d/goathill/cavern1.c.c"),
+            "goathill.cavern1.c"
+        );
+        assert_eq!(
+            normalize_target("__DIR__cavern1.c", "mudlib/d/goathill/cavern2.c"),
+            Some("goathill.cavern1".into())
+        );
+    }
+
+    #[test]
     fn mapping_ends_at_first_closing_pair_with_or_without_spaces() {
         let source = r#"
 set("exits", ([
@@ -2039,6 +3107,15 @@ set("objects", ([
         assert!(objects.iter().any(|object| {
             object.source_path == "mudlib/d/snow/npc/trainee.c" && object.quantity == 6
         }));
+        let cloud_objects = extract_object_references(
+            "set(\"objects\", ([ \"/u/cloud/npc/b_header\": 1, ]));",
+            "mudlib/u/cloud/biaoju.c",
+        );
+        assert_eq!(cloud_objects.len(), 1);
+        assert_eq!(
+            cloud_objects[0].source_path,
+            "mudlib/u/cloud/npc/b_header.c"
+        );
 
         let vendor = r#"
 set_name("店小二", ({ "waiter" }));

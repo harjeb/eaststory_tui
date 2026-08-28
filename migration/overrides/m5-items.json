@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "status": "complete",
+  "scope": [
+    "mudlib/d/oldpine",
+    "mudlib/d/goathill",
+    "mudlib/d/choyin"
+  ],
+  "catalog": {
+    "definitions_with_behavior": 12,
+    "behavior_flags": 13,
+    "by_kind": {
+      "consume_hook": 2,
+      "custom_command": 4,
+      "random_behavior": 6,
+      "restricted_movement": 1
+    }
+  },
+  "runtime_features": [
+    {
+      "feature": "choyin_book_names",
+      "status": "adapted",
+      "decision": "4 个随机书名定义保留各自研读技能与数值，并从来源候选池选择稳定代表名；本地存档不因重新载入而改变同一物品名称。"
+    },
+    {
+      "feature": "choyin_donation_box",
+      "status": "adapted",
+      "decision": "乔阴寺庙功德箱不可拾取；玩家可投入未装备且有价值的物品，供物被消耗并复用来源价值/灵性概率削减杀气。重复 npc/obj 定义记为同实现别名。"
+    },
+    {
+      "feature": "choyin_golden_rope_and_tablet",
+      "status": "adapted",
+      "decision": "缚仙绳不可丢弃，在鹤室缚鹤后损失 50 点神并登上云台且绳索不消耗；仙丹每粒恢复精 5、气 30、神 5。"
+    },
+    {
+      "feature": "oldpine_bamboo_pipe",
+      "status": "adapted",
+      "decision": "两个来源路径的竹哨均可在 keep2 吹响并调用房间等价事件，重新移开封寨巨石。"
+    },
+    {
+      "feature": "goathill_dead_leech_tonic",
+      "status": "adapted",
+      "decision": "两个来源路径的死岩蛭均保留三口与每口 70 点食物供给；每次食用增加 1 点内力和 60 点最大法力。240 秒腐败继续绑定 M7 尸体/衰减时钟。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "M5 三地区域的 13 项动态物品标记全部与固定源逐项对应：12 adapted、1 alias，无未处置项。"
+    }
+  ],
+  "behavior_flags": {
+    "total": 13,
+    "disposed": 13,
+    "remaining": 0,
+    "status": "audited",
+    "by_status": {
+      "adapted": 12,
+      "alias": 1
+    },
+    "dispositions": [
+      {
+        "source_path": "mudlib/d/choyin/npc/obj/book.c",
+        "flags": ["random_behavior"],
+        "status": "adapted",
+        "decision": "随机普通书名收敛为来源候选「嘉德文选」，读书识字研读属性保持目录数值。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/obj/book1.c",
+        "flags": ["random_behavior"],
+        "status": "adapted",
+        "decision": "随机拳脚书名收敛为来源候选「笑傲江湖」，unarmed 研读属性保持目录数值。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/obj/book2.c",
+        "flags": ["random_behavior"],
+        "status": "adapted",
+        "decision": "随机轻功书名收敛为来源候选「秘传八步赶蝉」，dodge 研读属性保持目录数值。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/obj/denotation.c",
+        "flags": ["random_behavior"],
+        "status": "alias",
+        "decision": "与 choyin/obj/denotation.c 相同的未放置重复定义，共享功德箱价值/灵性判定，不制造第二个房间实例。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/obj/book.c",
+        "flags": ["random_behavior"],
+        "status": "adapted",
+        "decision": "随机普通书名收敛为来源候选「嘉德文选」，读书识字研读属性保持目录数值。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/obj/denotation.c",
+        "flags": ["random_behavior"],
+        "status": "adapted",
+        "decision": "random 位于插入供物后的杀气削减概率；房间功德箱不可拾取，投入有价值物品后复用通用香火判定。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/obj/goldenrope.c",
+        "flags": ["custom_command", "restricted_movement"],
+        "status": "adapted",
+        "decision": "tie crane 转为鹤室显式行动；扣除 50 点神并移动至云台，物品按 no_drop 不提供丢弃行动且不消耗。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/obj/tablet.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "eat tablet 转为组合物品食用行动，每粒按源恢复 gin/kee/sen 对应的精 5、气 30、神 5。"
+      },
+      {
+        "source_path": "mudlib/d/goathill/npc/obj/dead_leech.c",
+        "flags": ["consume_hook"],
+        "status": "adapted",
+        "decision": "岩蛭敌人尸体直接掉落该路径物品；三次食用均应用 force +1、max_mana +60，定时腐败留 M7。"
+      },
+      {
+        "source_path": "mudlib/d/goathill/obj/dead_leech.c",
+        "flags": ["consume_hook"],
+        "status": "adapted",
+        "decision": "重复来源路径共享相同三口补品运行规则；固定源无房间或 NPC 引用，不伪造放置。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/obj/bamboo_pipe.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "携带该路径竹哨时，keep2 提供吹响行动并触发来源 pipe_notify 等价房间事件。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/obj/bamboo_pipe.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "携带该路径竹哨时，keep2 提供同一吹响行动并重新开放寨门。"
+      }
+    ],
+    "decision": "13 项标记与 items.json 中 M5 三地所有动态物品标记构成精确集合；M7 只承接死岩蛭 240 秒腐败，不影响 M5 当前掉落与食用链验收。"
+  },
+  "dependencies": [
+    {
+      "milestone": "M7",
+      "source_paths": [
+        "mudlib/d/goathill/npc/obj/dead_leech.c",
+        "mudlib/d/goathill/obj/dead_leech.c"
+      ],
+      "feature": "240 秒尸体/食物腐败生命周期",
+      "status": "deferred"
+    }
+  ]
+}

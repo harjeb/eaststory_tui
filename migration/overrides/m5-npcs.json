@@ -1,0 +1,414 @@
+{
+  "schema_version": 3,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "status": "complete",
+  "scope": [
+    "mudlib/d/oldpine",
+    "mudlib/d/goathill",
+    "mudlib/d/choyin",
+    "mudlib/obj/npc/garrison.c"
+  ],
+  "catalog": {
+    "schema_version": 4,
+    "definitions": 49,
+    "placed_definitions": 46,
+    "runtime_instances": 128,
+    "dynamic_spawn_definitions": 1,
+    "dynamic_spawn_sites": 2,
+    "runtime_instances_with_dynamic_max": 130,
+    "vendors": 4,
+    "vendor_goods": 5,
+    "runtime_vendor_instances": 5,
+    "runtime_vendor_good_references": 6,
+    "inquiry_npcs": 12,
+    "inquiry_topics": 31,
+    "static_inquiries": 25,
+    "scripted_inquiries": 6,
+    "runtime_static_inquiry_npcs": 9,
+    "runtime_static_inquiries": 25,
+    "runtime_static_inquiry_references": 55,
+    "runtime_scripted_inquiries": 6,
+    "combat_profiles": 48,
+    "combat_skill_entries": 105,
+    "combat_mapping_entries": 10,
+    "combat_apply_entries": 85,
+    "combat_chat_npcs": 10,
+    "combat_chat_entries": 29,
+    "runtime_combat_chat_instances": 31,
+    "runtime_combat_chat_instances_with_dynamic_max": 33,
+    "carried_item_npcs": 29,
+    "carried_item_entries": 53,
+    "runtime_carried_item_npcs": 28,
+    "runtime_carried_item_instances": 79,
+    "runtime_carried_item_instances_with_dynamic_max": 81,
+    "runtime_drop_entries": 136,
+    "runtime_drop_entries_with_dynamic_max": 140
+  },
+  "runtime_features": [
+    {
+      "feature": "source_npc_placements",
+      "status": "adapted",
+      "decision": "区域目录 schema v4 的数量字段展开 46 个静态放置定义，共 128 个房间实例；另按 fat_bandit.call_for_help 在两个来源位置最多各生成一名持久化土匪老大，使来源可达实例上限为 130。同源同房 NPC 逐实例结算。"
+    },
+    {
+      "feature": "source_static_vendors",
+      "status": "verified",
+      "decision": "4 个商人的 5 项货品进入通用购买动作；按房间数量形成 5 个商人实例和 6 条货品引用。"
+    },
+    {
+      "feature": "source_static_inquiries",
+      "status": "verified",
+      "decision": "12 个问答 NPC 的 31 个主题全部保留；其中 9 个已放置定义的 25 个静态回复可运行，按房间数量形成 55 条引用。"
+    },
+    {
+      "feature": "source_scripted_inquiries",
+      "status": "adapted",
+      "decision": "6 个脚本主题全部接入：3 个街贩货单复用通用商店，官家小姐与游晋信物链进入持久状态，巡捕 bribery 的固定源文本从导入器误判回调恢复为可问答内容。"
+    },
+    {
+      "feature": "source_combat_profiles",
+      "status": "adapted",
+      "decision": "48 个源战斗档案保留 105 项技能、10 项映射和 85 项 apply 修正；46 个已放置定义的 128 个实例均提供比试与死斗，并使用 M4 建立的确定性换算。"
+    },
+    {
+      "feature": "source_combat_chat",
+      "status": "adapted",
+      "decision": "10 个定义的 29 条战斗消息结构化；导入器在缺少 chat_chance_combat 时按源回退 chat_chance，使矮胖土匪、土匪老大和狼狗获得真实 10/10/15 概率。9 个静态定义形成 31 个实例，动态老大使可达上限为 33；call_for_help 回调接入持久化援军，其余类型沿用通用执行器。"
+    },
+    {
+      "feature": "source_carried_items",
+      "status": "adapted",
+      "decision": "29 个定义的 53 件初始携带物结构化；28 个静态放置定义形成 79 个实例和 136 件潜在掉落，两个动态土匪老大使可达上限增至 81 个携带物实例与 140 件掉落。M7 尸体系统接入前直接落地。"
+    },
+    {
+      "feature": "source_fight_gates",
+      "status": "verified",
+      "decision": "3 个比试门槛全部显式绑定：酒楼守卫与县官拒绝，采药老者接受；不再依赖无策略时的默认行为。"
+    },
+    {
+      "feature": "hotel_guard_kill_gate",
+      "status": "adapted",
+      "decision": "酒楼守卫死斗时若同房仍有守卫，同伴报官并增加通缉；多人 NPC 同时开战压缩为日志，保留逐实例战斗。"
+    },
+    {
+      "feature": "source_object_exchanges",
+      "status": "adapted",
+      "decision": "游晋只接收来源荷包并关闭烦恼问答；陈显祖只接收桃木箱并一次性回赠「白杨经」。两项状态进入存档 schema v18。"
+    },
+    {
+      "feature": "source_death_hooks",
+      "status": "adapted",
+      "decision": "护草神兽死斗后直接掉落来源忘忧草；杀死巡捕在通用死斗通缉之外按源额外增加五级罪名。尸体容器和玩家 master_id 在单角色世界中省略。"
+    },
+    {
+      "feature": "regional_npc_combat_hooks",
+      "status": "adapted",
+      "decision": "NPC 标记器未覆盖的来源钩子已单独复核：金银花蛇命中施加蛇毒；普通、肥、大岩蛭按 corpse_ob 掉落死岩蛭，巨岩蛭不掉落。相关物品药效见 m5-items 台账。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "59 项标记逐源覆盖为 14 verified、21 adapted、23 deferred、1 excluded；调度与环境行为绑定 M8，尸体定时溶解绑定 M7。"
+    }
+  ],
+  "behavior_flags": {
+    "total": 59,
+    "disposed": 59,
+    "remaining": 0,
+    "status": "audited",
+    "by_kind": {
+      "ambient_chat": 12,
+      "combat_chat": 10,
+      "custom_command": 7,
+      "death_hook": 2,
+      "fight_gate": 3,
+      "inquiry": 12,
+      "kill_gate": 1,
+      "object_exchange": 2,
+      "random_identity": 1,
+      "random_movement": 5,
+      "timed_behavior": 4
+    },
+    "by_status": {
+      "verified": 14,
+      "adapted": 21,
+      "deferred": 23,
+      "excluded": 1
+    },
+    "dispositions": [
+      {
+        "source_path": "mudlib/d/choyin/npc/guard.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "accept_fight 固定拒绝，运行时保留比试行动并立即显示掌柜禁斗原意。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/judgeman.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "县官固定拒绝在衙门比试，运行时返回来源一致的拒绝信息。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/oldman.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "非战斗中的 accept_fight 固定允许；战中不可重入分支映射为允许。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/guard.c",
+        "flags": ["kill_gate"],
+        "status": "adapted",
+        "decision": "同房仍有守卫时死斗触发报官并增加通缉；多人同时开战压缩为日志，保留逐实例战斗。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/boss.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "4 个静态询问主题由通用问答运行层原文呈现。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/cake_vendor.c",
+        "flags": ["custom_command", "inquiry"],
+        "status": "verified",
+        "decision": "list 命令及“大饼”回调均等价为当前货单，询问与购买动作绑定来源货品。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/cake_vendor.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "三条随机叫卖与蒸笼动作归入 NPC 环境消息调度。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/cityguard.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "两条战斗喝令进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/crone.c",
+        "flags": ["custom_command", "inquiry"],
+        "status": "adapted",
+        "decision": "list 命令改为直接列出并购买竹篓货品；3 个静态询问原文可用，relay_ask 的泛化多人称谓不再拦截明确主题。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/cucurbit_seller.c",
+        "flags": ["custom_command", "inquiry"],
+        "status": "verified",
+        "decision": "list 命令及“糖葫芦”回调均等价为当前货单。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/cucurbit_seller.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "随机叫卖归入 NPC 环境消息调度。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/dumpling_seller.c",
+        "flags": ["custom_command", "inquiry"],
+        "status": "verified",
+        "decision": "list 命令及“包子”回调均等价为当前货单；两个房间实例共享来源货品。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/dumpling_seller.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "随机叫卖归入 NPC 环境消息调度。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/ghost.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "鬼魂哀号和随机游走需要世界 tick 下的 NPC 调度与位置持久化。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/girl.c",
+        "flags": ["inquiry"],
+        "status": "adapted",
+        "decision": "询问游晋一次性取得紫罗鸳鸯荷包；修复源函数 return 后 delete 永远不可达造成的无限复制，状态进入 schema v18。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/judge_gu.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "4 条衙役战斗消息进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/judgeman.c",
+        "flags": ["ambient_chat", "timed_behavior"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "周期扫描在线罪犯并生成巡捕改写为本地通缉追捕与司法调度。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/judgeman.c",
+        "flags": ["custom_command"],
+        "status": "excluded",
+        "decision": "charge 命令只按在线玩家 ID 指控另一玩家，属于多人 PVP 司法入口；单人替代为本地通缉和 M8 审判流程。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/lboy.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "3 条战斗消息进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/lboy.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "“仙人”静态回复原文可用。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/lboy.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "童子随机行礼与对白归入 NPC 环境消息调度。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/lion.c",
+        "flags": ["death_hook"],
+        "status": "adapted",
+        "decision": "死斗后在当前房间直接掉落忘忧草；单角色版无需保存物品 master_id。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/magistra.c",
+        "flags": ["custom_command", "timed_behavior"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "击鼓后的 yes/no、带路、超时和每日接案上限统一进入单人衙门案件状态机。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/maid.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "静态询问主题由通用问答运行层原文呈现。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/oldman.c",
+        "flags": ["ambient_chat", "random_movement", "timed_behavior"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "随机游走、入房延时赠山药蛋、重置仙豆和受伤移动需要 NPC 日程、刷新与实例状态。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/scholar.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "书生吟诗与随机游走需要 NPC 环境消息及位置调度。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/sergeant.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "6 个静态询问主题由通用问答运行层原文呈现。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/sergeant.c",
+        "flags": ["object_exchange"],
+        "status": "adapted",
+        "decision": "只接收树王坟来源桃木箱，一次性回赠可研读魔法的「白杨经」，状态进入 schema v18。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/visitor.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "静态询问主题由通用问答运行层原文呈现。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/yamen_po.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "4 条巡捕战斗消息进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/yamen_po.c",
+        "flags": ["death_hook", "inquiry", "random_identity"],
+        "status": "adapted",
+        "decision": "死亡额外增加五级通缉；bribery 被导入器误判的固定文本恢复为问答；随机姓氏收敛为稳定角色名“巡捕”。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/yamen_po.c",
+        "flags": ["ambient_chat", "custom_command"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "巡街、抓捕、限制移动/退出和十万文赎放需要本地追捕、带路及司法状态机。"
+      },
+      {
+        "source_path": "mudlib/d/choyin/npc/youngman.c",
+        "flags": ["inquiry", "object_exchange"],
+        "status": "adapted",
+        "decision": "保留三段烦恼问答；接收官家小姐荷包后关闭该主题并保留鸳鸯手帕回应，状态进入 schema v18。"
+      },
+      {
+        "source_path": "mudlib/obj/npc/garrison.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "两条官兵战斗喝令进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/obj/npc/garrison.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "县城官兵随机巡逻需要 NPC 位置调度和刷新。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/bandit_chief.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "由矮胖土匪回调动态生成后，来源 chat_chance=10 的三条战斗消息进入通用执行器；实例可战斗、掉落且死亡后不会重复生成。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/bandit_leader.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "来源战斗消息和动作进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/butterfly.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "蝴蝶动作与随机飞行需要 NPC 环境消息和位置调度。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/fat_bandit.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "来源 chat_chance=10 的两条文本进入通用执行器；call_for_help 每个来源位置仅首次召来一名土匪老大，召援记录进入 schema v19。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/maniac.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "来源战斗消息和动作进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/spy.c",
+        "flags": ["timed_behavior"],
+        "status": "deferred",
+        "milestone": "M7",
+        "decision": "击杀玩家后延时 dissolve corpse 依赖尸体对象及其定时生命周期。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/wolf_dog.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "来源战斗消息和动作进入通用 combat-chat 执行器。"
+      },
+      {
+        "source_path": "mudlib/d/oldpine/npc/wolf_dog.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "milestone": "M8",
+        "decision": "狼狗随机吠叫与动作归入 NPC 环境消息调度。"
+      }
+    ],
+    "decision": "59 项标记均有可机检处置；当前批次运行 3 项比试门槛、1 项死斗门槛、12 项问答、10 项战斗消息、2 项交换与2项死亡钩子。矮胖土匪回调的动态援军已接入；23 项调度依赖和1项多人排除均绑定替代里程碑。"
+  }
+}

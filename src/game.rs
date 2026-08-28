@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use serde::{Deserialize, Serialize};
 
@@ -6,9 +6,14 @@ use crate::{
     content::{self, world},
     items::{self, EquipmentSlot, ItemId, ItemInstance, LegacyItemKind, items},
     npcs::{
-        FARM_WOMAN_ID, FISHER_ID, FLOWER_GIRL_ID, MELONER_ID, NpcId, OLD_LIU_ID,
-        ObjectExchangeKind, SNOW_GUARD_ID, SNOW_TEACHER_ID, ScriptedInquiryKind, TEA_SELLER_ID,
-        TEMPLE_MASTER_ID, TRADER_ID, npcs,
+        CHOYIN_GIRL_ID, CHOYIN_HOTEL_GUARD_ID, CHOYIN_LION_ID, CHOYIN_MAGISTRATE_ID,
+        CHOYIN_POLICE_ID, CHOYIN_YOUNG_MAN_ID, CHUENYU_OLD_LIU_ID, CHUENYU_XIAO_JUAN_ID,
+        CHUENYU_XIAO_JUAN_PLACED_ID, CITY_SHANGSHU_PATROL_ELITE_ID, CITY_SHANGSHU_PATROL_ID,
+        CLOUD_B_HEADER_ID, FARM_WOMAN_ID, FISHER_ID, FLOWER_GIRL_ID, GREEN_SHEN_ID, MELONER_ID,
+        NpcApprenticeshipPolicy, NpcFightPolicy, NpcId, OLD_LIU_ID, ObjectExchangeKind,
+        SNOW_FIST_TRAINER_ID, SNOW_GIRL_ID, SNOW_GUARD_ID, SNOW_SCAVENGER_ID, ScriptedInquiryKind,
+        TEA_SELLER_ID, TEMPLE_MASTER_ID, TEMPLE_OLD_TAOIST_ID, TEMPLE_PROTECTOR_ID,
+        TEMPLE_TRAINER_ID, TRADER_ID, WATERFOG_ELITE_GUARD_ID, XIAO_JUAN_ID, npcs,
     },
     skills::{
         self, DODGE_ID, FORCE_ID, LIUH_KEN_ID, MAGIC_ID, MOVE_ID, PARRY_ID, PYROBAT_STEPS_ID,
@@ -17,7 +22,66 @@ use crate::{
 };
 
 const LOG_LIMIT: usize = 80;
-const SAVE_VERSION: u32 = 7;
+const SAVE_VERSION: u32 = 25;
+const CHOYIN_DONATION_BOX_IDS: [&str; 2] = ["choyin.obj.denotation", "choyin.npc.obj.denotation"];
+const CHOYIN_GOLDEN_ROPE_ID: &str = "choyin.obj.goldenrope";
+const CHOYIN_GRASS_ID: &str = "choyin.obj.grass";
+const CHOYIN_MAGIC_BOOK_ID: &str = "choyin.npc.obj.magic_book";
+const CHOYIN_PEACH_CHEST_IDS: [&str; 2] = ["choyin.obj.chest", "choyin.npc.obj.chest"];
+const CHOYIN_SILK_BAG_ID: &str = "choyin.npc.obj.silk_bag";
+const CHOYIN_TABLET_ID: &str = "choyin.obj.tablet";
+const GOATHILL_DEAD_LEECH_ID: &str = "goathill.npc.obj.dead_leech";
+const GOATHILL_DEAD_LEECH_IDS: [&str; 2] = [GOATHILL_DEAD_LEECH_ID, "goathill.obj.dead_leech"];
+const GOATHILL_LEECH_CORPSE_NPCS: [&str; 3] = [
+    "goathill.npc.worm",
+    "goathill.npc.fat_worm",
+    "goathill.npc.big_worm",
+];
+const OLDPINE_BANDIT_CHIEF_ID: &str = "oldpine.npc.bandit_chief";
+const OLDPINE_FAT_BANDIT_ID: &str = "oldpine.npc.fat_bandit";
+const OLDPINE_VENOM_SNAKE_ID: &str = "oldpine.npc.venomsnake";
+const CHUENYU_BOSS_ID: &str = "chuenyu.npc.chuenyu";
+const CHUENYU_GUARD_ID: &str = "chuenyu.npc.guard";
+const CHUENYU_GUARD_TWO_ID: &str = "chuenyu.npc.guard2";
+const CHUENYU_JIADING_THREE_ID: &str = "chuenyu.npc.jiading3";
+const GREEN_JADE_ID: &str = "green.obj.jade";
+const GREEN_SPIDER_ID: &str = "green.npc.spider";
+const GREEN_WIND_SWORD_ID: &str = "green.obj.windsword";
+const SANYEN_COOK_ID: &str = "sanyen.npc.cook_bonze";
+const SANYEN_BUN_ID: &str = "sanyen.npc.obj.maintal";
+const LATEMOON_DANCE_BOOK_IDS: [&str; 2] = ["latemoon.npc.obj.book", "latemoon.obj.book"];
+const LATEMOON_BRACELET_IDS: [&str; 2] = ["latemoon.npc.obj.bracelet", "latemoon.obj.bracelet"];
+const LATEMOON_SPECIAL_CONSUMABLE_IDS: [&str; 5] = [
+    "latemoon.park.npc.obj.bean",
+    "latemoon.park.npc.obj.flower",
+    "latemoon.sell.bean",
+    "latemoon.sell.white_pill",
+    "latemoon.sell.wine",
+];
+const LATEMOON_SECRET_LETTER_ID: &str = "latemoon.room.npc.obj.letter";
+const LATEMOON_FIRE_ID: &str = "latemoon.room.npc.obj.fire";
+const LATEMOON_BAMBOO_IDS: [&str; 2] = ["latemoon.npc.obj.bamboo", "latemoon.obj.bamboo"];
+const LATEMOON_DRAGONFLY_IDS: [&str; 2] = ["latemoon.npc.obj.dragonfly", "latemoon.obj.dragonfly"];
+const LATEMOON_TOKEN_ID: &str = "latemoon.room.npc.obj.token";
+const LATEMOON_WHIP_BOOK_ID: &str = "latemoon.room.npc.obj.whip_book";
+const CLOUD_ESCORT_LETTER_ID: &str = "u.cloud.npc.obj.letter";
+const CLOUD_MEAT_IDS: [&str; 3] = [
+    "u.cloud.obj.meat.beef",
+    "u.cloud.obj.meat.dog_m",
+    "u.cloud.obj.meat.hind",
+];
+const CITY_EXIT_TOKEN_ID: &str = "city.obj.token";
+const CITY_ALTAR: &str = "city.jitan";
+const CITY_ALTAR_TUNNEL: &str = "city.midao1";
+const SNOW_WEAPON_STORAGE: &str = "snow.weapon_storage";
+const SNOW_SECRET_STORAGE: &str = "snow.secret_storage";
+const SNOW_WORKPLACE: &str = "snow.workplace";
+const CANYON_BAMBOO_BOULDER: &str = "canyon.bamboo.bamboo3";
+const CANYON_BAMBOO_TRAINING_ROOM: &str = "canyon.bamboo.train";
+const CANYON_SLIPCASE_ID: &str = "canyon.bamboo.obj.slipcase";
+const CANYON_PARRY_BOOK_ID: &str = "canyon.bamboo.obj.parry_book";
+const TEMPLE_SLIPPERY_ROAD: &str = "temple.road1";
+const TEMPLE_BOOK_ROOM: &str = "temple.book_room1";
 const DEFAULT_FOOD_CAPACITY: i32 = 200;
 const DEFAULT_WATER_CAPACITY: i32 = 200;
 
@@ -41,15 +105,18 @@ impl From<&str> for LocationId {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum EnemyKind {
     Bandit,
+    XiaoJuan,
+    OldLiuRevenge,
     Wolf,
     TempleDisciple,
     Rat,
     IceDragon,
     Meloner,
     BloodHandLiuSan,
+    Npc(NpcId),
 }
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
@@ -63,8 +130,11 @@ pub enum Gender {
 pub enum QuestStage {
     Unasked,
     FindJuan,
+    FoundJuan,
     ReturnHome,
+    MurderedJuan,
     Complete,
+    Failed,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -75,6 +145,7 @@ pub enum ConditionKind {
     Drunk,
     Slumber,
     AstralVision,
+    RosePoison,
 }
 
 impl ConditionKind {
@@ -86,6 +157,7 @@ impl ConditionKind {
             Self::Drunk => "醉酒",
             Self::Slumber => "蒙汗药",
             Self::AstralVision => "灵视",
+            Self::RosePoison => "火玫瑰毒",
         }
     }
 }
@@ -116,11 +188,55 @@ pub enum InteractionKind {
     PullBook(u8),
     PickMelon,
     SettleMelonDebt,
+    SearchCityRuinedGarden,
+    TurnAltarForward,
+    TurnAltarBackward,
+    PressAltarButton,
+    PushSnowShelf,
+    WorkAtSnowWorkshop,
+    MoveBambooBoulder,
+    SearchBambooBookcase,
     SwearCanyonSecret,
     ClimbCanyonChain,
     ClimbCityWall,
     JumpIntoCityManor,
     JumpOutsideCityWall,
+    HoldOldPineVine,
+    ClimbChoyinTree,
+    HoldChoyinVine,
+    TouchChoyinCloudFlag,
+    DrinkChoyinWell,
+    LiftChoyinStoneLion,
+    BuryOldPineSkeleton,
+    BlowOldPineBambooPipe,
+    BorrowChoyinBook,
+    ReadChoyinPeachNote,
+    TieChoyinCrane,
+    PullChuenyuHallRope,
+    ClimbChuenyuCastleWall,
+    DescendChuenyuRopeBridge,
+    PushChuenyuDungeonSlab,
+    PushGreenBoulder,
+    FillGreenWell,
+    SearchGreenStream,
+    OpenSanyenSteamer,
+    TakeSanyenBun,
+    InspectLateMoonLantern,
+    TakeLateMoonCloth,
+    DanceLateMoonOut,
+    DanceLateMoonYuFong,
+    PickLateMoonFlower,
+    BatheLateMoonPool,
+    PonderLateMoonRoom,
+    InspectDeathShadows,
+    ReincarnateDeathInn,
+    InspectCloudButcherySign,
+    UseLateMoonDanceBook(u64),
+    PrayLateMoonBracelet(u64),
+    ReadLateMoonSecretLetter(u64),
+    SearchLateMoonBracelet,
+    SearchLateMoonDanceBook,
+    JoinCloudEscort,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -133,6 +249,13 @@ pub enum Action {
         direction: String,
         target: LocationId,
     },
+    OpenSourceDoor {
+        target: LocationId,
+    },
+    CloseSourceDoor {
+        target: LocationId,
+    },
+    InspectRoomDetail(String),
     Interact(InteractionKind),
     Talk(NpcId),
     AskNpc {
@@ -173,6 +296,7 @@ pub enum Action {
         instance_id: u64,
         npc: NpcId,
     },
+    DonateItem(u64),
     PickUpItem(u64),
     DropItem(u64),
     EquipItem(u64),
@@ -209,6 +333,14 @@ impl InteractionKind {
             Self::PullBook(number) => format!("抽动第{number}本石书"),
             Self::PickMelon => "摘一个熟西瓜".into(),
             Self::SettleMelonDebt => "向瓜农赔付瓜钱".into(),
+            Self::SearchCityRuinedGarden => "在废园草丛中寻找".into(),
+            Self::TurnAltarForward => "顺时针转动祭坛按钮".into(),
+            Self::TurnAltarBackward => "逆时针转动祭坛按钮".into(),
+            Self::PressAltarButton => "按下祭坛按钮".into(),
+            Self::PushSnowShelf => "向左推动兵器架".into(),
+            Self::WorkAtSnowWorkshop => "在谷物加工厂做工".into(),
+            Self::MoveBambooBoulder => "运功推开大黄石".into(),
+            Self::SearchBambooBookcase => "搜寻石制书柜".into(),
             Self::SwearCanyonSecret => "面对山壁立誓".into(),
             Self::ClimbCanyonChain if game.location.as_str() == content::CANYON_FOOT => {
                 "沿铁索向上攀爬".into()
@@ -217,6 +349,42 @@ impl InteractionKind {
             Self::ClimbCityWall => "爬上尚书府院墙".into(),
             Self::JumpIntoCityManor => "跳入尚书府废屋".into(),
             Self::JumpOutsideCityWall => "跳回京师东街".into(),
+            Self::HoldOldPineVine => "抓住桥边藤蔓".into(),
+            Self::ClimbChoyinTree => "攀上绝壁古树".into(),
+            Self::HoldChoyinVine => "抓住绝壁藤蔓".into(),
+            Self::TouchChoyinCloudFlag => "触碰云台仙幡".into(),
+            Self::DrinkChoyinWell => "舀取井水饮用".into(),
+            Self::LiftChoyinStoneLion => "抬动西街石狮".into(),
+            Self::BuryOldPineSkeleton => "掩埋洞中骸骨".into(),
+            Self::BlowOldPineBambooPipe => "吹响竹哨移开寨门巨石".into(),
+            Self::BorrowChoyinBook => "趁人不备取走一本书".into(),
+            Self::ReadChoyinPeachNote => "读桃枝上的字条".into(),
+            Self::TieChoyinCrane => "以缚仙绳缚住仙鹤".into(),
+            Self::PullChuenyuHallRope => "拉动正厅垂绳".into(),
+            Self::ClimbChuenyuCastleWall => "沿藤蔓翻越城墙".into(),
+            Self::DescendChuenyuRopeBridge => "抓紧铁链下到山脚".into(),
+            Self::PushChuenyuDungeonSlab => "推动地牢石板".into(),
+            Self::PushGreenBoulder => "运功推动绝地巨石".into(),
+            Self::FillGreenWell => "用酒袋汲取井水".into(),
+            Self::SearchGreenStream => "下溪寻找亮光".into(),
+            Self::OpenSanyenSteamer => "打开厨房蒸笼".into(),
+            Self::TakeSanyenBun => "从蒸笼取一枚馒头".into(),
+            Self::InspectLateMoonLantern => "查看晚月庄门前灯笼".into(),
+            Self::TakeLateMoonCloth => "从碧纱橱取一件衣裳".into(),
+            Self::DanceLateMoonOut => "跳一曲「西出阳关」".into(),
+            Self::DanceLateMoonYuFong => "跳一曲「有凤来仪」".into(),
+            Self::PickLateMoonFlower => "摘下一朵金黄花蕊".into(),
+            Self::BatheLateMoonPool => "在小花池沐浴".into(),
+            Self::PonderLateMoonRoom => "在缀芳阁静修".into(),
+            Self::InspectDeathShadows => "靠近壁炉旁的黑影".into(),
+            Self::ReincarnateDeathInn => "向另一个自己询问回家".into(),
+            Self::InspectCloudButcherySign => "查看肉铺牛骨招牌".into(),
+            Self::UseLateMoonDanceBook(_) => "按舞曲谱跳「春宫怨」".into(),
+            Self::PrayLateMoonBracelet(_) => "以玛瑙手镯祈求归返".into(),
+            Self::ReadLateMoonSecretLetter(_) => "借火查看密函暗字".into(),
+            Self::SearchLateMoonBracelet => "按线索搜索碧纱橱底层".into(),
+            Self::SearchLateMoonDanceBook => "按舞姬提示搜索床榻".into(),
+            Self::JoinCloudEscort => "向陈剑秋请求加入振远镖局".into(),
         }
     }
 
@@ -232,11 +400,60 @@ impl InteractionKind {
             Self::PullBook(_) => "石书机关来自原版未完成谜题，错误顺序会重置机关。",
             Self::PickMelon => "能否找到熟瓜取决于感知；瓜农可能发现你的行为。",
             Self::SettleMelonDebt => "支付原价 60 文瓜钱，瓜农便会让开道路。",
+            Self::SearchCityRuinedGarden => "翻找废园草丛中一闪而过的旧物。",
+            Self::TurnAltarForward | Self::TurnAltarBackward | Self::PressAltarButton => {
+                "依照原版顺一逆三的次序操作祭坛按钮。"
+            }
+            Self::PushSnowShelf => "连续推动三次，短暂打开通往密室的阶梯。",
+            Self::WorkAtSnowWorkshop => "消耗精与神各三十点，换取一两纹银。",
+            Self::MoveBambooBoulder => "运足内力推开石缝，进入时石缝会立即闭合。",
+            Self::SearchBambooBookcase => "书柜中的书匣与招架秘笈只能取得一次。",
             Self::SwearCanyonSecret => "使用军师提供的口令进入黄石峡黑市，口令只能使用一次。",
             Self::ClimbCanyonChain => "沿原版铁索连接黄石隘口与雪亭镇官道，会消耗精、气、神。",
             Self::ClimbCityWall | Self::JumpIntoCityManor | Self::JumpOutsideCityWall => {
                 "沿原版尚书府院墙路径移动。"
             }
+            Self::HoldOldPineVine => "抓住藤蔓后按轻功判断落入水潭或攀进瀑布后的通道。",
+            Self::ClimbChoyinTree => "沿固定源古树路径攀上鹤室。",
+            Self::HoldChoyinVine => "抓住藤蔓后按轻功判断坠入寒谷或攀近半山洞穴。",
+            Self::TouchChoyinCloudFlag => "短暂打开云台下行入口，并延迟引来持续雷击。",
+            Self::DrinkChoyinWell => "从南门广场的井中补充二十点饮水。",
+            Self::LiftChoyinStoneLion => "力量会减少所需抬动次数，机关开启后直接落入洞穴。",
+            Self::BuryOldPineSkeleton => "按灵性判定过招要旨奖励或坠下瀑布。",
+            Self::BlowOldPineBambooPipe => "用来源竹哨重新绞开老松寨门口的巨石。",
+            Self::BorrowChoyinBook => "随机取走一本书；离开草堂时会按源归还。",
+            Self::ReadChoyinPeachNote => "按当前字条提示连续选择方向才能离开桃林。",
+            Self::TieChoyinCrane => "借仙鹤登上云台，损失五十点神；缚仙绳不会消耗。",
+            Self::PullChuenyuHallRope => "触发正厅翻板，跌入地牢并受到少量气伤。",
+            Self::ClimbChuenyuCastleWall => "沿固定源藤蔓在城堡外墙与花园之间翻越。",
+            Self::DescendChuenyuRopeBridge => "沿铁链从摇晃的铁索桥直接下到黑松山脚。",
+            Self::PushChuenyuDungeonSlab => "连续推动五次，短暂打开城堡东侧与地牢之间的石板通道。",
+            Self::PushGreenBoulder => {
+                "需要足够内力与基本内功；推动会损伤精、气、神，并有机会逃出绝地。"
+            }
+            Self::FillGreenWell => "把一个酒水容器改装为十五口清水，并清除容器中已有药效。",
+            Self::SearchGreenStream => {
+                "通过八卦阵后可在溪中寻找一次追风剑，结果由持久化随机状态决定。"
+            }
+            Self::OpenSanyenSteamer => "烧饭僧仍在时会阻止开盖；无人看守时可看见馒头。",
+            Self::TakeSanyenBun => "烧饭僧不在时可取走馒头，单份存档最多五枚。",
+            Self::InspectLateMoonLantern => "查看目录未能结构化的彩色灯笼题字。",
+            Self::TakeLateMoonCloth => "碧纱橱每份存档保留两件来源衣裳。",
+            Self::DanceLateMoonOut | Self::DanceLateMoonYuFong => {
+                "按来源舞步消耗神并在晚月庄密室、竹林之间移动。"
+            }
+            Self::PickLateMoonFlower => "西府海棠每份存档最多摘取两朵解毒花蕊。",
+            Self::BatheLateMoonPool => "女性沐浴恢复少量神；男性会染上持续发作的火玫瑰毒。",
+            Self::PonderLateMoonRoom => "消耗五十点神，并按灵性随机降低杀气。",
+            Self::InspectDeathShadows => "查看与自己相貌相同的幽冥黑影。",
+            Self::ReincarnateDeathInn => "恢复精气神并从幽冥小店返回雪亭城隍庙。",
+            Self::InspectCloudButcherySign => "查看目录未能结构化的肉铺收购告示。",
+            Self::UseLateMoonDanceBook(_) => "消耗五十点神，按舞曲谱来源返回对应晚月庄房间。",
+            Self::PrayLateMoonBracelet(_) => "消耗五十点神，经来源传送回雪亭城隍庙。",
+            Self::ReadLateMoonSecretLetter(_) => "携带火种时显出密函中的晚月庄线索，不消耗物品。",
+            Self::SearchLateMoonBracelet => "凤铃确认竹蜻蜓后，可按其线索取得一只玛瑙手镯。",
+            Self::SearchLateMoonDanceBook => "辛芬说出舞曲谱藏处后，可从床榻取得一本舞谱。",
+            Self::JoinCloudEscort => "胆识达到二十五后，加入陈剑秋主持的振远镖局。",
         }
     }
 }
@@ -256,6 +473,13 @@ impl Action {
                     .map_or("未知区域", |location| location.name.as_str());
                 format!("逃往{} · {}", direction_name(direction), name)
             }
+            Self::OpenSourceDoor { target } => {
+                format!("打开{}", game.source_door_name(target))
+            }
+            Self::CloseSourceDoor { target } => {
+                format!("关上{}", game.source_door_name(target))
+            }
+            Self::InspectRoomDetail(key) => format!("查看{key}"),
             Self::Interact(interaction) => interaction.label(game),
             Self::Talk(npc) => format!("与{}交谈", npc.name()),
             Self::AskNpc { npc, topic } => {
@@ -296,12 +520,13 @@ impl Action {
                 }
             }
             Self::Fight(enemy) => {
-                if *enemy == EnemyKind::Bandit && game.quest == QuestStage::FindJuan {
+                if enemy == &EnemyKind::Bandit && game.quest == QuestStage::FindJuan {
                     "循声营救娟儿".into()
                 } else {
                     format!("与{}比试", enemy.name())
                 }
             }
+            Self::Kill(EnemyKind::XiaoJuan) => "加害小娟".into(),
             Self::Kill(enemy) => format!("与{}性命相搏", enemy.name()),
             Self::BuyItem { item_id, npc } => {
                 let definition = items()
@@ -329,6 +554,9 @@ impl Action {
                 game.inventory_item_name(*instance_id),
                 npc.name()
             ),
+            Self::DonateItem(instance_id) => {
+                format!("把{}投入功德箱", game.inventory_item_name(*instance_id))
+            }
             Self::PickUpItem(instance_id) => {
                 format!("拾取{}", game.ground_item_name(*instance_id))
             }
@@ -377,6 +605,10 @@ impl Action {
         match self {
             Self::Move { .. } => "移动会结束当前的修炼或休息。",
             Self::Flee { .. } => "脱离当前战斗并移动，临阵退却会损失少量评价。",
+            Self::OpenSourceDoor { .. } | Self::CloseSourceDoor { .. } => {
+                "门的开关状态会同时作用于相连房间。"
+            }
+            Self::InspectRoomDetail(_) => "查看固定源房间中记载的场景细节。",
             Self::Interact(interaction) => interaction.detail(),
             Self::Talk(_) => "交谈可能带来线索、奖励或新的武学见闻。",
             Self::AskNpc { .. } => "按固定源人物的询问主题追问；仅开放已审计的文本或脚本回复。",
@@ -397,6 +629,7 @@ impl Action {
             Self::OfferMoney { .. } => "将现有货币按原版钱币对象价值交给当前人物。",
             Self::SellItem(_) => "商人按物品原价值的一半回收，损坏物品折价。",
             Self::GiveItem { .. } => "把未装备的物品赠予当前 NPC。",
+            Self::DonateItem(_) => "把有价值的物品投入乔阴寺庙功德箱，并按价值与灵性消减杀气。",
             Self::PickUpItem(_) => "拾取地面物品；超过负重上限时无法拿起。",
             Self::DropItem(_) => "把未装备的物品留在当前位置。",
             Self::EquipItem(_) | Self::UnequipItem(_) => {
@@ -442,7 +675,7 @@ pub enum CombatMode {
     Lethal,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct CombatState {
     pub enemy: EnemyKind,
     pub health: i32,
@@ -455,6 +688,8 @@ pub struct CombatState {
     #[serde(default)]
     pub dodge_bonus: i32,
     #[serde(default)]
+    pub enemy_attack_bonus: i32,
+    #[serde(default)]
     pub enemy_busy_rounds: u8,
     #[serde(default)]
     pub technique_cooldown: u8,
@@ -462,6 +697,25 @@ pub struct CombatState {
     pub power_up_active: bool,
     #[serde(default)]
     pub fake_fault_active: bool,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct DefeatedNpcInstance {
+    location: LocationId,
+    npc: NpcId,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct SpawnedNpcInstance {
+    location: LocationId,
+    npc: NpcId,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct SourceDoorState {
+    first: LocationId,
+    second: LocationId,
+    open: bool,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -929,7 +1183,113 @@ pub struct Game {
     #[serde(default)]
     city_manor_pass: bool,
     #[serde(default)]
+    city_exit_permit: bool,
+    #[serde(default)]
+    city_altar_forward_turns: u8,
+    #[serde(default)]
+    city_altar_backward_turns: u8,
+    #[serde(default)]
+    city_altar_passage_ticks: u8,
+    #[serde(default)]
+    snow_shelf_pushes: u8,
+    #[serde(default)]
+    snow_storage_passage_ticks: u8,
+    #[serde(default)]
+    canyon_boulder_open: bool,
+    #[serde(default)]
+    canyon_bookcase_searched: bool,
+    #[serde(default)]
+    source_door_states: Vec<SourceDoorState>,
+    #[serde(default)]
+    source_room_items_initialized: bool,
+    #[serde(default)]
+    m5_source_room_items_initialized: bool,
+    #[serde(default)]
+    m6_source_room_items_initialized: bool,
+    #[serde(default)]
+    m7_source_room_items_initialized: bool,
+    #[serde(default)]
+    chuenyu_slab_pushes: u8,
+    #[serde(default)]
+    chuenyu_slab_passage_ticks: u8,
+    #[serde(default)]
+    chuenyu_trap_arrow_ticks: u8,
+    #[serde(default)]
+    green_bagua_completed: bool,
+    #[serde(default)]
+    green_windsword_rewarded: bool,
+    #[serde(default)]
+    green_elder_jade_clue: bool,
+    #[serde(default)]
+    green_drunk_jade_clue: bool,
+    #[serde(default)]
+    green_drunk_drug_clue: bool,
+    #[serde(default)]
+    green_jade_received: bool,
+    #[serde(default)]
+    green_drug_offer_unlocked: bool,
+    #[serde(default)]
+    sanyen_buns_taken: u8,
+    #[serde(default)]
+    latemoon_clothes_taken: u8,
+    #[serde(default)]
+    latemoon_flowers_picked: u8,
+    #[serde(default)]
+    death_road_steps: u8,
+    #[serde(default)]
+    latemoon_dragonfly_received: bool,
+    #[serde(default)]
+    latemoon_bracelet_clue: bool,
+    #[serde(default)]
+    latemoon_bracelet_received: bool,
+    #[serde(default)]
+    latemoon_dance_book_clue: bool,
+    #[serde(default)]
+    latemoon_dance_book_received: bool,
+    #[serde(default)]
+    latemoon_token_rewarded: bool,
+    #[serde(default)]
+    cloud_escort_member: bool,
+    #[serde(default)]
+    cloud_escort_letter_received: bool,
+    #[serde(default)]
+    city_chen_letter_delivered: bool,
+    #[serde(default)]
+    cloud_boater_paid: bool,
+    #[serde(default)]
+    cloud_gangster_pass: bool,
+    #[serde(default)]
+    cloud_girl_recognized: bool,
+    #[serde(default)]
+    choyin_platform_passage_ticks: u8,
+    #[serde(default)]
+    choyin_thunder_ticks: u8,
+    #[serde(default)]
+    choyin_lion_lift_count: u8,
+    #[serde(default)]
+    oldpine_keep_sealed: bool,
+    #[serde(default)]
+    choyin_taolin_steps: u8,
+    #[serde(default)]
+    choyin_taolin_clue: u8,
+    #[serde(default)]
+    choyin_scholar_trial_started: bool,
+    #[serde(default)]
+    choyin_scholar_trial_completed: bool,
+    #[serde(default)]
+    choyin_silk_bag_received: bool,
+    #[serde(default)]
+    choyin_silk_bag_delivered: bool,
+    #[serde(default)]
+    choyin_chest_rewarded: bool,
+    #[serde(default)]
     pub ground_items: HashMap<LocationId, Vec<ItemInstance>>,
+    #[serde(default)]
+    defeated_npcs: Vec<NpcId>,
+    #[serde(default)]
+    defeated_npc_instances: Vec<DefeatedNpcInstance>,
+    #[serde(default)]
+    spawned_npc_instances: Vec<SpawnedNpcInstance>,
     #[serde(default)]
     next_item_instance_id: u64,
     rng_state: u64,
@@ -943,7 +1303,7 @@ impl Default for Game {
 
 impl Game {
     pub fn new() -> Self {
-        Self {
+        let mut game = Self {
             version: SAVE_VERSION,
             player: Player::default(),
             location: LocationId::from(content::LIU_HOME),
@@ -971,10 +1331,68 @@ impl Game {
             canyon_general_rewarded: false,
             city_inn_access: false,
             city_manor_pass: false,
+            city_exit_permit: false,
+            city_altar_forward_turns: 0,
+            city_altar_backward_turns: 0,
+            city_altar_passage_ticks: 0,
+            snow_shelf_pushes: 0,
+            snow_storage_passage_ticks: 0,
+            canyon_boulder_open: false,
+            canyon_bookcase_searched: false,
+            source_door_states: Vec::new(),
+            source_room_items_initialized: false,
+            m5_source_room_items_initialized: false,
+            m6_source_room_items_initialized: false,
+            m7_source_room_items_initialized: false,
+            chuenyu_slab_pushes: 0,
+            chuenyu_slab_passage_ticks: 0,
+            chuenyu_trap_arrow_ticks: 0,
+            green_bagua_completed: false,
+            green_windsword_rewarded: false,
+            green_elder_jade_clue: false,
+            green_drunk_jade_clue: false,
+            green_drunk_drug_clue: false,
+            green_jade_received: false,
+            green_drug_offer_unlocked: false,
+            sanyen_buns_taken: 0,
+            latemoon_clothes_taken: 0,
+            latemoon_flowers_picked: 0,
+            death_road_steps: 0,
+            latemoon_dragonfly_received: false,
+            latemoon_bracelet_clue: false,
+            latemoon_bracelet_received: false,
+            latemoon_dance_book_clue: false,
+            latemoon_dance_book_received: false,
+            latemoon_token_rewarded: false,
+            cloud_escort_member: false,
+            cloud_escort_letter_received: false,
+            city_chen_letter_delivered: false,
+            cloud_boater_paid: false,
+            cloud_gangster_pass: false,
+            cloud_girl_recognized: false,
+            choyin_platform_passage_ticks: 0,
+            choyin_thunder_ticks: 0,
+            choyin_lion_lift_count: 0,
+            oldpine_keep_sealed: false,
+            choyin_taolin_steps: 0,
+            choyin_taolin_clue: 0,
+            choyin_scholar_trial_started: false,
+            choyin_scholar_trial_completed: false,
+            choyin_silk_bag_received: false,
+            choyin_silk_bag_delivered: false,
+            choyin_chest_rewarded: false,
             ground_items: HashMap::new(),
+            defeated_npcs: Vec::new(),
+            defeated_npc_instances: Vec::new(),
+            spawned_npc_instances: Vec::new(),
             next_item_instance_id: 3,
             rng_state: 0x4d59_5df4_d0f3_3173,
-        }
+        };
+        game.initialize_source_room_items();
+        game.initialize_m5_source_room_items();
+        game.initialize_m6_source_room_items();
+        game.initialize_m7_source_room_items();
+        game
     }
 
     pub fn current_location(&self) -> &'static Location {
@@ -993,10 +1411,11 @@ impl Game {
             };
             if !(current.id.as_str() == content::MELON_FARM && self.melon_debt) {
                 for exit in &current.exits {
-                    if self.exit_is_available(current, exit) {
+                    let target = self.resolved_source_exit_target(current, exit);
+                    if self.exit_is_available(current, exit, &target) {
                         actions.push(Action::Flee {
                             direction: exit.direction.clone(),
-                            target: exit.target.clone(),
+                            target,
                         });
                     }
                 }
@@ -1017,12 +1436,36 @@ impl Game {
         }
 
         for exit in &current.exits {
-            if self.exit_is_available(current, exit) {
+            let target = self.resolved_source_exit_target(current, exit);
+            if self.exit_is_available(current, exit, &target) {
                 actions.push(Action::Move {
                     direction: exit.direction.clone(),
-                    target: exit.target.clone(),
+                    target,
                 });
             }
+            if let Some(open) = self.source_door_is_open(&current.id, &exit.target) {
+                actions.push(if open {
+                    Action::CloseSourceDoor {
+                        target: exit.target.clone(),
+                    }
+                } else {
+                    Action::OpenSourceDoor {
+                        target: exit.target.clone(),
+                    }
+                });
+            }
+        }
+        if current.id.as_str() == CITY_ALTAR_TUNNEL && self.city_altar_passage_ticks > 0 {
+            actions.push(Action::Move {
+                direction: "up".into(),
+                target: LocationId::from(CITY_ALTAR),
+            });
+        }
+        if current.id.as_str() == SNOW_SECRET_STORAGE && self.snow_storage_passage_ticks > 0 {
+            actions.push(Action::Move {
+                direction: "up".into(),
+                target: LocationId::from(SNOW_WEAPON_STORAGE),
+            });
         }
 
         match current.id.as_str() {
@@ -1061,23 +1504,167 @@ impl Game {
             content::CITY_STREET3 => {
                 actions.push(Action::Interact(InteractionKind::ClimbCityWall));
             }
+            content::CITY_RUINED_GARDEN
+                if !self.city_exit_permit
+                    && !self.player.has_item(&ItemId::from(CITY_EXIT_TOKEN_ID)) =>
+            {
+                actions.push(Action::Interact(InteractionKind::SearchCityRuinedGarden));
+            }
+            CITY_ALTAR => {
+                actions.push(Action::Interact(InteractionKind::TurnAltarForward));
+                actions.push(Action::Interact(InteractionKind::TurnAltarBackward));
+                actions.push(Action::Interact(InteractionKind::PressAltarButton));
+            }
+            SNOW_WEAPON_STORAGE => {
+                actions.push(Action::Interact(InteractionKind::PushSnowShelf));
+            }
+            SNOW_WORKPLACE => {
+                actions.push(Action::Interact(InteractionKind::WorkAtSnowWorkshop));
+            }
+            CANYON_BAMBOO_BOULDER if !self.canyon_boulder_open => {
+                actions.push(Action::Interact(InteractionKind::MoveBambooBoulder));
+            }
+            CANYON_BAMBOO_TRAINING_ROOM if !self.canyon_bookcase_searched => {
+                actions.push(Action::Interact(InteractionKind::SearchBambooBookcase));
+            }
             content::CITY_WALL => {
                 actions.push(Action::Interact(InteractionKind::JumpIntoCityManor));
                 actions.push(Action::Interact(InteractionKind::JumpOutsideCityWall));
             }
+            "oldpine.epath2" => {
+                actions.push(Action::Interact(InteractionKind::HoldOldPineVine));
+            }
+            "choyin.guyehill" => {
+                actions.push(Action::Interact(InteractionKind::ClimbChoyinTree));
+                actions.push(Action::Interact(InteractionKind::HoldChoyinVine));
+            }
+            "choyin.platform" => {
+                actions.push(Action::Interact(InteractionKind::TouchChoyinCloudFlag));
+            }
+            "choyin.s_street1" if self.player.water < DEFAULT_WATER_CAPACITY => {
+                actions.push(Action::Interact(InteractionKind::DrinkChoyinWell));
+            }
+            "choyin.w_street1" => {
+                actions.push(Action::Interact(InteractionKind::LiftChoyinStoneLion));
+            }
+            "oldpine.cave5" if self.current_ground_has("oldpine.npc.skeleton") => {
+                actions.push(Action::Interact(InteractionKind::BuryOldPineSkeleton));
+            }
+            "oldpine.keep2"
+                if self.oldpine_keep_sealed
+                    && (self
+                        .player
+                        .has_item(&ItemId::from("oldpine.obj.bamboo_pipe"))
+                        || self
+                            .player
+                            .has_item(&ItemId::from("oldpine.npc.obj.bamboo_pipe"))) =>
+            {
+                actions.push(Action::Interact(InteractionKind::BlowOldPineBambooPipe));
+            }
+            "choyin.club" => {
+                actions.push(Action::Interact(InteractionKind::BorrowChoyinBook));
+            }
+            "choyin.taolin" => {
+                actions.push(Action::Interact(InteractionKind::ReadChoyinPeachNote));
+            }
+            "choyin.craneroom" if self.player.has_item(&ItemId::from(CHOYIN_GOLDEN_ROPE_ID)) => {
+                actions.push(Action::Interact(InteractionKind::TieChoyinCrane));
+            }
+            "chuenyu.center" => {
+                actions.push(Action::Interact(InteractionKind::PullChuenyuHallRope));
+            }
+            "chuenyu.east_castle"
+            | "chuenyu.east_garden"
+            | "chuenyu.west_castle"
+            | "chuenyu.west_garden" => {
+                actions.push(Action::Interact(InteractionKind::ClimbChuenyuCastleWall));
+            }
+            "chuenyu.rope_bridge" => {
+                actions.push(Action::Interact(InteractionKind::DescendChuenyuRopeBridge));
+            }
+            "chuenyu.tunnel4" if self.chuenyu_slab_passage_ticks == 0 => {
+                actions.push(Action::Interact(InteractionKind::PushChuenyuDungeonSlab));
+            }
+            "green.closed" => {
+                actions.push(Action::Interact(InteractionKind::PushGreenBoulder));
+            }
+            "green.station0"
+                if self
+                    .player
+                    .inventory
+                    .iter()
+                    .any(|item| item.definition().category == items::ItemCategory::Liquid) =>
+            {
+                actions.push(Action::Interact(InteractionKind::FillGreenWell));
+            }
+            "green.water" => {
+                actions.push(Action::Interact(InteractionKind::SearchGreenStream));
+            }
+            "sanyen.kitchen" => {
+                actions.push(Action::Interact(InteractionKind::OpenSanyenSteamer));
+                if !self.current_room_has_npc(SANYEN_COOK_ID) && self.sanyen_buns_taken < 5 {
+                    actions.push(Action::Interact(InteractionKind::TakeSanyenBun));
+                }
+            }
+            "latemoon.gate" => {
+                actions.push(Action::Interact(InteractionKind::InspectLateMoonLantern));
+            }
+            "latemoon.latemoon2" => {
+                if self.latemoon_clothes_taken < 2 {
+                    actions.push(Action::Interact(InteractionKind::TakeLateMoonCloth));
+                }
+                if self.latemoon_bracelet_clue && !self.latemoon_bracelet_received {
+                    actions.push(Action::Interact(InteractionKind::SearchLateMoonBracelet));
+                }
+            }
+            "latemoon.latemoon8" => {
+                actions.push(Action::Interact(InteractionKind::DanceLateMoonOut));
+                actions.push(Action::Interact(InteractionKind::DanceLateMoonYuFong));
+                if self.latemoon_dance_book_clue && !self.latemoon_dance_book_received {
+                    actions.push(Action::Interact(InteractionKind::SearchLateMoonDanceBook));
+                }
+            }
+            "latemoon.miroom" => {
+                actions.push(Action::Interact(InteractionKind::DanceLateMoonOut));
+            }
+            "latemoon.park.moonc" if self.latemoon_flowers_picked < 2 => {
+                actions.push(Action::Interact(InteractionKind::PickLateMoonFlower));
+            }
+            "latemoon.room.bathroom" => {
+                actions.push(Action::Interact(InteractionKind::BatheLateMoonPool));
+            }
+            "latemoon.upstar.uproom3" => {
+                actions.push(Action::Interact(InteractionKind::PonderLateMoonRoom));
+            }
+            "death.inn1" => {
+                actions.push(Action::Interact(InteractionKind::InspectDeathShadows));
+                actions.push(Action::Interact(InteractionKind::ReincarnateDeathInn));
+            }
+            "u.cloud.butchery" => {
+                actions.push(Action::Interact(InteractionKind::InspectCloudButcherySign));
+            }
+            "u.cloud.biaoju" if !self.cloud_escort_member => {
+                actions.push(Action::Interact(InteractionKind::JoinCloudEscort));
+            }
             _ => {}
         }
 
-        for npc in &current.npcs {
-            if !self.npc_is_present(npc) {
-                continue;
-            }
+        actions.extend(
+            current
+                .details
+                .iter()
+                .map(|detail| Action::InspectRoomDetail(detail.key.clone())),
+        );
+
+        let present_npcs = self.present_current_npcs();
+        for &npc in &present_npcs {
             actions.push(Action::Talk(npc.clone()));
             let definition = npcs()
                 .definition(npc)
                 .expect("room NPC must exist in the repository");
             for inquiry in definition.inquiries.iter().filter(|inquiry| {
-                inquiry.is_runtime_available() || inquiry.scripted_runtime_kind(npc).is_some()
+                (inquiry.is_runtime_available() || inquiry.scripted_runtime_kind(npc).is_some())
+                    && self.scripted_inquiry_is_available(npc, &inquiry.topic)
             }) {
                 actions.push(Action::AskNpc {
                     npc: npc.clone(),
@@ -1090,6 +1677,23 @@ impl Game {
                     npc: npc.clone(),
                 });
             }
+            if definition.is_source_combatant() {
+                actions.push(Action::Fight(EnemyKind::Npc(npc.clone())));
+                actions.push(Action::Kill(EnemyKind::Npc(npc.clone())));
+            }
+            if definition
+                .apprenticeship_policy()
+                .is_some_and(|policy| self.npc_lesson_access(policy))
+            {
+                for lesson in definition.lessons() {
+                    if self.player.skill_level(lesson.skill) < lesson.max_level {
+                        actions.push(Action::LearnFromNpc {
+                            skill: SkillId::from(lesson.skill),
+                            npc: npc.clone(),
+                        });
+                    }
+                }
+            }
             if let Some(kind) = definition.object_exchange_kind()
                 && let Some(amount) = kind.money_offer()
                 && self.money_offer_is_available(kind)
@@ -1099,19 +1703,6 @@ impl Game {
                     npc: npc.clone(),
                 });
             }
-        }
-        if self.snow_teacher_paid
-            && self.npc_is_present(&NpcId::from(SNOW_TEACHER_ID))
-            && current
-                .npcs
-                .iter()
-                .any(|npc| npc.as_str() == SNOW_TEACHER_ID)
-            && self.player.skill_level("literate") < 60
-        {
-            actions.push(Action::LearnFromNpc {
-                skill: SkillId::from("literate"),
-                npc: NpcId::from(SNOW_TEACHER_ID),
-            });
         }
         for teacher_id in teachers_at_location(current.id.as_str()) {
             if self.player.teacher.as_deref() == Some(*teacher_id) {
@@ -1148,24 +1739,51 @@ impl Game {
                 actions.push(Action::Cultivate(CultivationKind::Respirate));
             }
         }
-        if let Some(enemy) = current.enemy {
-            actions.push(Action::Fight(enemy));
-            actions.push(Action::Kill(enemy));
+        if self.location.as_str() == content::PINE_FOREST && self.quest == QuestStage::FoundJuan {
+            actions.push(Action::Kill(EnemyKind::XiaoJuan));
+        }
+        if let Some(enemy) = &current.enemy
+            && (!matches!(enemy, EnemyKind::Bandit)
+                || matches!(self.quest, QuestStage::Unasked | QuestStage::FindJuan))
+        {
+            actions.push(Action::Fight(enemy.clone()));
+            actions.push(Action::Kill(enemy.clone()));
         }
         actions.extend(self.technique_actions(false));
 
         if let Some(ground) = self.ground_items.get(&self.location) {
             for item in ground {
-                actions.push(Action::PickUpItem(item.instance_id));
+                if !CHOYIN_DONATION_BOX_IDS.contains(&item.item_id.as_str()) {
+                    actions.push(Action::PickUpItem(item.instance_id));
+                }
             }
         }
         for item in &self.player.inventory {
             let definition = item.definition();
             if item.has_uses_left()
                 && (definition.food_supply.is_some()
-                    || definition.category == items::ItemCategory::Liquid)
+                    || definition.category == items::ItemCategory::Liquid
+                    || item.item_id.as_str() == CHOYIN_TABLET_ID
+                    || LATEMOON_SPECIAL_CONSUMABLE_IDS.contains(&item.item_id.as_str()))
             {
                 actions.push(Action::ConsumeItem(item.instance_id));
+            }
+            if LATEMOON_DANCE_BOOK_IDS.contains(&item.item_id.as_str()) {
+                actions.push(Action::Interact(InteractionKind::UseLateMoonDanceBook(
+                    item.instance_id,
+                )));
+            }
+            if LATEMOON_BRACELET_IDS.contains(&item.item_id.as_str()) {
+                actions.push(Action::Interact(InteractionKind::PrayLateMoonBracelet(
+                    item.instance_id,
+                )));
+            }
+            if item.item_id.as_str() == LATEMOON_SECRET_LETTER_ID
+                && self.player.has_item(&ItemId::from(LATEMOON_FIRE_ID))
+            {
+                actions.push(Action::Interact(InteractionKind::ReadLateMoonSecretLetter(
+                    item.instance_id,
+                )));
             }
             if item.has_uses_left()
                 && matches!(
@@ -1185,22 +1803,39 @@ impl Game {
                 actions.push(Action::EquipItem(item.instance_id));
             }
             if !self.player.is_equipped(item.instance_id) {
-                if current.npcs.iter().any(|npc| npc.as_str() == TRADER_ID) && item.unit_value() > 0
+                let transfer_restricted = definition
+                    .behavior_flags
+                    .iter()
+                    .any(|flag| flag == "restricted_movement");
+                if !transfer_restricted
+                    && present_npcs.iter().any(|npc| npc.as_str() == TRADER_ID)
+                    && item.unit_value() > 0
                 {
                     actions.push(Action::SellItem(item.instance_id));
                 }
-                for npc in &current.npcs {
+                for &npc in &present_npcs {
                     let accepts_gifts = npcs()
                         .definition(npc)
                         .is_some_and(|definition| definition.accepts_runtime_gifts());
-                    if self.npc_is_present(npc) && accepts_gifts {
+                    if accepts_gifts && !transfer_restricted {
                         actions.push(Action::GiveItem {
                             instance_id: item.instance_id,
                             npc: npc.clone(),
                         });
                     }
                 }
-                actions.push(Action::DropItem(item.instance_id));
+                if self.location.as_str() == "choyin.altar"
+                    && item.unit_value() > 0
+                    && !transfer_restricted
+                    && CHOYIN_DONATION_BOX_IDS
+                        .iter()
+                        .any(|box_id| self.current_ground_has(box_id))
+                {
+                    actions.push(Action::DonateItem(item.instance_id));
+                }
+                if !transfer_restricted {
+                    actions.push(Action::DropItem(item.instance_id));
+                }
             }
         }
         let powders: Vec<_> = self
@@ -1240,7 +1875,72 @@ impl Game {
     }
 
     fn npc_is_present(&self, npc: &NpcId) -> bool {
-        npc.as_str() != SNOW_GUARD_ID || !self.snow_guard_defeated
+        let quest_presence = match npc.as_str() {
+            OLD_LIU_ID | CHUENYU_OLD_LIU_ID => {
+                !matches!(self.quest, QuestStage::Complete | QuestStage::Failed)
+            }
+            XIAO_JUAN_ID | CHUENYU_XIAO_JUAN_ID | CHUENYU_XIAO_JUAN_PLACED_ID => {
+                self.quest == QuestStage::FoundJuan
+            }
+            _ => true,
+        };
+        let total = self
+            .current_location()
+            .npcs
+            .iter()
+            .filter(|candidate| *candidate == npc)
+            .count()
+            + self
+                .spawned_npc_instances
+                .iter()
+                .filter(|entry| entry.location == self.location && &entry.npc == npc)
+                .count();
+        let defeated = self
+            .defeated_npc_instances
+            .iter()
+            .filter(|entry| entry.location == self.location && &entry.npc == npc)
+            .count();
+        quest_presence
+            && (npc.as_str() != SNOW_GUARD_ID || !self.snow_guard_defeated)
+            && !self.defeated_npcs.contains(npc)
+            && defeated < total
+    }
+
+    fn present_current_npcs(&self) -> Vec<&NpcId> {
+        let mut seen = HashSet::new();
+        self.current_location()
+            .npcs
+            .iter()
+            .chain(
+                self.spawned_npc_instances
+                    .iter()
+                    .filter(|entry| entry.location == self.location)
+                    .map(|entry| &entry.npc),
+            )
+            .filter(|npc| seen.insert(*npc) && self.npc_is_present(npc))
+            .collect()
+    }
+
+    fn current_room_has_npc(&self, npc_id: &str) -> bool {
+        self.npc_is_present(&NpcId::from(npc_id))
+    }
+
+    fn scripted_inquiry_is_available(&self, npc: &NpcId, topic: &str) -> bool {
+        !matches!(
+            (npc.as_str(), topic),
+            (CHOYIN_GIRL_ID, "游晋") if self.choyin_silk_bag_received
+        ) && !matches!(
+            (npc.as_str(), topic),
+            (CHOYIN_YOUNG_MAN_ID, "trouble") if self.choyin_silk_bag_delivered
+        ) && !matches!(
+            (npc.as_str(), topic),
+            (GREEN_SHEN_ID, "玉佩")
+                if !self.green_drunk_jade_clue || self.green_jade_received
+        ) && !matches!(
+            (npc.as_str(), topic),
+            (GREEN_SHEN_ID, "蒙汗药")
+                if !self.green_drunk_drug_clue || self.green_drug_offer_unlocked
+        )
     }
 
     fn money_offer_is_available(&self, kind: ObjectExchangeKind) -> bool {
@@ -1250,31 +1950,111 @@ impl Game {
             ObjectExchangeKind::CanyonSeller => !self.canyon_fake_seal_bought,
             ObjectExchangeKind::CityWaiter => !self.city_inn_access,
             ObjectExchangeKind::CityShangshuGuard => !self.city_manor_pass,
+            ObjectExchangeKind::SnowTempleDonation => true,
             ObjectExchangeKind::CanyonGeneral
+            | ObjectExchangeKind::ChoyinSergeant
+            | ObjectExchangeKind::ChoyinYoungMan
+            | ObjectExchangeKind::CityGuardToken
+            | ObjectExchangeKind::GreenShen
+            | ObjectExchangeKind::LatemoonFunlin
+            | ObjectExchangeKind::LatemoonOld
+            | ObjectExchangeKind::LatemoonShaowei
+            | ObjectExchangeKind::CloudBHeader
+            | ObjectExchangeKind::CloudBoater
+            | ObjectExchangeKind::CloudGangster
+            | ObjectExchangeKind::CloudGirl
+            | ObjectExchangeKind::CloudJudge
+            | ObjectExchangeKind::CloudMonk
+            | ObjectExchangeKind::CityChenLetter
             | ObjectExchangeKind::ScavengerDonation
+            | ObjectExchangeKind::SnowDrunk
             | ObjectExchangeKind::TeacherTuition => false,
         }
     }
 
-    fn exit_is_available(&self, current: &Location, exit: &Exit) -> bool {
+    fn npc_lesson_access(&self, policy: NpcApprenticeshipPolicy) -> bool {
+        match policy {
+            NpcApprenticeshipPolicy::RecognizeFaction(faction)
+            | NpcApprenticeshipPolicy::SameFaction(faction) => {
+                self.player.faction.as_deref() == Some(faction)
+            }
+            NpcApprenticeshipPolicy::PaidStudent => self.snow_teacher_paid,
+            NpcApprenticeshipPolicy::DeferredLetter => self.city_chen_letter_delivered,
+            NpcApprenticeshipPolicy::PlotGated => self.cloud_escort_member,
+            NpcApprenticeshipPolicy::ExcludedUnplaced => false,
+        }
+    }
+
+    fn resolved_source_exit_target(&self, current: &Location, exit: &Exit) -> LocationId {
+        let (prefix, first, count) = match exit.target.as_str() {
+            content::OLD_PINE_CAVE_PREFIX => (content::OLD_PINE_CAVE_PREFIX, 1u64, 4u64),
+            content::OLD_PINE_FOREST_PREFIX if current.id.as_str() == "oldpine.cliffdown" => {
+                (content::OLD_PINE_FOREST_PREFIX, 1, 6)
+            }
+            content::OLD_PINE_FOREST_PREFIX => (content::OLD_PINE_FOREST_PREFIX, 2, 5),
+            _ => return exit.target.clone(),
+        };
+        let hash = current
+            .id
+            .as_str()
+            .bytes()
+            .chain(exit.direction.bytes())
+            .fold(self.rng_state, |hash, byte| {
+                hash.wrapping_mul(1_099_511_628_211)
+                    .wrapping_add(u64::from(byte))
+            });
+        LocationId::new(format!("{prefix}{}", first + hash % count))
+    }
+
+    fn exit_is_available(&self, current: &Location, exit: &Exit, target: &LocationId) -> bool {
         let interaction_only = matches!(
             (current.id.as_str(), exit.target.as_str()),
             (content::LAKESIDE, content::LAKE) | (content::LAKE, content::LAKESIDE)
         );
         let dynamic_exit_closed = exit.dynamic
-            && !(current.id.as_str() == content::ROAD6 && self.hidden_grass_path_ticks > 0);
-        let closed_door = door_for_transition(&current.id, &exit.target)
-            .is_some_and(|door| !self.is_door_open(door));
-        let access_denied = match (current.id.as_str(), exit.target.as_str()) {
+            && !match (current.id.as_str(), exit.direction.as_str()) {
+                (content::ROAD6, "west") => self.hidden_grass_path_ticks > 0,
+                (CITY_ALTAR, "down") => self.city_altar_passage_ticks > 0,
+                (SNOW_WEAPON_STORAGE, "down") => self.snow_storage_passage_ticks > 0,
+                (CANYON_BAMBOO_BOULDER, "enter") => self.canyon_boulder_open,
+                ("choyin.platform", "down") => self.choyin_platform_passage_ticks > 0,
+                ("chuenyu.tunnel4", "up") | ("chuenyu.east_castle", "down") => {
+                    self.chuenyu_slab_passage_ticks > 0
+                }
+                _ => false,
+            };
+        let closed_door =
+            door_for_transition(&current.id, target).is_some_and(|door| !self.is_door_open(door));
+        let closed_source_door = self
+            .source_door_is_open(&current.id, target)
+            .is_some_and(|open| !open);
+        let access_denied = match (current.id.as_str(), target.as_str()) {
             (content::CANYON_CAMP7, content::CANYON_CAMP8) => !self.canyon_camp_access,
             (content::CITY_INN, content::CITY_INN_UPSTAIRS) => !self.city_inn_access,
             (content::CITY_MANOR_GATE, content::CITY_MANOR_YARD) => !self.city_manor_pass,
+            (content::CITY_MANOR_ROAD_TWO, target) if target != content::CITY_MANOR_YARD => {
+                !self.city_manor_pass
+                    && (self.current_room_has_npc(CITY_SHANGSHU_PATROL_ID)
+                        || self.current_room_has_npc(CITY_SHANGSHU_PATROL_ELITE_ID))
+            }
+            (content::CITY_NORTH_GATE, content::CITY_NORTH_ROAD) => !self.city_exit_permit,
+            (content::TEMPLE_ROAD_TWO, TEMPLE_BOOK_ROOM) => {
+                self.player.faction.as_deref() != Some("茅山派")
+            }
+            ("oldpine.keep2", "oldpine.keep1") | ("oldpine.keep1", "oldpine.keep2") => {
+                self.oldpine_keep_sealed
+            }
+            ("choyin.entrance", "choyin.taolin") => !self.choyin_scholar_trial_started,
+            ("green.entrance", "green.eight0") => self.player.combat_experience < 100_000,
+            ("death.gateway", "death.gate") => true,
+            ("u.cloud.sunhill.northriver", "u.cloud.sunhill.midriver") => !self.cloud_boater_paid,
             _ => false,
         };
-        world().contains(&exit.target)
+        world().contains(target)
             && !interaction_only
             && !dynamic_exit_closed
             && !closed_door
+            && !closed_source_door
             && !access_denied
     }
 
@@ -1338,6 +2118,88 @@ impl Game {
         })
     }
 
+    fn source_door_name(&self, target: &LocationId) -> &'static str {
+        source_door_pair(&self.location, target).map_or("门", |(door, _)| door.name.as_str())
+    }
+
+    fn source_door_is_open(&self, source: &LocationId, target: &LocationId) -> Option<bool> {
+        let (door, reverse) = source_door_pair(source, target)?;
+        let (first, second) = canonical_location_pair(source, target);
+        self.source_door_states
+            .iter()
+            .find(|state| state.first == first && state.second == second)
+            .map(|state| state.open)
+            .or(Some(!(door.initially_closed || reverse.initially_closed)))
+    }
+
+    fn inspect_room_detail(&mut self, key: &str) {
+        let current = self.current_location();
+        let Some(detail) = current.details.iter().find(|detail| detail.key == key) else {
+            self.push_log("这里没有可细看的东西。".into());
+            return;
+        };
+        let green_web = current.id.as_str() == "green.house3" && key == "web";
+        let green_spiders_spawned = self
+            .spawned_npc_instances
+            .iter()
+            .filter(|entry| {
+                entry.location.as_str() == "green.house3" && entry.npc.as_str() == GREEN_SPIDER_ID
+            })
+            .count();
+        let message = if green_web && green_spiders_spawned >= 3 {
+            "一个很大的蜘蛛网。".into()
+        } else if let Some(direction) = &detail.door_direction {
+            let door = current
+                .doors
+                .iter()
+                .find(|door| &door.direction == direction);
+            let Some(door) = door else {
+                self.push_log("这扇门没有留下可辨认的状态。".into());
+                return;
+            };
+            let open = current
+                .exits
+                .iter()
+                .find(|exit| &exit.direction == direction)
+                .and_then(|exit| self.source_door_is_open(&current.id, &exit.target))
+                .unwrap_or(!door.initially_closed);
+            format!("{}现在{}。", door.name, if open { "开着" } else { "关着" })
+        } else {
+            detail
+                .description
+                .clone()
+                .unwrap_or_else(|| "这里没有更多可辨认的细节。".into())
+        };
+        self.push_log(message);
+        if green_web && green_spiders_spawned < 3 {
+            self.spawned_npc_instances.push(SpawnedNpcInstance {
+                location: self.location.clone(),
+                npc: NpcId::from(GREEN_SPIDER_ID),
+            });
+            self.push_log("屋角阴影一动，一只硕大的蜘蛛从网后爬了出来。".into());
+        }
+    }
+
+    fn set_source_door_open(&mut self, target: LocationId, open: bool) {
+        let name = self.source_door_name(&target).to_string();
+        let (first, second) = canonical_location_pair(&self.location, &target);
+        if let Some(state) = self
+            .source_door_states
+            .iter_mut()
+            .find(|state| state.first == first && state.second == second)
+        {
+            state.open = open;
+        } else {
+            self.source_door_states.push(SourceDoorState {
+                first,
+                second,
+                open,
+            });
+        }
+        let action = if open { "打开" } else { "关上" };
+        self.push_log(format!("你{action}了{name}。"));
+    }
+
     fn is_door_open(&self, door: DoorKind) -> bool {
         match door {
             DoorKind::LiuGarden => self.garden_door_open,
@@ -1360,8 +2222,19 @@ impl Game {
         }
 
         match action {
+            Action::Move { direction, .. } if self.location.as_str() == "choyin.taolin" => {
+                self.move_through_choyin_taolin(&direction);
+            }
+            Action::Move { direction, target }
+                if self.location.as_str() == "death.road2" && direction == "north" =>
+            {
+                self.advance_death_road(target);
+            }
             Action::Move { target, .. } => self.move_to(target),
             Action::Flee { target, .. } => self.flee_to(target),
+            Action::OpenSourceDoor { target } => self.set_source_door_open(target, true),
+            Action::CloseSourceDoor { target } => self.set_source_door_open(target, false),
+            Action::InspectRoomDetail(key) => self.inspect_room_detail(&key),
             Action::Interact(interaction) => self.interact(interaction),
             Action::Talk(npc) => self.talk(npc),
             Action::AskNpc { npc, topic } => self.ask_npc(npc, &topic),
@@ -1381,6 +2254,7 @@ impl Game {
             Action::OfferMoney { amount, npc } => self.offer_money(amount, npc),
             Action::SellItem(instance_id) => self.sell_item(instance_id),
             Action::GiveItem { instance_id, npc } => self.give_item_to_npc(instance_id, npc),
+            Action::DonateItem(instance_id) => self.donate_item(instance_id),
             Action::PickUpItem(instance_id) => self.pick_up_item(instance_id),
             Action::DropItem(instance_id) => self.drop_item(instance_id),
             Action::EquipItem(instance_id) => self.equip_item(instance_id),
@@ -1396,6 +2270,9 @@ impl Game {
     }
 
     pub fn tick(&mut self) {
+        if self.trigger_old_liu_revenge() {
+            return;
+        }
         self.elapsed_minutes += 10;
         self.player.food = self.player.food.saturating_sub(1);
         self.player.water = self.player.water.saturating_sub(1);
@@ -1403,6 +2280,66 @@ impl Game {
             self.hidden_grass_path_ticks -= 1;
             if self.hidden_grass_path_ticks == 0 && self.location.as_str() == content::ROAD6 {
                 self.push_log("茅草重新合拢，西面的隐秘小路消失了。".into());
+            }
+        }
+        if self.chuenyu_slab_passage_ticks > 0 {
+            self.chuenyu_slab_passage_ticks -= 1;
+            if self.chuenyu_slab_passage_ticks == 0
+                && matches!(
+                    self.location.as_str(),
+                    "chuenyu.tunnel4" | "chuenyu.east_castle"
+                )
+            {
+                self.push_log("地牢石板轰然落回原位，上下通道重新封闭。".into());
+            }
+        }
+        if self.location.as_str() == "chuenyu.trap_castle" {
+            if self.chuenyu_trap_arrow_ticks == 0 {
+                self.chuenyu_trap_arrow_ticks = 2;
+            } else {
+                self.chuenyu_trap_arrow_ticks -= 1;
+                if self.chuenyu_trap_arrow_ticks == 0 {
+                    let damage = 35 + self.random(10) as i32;
+                    self.player.qi = (self.player.qi - damage).max(0);
+                    self.chuenyu_trap_arrow_ticks = 1;
+                    self.push_log(format!("石墙圆孔射出密集羽箭，你损失{damage}点气。"));
+                }
+            }
+        } else {
+            self.chuenyu_trap_arrow_ticks = 0;
+        }
+        if self.city_altar_passage_ticks > 0 && self.location.as_str() != CITY_ALTAR_TUNNEL {
+            self.city_altar_passage_ticks -= 1;
+            if self.city_altar_passage_ticks == 0 && self.location.as_str() == CITY_ALTAR {
+                self.push_log("祭坛地板轧轧合拢，向下的阶梯消失了。".into());
+            }
+        }
+        if self.snow_storage_passage_ticks > 0 && self.location.as_str() != SNOW_SECRET_STORAGE {
+            self.snow_storage_passage_ticks -= 1;
+            if self.snow_storage_passage_ticks == 0 && self.location.as_str() == SNOW_WEAPON_STORAGE
+            {
+                self.push_log("兵器架后的地板缓缓合拢，密道阶梯再次隐没。".into());
+            }
+        }
+        if self.choyin_platform_passage_ticks > 0 {
+            self.choyin_platform_passage_ticks -= 1;
+            if self.choyin_platform_passage_ticks == 0
+                && self.location.as_str() == "choyin.platform"
+            {
+                self.push_log("一道蓝光掠过，云台下行的裂口重新合拢。".into());
+            }
+        }
+        if self.choyin_thunder_ticks > 0 {
+            if self.location.as_str() == "choyin.platform" {
+                self.choyin_thunder_ticks -= 1;
+                if self.choyin_thunder_ticks == 0 {
+                    let damage = 35 + self.random(10) as i32;
+                    self.player.essence = (self.player.essence - damage).max(0);
+                    self.choyin_thunder_ticks = 1;
+                    self.push_log(format!("雷霆劈落云台，你损失{damage}点精。"));
+                }
+            } else {
+                self.choyin_thunder_ticks = 0;
             }
         }
         match self.activity.clone() {
@@ -1442,8 +2379,11 @@ impl Game {
         match self.quest {
             QuestStage::Unasked => "山村旧事",
             QuestStage::FindJuan => "寻找娟儿",
+            QuestStage::FoundJuan => "救出娟儿",
             QuestStage::ReturnHome => "平安归来",
+            QuestStage::MurderedJuan => "父女之殇",
             QuestStage::Complete => "山村旧事 · 已完成",
+            QuestStage::Failed => "山村旧事 · 已失败",
         }
     }
 
@@ -1451,8 +2391,11 @@ impl Game {
         match self.quest {
             QuestStage::Unasked => "刘老农似乎有心事。去刘家小房问问他。",
             QuestStage::FindJuan => "娟儿在松林附近失踪。前往松林寻找她。",
+            QuestStage::FoundJuan => "小娟已经脱险。与她交谈并护送她回家。",
             QuestStage::ReturnHome => "娟儿已经脱险。回刘家小房向刘老农报平安。",
+            QuestStage::MurderedJuan => "你杀害了小娟。刘老农绝不会原谅此事。",
             QuestStage::Complete => "刘家父女已经离开山村。你可以继续游历和修炼。",
+            QuestStage::Failed => "刘家父女的命运已无法挽回。",
         }
     }
 
@@ -1526,6 +2469,85 @@ impl Game {
             .unwrap_or_else(|| "未知物品".into())
     }
 
+    fn current_ground_has(&self, item_id: &str) -> bool {
+        self.ground_items
+            .get(&self.location)
+            .is_some_and(|items| items.iter().any(|item| item.item_id.as_str() == item_id))
+    }
+
+    fn initialize_source_room_items(&mut self) {
+        if self.source_room_items_initialized {
+            return;
+        }
+        self.initialize_source_room_items_for(&["village", "city", "snow", "temple", "canyon"]);
+        self.source_room_items_initialized = true;
+    }
+
+    fn initialize_m5_source_room_items(&mut self) {
+        if self.m5_source_room_items_initialized {
+            return;
+        }
+        self.initialize_source_room_items_for(&["oldpine", "goathill", "choyin"]);
+        self.m5_source_room_items_initialized = true;
+    }
+
+    fn initialize_m6_source_room_items(&mut self) {
+        if self.m6_source_room_items_initialized {
+            return;
+        }
+        self.initialize_source_room_items_for(&["chuenyu", "green", "sanyen", "waterfog"]);
+        self.m6_source_room_items_initialized = true;
+    }
+
+    fn initialize_m7_source_room_items(&mut self) {
+        if self.m7_source_room_items_initialized {
+            return;
+        }
+        self.initialize_source_room_items_for(&[
+            "latemoon",
+            "death",
+            "graveyard",
+            "jail",
+            "u.cloud",
+        ]);
+        self.m7_source_room_items_initialized = true;
+    }
+
+    fn initialize_source_room_items_for(&mut self, location_prefixes: &[&str]) {
+        let mut placements: Vec<_> = world()
+            .locations()
+            .filter(|location| {
+                location_prefixes
+                    .iter()
+                    .any(|prefix| location.id.as_str().starts_with(&format!("{prefix}.")))
+            })
+            .flat_map(|location| {
+                location.room_items.iter().map(|placement| {
+                    (
+                        location.id.clone(),
+                        placement.item_id.clone(),
+                        placement.count,
+                    )
+                })
+            })
+            .collect();
+        placements.sort_by(|left, right| {
+            left.0
+                .as_str()
+                .cmp(right.0.as_str())
+                .then_with(|| left.1.as_str().cmp(right.1.as_str()))
+        });
+        for (location, item_id, count) in placements {
+            for _ in 0..count {
+                let instance_id = self.allocate_item_instance_id();
+                self.ground_items
+                    .entry(location.clone())
+                    .or_default()
+                    .push(ItemInstance::new(instance_id, item_id.clone(), 1));
+            }
+        }
+    }
+
     fn allocate_item_instance_id(&mut self) -> u64 {
         let inventory_max = self
             .player
@@ -1583,7 +2605,7 @@ impl Game {
     }
 
     fn offer_money(&mut self, amount: u64, npc: NpcId) {
-        if !self.current_location().npcs.contains(&npc) || !self.npc_is_present(&npc) {
+        if !self.npc_is_present(&npc) {
             return;
         }
         let Some(kind) = npcs()
@@ -1624,14 +2646,33 @@ impl Game {
                 self.city_manor_pass = true;
                 self.push_log("尚书府护院掂了掂银子，侧身让出东面的院门。".into());
             }
+            ObjectExchangeKind::SnowTempleDonation => {
+                self.apply_snow_temple_donation(amount);
+                self.push_log("庙祝收下香火钱：神明一定会保佑你的。".into());
+            }
             ObjectExchangeKind::CanyonGeneral
+            | ObjectExchangeKind::ChoyinSergeant
+            | ObjectExchangeKind::ChoyinYoungMan
+            | ObjectExchangeKind::CityGuardToken
+            | ObjectExchangeKind::GreenShen
+            | ObjectExchangeKind::LatemoonFunlin
+            | ObjectExchangeKind::LatemoonOld
+            | ObjectExchangeKind::LatemoonShaowei
+            | ObjectExchangeKind::CloudBHeader
+            | ObjectExchangeKind::CloudBoater
+            | ObjectExchangeKind::CloudGangster
+            | ObjectExchangeKind::CloudGirl
+            | ObjectExchangeKind::CloudJudge
+            | ObjectExchangeKind::CloudMonk
+            | ObjectExchangeKind::CityChenLetter
             | ObjectExchangeKind::ScavengerDonation
+            | ObjectExchangeKind::SnowDrunk
             | ObjectExchangeKind::TeacherTuition => {}
         }
     }
 
     fn buy_item(&mut self, item_id: ItemId, npc: NpcId) {
-        if !self.current_location().npcs.contains(&npc) {
+        if !self.npc_is_present(&npc) {
             return;
         }
         let Some(price) = npcs()
@@ -1666,7 +2707,23 @@ impl Game {
         self.push_log(format!("你花费{}买下一{name}。", format_money(price)));
     }
 
+    fn reject_no_drop_transfer(&mut self, instance_id: u64) -> bool {
+        let restricted = self.player.item(instance_id).is_some_and(|item| {
+            item.definition()
+                .behavior_flags
+                .iter()
+                .any(|flag| flag == "restricted_movement")
+        });
+        if restricted {
+            self.push_log("这件物品与当前旅程相系，无法转手或丢弃。".into());
+        }
+        restricted
+    }
+
     fn sell_item(&mut self, instance_id: u64) {
+        if self.reject_no_drop_transfer(instance_id) {
+            return;
+        }
         let Some(index) = self
             .player
             .inventory
@@ -1695,10 +2752,10 @@ impl Game {
     }
 
     fn give_item_to_npc(&mut self, instance_id: u64, npc: NpcId) {
-        if !self.current_location().npcs.contains(&npc)
-            || !self.npc_is_present(&npc)
-            || self.player.is_equipped(instance_id)
-        {
+        if !self.npc_is_present(&npc) || self.player.is_equipped(instance_id) {
+            return;
+        }
+        if self.reject_no_drop_transfer(instance_id) {
             return;
         }
         let Some(definition) = npcs().definition(&npc) else {
@@ -1737,6 +2794,73 @@ impl Game {
             Some(ObjectExchangeKind::ScavengerDonation) => {
                 self.player.inventory.remove(index);
                 self.push_log(format!("收破烂的笑着收下{name}，连声道谢。"));
+            }
+            Some(ObjectExchangeKind::SnowDrunk)
+                if item.definition().category != items::ItemCategory::Liquid
+                    || item.definition().liquid_type.as_deref() != Some("alcohol")
+                    || item.remaining_uses.unwrap_or(0) <= 5 =>
+            {
+                self.push_log("醉汉摆摆手：这点酒还不够我润喉。".into());
+            }
+            Some(ObjectExchangeKind::SnowDrunk) => {
+                self.player.inventory.remove(index);
+                if self.green_elder_jade_clue && !self.green_drunk_jade_clue {
+                    self.green_drunk_jade_clue = true;
+                    self.push_log("醉汉痛饮后说道：那块玉佩早卖给青石村杂货铺的沈万年了。".into());
+                } else if self.green_drunk_jade_clue && !self.green_drunk_drug_clue {
+                    self.green_drunk_drug_clue = true;
+                    self.push_log(
+                        "醉汉又灌下一壶酒：沈万年还藏着蒙汗药，只肯卖给知道门道的人。".into(),
+                    );
+                } else {
+                    self.push_log(format!("醉汉接过{name}，仰头喝得一滴不剩。"));
+                }
+            }
+            Some(ObjectExchangeKind::GreenShen) if !self.green_drug_offer_unlocked => {
+                self.push_log("沈万年眯起眼道：我这里不收来路不明的东西。".into());
+            }
+            Some(ObjectExchangeKind::GreenShen) if value < 1_000 => {
+                self.push_log("沈万年掂了掂礼物：要换蒙汗药，这点价值还不够。".into());
+            }
+            Some(ObjectExchangeKind::GreenShen) => {
+                self.player.inventory.remove(index);
+                self.add_inventory_item(ItemId::from(items::SLUMBER_DRUG_ID), 1);
+                self.push_log(format!("沈万年收下{name}，从柜底取出一包蒙汗药交给你。"));
+            }
+            Some(ObjectExchangeKind::SnowTempleDonation) if value == 0 => {
+                self.push_log("庙祝说道：这里不收没有价值的物品。".into());
+            }
+            Some(ObjectExchangeKind::SnowTempleDonation) => {
+                self.player.inventory.remove(index);
+                self.apply_snow_temple_donation(value);
+                self.push_log(format!("庙祝收下{name}作为香火捐献：神明一定会保佑你的。"));
+            }
+            Some(ObjectExchangeKind::ChoyinYoungMan)
+                if item.item_id.as_str() == CHOYIN_SILK_BAG_ID
+                    && !self.choyin_silk_bag_delivered =>
+            {
+                self.player.inventory.remove(index);
+                self.choyin_silk_bag_delivered = true;
+                self.push_log(
+                    "游晋一眼认出荷包上的鸳鸯图案，又从怀中取出一方绣着相同图案的手帕。".into(),
+                );
+                self.push_log("游晋说道：原来爹爹替我主张的婚事，竟然是……".into());
+            }
+            Some(ObjectExchangeKind::ChoyinYoungMan) => {
+                self.push_log("游晋看了一眼，摇头道：这不是那位姑娘的信物。".into());
+            }
+            Some(ObjectExchangeKind::ChoyinSergeant)
+                if CHOYIN_PEACH_CHEST_IDS.contains(&item.item_id.as_str())
+                    && !self.choyin_chest_rewarded =>
+            {
+                self.player.inventory.remove(index);
+                self.choyin_chest_rewarded = true;
+                self.add_inventory_item(ItemId::from(CHOYIN_MAGIC_BOOK_ID), 1);
+                self.push_log("陈显祖喜道：太好了！就是这个箱子！".into());
+                self.push_log("陈显祖将一本「白杨经」交给你，作为寻回桃木箱的答谢。".into());
+            }
+            Some(ObjectExchangeKind::ChoyinSergeant) => {
+                self.push_log("陈显祖说道：这不是我遗失的桃木箱。".into());
             }
             Some(ObjectExchangeKind::CanyonAdviser) => {
                 self.player.inventory.remove(index);
@@ -1798,6 +2922,16 @@ impl Game {
             Some(ObjectExchangeKind::CanyonSeller) => {
                 self.push_log("黑市商人摆摆手，不肯收下这件东西。".into());
             }
+            Some(ObjectExchangeKind::CityGuardToken)
+                if item.item_id.as_str() == CITY_EXIT_TOKEN_ID =>
+            {
+                self.player.inventory.remove(index);
+                self.city_exit_permit = true;
+                self.push_log("京师守城兵验过令牌，准你从北门出城；通行许可仅可使用一次。".into());
+            }
+            Some(ObjectExchangeKind::CityGuardToken) => {
+                self.push_log("京师守城兵摇头道：这不是官府认可的出城令牌。".into());
+            }
             Some(ObjectExchangeKind::CityWaiter) => {
                 let item = self.player.inventory.remove(index);
                 if self.city_inn_access {
@@ -1819,6 +2953,132 @@ impl Game {
                     self.push_log("尚书府护院收下礼物，却仍挡在院门前。".into());
                 }
             }
+            Some(ObjectExchangeKind::LatemoonShaowei)
+                if LATEMOON_BAMBOO_IDS.contains(&item.item_id.as_str())
+                    && !self.latemoon_dragonfly_received =>
+            {
+                self.player.inventory.remove(index);
+                self.latemoon_dragonfly_received = true;
+                self.add_inventory_item(ItemId::from("latemoon.obj.dragonfly"), 1);
+                self.push_log("少庄主削开竹片，替你做成一只轻巧的竹蜻蜓。".into());
+            }
+            Some(ObjectExchangeKind::LatemoonShaowei) => {
+                self.push_log("少庄主说道：要做竹蜻蜓，得拿一截合用的竹子来。".into());
+            }
+            Some(ObjectExchangeKind::LatemoonFunlin)
+                if LATEMOON_DRAGONFLY_IDS.contains(&item.item_id.as_str())
+                    && !self.latemoon_bracelet_clue =>
+            {
+                self.player.inventory.remove(index);
+                self.latemoon_bracelet_clue = true;
+                self.push_log("凤铃把玩竹蜻蜓许久，悄悄告诉你碧纱橱底层藏着一只手镯。".into());
+            }
+            Some(ObjectExchangeKind::LatemoonFunlin) => {
+                self.player.inventory.remove(index);
+                self.push_log(format!("凤铃收下{name}，向你甜甜一笑。"));
+            }
+            Some(ObjectExchangeKind::LatemoonOld)
+                if item.item_id.as_str() == LATEMOON_TOKEN_ID && !self.latemoon_token_rewarded =>
+            {
+                self.player.inventory.remove(index);
+                self.latemoon_token_rewarded = true;
+                if self.player.faction.as_deref() == Some("晚月庄") && self.player.max_force < 160
+                {
+                    let gain = i32::try_from(self.random(10) + 1).unwrap_or(10);
+                    self.player.max_force = (self.player.max_force + gain).min(160);
+                    self.player.force = 0;
+                    self.push_log(format!("老人以令牌替你打通经脉，最大内力增加 {gain}。"));
+                } else {
+                    self.add_inventory_item(ItemId::from(LATEMOON_WHIP_BOOK_ID), 1);
+                    self.push_log("老人收回令牌，递给你一本可供研习的鞭法要诀。".into());
+                }
+            }
+            Some(ObjectExchangeKind::LatemoonOld) => {
+                self.push_log("老人摇头道：这不是庄中流传的旧令牌。".into());
+            }
+            Some(ObjectExchangeKind::CloudBHeader)
+                if item.item_id.as_str() == CHOYIN_GRASS_ID
+                    && self.cloud_escort_member
+                    && !self.cloud_escort_letter_received =>
+            {
+                self.player.inventory.remove(index);
+                self.cloud_escort_letter_received = true;
+                self.add_inventory_item(ItemId::from(CLOUD_ESCORT_LETTER_ID), 1);
+                self.push_log("陈剑秋收下忘忧草，写好一封署名荐书交给你。".into());
+            }
+            Some(ObjectExchangeKind::CloudBHeader) if !self.cloud_escort_member => {
+                self.push_log("陈剑秋说道：非我振远镖局门下，不敢劳动你替我采药。".into());
+            }
+            Some(ObjectExchangeKind::CloudBHeader) => {
+                self.push_log("陈剑秋说道：我只需要一株与你一路带来的忘忧草。".into());
+            }
+            Some(ObjectExchangeKind::CloudBoater) if self.cloud_boater_paid => {
+                self.push_log("船夫说道：船资已经收过，上船便是。".into());
+            }
+            Some(ObjectExchangeKind::CloudBoater) if value >= 2 => {
+                self.player.inventory.remove(index);
+                self.cloud_boater_paid = true;
+                self.push_log("船夫收下船资，解开缆绳等你登船。".into());
+            }
+            Some(ObjectExchangeKind::CloudBoater) => {
+                self.push_log("船夫掂了掂物件：这点船资还不够。".into());
+            }
+            Some(ObjectExchangeKind::CloudGangster) if value >= 100_000 => {
+                self.player.inventory.remove(index);
+                self.cloud_gangster_pass = true;
+                self.push_log("恶霸收下厚礼，答应往后不再拦你的路。".into());
+            }
+            Some(ObjectExchangeKind::CloudGangster) => {
+                self.push_log("恶霸把东西推回来，冷笑着拔出兵刃。".into());
+                self.begin_combat(EnemyKind::Npc(npc.clone()), CombatMode::Lethal);
+            }
+            Some(ObjectExchangeKind::CloudGirl)
+                if value == 0
+                    && self.player.gender == Gender::Male
+                    && self.player.perception >= 25
+                    && !self.cloud_girl_recognized =>
+            {
+                self.player.inventory.remove(index);
+                self.cloud_girl_recognized = true;
+                self.push_log("青云姑娘认出礼物来历，点头记下了你的姓名。".into());
+            }
+            Some(ObjectExchangeKind::CloudGirl) => {
+                self.push_log("青云姑娘没有收下这件礼物。".into());
+            }
+            Some(ObjectExchangeKind::CloudJudge) if value == 0 => {
+                self.push_log("判官摆手道：没有价值的东西不能作赌注。".into());
+            }
+            Some(ObjectExchangeKind::CloudJudge) => {
+                self.player.inventory.remove(index);
+                if self.random(5) == 0 {
+                    self.player.add_money(value.saturating_mul(2));
+                    self.push_log(format!(
+                        "判官掷骰开盅，你赢得了{}。",
+                        format_money(value * 2)
+                    ));
+                } else {
+                    self.push_log(format!("判官收走{name}：这一局你输了。"));
+                }
+            }
+            Some(ObjectExchangeKind::CloudMonk) if value == 0 => {
+                self.push_log("青云僧说道：无价之物不宜充作香火。".into());
+            }
+            Some(ObjectExchangeKind::CloudMonk) => {
+                self.player.inventory.remove(index);
+                self.apply_snow_temple_donation(value);
+                self.push_log(format!("青云僧收下{name}作为香火，合十称谢。"));
+            }
+            Some(ObjectExchangeKind::CityChenLetter)
+                if item.item_id.as_str() == CLOUD_ESCORT_LETTER_ID
+                    && !self.city_chen_letter_delivered =>
+            {
+                self.player.inventory.remove(index);
+                self.city_chen_letter_delivered = true;
+                self.push_log("陈天星看过陈剑秋的署名荐书，答应正式传授你武艺。".into());
+            }
+            Some(ObjectExchangeKind::CityChenLetter) => {
+                self.push_log("陈天星说道：没有陈剑秋的署名荐书，我不能收你。".into());
+            }
             None if definition.source_path == "adapted" => {
                 self.player.inventory.remove(index);
                 if value >= 100 {
@@ -1832,10 +3092,85 @@ impl Game {
         }
     }
 
+    fn donate_item(&mut self, instance_id: u64) {
+        if self.reject_no_drop_transfer(instance_id) {
+            return;
+        }
+        let Some(index) = self
+            .player
+            .inventory
+            .iter()
+            .position(|item| item.instance_id == instance_id)
+        else {
+            return;
+        };
+        if self.player.is_equipped(instance_id) {
+            return;
+        }
+        let item = &self.player.inventory[index];
+        let value = item.unit_value().max(0) as u64 * item.quantity as u64;
+        if value == 0 {
+            self.push_log("功德箱只接受有价值的供物。".into());
+            return;
+        }
+        let name = item.display_name().to_string();
+        self.player.inventory.remove(index);
+        self.apply_snow_temple_donation(value);
+        self.push_log(format!("你把{name}投入功德箱，作为寺庙香火。"));
+    }
+
+    fn apply_snow_temple_donation(&mut self, value: u64) {
+        if value <= 100 || self.player.bellicosity <= 0 {
+            return;
+        }
+        let chance_upper = u32::try_from(value / 10).unwrap_or(u32::MAX).max(1);
+        if self.random(chance_upper) <= self.player.spirituality {
+            return;
+        }
+        let fortune = self.random(self.player.spirituality.max(1));
+        let value_reduction = i32::try_from(value / 1_000).unwrap_or(i32::MAX);
+        let reduction = i32::try_from(fortune)
+            .unwrap_or(i32::MAX)
+            .saturating_add(value_reduction)
+            .min(self.player.bellicosity);
+        self.player.bellicosity -= reduction;
+    }
+
     fn place_item_on_ground(&mut self, item_id: ItemId, quantity: u32) {
         let instance_id = self.allocate_item_instance_id();
         let item = ItemInstance::new(instance_id, item_id, quantity);
         self.merge_ground_item(item);
+    }
+
+    fn drop_npc_carried_items(&mut self, npc: &NpcId) {
+        let drops: Vec<_> = npcs()
+            .definition(npc)
+            .map(|definition| {
+                definition
+                    .carried_items
+                    .iter()
+                    .map(|item| item.item_id.clone())
+                    .collect()
+            })
+            .unwrap_or_default();
+        if drops.is_empty() {
+            return;
+        }
+        let names = drops
+            .iter()
+            .map(|item_id| {
+                items()
+                    .definition(item_id)
+                    .expect("NPC carried item must exist")
+                    .display_name()
+                    .to_string()
+            })
+            .collect::<Vec<_>>()
+            .join("、");
+        for item_id in drops {
+            self.place_item_on_ground(item_id, 1);
+        }
+        self.push_log(format!("{}遗落：{names}。", npc.name()));
     }
 
     fn merge_ground_item(&mut self, item: ItemInstance) {
@@ -1899,6 +3234,9 @@ impl Game {
     }
 
     fn drop_item(&mut self, instance_id: u64) {
+        if self.reject_no_drop_transfer(instance_id) {
+            return;
+        }
         if self.player.is_equipped(instance_id) {
             self.push_log("必须先卸下这件物品。".into());
             return;
@@ -1981,11 +3319,25 @@ impl Game {
             return;
         };
         let definition = item.definition();
+        let item_id = item.item_id.clone();
         let name = item.display_name().to_string();
+        if LATEMOON_SPECIAL_CONSUMABLE_IDS.contains(&item_id.as_str()) {
+            self.consume_latemoon_special(instance_id, item_id.as_str());
+            return;
+        }
+        if item_id.as_str() == CHOYIN_TABLET_ID {
+            self.player.essence = (self.player.essence + 5).min(self.player.max_essence);
+            self.player.qi = (self.player.qi + 30).min(self.player.max_qi);
+            self.player.spirit = (self.player.spirit + 5).min(self.player.max_spirit);
+            self.spend_item_use(instance_id, false);
+            self.push_log("你吞下一粒仙丹，精恢复 5、气恢复 30、神恢复 5。".into());
+            return;
+        }
         let food_supply = definition.food_supply.unwrap_or(0).max(0);
         let water_supply = definition.water_supply.unwrap_or(0).max(0);
         let is_liquid = definition.category == items::ItemCategory::Liquid;
-        let is_alcohol = definition.liquid_type.as_deref() == Some("alcohol");
+        let filled_with_water = item.filled_with_water;
+        let is_alcohol = !filled_with_water && definition.liquid_type.as_deref() == Some("alcohol");
         let drunk_apply = definition.drunk_apply.unwrap_or(0).max(0) as u32;
         let slumber_effect = item.slumber_effect;
         let final_food_use = !is_liquid
@@ -2024,7 +3376,11 @@ impl Game {
                 );
             }
             self.spend_item_use(instance_id, true);
-            let liquid = definition.liquid_name.as_deref().unwrap_or("饮水");
+            let liquid = if filled_with_water {
+                "清水"
+            } else {
+                definition.liquid_name.as_deref().unwrap_or("饮水")
+            };
             self.push_log(format!("你从{name}中喝了几口{liquid}。"));
             return;
         }
@@ -2041,18 +3397,61 @@ impl Game {
         if water_supply > 0 {
             self.player.water = (self.player.water + water_supply).min(self.player.max_water);
         }
+        if GOATHILL_DEAD_LEECH_IDS.contains(&item_id.as_str()) {
+            self.player.force = self.player.force.saturating_add(1);
+            self.player.max_mana = self.player.max_mana.saturating_add(60);
+            self.push_log("岩蛭的药力化开：内力 +1，最大法力 +60。".into());
+        }
         if let Some((residual_name, residual_weight)) = residual {
             self.spend_item_use(instance_id, true);
             if let Some(item) = self.player.item_mut(instance_id) {
                 item.transformed_name = Some(residual_name.into());
                 item.transformed_weight = Some(residual_weight);
-                item.transformed_value = Some(0);
+                if !items::CHUENYU_PIGMEAT_IDS.contains(&item.item_id.as_str())
+                    && !CLOUD_MEAT_IDS.contains(&item.item_id.as_str())
+                {
+                    item.transformed_value = Some(0);
+                }
             }
             self.push_log(format!("你吃完了{name}，只剩下{residual_name}。"));
         } else {
             self.spend_item_use(instance_id, false);
             self.push_log(format!("你吃了几口{name}。"));
         }
+    }
+
+    fn consume_latemoon_special(&mut self, instance_id: u64, item_id: &str) {
+        match item_id {
+            "latemoon.park.npc.obj.bean" | "latemoon.sell.bean" => {
+                self.player.essence = (self.player.essence + 50).min(self.player.max_essence);
+                self.player.qi = (self.player.qi + 100).min(self.player.max_qi);
+                self.player.spirit = (self.player.spirit + 50).min(self.player.max_spirit);
+                self.push_log("你吞下一粒仙豆，精恢复 50、气恢复 100、神恢复 50。".into());
+            }
+            "latemoon.park.npc.obj.flower" => {
+                self.player.spirit = (self.player.spirit + 50).min(self.player.max_spirit);
+                let remaining = self
+                    .player
+                    .condition(ConditionKind::RosePoison)
+                    .map_or(0, |condition| condition.duration.saturating_sub(10));
+                self.player
+                    .set_condition(ConditionKind::RosePoison, remaining, 10);
+                self.push_log("你吞下金黄花蕊，神恢复 50，火玫瑰毒减轻十拍。".into());
+            }
+            "latemoon.sell.white_pill" => {
+                self.player.essence = (self.player.essence + 100).min(self.player.max_essence);
+                self.player.qi = (self.player.qi + 300).min(self.player.max_qi);
+                self.player.spirit = (self.player.spirit + 100).min(self.player.max_spirit);
+                self.push_log("你服下白凤丸，精恢复 100、气恢复 300、神恢复 100。".into());
+            }
+            "latemoon.sell.wine" => {
+                self.player.essence = (self.player.essence - 10).max(0);
+                self.player.spirit = (self.player.spirit + 20).min(self.player.max_spirit);
+                self.push_log("你大口喝下女儿红，精损失 10，神恢复 20。".into());
+            }
+            _ => return,
+        }
+        self.spend_item_use(instance_id, false);
     }
 
     fn mix_into_liquid(&mut self, powder_instance_id: u64, liquid_instance_id: u64) {
@@ -2159,12 +3558,132 @@ impl Game {
 
     fn move_to(&mut self, target: LocationId) {
         self.activity = Activity::Idle;
+        let advances_oldpine_maze =
+            matches!(
+                self.location.as_str(),
+                "oldpine.cave1"
+                    | "oldpine.cave2"
+                    | "oldpine.cave3"
+                    | "oldpine.cave4"
+                    | "oldpine.cliffdown"
+                    | "oldpine.pine1"
+                    | "oldpine.pine2"
+                    | "oldpine.pine3"
+                    | "oldpine.pine4"
+                    | "oldpine.pine5"
+                    | "oldpine.pine6"
+                    | "oldpine.pine7"
+            ) && (target.as_str().starts_with(content::OLD_PINE_CAVE_PREFIX)
+                || target.as_str().starts_with(content::OLD_PINE_FOREST_PREFIX));
+        if advances_oldpine_maze {
+            self.random(1);
+        }
+        if self.location.as_str() == TEMPLE_SLIPPERY_ROAD
+            && matches!(
+                target.as_str(),
+                content::TEMPLE_ROAD_TWO | "temple.corridor3"
+            )
+            && self.random(self.player.spirituality.max(1)) < 3
+        {
+            self.player.essence = (self.player.essence / 2).max(1);
+            self.player.qi = (self.player.qi / 2).max(1);
+            self.player.spirit = (self.player.spirit / 2).max(1);
+            self.push_log("你一脚踩上青苔，重重滑倒在石径上，一时无力起身。".into());
+            return;
+        }
+        let closes_boulder = self.location.as_str() == CANYON_BAMBOO_BOULDER
+            && target.as_str() == CANYON_BAMBOO_TRAINING_ROOM;
         if self.location.as_str() == content::CITY_MANOR_GATE {
             self.city_manor_pass = false;
         }
+        if self.location.as_str() == content::CITY_NORTH_GATE
+            && target.as_str() == content::CITY_NORTH_ROAD
+        {
+            self.city_exit_permit = false;
+        }
+        if self.location.as_str() == "choyin.platform" && target.as_str() != "choyin.platform" {
+            self.choyin_thunder_ticks = 0;
+        }
+        if self.location.as_str() == "choyin.club" && target.as_str() != "choyin.club" {
+            self.return_choyin_borrowed_books();
+        }
+        if self.location.as_str() == "oldpine.keep2" && target.as_str() == "oldpine.keep3" {
+            self.oldpine_keep_sealed = true;
+            self.push_log("身后轰然一响，寨门已被巨石堵死。".into());
+        }
+        if self.location.as_str() == "choyin.entrance" && target.as_str() == "choyin.taolin" {
+            self.choyin_taolin_steps = 3;
+            self.choyin_taolin_clue = self.random(11) as u8;
+        }
+        if self.location.as_str() == "green.eight7" && target.as_str() == "green.stoneroom" {
+            self.green_bagua_completed = true;
+            self.push_log("你循乾位踏出迷雾，已记住八卦阵的生门。".into());
+        }
+        if self.location.as_str() == "latemoon.room.bathroom1" && self.player.gender == Gender::Male
+        {
+            self.player.set_condition(ConditionKind::RosePoison, 5, 10);
+            self.push_log("有人隔着软帘向你洒下粉末，火玫瑰毒侵入经脉。".into());
+        }
+        if self.location.as_str() == "death.road2" && target.as_str() == "death.road1" {
+            self.death_road_steps = 0;
+        }
+        if self.location.as_str() == "u.cloud.sunhill.northriver"
+            && target.as_str() == "u.cloud.sunhill.midriver"
+        {
+            self.cloud_boater_paid = false;
+            self.push_log("船夫撑篙渡你过河，这次船资已经用尽。".into());
+        }
         self.location = target;
+        if self.location.as_str() == "chuenyu.trap_castle" {
+            self.chuenyu_trap_arrow_ticks = 2;
+        } else {
+            self.chuenyu_trap_arrow_ticks = 0;
+        }
         let place = self.current_location();
         self.push_log(format!("你来到{}。{}", place.name, place.arrival));
+        if closes_boulder {
+            self.canyon_boulder_open = false;
+            self.push_log("你刚穿过缝隙，大黄石便在身后急速合拢。".into());
+        }
+        if !self.trigger_old_liu_revenge() {
+            self.trigger_m6_npc_aggression();
+        }
+    }
+
+    fn trigger_m6_npc_aggression(&mut self) -> bool {
+        if !matches!(self.activity, Activity::Idle) {
+            return false;
+        }
+        let location = self.location.as_str().to_string();
+        let jiading_attacks =
+            location == "chuenyu.rope_bridge" && self.random(self.player.perception.max(1)) < 20;
+        let npc_id = match location.as_str() {
+            "chuenyu.dungeon" => CHUENYU_BOSS_ID,
+            "chuenyu.west_blackge" => CHUENYU_GUARD_ID,
+            "chuenyu.tortureroom" | "chuenyu.tortureroom2" => CHUENYU_GUARD_TWO_ID,
+            "chuenyu.rope_bridge" if jiading_attacks => CHUENYU_JIADING_THREE_ID,
+            _ => return false,
+        };
+        let npc = NpcId::from(npc_id);
+        if !self.npc_is_present(&npc) {
+            return false;
+        }
+        self.push_log(format!("{}发现你闯入禁地，立刻扑上来动手！", npc.name()));
+        self.begin_combat(EnemyKind::Npc(npc), CombatMode::Lethal);
+        true
+    }
+
+    fn trigger_old_liu_revenge(&mut self) -> bool {
+        if !matches!(self.location.as_str(), content::LIU_HOME | "chuenyu.home")
+            || self.quest != QuestStage::MurderedJuan
+            || !matches!(self.activity, Activity::Idle)
+        {
+            return false;
+        }
+        self.quest = QuestStage::Failed;
+        self.push_log("刘老农悲愤欲绝：你竟杀了我的女儿，纳命来！".into());
+        self.begin_combat(EnemyKind::OldLiuRevenge, CombatMode::Lethal);
+        true
     }
 
     fn flee_to(&mut self, target: LocationId) {
@@ -2225,6 +3744,14 @@ impl Game {
             InteractionKind::PullBook(number) => self.pull_book(number),
             InteractionKind::PickMelon => self.pick_melon(),
             InteractionKind::SettleMelonDebt => self.settle_melon_debt(),
+            InteractionKind::SearchCityRuinedGarden => self.search_city_ruined_garden(),
+            InteractionKind::TurnAltarForward => self.turn_altar_button(true),
+            InteractionKind::TurnAltarBackward => self.turn_altar_button(false),
+            InteractionKind::PressAltarButton => self.press_altar_button(),
+            InteractionKind::PushSnowShelf => self.push_snow_shelf(),
+            InteractionKind::WorkAtSnowWorkshop => self.work_at_snow_workshop(),
+            InteractionKind::MoveBambooBoulder => self.move_bamboo_boulder(),
+            InteractionKind::SearchBambooBookcase => self.search_bamboo_bookcase(),
             InteractionKind::SwearCanyonSecret => {
                 self.canyon_secret_clue = false;
                 self.move_to(LocationId::from(content::CANYON_BLACK_MARKET));
@@ -2243,7 +3770,454 @@ impl Game {
                 self.move_to(LocationId::from(content::CITY_STREET3));
                 self.push_log("你翻下外墙，落回京师东街。".into());
             }
+            InteractionKind::HoldOldPineVine => {
+                let target = if self.random(self.player.skill_level(DODGE_ID).max(1)) < 5 {
+                    self.push_log("你没能抓稳藤蔓，惨叫着坠入瀑布下的水潭。".into());
+                    "oldpine.waterfall"
+                } else {
+                    self.push_log("你抓稳藤蔓，沿着山涧慢慢攀进瀑布后的通道。".into());
+                    "oldpine.passage"
+                };
+                self.move_to(LocationId::from(target));
+            }
+            InteractionKind::ClimbChoyinTree => {
+                self.move_to(LocationId::from("choyin.craneroom"));
+                self.push_log("你攀上绝壁古树，从枝桠间翻进鹤室。".into());
+            }
+            InteractionKind::HoldChoyinVine => {
+                let target = if self.random(self.player.skill_level(DODGE_ID).max(1)) < 30 {
+                    self.push_log("你抓空藤蔓，沿绝壁坠进寒谷。".into());
+                    "choyin.hollow"
+                } else {
+                    self.push_log("你抓稳藤蔓，慢慢攀近半山洞穴。".into());
+                    "choyin.halfhole"
+                };
+                self.move_to(LocationId::from(target));
+            }
+            InteractionKind::TouchChoyinCloudFlag => {
+                self.choyin_platform_passage_ticks = 2;
+                self.choyin_thunder_ticks = 3;
+                self.push_log("白光一闪，云台裂开向下的入口，远处雷声开始聚拢。".into());
+            }
+            InteractionKind::DrinkChoyinWell => {
+                self.player.water = (self.player.water + 20).min(DEFAULT_WATER_CAPACITY);
+                self.push_log("你用井边的杯子舀水喝了几口。".into());
+            }
+            InteractionKind::LiftChoyinStoneLion => {
+                self.choyin_lion_lift_count = self.choyin_lion_lift_count.saturating_add(1);
+                if u32::from(self.choyin_lion_lift_count) + self.player.strength / 5 >= 10 {
+                    self.choyin_lion_lift_count = 0;
+                    self.move_to(LocationId::from("choyin.lionroom"));
+                    self.push_log("石狮向左挪开尺许，你从露出的洞口坠入神秘洞穴。".into());
+                } else {
+                    self.push_log("你奋力抬动石狮，机关发出一声沉闷的摩擦。".into());
+                }
+            }
+            InteractionKind::BuryOldPineSkeleton => self.bury_oldpine_skeleton(),
+            InteractionKind::BlowOldPineBambooPipe => {
+                self.oldpine_keep_sealed = false;
+                self.push_log("竹哨声落，一阵轮盘绞动声后，堵门巨石被慢慢移开。".into());
+            }
+            InteractionKind::BorrowChoyinBook => self.borrow_choyin_book(),
+            InteractionKind::ReadChoyinPeachNote => {
+                self.push_log(choyin_taolin_clue(self.choyin_taolin_clue).0.into());
+            }
+            InteractionKind::TieChoyinCrane => {
+                self.player.spirit = (self.player.spirit - 50).max(0);
+                self.move_to(LocationId::from("choyin.platform"));
+                self.push_log("你以缚仙绳套住仙鹤，随它扶摇直上云台；神损失 50。".into());
+            }
+            InteractionKind::PullChuenyuHallRope => self.pull_chuenyu_hall_rope(),
+            InteractionKind::ClimbChuenyuCastleWall => self.climb_chuenyu_castle_wall(),
+            InteractionKind::DescendChuenyuRopeBridge => {
+                self.move_to(LocationId::from("chuenyu.base_b_m"));
+                self.push_log("你抓紧铁链，顺着摇晃的铁索桥下到黑松山脚。".into());
+            }
+            InteractionKind::PushChuenyuDungeonSlab => self.push_chuenyu_dungeon_slab(),
+            InteractionKind::PushGreenBoulder => self.push_green_boulder(),
+            InteractionKind::FillGreenWell => self.fill_green_well(),
+            InteractionKind::SearchGreenStream => self.search_green_stream(),
+            InteractionKind::OpenSanyenSteamer => {
+                if self.current_room_has_npc(SANYEN_COOK_ID) {
+                    self.push_log("烧饭僧合十道：施主请勿动手动脚，妨碍贫僧煮饭。".into());
+                } else {
+                    self.push_log("你揭开蒸笼，热气间整齐排着一枚枚白馒头。".into());
+                }
+            }
+            InteractionKind::TakeSanyenBun => self.take_sanyen_bun(),
+            InteractionKind::InspectLateMoonLantern => {
+                self.push_log("灯笼上写着：晚霞西照人影依稀，月影高挂和风婉约。".into());
+            }
+            InteractionKind::TakeLateMoonCloth => self.take_latemoon_cloth(),
+            InteractionKind::DanceLateMoonOut => self.dance_latemoon(false),
+            InteractionKind::DanceLateMoonYuFong => self.dance_latemoon(true),
+            InteractionKind::PickLateMoonFlower => self.pick_latemoon_flower(),
+            InteractionKind::BatheLateMoonPool => self.bathe_latemoon_pool(),
+            InteractionKind::PonderLateMoonRoom => self.ponder_latemoon_room(),
+            InteractionKind::InspectDeathShadows => {
+                self.push_log(
+                    "四个披黑斗篷的人围在炉边，其中一人回头时竟与你长得一模一样。".into(),
+                );
+            }
+            InteractionKind::ReincarnateDeathInn => self.reincarnate_from_death_inn(),
+            InteractionKind::InspectCloudButcherySign => {
+                self.push_log("牛骨招牌写着：本店即将收购死狗。".into());
+            }
+            InteractionKind::UseLateMoonDanceBook(instance_id) => {
+                self.use_latemoon_dance_book(instance_id);
+            }
+            InteractionKind::PrayLateMoonBracelet(instance_id) => {
+                self.pray_latemoon_bracelet(instance_id);
+            }
+            InteractionKind::ReadLateMoonSecretLetter(instance_id) => {
+                self.read_latemoon_secret_letter(instance_id);
+            }
+            InteractionKind::SearchLateMoonBracelet => self.search_latemoon_bracelet(),
+            InteractionKind::SearchLateMoonDanceBook => self.search_latemoon_dance_book(),
+            InteractionKind::JoinCloudEscort => self.join_cloud_escort(),
         }
+    }
+
+    fn search_latemoon_bracelet(&mut self) {
+        if !self.latemoon_bracelet_clue || self.latemoon_bracelet_received {
+            return;
+        }
+        self.latemoon_bracelet_received = true;
+        self.add_inventory_item(ItemId::from("latemoon.obj.bracelet"), 1);
+        self.push_log("你依凤灵的提示在碧纱橱底摸索，找到一串玛瑙手镯。".into());
+    }
+
+    fn search_latemoon_dance_book(&mut self) {
+        if !self.latemoon_dance_book_clue || self.latemoon_dance_book_received {
+            return;
+        }
+        self.latemoon_dance_book_received = true;
+        self.add_inventory_item(ItemId::from("latemoon.obj.book"), 1);
+        self.push_log("你依沈芳的提示掀开床褥，找到一本泛黄的舞曲谱。".into());
+    }
+
+    fn join_cloud_escort(&mut self) {
+        if self.cloud_escort_member {
+            return;
+        }
+        if self.player.courage < 25 {
+            self.push_log("陈剑秋摇头道：走镖之人须有胆识，你还需历练。".into());
+            return;
+        }
+        self.cloud_escort_member = true;
+        self.player.faction = Some("振远镖局".into());
+        self.player.teacher = Some(CLOUD_B_HEADER_ID.into());
+        self.push_log("陈剑秋见你胆识过人，将你收入振远镖局门下。".into());
+    }
+
+    fn advance_death_road(&mut self, target: LocationId) {
+        self.death_road_steps = self.death_road_steps.saturating_add(1);
+        if self.death_road_steps >= 5 {
+            self.death_road_steps = 0;
+            self.move_to(target);
+        } else {
+            self.push_log("你走了许久，四周浓雾与灯笼竟丝毫没有变化。".into());
+        }
+    }
+
+    fn take_latemoon_cloth(&mut self) {
+        if self.latemoon_clothes_taken >= 2 {
+            return;
+        }
+        self.latemoon_clothes_taken += 1;
+        self.add_inventory_item(ItemId::from("latemoon.obj.skirt"), 1);
+        self.push_log("你从碧纱橱中取出一件轻软衣裳。".into());
+    }
+
+    fn dance_latemoon(&mut self, yu_fong: bool) {
+        let required = match self.player.gender {
+            Gender::Male => 100,
+            Gender::Female => 50,
+        };
+        if self.player.spirit < required {
+            self.push_log("你的神不足，无法专注踏出这套舞步。".into());
+            return;
+        }
+        let (target, cost, name) = match (self.location.as_str(), yu_fong, self.player.gender) {
+            ("latemoon.latemoon8", true, Gender::Male) => ("latemoon.miroom", 100, "有凤来仪"),
+            ("latemoon.latemoon8", true, Gender::Female) => ("latemoon.miroom", 80, "有凤来仪"),
+            ("latemoon.latemoon8", false, Gender::Male) => ("latemoon.bamboo", 50, "西出阳关"),
+            ("latemoon.latemoon8", false, Gender::Female) => ("latemoon.bamboo", 30, "西出阳关"),
+            ("latemoon.miroom", false, Gender::Male) => ("latemoon.bamboo", 80, "西出阳关"),
+            ("latemoon.miroom", false, Gender::Female) => ("latemoon.bamboo", 50, "西出阳关"),
+            _ => return,
+        };
+        self.player.spirit = (self.player.spirit - cost).max(0);
+        self.move_to(LocationId::from(target));
+        self.push_log(format!("你踏出一曲「{name}」，身影随曲声移入另一处。"));
+    }
+
+    fn pick_latemoon_flower(&mut self) {
+        if self.latemoon_flowers_picked >= 2 {
+            return;
+        }
+        self.latemoon_flowers_picked += 1;
+        self.add_inventory_item(ItemId::from("latemoon.park.npc.obj.flower"), 1);
+        self.push_log("你从西府海棠旁摘下一朵不起眼的金黄花蕊。".into());
+    }
+
+    fn bathe_latemoon_pool(&mut self) {
+        match self.player.gender {
+            Gender::Male => {
+                self.player.set_condition(ConditionKind::RosePoison, 15, 10);
+                self.push_log("池水沁凉得异常，火玫瑰毒已侵入经脉。".into());
+            }
+            Gender::Female => {
+                let restored = 5 + self.random(5) as i32;
+                self.player.essence = (self.player.essence - 10).max(0);
+                self.player.spirit = (self.player.spirit + restored).min(self.player.max_spirit);
+                self.push_log(format!("你在花池中沐浴，精损失 10，神恢复 {restored}。"));
+            }
+        }
+    }
+
+    fn ponder_latemoon_room(&mut self) {
+        self.player.spirit = (self.player.spirit - 50).max(0);
+        let reduction = (self.random(self.player.spirituality.max(1)) + 7) as i32;
+        self.player.bellicosity = (self.player.bellicosity - reduction).max(0);
+        self.push_log(format!("你合掌静修，神损失 50，杀气降低 {reduction}。"));
+    }
+
+    fn reincarnate_from_death_inn(&mut self) {
+        self.player.essence = self.player.max_essence;
+        self.player.qi = self.player.max_qi;
+        self.player.spirit = self.player.max_spirit;
+        self.player.conditions.clear();
+        self.move_to(LocationId::from("snow.temple"));
+        self.push_log("另一个自己与你相撞，眼前一黑；再睁眼时已回到雪亭城隍庙。".into());
+    }
+
+    fn use_latemoon_dance_book(&mut self, instance_id: u64) {
+        let Some(item) = self.player.item(instance_id) else {
+            return;
+        };
+        if !LATEMOON_DANCE_BOOK_IDS.contains(&item.item_id.as_str()) {
+            return;
+        }
+        if self.player.spirit < 50 {
+            self.push_log("你的神不足，无法按舞谱踏完整套舞步。".into());
+            return;
+        }
+        let target = if item.item_id.as_str() == "latemoon.npc.obj.book" {
+            "latemoon.latemoon8"
+        } else {
+            "latemoon.latemoon1"
+        };
+        self.player.spirit = (self.player.spirit - 50).max(0);
+        self.move_to(LocationId::from(target));
+        self.push_log("你按舞曲谱踏出「春宫怨」，身影随曲声消失。".into());
+    }
+
+    fn pray_latemoon_bracelet(&mut self, instance_id: u64) {
+        let Some(item) = self.player.item(instance_id) else {
+            return;
+        };
+        if !LATEMOON_BRACELET_IDS.contains(&item.item_id.as_str()) {
+            return;
+        }
+        if self.player.spirit < 50 {
+            self.push_log("你的神不足，无法借手镯祈求归返。".into());
+            return;
+        }
+        self.player.spirit -= 50;
+        self.move_to(LocationId::from("snow.temple"));
+        self.push_log("玛瑙手镯嗡嗡作响，你在烟雾中回到雪亭城隍庙。".into());
+    }
+
+    fn read_latemoon_secret_letter(&mut self, instance_id: u64) {
+        if self
+            .player
+            .item(instance_id)
+            .is_none_or(|item| item.item_id.as_str() != LATEMOON_SECRET_LETTER_ID)
+            || !self.player.has_item(&ItemId::from(LATEMOON_FIRE_ID))
+        {
+            return;
+        }
+        self.push_log("火光烘出密函暗字：晚月庄密室藏有舞谱与玛瑙手镯，小花池也另有玄机。".into());
+    }
+
+    fn pull_chuenyu_hall_rope(&mut self) {
+        let damage = 5 + self.random(10) as i32;
+        self.player.qi = (self.player.qi - damage).max(0);
+        self.move_to(LocationId::from("chuenyu.tunnel1"));
+        self.push_log(format!("垂绳触动翻板，你跌进地牢，损失{damage}点气。"));
+    }
+
+    fn climb_chuenyu_castle_wall(&mut self) {
+        let target = match self.location.as_str() {
+            "chuenyu.east_castle" => "chuenyu.east_garden",
+            "chuenyu.east_garden" => "chuenyu.east_castle",
+            "chuenyu.west_castle" => "chuenyu.west_garden",
+            "chuenyu.west_garden" => "chuenyu.west_castle",
+            _ => return,
+        };
+        self.move_to(LocationId::from(target));
+        self.push_log("你抓住藤蔓翻过墙头，轻巧地落到另一侧。".into());
+    }
+
+    fn push_chuenyu_dungeon_slab(&mut self) {
+        self.chuenyu_slab_pushes = self.chuenyu_slab_pushes.saturating_add(1);
+        if self.chuenyu_slab_pushes >= 5 {
+            self.chuenyu_slab_pushes = 0;
+            self.chuenyu_slab_passage_ticks = 3;
+            self.push_log("石板终于斜立起来，露出通往城堡东侧的窄缝。".into());
+        } else {
+            self.push_log(format!(
+                "你用力推动石板，石板渐渐松动（{}/5）。",
+                self.chuenyu_slab_pushes
+            ));
+        }
+    }
+
+    fn push_green_boulder(&mut self) {
+        if self.player.force < 560
+            || self.player.max_force < 560
+            || self.player.skill_level(FORCE_ID) < 40
+        {
+            self.push_log("你运起内力推向巨石，却仍然出力不足。".into());
+            return;
+        }
+        self.player.essence = (self.player.essence - 20).max(0);
+        self.player.qi = (self.player.qi - 60).max(0);
+        self.player.spirit = (self.player.spirit - 20).max(0);
+        if self.random(3) == 0 {
+            self.move_to(LocationId::from("green.entrance"));
+            self.push_log("巨石滚开片刻，你从后方小洞钻出，身后洞口随即封闭。".into());
+        } else {
+            self.push_log("巨石挪动了少许，又在风中滚回原位。".into());
+        }
+    }
+
+    fn fill_green_well(&mut self) {
+        let Some(index) = self
+            .player
+            .inventory
+            .iter()
+            .position(|item| item.definition().category == items::ItemCategory::Liquid)
+        else {
+            return;
+        };
+        let name = self.player.inventory[index].display_name().to_string();
+        let item = &mut self.player.inventory[index];
+        item.remaining_uses = Some(15);
+        item.filled_with_water = true;
+        item.slumber_effect = 0;
+        self.push_log(format!("你倒净{name}，从井里装入十五口清水。"));
+    }
+
+    fn search_green_stream(&mut self) {
+        if self.green_windsword_rewarded {
+            self.push_log("溪底只剩被水磨亮的碎石，再没有先前那道剑光。".into());
+            return;
+        }
+        if !self.green_bagua_completed {
+            self.push_log("你在溪中摸索许久，除了冰凉卵石外一无所获。".into());
+            return;
+        }
+        if self.random(2) == 1 {
+            self.add_inventory_item(ItemId::from(GREEN_WIND_SWORD_ID), 1);
+            self.green_windsword_rewarded = true;
+            self.green_bagua_completed = false;
+            self.push_log("你从溪底抽出一把淡青长剑，正是追风剑。".into());
+        } else {
+            self.green_bagua_completed = false;
+            self.push_log("亮光在指间一闪即逝，你最终仍是一无所获。".into());
+        }
+    }
+
+    fn take_sanyen_bun(&mut self) {
+        if self.current_room_has_npc(SANYEN_COOK_ID) || self.sanyen_buns_taken >= 5 {
+            return;
+        }
+        self.add_inventory_item(ItemId::from(SANYEN_BUN_ID), 1);
+        self.sanyen_buns_taken += 1;
+        self.push_log("你从蒸笼里取出一枚热乎乎的馒头。".into());
+    }
+
+    fn bury_oldpine_skeleton(&mut self) {
+        let Some(ground) = self.ground_items.get_mut(&self.location) else {
+            return;
+        };
+        let Some(index) = ground
+            .iter()
+            .position(|item| item.item_id.as_str() == "oldpine.npc.skeleton")
+        else {
+            return;
+        };
+        ground.remove(index);
+        if ground.is_empty() {
+            self.ground_items.remove(&self.location);
+        }
+        self.push_log("你小心翼翼地掩埋了南危水的骸骨。".into());
+        let fortune = self.random(self.player.spirituality.saturating_add(10).max(1));
+        if fortune > 25 {
+            let instance_id = self.allocate_item_instance_id();
+            self.ground_items
+                .entry(self.location.clone())
+                .or_default()
+                .push(ItemInstance::new(
+                    instance_id,
+                    ItemId::from("oldpine.npc.obj.parrybook"),
+                    1,
+                ));
+            self.push_log("洞顶喀喇一响，一本《过招要旨》坠落在地。".into());
+        } else {
+            if fortune > 20 {
+                self.push_log("洞顶纷纷扬扬飘下几张残破纸片。".into());
+            }
+            self.move_to(LocationId::from("oldpine.waterfall"));
+            self.push_log("山洞轰然震动，你立足不稳，摔进瀑布下方。".into());
+        }
+    }
+
+    fn borrow_choyin_book(&mut self) {
+        let item_id = if self.random(3) < 2 {
+            "choyin.npc.obj.book1"
+        } else {
+            "choyin.npc.obj.book2"
+        };
+        self.add_inventory_item(ItemId::from(item_id), 1);
+        self.push_log("你趁人不备，从矮几上取了一本旧书藏入怀中。".into());
+    }
+
+    fn return_choyin_borrowed_books(&mut self) {
+        let before = self.player.inventory.len();
+        self.player.inventory.retain(|item| {
+            !matches!(
+                item.item_id.as_str(),
+                "choyin.npc.obj.book1" | "choyin.npc.obj.book2"
+            )
+        });
+        if self.player.inventory.len() != before {
+            self.push_log("离开草堂前，你把借来的书卷放回矮几。".into());
+        }
+    }
+
+    fn move_through_choyin_taolin(&mut self, direction: &str) {
+        if self.choyin_taolin_steps == 0 {
+            self.choyin_taolin_steps = 3;
+        }
+        let expected = choyin_taolin_clue(self.choyin_taolin_clue).1;
+        if direction == expected {
+            if self.choyin_taolin_steps <= 1 {
+                self.choyin_taolin_steps = 0;
+                self.choyin_taolin_clue = self.random(11) as u8;
+                self.choyin_scholar_trial_completed = true;
+                self.move_to(LocationId::from("choyin.entrance"));
+                self.push_log("你循着最后一张字条走出桃林，骆云舟的考验已经完成。".into());
+                return;
+            }
+            self.choyin_taolin_steps -= 1;
+        } else {
+            self.choyin_taolin_steps = self.choyin_taolin_steps.saturating_add(3);
+        }
+        self.choyin_taolin_clue = self.random(11) as u8;
+        self.push_log("桃枝在身后合拢，你仍置身纵横交错的桃林中。".into());
     }
 
     fn climb_canyon_chain(&mut self) {
@@ -2321,14 +4295,16 @@ impl Game {
         if noticed {
             self.melon_debt = true;
             let enemy = EnemyKind::Meloner;
+            let max_health = enemy.max_health();
             self.activity = Activity::Fighting(CombatState {
                 enemy,
-                health: enemy.max_health(),
-                max_health: enemy.max_health(),
+                health: max_health,
+                max_health,
                 rounds: 0,
                 mode: CombatMode::Spar,
                 attack_bonus: 0,
                 dodge_bonus: 0,
+                enemy_attack_bonus: 0,
                 enemy_busy_rounds: 0,
                 technique_cooldown: 0,
                 power_up_active: false,
@@ -2338,6 +4314,90 @@ impl Game {
         } else {
             self.push_log("瓜农似乎正在瓜棚里打瞌睡，没有发现你的动作。".into());
         }
+    }
+
+    fn search_city_ruined_garden(&mut self) {
+        let found = self.player.spirituality >= 35
+            || self.random(self.player.spirituality.saturating_add(30).max(1)) >= 35;
+        if found {
+            self.add_inventory_item(ItemId::from(CITY_EXIT_TOKEN_ID), 1);
+            self.push_log("你拨开一片乱草，找到一支遗失多年的出城令牌。".into());
+        } else {
+            self.push_log("你在荒草和残垣间翻找许久，仍旧一无所获。".into());
+        }
+    }
+
+    fn turn_altar_button(&mut self, forward: bool) {
+        if forward {
+            self.city_altar_forward_turns = self.city_altar_forward_turns.saturating_add(1);
+            self.push_log("你将祭坛按钮顺时针转了一圈，机关深处毫无动静。".into());
+        } else {
+            self.city_altar_backward_turns = self.city_altar_backward_turns.saturating_add(1);
+            self.push_log("你将祭坛按钮逆时针转了一圈，石台下传来轻微摩擦声。".into());
+        }
+    }
+
+    fn press_altar_button(&mut self) {
+        let combination_matches =
+            self.city_altar_forward_turns == 1 && self.city_altar_backward_turns == 3;
+        self.city_altar_forward_turns = 0;
+        self.city_altar_backward_turns = 0;
+        if combination_matches && self.city_altar_passage_ticks == 0 {
+            self.city_altar_passage_ticks = 3;
+            self.push_log("地板轧轧移开，祭坛下露出一段向下的阶梯。".into());
+        } else if self.city_altar_passage_ticks > 0 {
+            self.push_log("祭坛下的阶梯已经敞开。".into());
+        } else {
+            self.push_log("按钮沉下又弹回，先前转动的机括随之复位。".into());
+        }
+    }
+
+    fn push_snow_shelf(&mut self) {
+        if self.snow_storage_passage_ticks > 0 {
+            self.push_log("架子后通往密室的阶梯仍然敞开。".into());
+            return;
+        }
+        self.snow_shelf_pushes = self.snow_shelf_pushes.saturating_add(1);
+        if self.snow_shelf_pushes == 3 {
+            self.snow_shelf_pushes = 0;
+            self.snow_storage_passage_ticks = 10;
+            self.push_log("架子第三次弹回原位，地板随即移开，露出向下的密道。".into());
+        } else {
+            self.push_log("你将兵器架往左推去；喀的一声，它又弹回原位。".into());
+        }
+    }
+
+    fn work_at_snow_workshop(&mut self) {
+        if self.player.essence < 30 || self.player.spirit < 30 {
+            self.push_log("你的精神太差，现在不能继续做工。".into());
+            return;
+        }
+        self.player.essence -= 30;
+        self.player.spirit -= 30;
+        self.player.silver = self.player.silver.saturating_add(1);
+        self.push_log("你辛苦做完一轮谷物脱壳，老板付给你一两纹银。".into());
+    }
+
+    fn move_bamboo_boulder(&mut self) {
+        if self.player.force < 560
+            || self.player.max_force < 560
+            || self.player.skill_level(FORCE_ID) < 40
+        {
+            self.push_log("你运劲推了推大黄石，内力火候还远远不够。".into());
+            return;
+        }
+        self.player.essence = (self.player.essence - 20).max(0);
+        self.player.qi = (self.player.qi - 60).max(0);
+        self.player.spirit = (self.player.spirit - 20).max(0);
+        self.canyon_boulder_open = true;
+        self.push_log("你运足内力将大黄石缓缓推向左侧，露出一道仅容一人通过的缝隙。".into());
+    }
+
+    fn search_bamboo_bookcase(&mut self) {
+        self.canyon_bookcase_searched = true;
+        self.add_inventory_item(ItemId::from(CANYON_SLIPCASE_ID), 1);
+        self.add_inventory_item(ItemId::from(CANYON_PARRY_BOOK_ID), 1);
+        self.push_log("你从石制书柜中找到一只铜书匣，匣内藏着《悟疾风劲竹书》。".into());
     }
 
     fn settle_melon_debt(&mut self) {
@@ -2356,7 +4416,7 @@ impl Game {
     fn talk(&mut self, npc: NpcId) {
         self.activity = Activity::Idle;
         match npc.as_str() {
-            OLD_LIU_ID => match self.quest {
+            OLD_LIU_ID | CHUENYU_OLD_LIU_ID => match self.quest {
                 QuestStage::Unasked => {
                     self.quest = QuestStage::FindJuan;
                     self.push_log(
@@ -2367,23 +4427,30 @@ impl Game {
                 QuestStage::FindJuan => {
                     self.push_log("刘老农：松林野兽不少，还常有山贼出没，千万小心。".into());
                 }
+                QuestStage::FoundJuan => {
+                    self.push_log("刘老农：还没有娟儿的消息么？老汉实在放心不下。".into());
+                }
                 QuestStage::ReturnHome => {
                     self.quest = QuestStage::Complete;
-                    self.player.reputation += 20;
-                    self.player.insight += 30;
-                    let sword = self.add_inventory_item(ItemId::from(items::HENGBING_SWORD_ID), 1);
+                    self.add_inventory_item(ItemId::from(items::HENGBING_SWORD_ID), 1);
                     self.add_inventory_item(ItemId::from(items::PARRY_MANUAL_ID), 1);
-                    self.equip_item(sword);
-                    self.gain_skill_progress(SkillId::from(PARRY_ID), 40);
                     self.push_log(
                         "刘老农：多谢搭救小女。这口銮鱼衡冰与过招要旨便赠予少侠。".into(),
                     );
-                    self.push_log("任务完成：评价 +20，领悟 +30，已装备銮鱼衡冰。".into());
+                    self.push_log("刘老农领着娟儿匆匆离去。你获得銮鱼衡冰与过招要旨。".into());
                 }
-                QuestStage::Complete => {
-                    self.push_log("空屋桌上压着一张字条：救命之恩，刘某没齿难忘。".into());
+                QuestStage::MurderedJuan => {
+                    self.trigger_old_liu_revenge();
                 }
+                QuestStage::Complete | QuestStage::Failed => {}
             },
+            XIAO_JUAN_ID | CHUENYU_XIAO_JUAN_ID | CHUENYU_XIAO_JUAN_PLACED_ID
+                if self.quest == QuestStage::FoundJuan =>
+            {
+                self.quest = QuestStage::ReturnHome;
+                self.push_log("小娟挣脱绳索后跟在你身边，请你带她回刘家小房。".into());
+                self.push_log("任务更新：护送小娟回家。".into());
+            }
             TEA_SELLER_ID => {
                 self.recover(8, 8, 5);
                 if self.quest == QuestStage::FindJuan {
@@ -2429,7 +4496,7 @@ impl Game {
     }
 
     fn ask_npc(&mut self, npc: NpcId, topic: &str) {
-        if !self.current_location().npcs.contains(&npc) || !self.npc_is_present(&npc) {
+        if !self.npc_is_present(&npc) {
             return;
         }
         let Some(definition) = npcs().definition(&npc) else {
@@ -2483,6 +4550,71 @@ impl Game {
                 ] {
                     self.push_log(format!("大队长说道：{line}"));
                 }
+            }
+            ScriptedInquiryKind::ChoyinPoliceBribery => {
+                self.push_log(
+                    "巡捕说道：说哪里话来，县太爷清贫廉正，我们作手下的岂能辱没他的名声？收起你的钱吧！"
+                        .into(),
+                );
+            }
+            ScriptedInquiryKind::ChoyinSilkBag => {
+                self.choyin_silk_bag_received = true;
+                self.add_inventory_item(ItemId::from(CHOYIN_SILK_BAG_ID), 1);
+                self.push_log(
+                    "官家小姐低声道：小女子有一事相求，请您将这个交给游公子。她把一个紫罗鸳鸯荷包递给你。"
+                        .into(),
+                );
+            }
+            ScriptedInquiryKind::ChoyinYoungManTrouble => {
+                for line in [
+                    "实不相瞒，在下仰慕前面曲桥上赏莲的姑娘已久……",
+                    "但是一直不知那位姑娘芳名……",
+                    "唉……",
+                ] {
+                    self.push_log(format!("贵公子说道：{line}"));
+                }
+            }
+            ScriptedInquiryKind::GreenOldManJade => {
+                self.green_elder_jade_clue = true;
+                for line in [
+                    "这块玉佩原是村里故人留下的物件。",
+                    "后来辗转落到雪亭一个醉汉手中，你带好酒去问，他也许肯说。",
+                ] {
+                    self.push_log(format!("村长说道：{line}"));
+                }
+            }
+            ScriptedInquiryKind::GreenShenJade => {
+                self.green_jade_received = true;
+                self.add_inventory_item(ItemId::from(GREEN_JADE_ID), 1);
+                self.push_log("沈万年从柜中取出一块玉佩：既然你知道来历，就拿去吧。".into());
+            }
+            ScriptedInquiryKind::GreenShenSlumberDrug => {
+                self.green_drug_offer_unlocked = true;
+                self.push_log(
+                    "沈万年压低声音：蒙汗药可以给你，但得拿价值一千文以上的东西来换。".into(),
+                );
+            }
+            ScriptedInquiryKind::LatemoonGirlDance => {
+                self.push_log("小姑娘笑道：晚月庄的舞步要合着月色与风声，半点也急不得。".into());
+            }
+            ScriptedInquiryKind::LatemoonGirlDragonDance => {
+                self.push_log("小姑娘说道：寒谷龙舞刚柔相济，是庄中代代相传的舞法。".into());
+            }
+            ScriptedInquiryKind::LatemoonShaoweiDragonfly => {
+                self.push_log("少庄主说道：寻一截好竹子来，我可以替你削成竹蜻蜓。".into());
+            }
+            ScriptedInquiryKind::LatemoonShinfunDanceBook => {
+                self.latemoon_dance_book_clue = true;
+                self.push_log("辛芬低声道：舞曲谱藏在西厢床榻内侧，你仔细摸索便能找到。".into());
+            }
+            ScriptedInquiryKind::LatemoonYumayFunlin => {
+                self.push_log("玉梅说道：凤铃最喜欢精巧玩意，拿竹蜻蜓给她看准没错。".into());
+            }
+            ScriptedInquiryKind::LatemoonYumayLearnDance => {
+                self.push_log("玉梅笑道：先去拜见蓝庄主，入门之后才好认真学舞。".into());
+            }
+            ScriptedInquiryKind::CloudBoaterCross => {
+                self.push_log("船夫说道：拿一件值钱物事作船资，我便送你渡过北河。".into());
             }
             ScriptedInquiryKind::HerbalistAdvice => {
                 let ratio = self.player.qi.max(0) * 100 / self.player.max_qi.max(1);
@@ -2538,6 +4670,11 @@ impl Game {
         let teacher = skills()
             .teacher(&teacher_id)
             .expect("available teacher must exist");
+        if teacher_id == "scholar" && !self.choyin_scholar_trial_completed {
+            self.choyin_scholar_trial_started = true;
+            self.push_log("骆云舟说道：你还是先走一趟东边的桃林吧。".into());
+            return;
+        }
         if let Some(reason) = self.apprenticeship_rejection(&teacher_id) {
             self.push_log(format!("{}摇头道：{reason}", teacher.name));
             return;
@@ -2545,7 +4682,10 @@ impl Game {
 
         self.player.teacher = Some(teacher_id);
         self.player.faction = teacher.faction.clone();
-        if teacher.id == "fighter" {
+        if teacher.id == "scholar" {
+            self.choyin_scholar_trial_started = false;
+            self.push_log("骆云舟点头认可你走出桃林，将你收入步玄派门下。".into());
+        } else if teacher.id == "fighter" {
             self.push_log("你立誓恪守天邪派门规，萧辟尘这才点头收你入门。".into());
         } else {
             self.push_log(format!(
@@ -2573,9 +4713,11 @@ impl Game {
             "ninja" if self.player.skill_level("literate") < 50 => {
                 Some("你的文学修养尚不足以入门。")
             }
-            "scholar" => Some("你还需先走一趟东边桃林，方可谈入门之事。"),
             "swordsman" if self.player.courage < 20 || self.player.composure < 20 => {
                 Some("学剑之人必须胆大心细，你的心性尚需磨炼。")
+            }
+            "dancer" if self.player.gender != Gender::Female => {
+                Some("晚月庄只收女弟子，你与本门舞学无缘。")
             }
             _ => None,
         }
@@ -2602,15 +4744,57 @@ impl Game {
     }
 
     fn learn_from_npc(&mut self, skill_id: SkillId, npc: NpcId) {
-        if npc.as_str() != SNOW_TEACHER_ID
-            || skill_id.as_str() != "literate"
-            || !self.current_location().npcs.contains(&npc)
-            || !self.snow_teacher_paid
-        {
-            self.push_log("魏无极说道：我不记得收过你这个学生。".into());
+        if !self.npc_is_present(&npc) {
+            self.push_log("这里没有可以指点你这项技能的人。".into());
             return;
         }
-        self.learn_skill_from_teacher(skill_id, "魏无极", 26, 60);
+        let Some(definition) = npcs().definition(&npc) else {
+            self.push_log("这里没有可以指点你这项技能的人。".into());
+            return;
+        };
+        let Some(policy) = definition.apprenticeship_policy() else {
+            self.push_log(format!("{}不愿传授武艺。", definition.name));
+            return;
+        };
+        let Some(lesson) = definition
+            .lessons()
+            .iter()
+            .find(|lesson| lesson.skill == skill_id.as_str())
+        else {
+            self.push_log("这项技能必须另寻高人请教。".into());
+            return;
+        };
+        if !self.npc_lesson_access(policy) {
+            let rejection = match policy {
+                NpcApprenticeshipPolicy::RecognizeFaction(faction)
+                | NpcApprenticeshipPolicy::SameFaction(faction) => {
+                    format!(
+                        "{}说道：你并非{faction}同门，我不能传你本门武艺。",
+                        definition.name
+                    )
+                }
+                NpcApprenticeshipPolicy::PaidStudent => {
+                    "魏无极说道：咦？我不记得收过你这个学生啊。".into()
+                }
+                NpcApprenticeshipPolicy::DeferredLetter => {
+                    "陈天星问道：可有剑秋署名的信物？".into()
+                }
+                NpcApprenticeshipPolicy::PlotGated => {
+                    "陈剑秋说道：先入振远镖局，再谈本门功夫。".into()
+                }
+                NpcApprenticeshipPolicy::ExcludedUnplaced => {
+                    format!("{}眼下不在此处授业。", definition.name)
+                }
+            };
+            self.push_log(rejection);
+            return;
+        }
+
+        let teacher_name = definition.name.clone();
+        let intelligence = definition
+            .teaching_intelligence()
+            .expect("runtime instructor must have intelligence");
+        self.learn_skill_from_teacher(skill_id, &teacher_name, intelligence, lesson.max_level);
     }
 
     fn learn_skill_from_teacher(
@@ -3346,16 +5530,83 @@ impl Game {
         self.gain_skill_progress(skill, gain);
     }
 
-    fn start_combat(&mut self, enemy: EnemyKind, mode: CombatMode) {
+    fn start_combat(&mut self, enemy: EnemyKind, mut mode: CombatMode) {
         if self.player.essence < 20 || self.player.qi < 15 || self.player.spirit < 10 {
             self.push_log("你当前状态太差，无法贸然出手。".into());
             return;
+        }
+
+        if let EnemyKind::Npc(npc) = &enemy
+            && mode == CombatMode::Lethal
+            && npc.as_str() == CHOYIN_HOTEL_GUARD_ID
+        {
+            let total = self
+                .current_location()
+                .npcs
+                .iter()
+                .filter(|candidate| *candidate == npc)
+                .count();
+            let defeated = self
+                .defeated_npc_instances
+                .iter()
+                .filter(|entry| entry.location == self.location && &entry.npc == npc)
+                .count();
+            if total.saturating_sub(defeated) > 1 {
+                self.player.wanted = self.player.wanted.saturating_add(1);
+                self.push_log("酒楼守卫高喊有强人打劫，同伴已报官缉拿。".into());
+            }
+        }
+
+        if let EnemyKind::Npc(npc) = &enemy
+            && mode == CombatMode::Spar
+            && let Some(policy) = npcs().definition(npc).and_then(|npc| npc.fight_policy())
+        {
+            match policy {
+                NpcFightPolicy::Allow => {}
+                NpcFightPolicy::ForceLethal => {
+                    mode = CombatMode::Lethal;
+                    self.push_log(format!(
+                        "{}说道：咦……要打就真打，光是较量多没意思？",
+                        npc.name()
+                    ));
+                }
+                NpcFightPolicy::RequireFaction(faction)
+                    if self.player.faction.as_deref() != Some(faction) =>
+                {
+                    self.push_log(npc_fight_rejection(npc, &self.player));
+                    return;
+                }
+                NpcFightPolicy::RequireFaction(_) => {
+                    self.push_log(format!("{}点头道：进招吧。", npc.name()));
+                }
+                NpcFightPolicy::Reject => {
+                    self.push_log(npc_fight_rejection(npc, &self.player));
+                    return;
+                }
+            }
         }
         self.begin_combat(enemy, mode);
     }
 
     fn begin_combat(&mut self, enemy: EnemyKind, mode: CombatMode) {
         let max_health = enemy.max_health();
+        let enemy_name = enemy.name();
+        let elite_guard_powerup = matches!(
+            &enemy,
+            EnemyKind::Npc(npc)
+                if mode == CombatMode::Lethal && npc.as_str() == WATERFOG_ELITE_GUARD_ID
+        );
+        let enemy_attack_bonus = if elite_guard_powerup {
+            (enemy.attack() / 10).clamp(2, 30)
+        } else {
+            0
+        };
+        let forced_by_npc = matches!(
+            &enemy,
+            EnemyKind::Npc(npc)
+                if npcs().definition(npc).and_then(|npc| npc.fight_policy())
+                    == Some(NpcFightPolicy::ForceLethal)
+        );
         self.activity = Activity::Fighting(CombatState {
             enemy,
             health: max_health,
@@ -3364,17 +5615,24 @@ impl Game {
             mode,
             attack_bonus: 0,
             dodge_bonus: 0,
+            enemy_attack_bonus,
             enemy_busy_rounds: 0,
             technique_cooldown: 0,
             power_up_active: false,
             fake_fault_active: false,
         });
+        if elite_guard_powerup {
+            self.push_log(format!("{enemy_name}怒喝一声运起内功，攻势骤然增强。"));
+        }
         match mode {
             CombatMode::Spar => {
-                self.push_log(format!("你向{}抱拳示意，双方点到为止。", enemy.name()));
+                self.push_log(format!("你向{enemy_name}抱拳示意，双方点到为止。"));
+            }
+            CombatMode::Lethal if forced_by_npc => {
+                self.push_log(format!("{enemy_name}忽然出手，点到为止的比试变成了死斗。"));
             }
             CombatMode::Lethal => {
-                self.push_log(format!("你向{}喝道：今日性命相搏！", enemy.name()));
+                self.push_log(format!("你向{enemy_name}喝道：今日性命相搏！"));
             }
         }
     }
@@ -3498,7 +5756,12 @@ impl Game {
 
         let dodge_level = self.player.effective_skill(DODGE_ID);
         let parry_level = self.player.effective_skill(PARRY_ID);
-        let enemy_attack = combat.enemy.attack() + self.random(6) as i32;
+        if self.run_npc_combat_chat(&mut combat) {
+            return;
+        }
+
+        let enemy_attack =
+            combat.enemy.attack() + combat.enemy_attack_bonus + self.random(6) as i32;
         if combat.enemy_busy_rounds > 0 {
             combat.enemy_busy_rounds -= 1;
             self.push_log(format!("{}尚未稳住身形，来不及反击。", combat.enemy.name()));
@@ -3555,11 +5818,193 @@ impl Game {
             received,
             resource.name()
         ));
+        self.apply_npc_hit_hook(
+            &combat.enemy,
+            enemy_attack.max(1) as u32,
+            armor_bonus.max(0) as u32,
+        );
 
         if self.player.essence <= 0 || self.player.qi <= 0 || self.player.spirit <= 0 {
             self.lose_combat(combat);
         } else {
             self.activity = Activity::Fighting(combat);
+        }
+    }
+
+    fn run_npc_combat_chat(&mut self, combat: &mut CombatState) -> bool {
+        let EnemyKind::Npc(npc) = combat.enemy.clone() else {
+            return false;
+        };
+        let Some(chat) = npcs()
+            .definition(&npc)
+            .and_then(|definition| definition.combat_chat.clone())
+        else {
+            return false;
+        };
+        if chat.entries.is_empty() || self.random(100) >= chat.runtime_chance() {
+            return false;
+        }
+        let entry = chat.entries[self.random(chat.entries.len() as u32) as usize].clone();
+        match entry.kind.as_str() {
+            "text" => self.push_log(entry.value),
+            "spell" if entry.value.contains("invocation") => {
+                let bonus = (combat.enemy.attack() / 8).max(2);
+                combat.enemy_attack_bonus = (combat.enemy_attack_bonus + bonus).min(30);
+                self.push_log(format!(
+                    "{}施展招魂咒，攻势增强了{}点。",
+                    combat.enemy.name(),
+                    bonus
+                ));
+            }
+            "spell" => {
+                let (resource, spell) = if entry.value.contains("drainerbolt") {
+                    (CombatResource::Spirit, "吸魂阴雷")
+                } else if entry.value.contains("feeblebolt") {
+                    (CombatResource::Qi, "虚弱阴雷")
+                } else {
+                    (CombatResource::Essence, "冥界阴雷")
+                };
+                return self.npc_special_hit(combat, resource, spell);
+            }
+            "force" if entry.value.contains("powerup") => {
+                let bonus = (combat.enemy.attack() / 10).max(2);
+                combat.enemy_attack_bonus = (combat.enemy_attack_bonus + bonus).min(30);
+                self.push_log(format!(
+                    "{}运起内功，攻势增强了{}点。",
+                    combat.enemy.name(),
+                    bonus
+                ));
+            }
+            "force" if entry.value.contains("recover") || entry.value.contains("heal") => {
+                let recovered = (combat.max_health / 5).max(1);
+                let before = combat.health;
+                combat.health = (combat.health + recovered).min(combat.max_health);
+                self.push_log(format!(
+                    "{}运功疗伤，恢复了{}点战力。",
+                    combat.enemy.name(),
+                    combat.health - before
+                ));
+            }
+            "force" if entry.value.contains("powerfade") => {
+                combat.enemy_attack_bonus = 0;
+                self.push_log(format!("{}收敛内息，攻势恢复如常。", combat.enemy.name()));
+            }
+            "perform" => {
+                return self.npc_special_hit(combat, CombatResource::Essence, "回剑反击");
+            }
+            "command" if entry.value.contains("surrender") => {
+                self.activity = Activity::Idle;
+                self.push_log(format!("{}跳出战圈，连声认输。", combat.enemy.name()));
+                return true;
+            }
+            "command" if entry.value.contains("corpse") => {
+                self.push_log(format!(
+                    "{}掐诀试图役使尸体，但战圈内没有可用尸身。",
+                    combat.enemy.name()
+                ));
+            }
+            "movement" => self.push_log(format!(
+                "{}试图冲出战圈，却被你拦住去路。",
+                combat.enemy.name()
+            )),
+            "callback" => self.run_npc_combat_callback(combat, &npc, &entry.value),
+            _ => {}
+        }
+        false
+    }
+
+    fn run_npc_combat_callback(&mut self, combat: &mut CombatState, npc: &NpcId, callback: &str) {
+        if npc.as_str() == OLDPINE_FAT_BANDIT_ID && callback.contains("call_for_help") {
+            if self.spawned_npc_instances.iter().any(|entry| {
+                entry.location == self.location && entry.npc.as_str() == OLDPINE_BANDIT_CHIEF_ID
+            }) {
+                return;
+            }
+            self.spawned_npc_instances.push(SpawnedNpcInstance {
+                location: self.location.clone(),
+                npc: NpcId::from(OLDPINE_BANDIT_CHIEF_ID),
+            });
+            self.push_log("矮胖土匪高声呼救，一名土匪老大提刀赶到战圈旁。".into());
+            return;
+        }
+
+        let bonus = match (npc.as_str(), callback) {
+            ("green.npc.oldman", value) if value.contains("ask_for_help") => {
+                if self.current_room_has_npc("green.npc.oldwoman") {
+                    self.push_log("老头高声呼喊，老妇从旁夹攻，使他的攻势更紧。".into());
+                    5
+                } else {
+                    self.push_log("老头高声呼救，却没有人赶来。".into());
+                    0
+                }
+            }
+            ("green.npc.oldwoman", value) if value.contains("ask_for_help") => {
+                if self.current_room_has_npc("green.npc.oldman") {
+                    self.push_log("老妇招呼老伴相助，两人一前一后逼近。".into());
+                    5
+                } else {
+                    self.push_log("老妇呼喊老伴，却没有回应。".into());
+                    0
+                }
+            }
+            ("green.npc.oldman", value) if value.contains("wield_something") => {
+                self.push_log("老头抽出随身短刃，攻势陡然凌厉。".into());
+                4
+            }
+            ("green.npc.woman1", value) if value.contains("wield_weapon") => {
+                self.push_log("农妇抄起一把短刀护在身前。".into());
+                4
+            }
+            ("green.npc.woman1", value) if value.contains("converse_one") => {
+                self.push_log("农妇一边招架，一边厉声质问你为何欺负村中妇孺。".into());
+                0
+            }
+            _ => 0,
+        };
+        combat.enemy_attack_bonus = (combat.enemy_attack_bonus + bonus).min(30);
+    }
+
+    fn apply_npc_hit_hook(&mut self, enemy: &EnemyKind, damage: u32, armor: u32) {
+        let EnemyKind::Npc(npc) = enemy else {
+            return;
+        };
+        let current_duration = self
+            .player
+            .condition(ConditionKind::SnakePoison)
+            .map_or(0, |condition| condition.duration);
+        if npc.as_str() == OLDPINE_VENOM_SNAKE_ID
+            && current_duration < 10
+            && self.random(damage.max(1)) > armor
+        {
+            self.player
+                .set_condition(ConditionKind::SnakePoison, 20, 10);
+            self.push_log("你觉得被金银花蛇咬中的地方一阵麻痒。".into());
+        }
+    }
+
+    fn npc_special_hit(
+        &mut self,
+        combat: &CombatState,
+        resource: CombatResource,
+        action: &str,
+    ) -> bool {
+        let damage = (combat.enemy.attack() / 3).max(3);
+        match resource {
+            CombatResource::Essence => self.player.essence -= damage,
+            CombatResource::Qi => self.player.qi -= damage,
+            CombatResource::Spirit => self.player.spirit -= damage,
+        }
+        self.push_log(format!(
+            "{}施展{action}，你损失{}点{}。",
+            combat.enemy.name(),
+            damage,
+            resource.name()
+        ));
+        if self.player.essence <= 0 || self.player.qi <= 0 || self.player.spirit <= 0 {
+            self.lose_combat(combat.clone());
+            true
+        } else {
+            false
         }
     }
 
@@ -3623,10 +6068,13 @@ impl Game {
 
         match enemy {
             EnemyKind::Bandit if self.quest == QuestStage::FindJuan => {
-                self.quest = QuestStage::ReturnHome;
-                self.player.add_money(1_200);
-                self.push_log("你赶走山贼，在林间找到了受惊的娟儿，并护送她离开松林。".into());
-                self.push_log("任务更新：回刘家小房报平安。银子 +12 两。".into());
+                self.quest = QuestStage::FoundJuan;
+                self.push_log("你赶走山贼，在林间找到了被绑住的小娟。".into());
+                self.push_log("小娟一边挣脱绳索，一边向你呼救。".into());
+            }
+            EnemyKind::XiaoJuan => {
+                self.quest = QuestStage::MurderedJuan;
+                self.push_log("小娟倒在林中。这个消息迟早会传到刘老农耳中。".into());
             }
             EnemyKind::Wolf => {
                 let pelt_id = ItemId::from(items::WOLF_PELT_ID);
@@ -3649,6 +6097,37 @@ impl Game {
                 self.place_item_on_ground(manual, 1);
                 self.push_log("血手刘三倒下后，一本残破刀谱落在地上。".into());
             }
+            EnemyKind::Npc(npc) if combat.mode == CombatMode::Lethal => {
+                if npc.as_str() == CHUENYU_BOSS_ID && self.quest == QuestStage::FindJuan {
+                    self.quest = QuestStage::FoundJuan;
+                    self.push_log("你击败绮云庄主，在地牢深处找到了被囚禁的小娟。".into());
+                }
+                if matches!(
+                    npc.as_str(),
+                    CHUENYU_XIAO_JUAN_ID | CHUENYU_XIAO_JUAN_PLACED_ID
+                ) {
+                    self.quest = QuestStage::MurderedJuan;
+                    self.push_log("小娟倒在地牢中，这个消息迟早会传到刘老农耳中。".into());
+                }
+                self.defeated_npc_instances.push(DefeatedNpcInstance {
+                    location: self.location.clone(),
+                    npc: npc.clone(),
+                });
+                if npc.as_str() == CHOYIN_LION_ID {
+                    self.place_item_on_ground(ItemId::from(CHOYIN_GRASS_ID), 1);
+                    self.push_log("护草神兽倒下，一棵晶莹的忘忧草落在地上。".into());
+                }
+                if npc.as_str() == CHOYIN_POLICE_ID {
+                    self.player.wanted = self.player.wanted.saturating_add(5);
+                    self.push_log("杀害公差使你的罪名加重，通缉额外 +5。".into());
+                }
+                if GOATHILL_LEECH_CORPSE_NPCS.contains(&npc.as_str()) {
+                    self.place_item_on_ground(ItemId::from(GOATHILL_DEAD_LEECH_ID), 1);
+                    self.push_log("岩蛭死后蜷成一团，一条死岩蛭留在地上。".into());
+                }
+                self.drop_npc_carried_items(&npc);
+            }
+            EnemyKind::Npc(_) => {}
             _ => {}
         }
     }
@@ -3732,6 +6211,11 @@ impl Game {
                     }
                 }
                 ConditionKind::AstralVision => {}
+                ConditionKind::RosePoison => {
+                    self.player.spirit -= 20;
+                    self.player.qi -= 10;
+                    self.push_log("火玫瑰毒发作，你的神与气受到损伤。".into());
+                }
             }
             condition.duration = condition.duration.saturating_sub(1);
             if condition.duration > 0 {
@@ -3944,6 +6428,101 @@ impl Game {
         self.version = SAVE_VERSION;
     }
 
+    pub(crate) fn migrate_v7_m4_combat(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v8_old_liu_plot(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v9_m4_npc_combat(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v10_city_exit_permit(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v11_m4_room_events(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v12_source_doors(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v13_source_room_items(&mut self) {
+        self.initialize_source_room_items();
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v14_m5_source_room_items(&mut self) {
+        self.initialize_m5_source_room_items();
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v15_m5_choyin_events(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v16_m5_room_events(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v17_m5_npc_events(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v18_m5_regional_gameplay(&mut self) {
+        self.player
+            .inventory
+            .retain(|item| !CHOYIN_DONATION_BOX_IDS.contains(&item.item_id.as_str()));
+        for ground in self.ground_items.values_mut() {
+            ground.retain(|item| !CHOYIN_DONATION_BOX_IDS.contains(&item.item_id.as_str()));
+        }
+        self.ground_items.retain(|_, ground| !ground.is_empty());
+        let instance_id = self.allocate_item_instance_id();
+        self.ground_items
+            .entry(LocationId::from("choyin.altar"))
+            .or_default()
+            .push(ItemInstance::new(
+                instance_id,
+                ItemId::from("choyin.obj.denotation"),
+                1,
+            ));
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v19_m6_source_room_items(&mut self) {
+        self.initialize_m6_source_room_items();
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v20_m6_room_events(&mut self) {
+        if self.location.as_str() == "chuenyu.trap_castle" {
+            self.chuenyu_trap_arrow_ticks = 2;
+        }
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v21_m6_npc_events(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v22_m7_source_room_items(&mut self) {
+        self.initialize_m7_source_room_items();
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v23_m7_room_and_item_events(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
+    pub(crate) fn migrate_v24_m7_npc_events(&mut self) {
+        self.version = SAVE_VERSION;
+    }
+
     pub fn push_log(&mut self, message: String) {
         self.logs.push(message);
         if self.logs.len() > LOG_LIMIT {
@@ -3953,89 +6532,123 @@ impl Game {
 }
 
 impl EnemyKind {
-    pub fn name(self) -> &'static str {
+    pub fn name(&self) -> &'static str {
         match self {
             Self::Bandit => "松林山贼",
+            Self::XiaoJuan => "小娟",
+            Self::OldLiuRevenge => "悲愤欲绝的刘老农",
             Self::Wolf => "灰背野狼",
             Self::TempleDisciple => "护院武僧",
             Self::Rat => "大老鼠",
             Self::IceDragon => "白鳞冰龙",
             Self::Meloner => "愤怒的瓜农",
             Self::BloodHandLiuSan => "血手刘三",
+            Self::Npc(npc) => npc.name(),
         }
     }
 
-    fn max_health(self) -> i32 {
+    fn max_health(&self) -> i32 {
         match self {
             Self::Bandit => 65,
+            Self::XiaoJuan => 1,
+            Self::OldLiuRevenge => 500,
             Self::Wolf => 48,
             Self::TempleDisciple => 95,
             Self::Rat => 22,
             Self::IceDragon => 420,
             Self::Meloner => 90,
             Self::BloodHandLiuSan => 150,
+            Self::Npc(npc) => npcs()
+                .definition(npc)
+                .map_or(43, |definition| definition.combat_max_health()),
         }
     }
 
-    fn attack(self) -> i32 {
+    fn attack(&self) -> i32 {
         match self {
             Self::Bandit => 13,
+            Self::XiaoJuan => 1,
+            Self::OldLiuRevenge => 70,
             Self::Wolf => 11,
             Self::TempleDisciple => 17,
             Self::Rat => 7,
             Self::IceDragon => 42,
             Self::Meloner => 16,
             Self::BloodHandLiuSan => 22,
+            Self::Npc(npc) => npcs()
+                .definition(npc)
+                .map_or(8, |definition| definition.combat_attack()),
         }
     }
 
-    fn defense(self) -> i32 {
+    fn defense(&self) -> i32 {
         match self {
             Self::Bandit => 7,
+            Self::XiaoJuan => 0,
+            Self::OldLiuRevenge => 45,
             Self::Wolf => 5,
             Self::TempleDisciple => 12,
             Self::Rat => 2,
             Self::IceDragon => 30,
             Self::Meloner => 11,
             Self::BloodHandLiuSan => 15,
+            Self::Npc(npc) => npcs()
+                .definition(npc)
+                .map_or(4, |definition| definition.combat_defense()),
         }
     }
 
-    fn insight_reward(self) -> u32 {
+    fn insight_reward(&self) -> u32 {
         match self {
             Self::Bandit => 15,
+            Self::XiaoJuan => 0,
+            Self::OldLiuRevenge => 80,
             Self::Wolf => 8,
             Self::TempleDisciple => 24,
             Self::Rat => 3,
             Self::IceDragon => 80,
             Self::Meloner => 8,
             Self::BloodHandLiuSan => 30,
+            Self::Npc(npc) => npcs().definition(npc).map_or(2, |definition| {
+                (definition.combat_rating() / 2).max(2) as u32
+            }),
         }
     }
 
-    fn reputation_reward(self) -> i32 {
+    fn reputation_reward(&self) -> i32 {
         match self {
             Self::Bandit => 4,
+            Self::XiaoJuan => -500,
+            Self::OldLiuRevenge => -20,
             Self::Wolf => 1,
             Self::TempleDisciple => 2,
-            Self::Rat => 0,
+            Self::Rat | Self::Npc(_) => 0,
             Self::IceDragon => 12,
             Self::Meloner => -8,
             Self::BloodHandLiuSan => 8,
         }
     }
 
-    fn damage_resource(self) -> CombatResource {
+    fn damage_resource(&self) -> CombatResource {
         match self {
             Self::TempleDisciple => CombatResource::Qi,
             Self::IceDragon => CombatResource::Spirit,
+            Self::Npc(npc)
+                if npcs()
+                    .definition(npc)
+                    .is_some_and(|definition| definition.attacks_spirit()) =>
+            {
+                CombatResource::Spirit
+            }
             _ => CombatResource::Essence,
         }
     }
 
-    fn wanted_reward(self) -> u32 {
+    fn wanted_reward(&self) -> u32 {
         match self {
-            Self::TempleDisciple | Self::Meloner => 1,
+            Self::XiaoJuan => 5,
+            Self::OldLiuRevenge => 3,
+            Self::TempleDisciple | Self::Meloner | Self::Npc(_) => 1,
             _ => 0,
         }
     }
@@ -4063,6 +6676,27 @@ impl Exit {
 }
 
 #[derive(Debug, Clone)]
+pub struct SourceDoor {
+    pub direction: String,
+    pub name: String,
+    pub reverse_direction: String,
+    pub initially_closed: bool,
+}
+
+#[derive(Debug, Clone)]
+pub struct RoomDetail {
+    pub key: String,
+    pub description: Option<String>,
+    pub door_direction: Option<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct RoomItemPlacement {
+    pub item_id: ItemId,
+    pub count: u32,
+}
+
+#[derive(Debug, Clone)]
 pub struct Location {
     pub id: LocationId,
     pub name: String,
@@ -4070,7 +6704,10 @@ pub struct Location {
     pub description: String,
     pub arrival: String,
     pub exits: Vec<Exit>,
+    pub doors: Vec<SourceDoor>,
+    pub details: Vec<RoomDetail>,
     pub npcs: Vec<NpcId>,
+    pub room_items: Vec<RoomItemPlacement>,
     pub training: Option<SkillId>,
     pub can_rest: bool,
     pub enemy: Option<EnemyKind>,
@@ -4100,7 +6737,10 @@ impl Location {
             description: description.into(),
             arrival: arrival.into(),
             exits,
+            doors: Vec::new(),
+            details: Vec::new(),
             npcs: npc.into_iter().collect(),
+            room_items: Vec::new(),
             training,
             can_rest,
             enemy,
@@ -4109,6 +6749,78 @@ impl Location {
             behavior_flags: Vec::new(),
         }
     }
+}
+
+fn choyin_taolin_clue(index: u8) -> (&'static str, &'static str) {
+    const CLUES: [(&str, &str); 11] = [
+        ("欲将愁心附明月，随君直到夜郎--", "west"),
+        ("问君能有几多愁，恰似一江春水向--流", "east"),
+        ("自笑堂堂汉使，得似洋洋河水，依旧只流--", "east"),
+        ("--朝四百八十寺，多少楼台烟雨中", "south"),
+        ("孔雀--飞，五里一徘徊", "southeast"),
+        ("帘卷--风，人比黄花瘦", "west"),
+        ("醉别--楼醒不记，春梦秋云，聚散真容易", "west"),
+        ("春草绿色，春水碧波，送君--浦，伤之如何", "south"),
+        ("--望，射天狼", "northwest"),
+        ("--风卷地白草折，胡天八月即飞雪", "north"),
+        ("青山横--郭，白水绕东城", "north"),
+    ];
+    CLUES[usize::from(index) % CLUES.len()]
+}
+
+fn npc_fight_rejection(npc: &NpcId, player: &Player) -> String {
+    match npc.as_str() {
+        SNOW_FIST_TRAINER_ID => "李火狮说道：馆主吩咐过，不许和来这里的客人过招。".into(),
+        SNOW_GIRL_ID if player.faction.as_deref() == Some("封山剑派") => match player.gender {
+            Gender::Female => "柳绘心说道：师姐，别整天想着练功，我们去花园摘花玩吧。".into(),
+            Gender::Male => "柳绘心说道：我才不要，你去找李教头练吧！".into(),
+        },
+        SNOW_GIRL_ID => "柳绘心说道：爹爹说过，不能跟江湖人物比武过招。".into(),
+        "snow.npc.beggar" | SNOW_SCAVENGER_ID => {
+            format!("{}说道：少侠饶命！小的这就离开！", npc.name())
+        }
+        TEMPLE_OLD_TAOIST_ID => "老道士说道：无量寿佛！贫道年迈力衰，怎是施主的对手。".into(),
+        TEMPLE_PROTECTOR_ID | TEMPLE_TRAINER_ID => "对方说道：茅山派不和别派的人过招。".into(),
+        CHOYIN_HOTEL_GUARD_ID => "酒楼守卫说道：掌柜的有交代，不准任何人在这里打架！".into(),
+        CHOYIN_MAGISTRATE_ID => "程不平说道：这是衙门，快回去吧。".into(),
+        _ => format!("{}不愿与你比试。", npc.name()),
+    }
+}
+
+fn canonical_location_pair(source: &LocationId, target: &LocationId) -> (LocationId, LocationId) {
+    if source.as_str() <= target.as_str() {
+        (source.clone(), target.clone())
+    } else {
+        (target.clone(), source.clone())
+    }
+}
+
+fn source_door_pair(
+    source: &LocationId,
+    target: &LocationId,
+) -> Option<(&'static SourceDoor, &'static SourceDoor)> {
+    if door_for_transition(source, target).is_some() {
+        return None;
+    }
+    let source_location = world().location(source)?;
+    let source_exit = source_location
+        .exits
+        .iter()
+        .find(|exit| &exit.target == target)?;
+    let door = source_location
+        .doors
+        .iter()
+        .find(|door| door.direction == source_exit.direction)?;
+    let target_location = world().location(target)?;
+    let target_exit = target_location
+        .exits
+        .iter()
+        .find(|exit| &exit.target == source && exit.direction == door.reverse_direction)?;
+    let reverse = target_location.doors.iter().find(|candidate| {
+        candidate.direction == target_exit.direction
+            && candidate.reverse_direction == door.direction
+    })?;
+    Some((door, reverse))
 }
 
 fn door_for_transition(source: &LocationId, target: &LocationId) -> Option<DoorKind> {
@@ -4123,24 +6835,26 @@ fn door_for_transition(source: &LocationId, target: &LocationId) -> Option<DoorK
     }
 }
 
-const SNOW_TOWN_TEACHERS: [&str; 10] = [
+const SNOW_TOWN_TEACHERS: [&str; 8] = [
     "assassin",
     "beggar",
-    "dancer",
     "fighter",
     "juechen",
     "lama",
     "ninja",
     "ronin",
-    "scholar",
     "swordsman",
 ];
 const TEMPLE_TEACHERS: [&str; 1] = ["bonze"];
+const CHOYIN_ENTRANCE_TEACHERS: [&str; 1] = ["scholar"];
+const LATEMOON_TEACHERS: [&str; 1] = ["dancer"];
 
 fn teachers_at_location(location: &str) -> &'static [&'static str] {
     match location {
         content::SNOW_TOWN => &SNOW_TOWN_TEACHERS,
         content::TEMPLE_YARD => &TEMPLE_TEACHERS,
+        "choyin.entrance" => &CHOYIN_ENTRANCE_TEACHERS,
+        "latemoon.latemoon1" => &LATEMOON_TEACHERS,
         _ => &[],
     }
 }
@@ -4287,6 +7001,14 @@ fn direction_name(direction: &str) -> &str {
 
 #[cfg(test)]
 mod tests {
+    use std::collections::HashSet;
+
+    use crate::npcs::{
+        CHOYIN_OLD_MAN_ID, CLOUD_BOATER_ID, CLOUD_GANGSTER_ID, CLOUD_GIRL_ID, CLOUD_JUDGE_ID,
+        CLOUD_MONK_ID, LATEMOON_FUNLIN_ID, LATEMOON_OLD_ID, LATEMOON_SHAOWEI_ID,
+        LATEMOON_SHINFUN_ID, SNOW_TEACHER_ID,
+    };
+
     use super::*;
 
     #[test]
@@ -4332,6 +7054,555 @@ mod tests {
             DoorKind::LordManor,
         )));
         assert!(can_reach(&game, content::LORD_HOUSE1));
+    }
+
+    #[test]
+    fn m4_source_doors_pair_all_valid_endpoints_and_persist_shared_state() {
+        const PAIRS: [(&str, &str); 14] = [
+            ("city.shangshu.gate", "city.shangshu.yuan"),
+            ("city.shangshu.huayuan", "city.shangshu.neizhai"),
+            ("city.shangshu.kefang", "city.shangshu.road2"),
+            ("city.shangshu.road1", "city.shangshu.xiaowu"),
+            ("snow.e_room", "snow.inn_2f"),
+            ("snow.hockshop", "snow.mstreet3"),
+            ("snow.inn_2f", "snow.n_room"),
+            ("snow.inn_2f", "snow.w_room"),
+            ("snow.school1", "snow.school2"),
+            ("temple.corridor3", "temple.restroom2"),
+            ("temple.corridor4", "temple.trainroom"),
+            ("temple.corridor5", "temple.temple2"),
+            ("temple.corridor7", "temple.restroom1"),
+            ("temple.square", "temple.temple1"),
+        ];
+
+        let has_door_action = |game: &Game, target: &str| {
+            game.available_actions().iter().any(|action| match action {
+                Action::OpenSourceDoor {
+                    target: action_target,
+                }
+                | Action::CloseSourceDoor {
+                    target: action_target,
+                } => action_target.as_str() == target,
+                _ => false,
+            })
+        };
+        let mut game = Game::new();
+        for (first, second) in PAIRS {
+            game.location = LocationId::from(first);
+            assert!(
+                has_door_action(&game, second),
+                "missing door {first} -> {second}"
+            );
+            game.location = LocationId::from(second);
+            assert!(
+                has_door_action(&game, first),
+                "missing door {second} -> {first}"
+            );
+        }
+
+        game.location = LocationId::from("city.shangshu.road1");
+        assert!(game.available_actions().contains(&Action::OpenSourceDoor {
+            target: LocationId::from("city.shangshu.xiaowu")
+        }));
+        game.perform(Action::OpenSourceDoor {
+            target: LocationId::from("city.shangshu.xiaowu"),
+        });
+        assert!(game.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "city.shangshu.xiaowu"
+        )));
+
+        game.location = LocationId::from("city.shangshu.xiaowu");
+        game.perform(Action::CloseSourceDoor {
+            target: LocationId::from("city.shangshu.road1"),
+        });
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        assert!(
+            restored
+                .available_actions()
+                .contains(&Action::OpenSourceDoor {
+                    target: LocationId::from("city.shangshu.road1")
+                })
+        );
+        assert!(restored.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "city.shangshu.road1"
+        )));
+
+        game.location = LocationId::from("snow.inn");
+        assert!(game.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::OpenSourceDoor { target } | Action::CloseSourceDoor { target }
+                if target.as_str() == "wiz.entrance"
+        )));
+    }
+
+    #[test]
+    fn fixed_source_room_items_spawn_once_and_remain_pickable() {
+        let mut game = Game::new();
+        assert_eq!(game.ground_items.values().flatten().count(), 38);
+        assert_eq!(
+            game.ground_items
+                .iter()
+                .filter(|(location, _)| {
+                    ["oldpine", "goathill", "choyin"]
+                        .iter()
+                        .any(|area| location.as_str().starts_with(&format!("{area}.")))
+                })
+                .flat_map(|(_, items)| items)
+                .count(),
+            10
+        );
+        let mut instance_ids = game
+            .ground_items
+            .values()
+            .flatten()
+            .map(|item| item.instance_id)
+            .collect::<Vec<_>>();
+        instance_ids.sort_unstable();
+        instance_ids.dedup();
+        assert_eq!(instance_ids.len(), 38);
+
+        game.location = LocationId::from("snow.temple");
+        let paper = game.ground_items[&game.location]
+            .iter()
+            .find(|item| item.item_id.as_str() == "obj.paper_seal")
+            .unwrap()
+            .instance_id;
+        game.perform(Action::PickUpItem(paper));
+        assert_eq!(
+            game.ground_items[&game.location]
+                .iter()
+                .filter(|item| item.item_id.as_str() == "obj.paper_seal")
+                .count(),
+            1
+        );
+        assert!(
+            game.player
+                .inventory
+                .iter()
+                .any(|item| item.item_id.as_str() == "obj.paper_seal")
+        );
+
+        assert_eq!(
+            game.ground_items
+                .iter()
+                .filter(|(location, _)| {
+                    ["chuenyu", "green", "sanyen", "waterfog"]
+                        .iter()
+                        .any(|area| location.as_str().starts_with(&format!("{area}.")))
+                })
+                .flat_map(|(_, items)| items)
+                .count(),
+            11
+        );
+
+        assert_eq!(
+            game.ground_items
+                .iter()
+                .filter(|(location, _)| {
+                    ["latemoon", "death", "graveyard", "jail", "u.cloud"]
+                        .iter()
+                        .any(|prefix| location.as_str().starts_with(&format!("{prefix}.")))
+                })
+                .flat_map(|(_, items)| items)
+                .count(),
+            12
+        );
+
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        assert_eq!(restored.ground_items.values().flatten().count(), 37);
+    }
+
+    #[test]
+    fn m4_source_room_details_are_actionable_and_doors_report_live_state() {
+        let mut game = Game::new();
+        let mut rooms = 0;
+        let mut details = 0;
+        for catalog in [
+            include_str!("../migration/catalog/city.json"),
+            include_str!("../migration/catalog/snow.json"),
+            include_str!("../migration/catalog/temple.json"),
+            include_str!("../migration/catalog/canyon.json"),
+        ] {
+            let catalog: serde_json::Value = serde_json::from_str(catalog).unwrap();
+            for room in catalog["rooms"].as_array().unwrap().iter().filter(|room| {
+                room["behavior_flags"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .any(|flag| flag == "item_interaction")
+            }) {
+                let location = world()
+                    .location(&LocationId::from(room["id"].as_str().unwrap()))
+                    .unwrap();
+                rooms += 1;
+                details += location.details.len();
+                game.location = location.id.clone();
+                let actions = game.available_actions();
+                assert_eq!(
+                    actions
+                        .iter()
+                        .filter(|action| matches!(action, Action::InspectRoomDetail(_)))
+                        .count(),
+                    location.details.len(),
+                    "{}",
+                    location.id.as_str()
+                );
+            }
+        }
+        assert_eq!(rooms, 32);
+        assert_eq!(details, 42);
+
+        game.location = LocationId::from("city.bank");
+        game.perform(Action::InspectRoomDetail("sign".into()));
+        assert!(game.logs.last().unwrap().contains("convert"));
+
+        game.location = LocationId::from("city.shangshu.kefang");
+        game.perform(Action::InspectRoomDetail("book".into()));
+        assert!(game.logs.last().unwrap().contains("诗词集"));
+
+        game.location = LocationId::from("snow.school1");
+        game.perform(Action::InspectRoomDetail("door".into()));
+        assert!(game.logs.last().unwrap().contains("关着"));
+        game.perform(Action::OpenSourceDoor {
+            target: LocationId::from("snow.school2"),
+        });
+        game.perform(Action::InspectRoomDetail("door".into()));
+        assert!(game.logs.last().unwrap().contains("开着"));
+        game.perform(Action::CloseSourceDoor {
+            target: LocationId::from("snow.school2"),
+        });
+        game.perform(Action::InspectRoomDetail("door".into()));
+        assert!(game.logs.last().unwrap().contains("关着"));
+    }
+
+    #[test]
+    fn m5_source_doors_and_room_details_use_the_generic_runtime() {
+        let mut game = Game::new();
+        game.location = LocationId::from("choyin.yamen");
+        assert!(game.available_actions().contains(&Action::OpenSourceDoor {
+            target: LocationId::from("choyin.yamen_yard"),
+        }));
+        assert!(game.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "choyin.yamen_yard"
+        )));
+        game.perform(Action::OpenSourceDoor {
+            target: LocationId::from("choyin.yamen_yard"),
+        });
+        assert!(game.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "choyin.yamen_yard"
+        )));
+        game.location = LocationId::from("choyin.yamen_yard");
+        game.perform(Action::CloseSourceDoor {
+            target: LocationId::from("choyin.yamen"),
+        });
+        assert!(game.available_actions().contains(&Action::OpenSourceDoor {
+            target: LocationId::from("choyin.yamen"),
+        }));
+
+        for room_id in ["choyin.club", "choyin.fence"] {
+            game.location = LocationId::from(room_id);
+            assert!(game.available_actions().iter().all(|action| !matches!(
+                action,
+                Action::OpenSourceDoor { .. } | Action::CloseSourceDoor { .. }
+            )));
+        }
+
+        let mut rooms = 0;
+        let mut details = 0;
+        for catalog in [
+            include_str!("../migration/catalog/oldpine.json"),
+            include_str!("../migration/catalog/goathill.json"),
+            include_str!("../migration/catalog/choyin.json"),
+        ] {
+            let catalog: serde_json::Value = serde_json::from_str(catalog).unwrap();
+            for room in catalog["rooms"].as_array().unwrap().iter().filter(|room| {
+                room["behavior_flags"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .any(|flag| flag == "item_interaction")
+            }) {
+                let location = world()
+                    .location(&LocationId::from(room["id"].as_str().unwrap()))
+                    .unwrap();
+                rooms += 1;
+                details += location.details.len();
+                game.location = location.id.clone();
+                assert_eq!(
+                    game.available_actions()
+                        .iter()
+                        .filter(|action| matches!(action, Action::InspectRoomDetail(_)))
+                        .count(),
+                    location.details.len(),
+                    "{}",
+                    location.id.as_str()
+                );
+            }
+        }
+        assert_eq!(rooms, 19);
+        assert_eq!(details, 25);
+
+        game.location = LocationId::from("oldpine.cave5");
+        game.perform(Action::InspectRoomDetail("wall".into()));
+        assert!(game.logs.last().unwrap().contains("水烟阁"));
+        game.location = LocationId::from("choyin.taolin");
+        game.perform(Action::InspectRoomDetail("note".into()));
+        assert!(game.logs.last().unwrap().contains("路径"));
+    }
+
+    #[test]
+    fn m5_oldpine_scripted_routes_and_random_mazes_are_single_player_safe() {
+        let game = Game::new();
+        for (source, targets) in [
+            ("oldpine.clearing", &["oldpine.tree1"][..]),
+            (
+                "oldpine.cliff1",
+                &["oldpine.cliffside", "oldpine.riverbank1"][..],
+            ),
+            (
+                "oldpine.cliff2",
+                &["oldpine.cliffdown", "oldpine.epath3"][..],
+            ),
+            ("oldpine.cliffdown", &["oldpine.cliff2"][..]),
+            ("oldpine.path3", &["oldpine.stone"][..]),
+            ("oldpine.riverbank1", &["oldpine.cliff1"][..]),
+            ("oldpine.stone", &["oldpine.cave1"][..]),
+        ] {
+            let mut at_source = game.clone();
+            at_source.location = LocationId::from(source);
+            let actions = at_source.available_actions();
+            for target in targets {
+                assert!(
+                    actions.iter().any(|action| matches!(
+                        action,
+                        Action::Move { target: action_target, .. }
+                            if action_target.as_str() == *target
+                    )),
+                    "{source} -> {target}"
+                );
+            }
+        }
+
+        let mut cave = Game::new();
+        cave.location = LocationId::from("oldpine.cave3");
+        let actions = cave.available_actions();
+        assert_eq!(
+            actions
+                .iter()
+                .filter(|action| matches!(action, Action::Move { .. }))
+                .count(),
+            4
+        );
+        assert!(actions.iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == content::OLD_PINE_CAVE_PREFIX
+        )));
+        assert!(
+            actions
+                .iter()
+                .filter_map(|action| match action {
+                    Action::Move { target, .. } => Some(target.as_str()),
+                    _ => None,
+                })
+                .all(|target| matches!(
+                    target,
+                    "oldpine.cave1" | "oldpine.cave2" | "oldpine.cave3" | "oldpine.cave4"
+                ))
+        );
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&cave).unwrap()).unwrap();
+        assert_eq!(restored.available_actions(), actions);
+        let maze_move = actions
+            .into_iter()
+            .find(|action| matches!(action, Action::Move { .. }))
+            .unwrap();
+        let rng_before = cave.rng_state;
+        cave.perform(maze_move);
+        assert_ne!(cave.rng_state, rng_before);
+        assert!(
+            cave.location
+                .as_str()
+                .starts_with(content::OLD_PINE_CAVE_PREFIX)
+        );
+
+        let mut pine = Game::new();
+        pine.location = LocationId::from("oldpine.pine3");
+        let pine_actions = pine.available_actions();
+        assert_eq!(
+            pine_actions
+                .iter()
+                .filter(|action| matches!(action, Action::Move { .. }))
+                .count(),
+            4
+        );
+        assert!(pine_actions.iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == content::OLD_PINE_FOREST_PREFIX
+        )));
+
+        let mut vine = Game::new();
+        vine.location = LocationId::from("oldpine.epath2");
+        vine.perform(Action::Interact(InteractionKind::HoldOldPineVine));
+        assert_eq!(vine.location.as_str(), "oldpine.waterfall");
+    }
+
+    #[test]
+    fn m5_choyin_cliff_platform_well_and_lion_events_are_actionable() {
+        let mut cliff = Game::new();
+        cliff.location = LocationId::from("choyin.guyehill");
+        cliff.perform(Action::Interact(InteractionKind::ClimbChoyinTree));
+        assert_eq!(cliff.location.as_str(), "choyin.craneroom");
+        cliff.location = LocationId::from("choyin.guyehill");
+        cliff.perform(Action::Interact(InteractionKind::HoldChoyinVine));
+        assert_eq!(cliff.location.as_str(), "choyin.hollow");
+
+        let mut platform = Game::new();
+        platform.location = LocationId::from("choyin.platform");
+        assert!(platform.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "choyin.stove"
+        )));
+        platform.perform(Action::Interact(InteractionKind::TouchChoyinCloudFlag));
+        let down = platform
+            .available_actions()
+            .into_iter()
+            .find(|action| {
+                matches!(
+                    action,
+                    Action::Move { target, .. } if target.as_str() == "choyin.stove"
+                )
+            })
+            .unwrap();
+        let restored: Game =
+            serde_json::from_str(&serde_json::to_string(&platform).unwrap()).unwrap();
+        assert!(restored.available_actions().contains(&down));
+        let essence_before = platform.player.essence;
+        platform.tick();
+        platform.tick();
+        assert!(platform.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "choyin.stove"
+        )));
+        platform.tick();
+        assert!(platform.player.essence < essence_before);
+
+        let mut escape = Game::new();
+        escape.location = LocationId::from("choyin.platform");
+        escape.perform(Action::Interact(InteractionKind::TouchChoyinCloudFlag));
+        let down = escape
+            .available_actions()
+            .into_iter()
+            .find(|action| {
+                matches!(
+                    action,
+                    Action::Move { target, .. } if target.as_str() == "choyin.stove"
+                )
+            })
+            .unwrap();
+        escape.perform(down);
+        assert_eq!(escape.location.as_str(), "choyin.stove");
+        assert!(escape.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "choyin.tongbhill"
+        )));
+
+        let mut well = Game::new();
+        well.location = LocationId::from("choyin.s_street1");
+        well.player.water = 10;
+        well.perform(Action::Interact(InteractionKind::DrinkChoyinWell));
+        assert_eq!(well.player.water, 30);
+
+        let mut lion = Game::new();
+        lion.location = LocationId::from("choyin.w_street1");
+        lion.player.strength = 50;
+        lion.perform(Action::Interact(InteractionKind::LiftChoyinStoneLion));
+        assert_eq!(lion.location.as_str(), "choyin.lionroom");
+    }
+
+    #[test]
+    fn m5_oldpine_and_choyin_room_events_preserve_source_state_machines() {
+        let mut burial = Game::new();
+        burial.location = LocationId::from("oldpine.cave5");
+        burial.player.spirituality = 0;
+        assert!(burial.current_ground_has("oldpine.npc.skeleton"));
+        burial.perform(Action::Interact(InteractionKind::BuryOldPineSkeleton));
+        assert!(!burial.current_ground_has("oldpine.npc.skeleton"));
+        assert_eq!(burial.location.as_str(), "oldpine.waterfall");
+
+        let mut keep = Game::new();
+        keep.location = LocationId::from("oldpine.keep2");
+        let east = keep
+            .available_actions()
+            .into_iter()
+            .find(|action| matches!(action, Action::Move { direction, .. } if direction == "east"))
+            .unwrap();
+        keep.perform(east);
+        keep.location = LocationId::from("oldpine.keep2");
+        assert!(keep.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { direction, .. } if direction == "west"
+        )));
+        keep.add_inventory_item(ItemId::from("oldpine.obj.bamboo_pipe"), 1);
+        keep.perform(Action::Interact(InteractionKind::BlowOldPineBambooPipe));
+        assert!(keep.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { direction, .. } if direction == "west"
+        )));
+
+        let mut books = Game::new();
+        books.location = LocationId::from("choyin.club");
+        books.perform(Action::Interact(InteractionKind::BorrowChoyinBook));
+        assert!(books.player.inventory.iter().any(|item| matches!(
+            item.item_id.as_str(),
+            "choyin.npc.obj.book1" | "choyin.npc.obj.book2"
+        )));
+        books.move_to(LocationId::from("choyin.fence"));
+        assert!(books.player.inventory.iter().all(|item| !matches!(
+            item.item_id.as_str(),
+            "choyin.npc.obj.book1" | "choyin.npc.obj.book2"
+        )));
+
+        let mut peach = Game::new();
+        peach.location = LocationId::from("choyin.entrance");
+        assert!(peach.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { direction, .. } if direction == "east"
+        )));
+        let trial = Action::BecomeApprentice("scholar".into());
+        assert!(peach.available_actions().contains(&trial));
+        peach.perform(trial.clone());
+        assert!(peach.choyin_scholar_trial_started);
+        assert!(peach.player.teacher.is_none());
+        let enter = peach
+            .available_actions()
+            .into_iter()
+            .find(|action| matches!(action, Action::Move { direction, .. } if direction == "east"))
+            .unwrap();
+        peach.perform(enter);
+        assert_eq!(peach.choyin_taolin_steps, 3);
+        peach.perform(Action::Interact(InteractionKind::ReadChoyinPeachNote));
+        assert!(peach.logs.last().unwrap().contains("--"));
+        for _ in 0..3 {
+            let direction = choyin_taolin_clue(peach.choyin_taolin_clue).1;
+            let step = peach
+                .available_actions()
+                .into_iter()
+                .find(|action| {
+                    matches!(action, Action::Move { direction: candidate, .. } if candidate == direction)
+                })
+                .unwrap();
+            peach.perform(step);
+        }
+        assert_eq!(peach.location.as_str(), "choyin.entrance");
+        assert_eq!(peach.choyin_taolin_steps, 0);
+        assert!(peach.choyin_scholar_trial_completed);
+        peach.perform(trial);
+        assert_eq!(peach.player.teacher.as_deref(), Some("scholar"));
+        assert_eq!(peach.player.faction.as_deref(), Some("步玄派"));
+        assert!(!peach.choyin_scholar_trial_started);
     }
 
     #[test]
@@ -4542,6 +7813,1261 @@ mod tests {
     }
 
     #[test]
+    fn m5_scripted_inquiries_and_exchanges_preserve_source_rewards() {
+        let mut game = Game::new();
+
+        game.location = LocationId::from("choyin.n_street1");
+        game.perform(Action::AskNpc {
+            npc: NpcId::from("choyin.npc.cake_vendor"),
+            topic: "大饼".into(),
+        });
+        assert!(game.logs.last().unwrap().contains("摆出货单"));
+
+        game.location = LocationId::from("choyin.yamen");
+        game.perform(Action::AskNpc {
+            npc: NpcId::from(CHOYIN_POLICE_ID),
+            topic: "bribery".into(),
+        });
+        assert!(game.logs.last().unwrap().contains("收起你的钱"));
+
+        game.location = LocationId::from("choyin.bridge4");
+        let ask_for_bag = Action::AskNpc {
+            npc: NpcId::from(CHOYIN_GIRL_ID),
+            topic: "游晋".into(),
+        };
+        assert!(game.available_actions().contains(&ask_for_bag));
+        game.perform(ask_for_bag.clone());
+        assert!(game.player.has_item(&ItemId::from(CHOYIN_SILK_BAG_ID)));
+        assert!(!game.available_actions().contains(&ask_for_bag));
+
+        game.location = LocationId::from("choyin.hotel2");
+        let ask_about_trouble = Action::AskNpc {
+            npc: NpcId::from(CHOYIN_YOUNG_MAN_ID),
+            topic: "trouble".into(),
+        };
+        game.perform(ask_about_trouble.clone());
+        assert!(game.logs.last().unwrap().contains("唉"));
+        let bag = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == CHOYIN_SILK_BAG_ID)
+            .unwrap()
+            .instance_id;
+        game.perform(Action::GiveItem {
+            instance_id: bag,
+            npc: NpcId::from(CHOYIN_YOUNG_MAN_ID),
+        });
+        assert!(game.player.item(bag).is_none());
+        assert!(game.choyin_silk_bag_delivered);
+        assert!(!game.available_actions().contains(&ask_about_trouble));
+
+        game.location = LocationId::from("choyin.tomb3");
+        let chest = game.ground_items[&game.location]
+            .iter()
+            .find(|item| CHOYIN_PEACH_CHEST_IDS.contains(&item.item_id.as_str()))
+            .unwrap()
+            .instance_id;
+        game.perform(Action::PickUpItem(chest));
+        game.location = LocationId::from("choyin.hotel1");
+        game.perform(Action::GiveItem {
+            instance_id: chest,
+            npc: NpcId::from("choyin.npc.sergeant"),
+        });
+        assert!(game.player.item(chest).is_none());
+        assert!(game.choyin_chest_rewarded);
+        assert!(game.player.has_item(&ItemId::from(CHOYIN_MAGIC_BOOK_ID)));
+    }
+
+    #[test]
+    fn m5_rope_and_tablet_actions_preserve_choyin_item_scripts() {
+        assert_eq!(
+            items()
+                .definition(&ItemId::from("choyin.npc.obj.book1"))
+                .unwrap()
+                .display_name(),
+            "「笑傲江湖」"
+        );
+
+        let mut altar = Game::new();
+        altar.location = LocationId::from("choyin.altar");
+        let box_instance = altar.ground_items[&altar.location]
+            .iter()
+            .find(|item| CHOYIN_DONATION_BOX_IDS.contains(&item.item_id.as_str()))
+            .unwrap()
+            .instance_id;
+        assert!(
+            !altar
+                .available_actions()
+                .contains(&Action::PickUpItem(box_instance))
+        );
+        let offering = altar
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.unit_value() > 0 && !altar.player.is_equipped(item.instance_id))
+            .unwrap()
+            .instance_id;
+        let donate = Action::DonateItem(offering);
+        assert!(altar.available_actions().contains(&donate));
+        altar.perform(donate);
+        assert!(altar.player.item(offering).is_none());
+        assert!(altar.current_ground_has("choyin.obj.denotation"));
+
+        let mut rope = Game::new();
+        rope.location = LocationId::from("choyin.halfhole");
+        let rope_instance = rope.ground_items[&rope.location]
+            .iter()
+            .find(|item| item.item_id.as_str() == CHOYIN_GOLDEN_ROPE_ID)
+            .unwrap()
+            .instance_id;
+        rope.perform(Action::PickUpItem(rope_instance));
+
+        rope.location = LocationId::from("village.road2");
+        let sell = Action::SellItem(rope_instance);
+        assert!(!rope.available_actions().contains(&sell));
+        rope.perform(sell);
+        assert!(rope.player.item(rope_instance).is_some());
+
+        rope.location = LocationId::from("snow.school");
+        let give = Action::GiveItem {
+            instance_id: rope_instance,
+            npc: NpcId::from(SNOW_TEACHER_ID),
+        };
+        assert!(!rope.available_actions().contains(&give));
+        rope.perform(give);
+        assert!(rope.player.item(rope_instance).is_some());
+
+        rope.location = LocationId::from("choyin.altar");
+        let donate = Action::DonateItem(rope_instance);
+        assert!(!rope.available_actions().contains(&donate));
+        rope.perform(donate);
+        assert!(rope.player.item(rope_instance).is_some());
+
+        rope.location = LocationId::from("choyin.craneroom");
+        let drop = Action::DropItem(rope_instance);
+        assert!(!rope.available_actions().contains(&drop));
+        rope.perform(drop);
+        assert!(rope.player.item(rope_instance).is_some());
+        let spirit_before = rope.player.spirit;
+        rope.perform(Action::Interact(InteractionKind::TieChoyinCrane));
+        assert_eq!(rope.location.as_str(), "choyin.platform");
+        assert_eq!(rope.player.spirit, (spirit_before - 50).max(0));
+        assert!(rope.player.has_item(&ItemId::from(CHOYIN_GOLDEN_ROPE_ID)));
+
+        let mut tablet = Game::new();
+        tablet.location = LocationId::from("choyin.stove");
+        let tablet_instance = tablet.ground_items[&tablet.location]
+            .iter()
+            .find(|item| item.item_id.as_str() == CHOYIN_TABLET_ID)
+            .unwrap()
+            .instance_id;
+        tablet.perform(Action::PickUpItem(tablet_instance));
+        tablet.player.essence = 40;
+        tablet.player.qi = 30;
+        tablet.player.spirit = 20;
+        let consume = Action::ConsumeItem(tablet_instance);
+        assert!(tablet.available_actions().contains(&consume));
+        tablet.perform(consume);
+        assert_eq!(tablet.player.essence, 45);
+        assert_eq!(tablet.player.qi, 60);
+        assert_eq!(tablet.player.spirit, 25);
+        assert!(tablet.player.item(tablet_instance).is_none());
+    }
+
+    #[test]
+    fn m6_source_doors_details_and_spider_web_use_generic_runtime() {
+        let catalogs: [serde_json::Value; 4] = [
+            serde_json::from_str(include_str!("../migration/catalog/chuenyu.json")).unwrap(),
+            serde_json::from_str(include_str!("../migration/catalog/green.json")).unwrap(),
+            serde_json::from_str(include_str!("../migration/catalog/sanyen.json")).unwrap(),
+            serde_json::from_str(include_str!("../migration/catalog/waterfog.json")).unwrap(),
+        ];
+        let mut door_entries = 0;
+        let mut detail_rooms = 0;
+        let mut details = 0;
+        for catalog in catalogs {
+            for room in catalog["rooms"].as_array().unwrap() {
+                let flags = room["behavior_flags"].as_array().unwrap();
+                let mut game = Game::new();
+                game.location = LocationId::from(room["id"].as_str().unwrap());
+                let location = game.current_location();
+                if flags.iter().any(|flag| flag == "door") {
+                    door_entries += location.doors.len();
+                    let actions = game.available_actions();
+                    for door in &location.doors {
+                        let target = &location
+                            .exits
+                            .iter()
+                            .find(|exit| exit.direction == door.direction)
+                            .unwrap()
+                            .target;
+                        assert!(actions.iter().any(|action| matches!(
+                            action,
+                            Action::OpenSourceDoor { target: action_target }
+                                | Action::CloseSourceDoor { target: action_target }
+                                if action_target == target
+                        )));
+                    }
+                }
+                if flags.iter().any(|flag| flag == "item_interaction") {
+                    detail_rooms += 1;
+                    details += location.details.len();
+                    assert_eq!(
+                        game.available_actions()
+                            .iter()
+                            .filter(|action| matches!(action, Action::InspectRoomDetail(_)))
+                            .count(),
+                        location.details.len()
+                    );
+                }
+            }
+        }
+        assert_eq!(door_entries, 16);
+        assert_eq!(detail_rooms, 22);
+        assert_eq!(details, 38);
+
+        let mut web = Game::new();
+        web.location = LocationId::from("green.house3");
+        for _ in 0..4 {
+            web.perform(Action::InspectRoomDetail("web".into()));
+        }
+        assert_eq!(
+            web.spawned_npc_instances
+                .iter()
+                .filter(|entry| entry.location.as_str() == "green.house3"
+                    && entry.npc.as_str() == GREEN_SPIDER_ID)
+                .count(),
+            3
+        );
+        assert!(
+            web.available_actions()
+                .contains(&Action::Kill(EnemyKind::Npc(NpcId::from(GREEN_SPIDER_ID))))
+        );
+    }
+
+    #[test]
+    fn m6_room_events_items_and_rewards_preserve_source_state_machines() {
+        let mut hall = Game::new();
+        hall.location = LocationId::from("chuenyu.center");
+        hall.rng_state = 0;
+        let qi_before = hall.player.qi;
+        hall.perform(Action::Interact(InteractionKind::PullChuenyuHallRope));
+        assert_eq!(hall.location.as_str(), "chuenyu.tunnel1");
+        assert_eq!(hall.player.qi, qi_before - 9);
+
+        for (source, target) in [
+            ("chuenyu.east_castle", "chuenyu.east_garden"),
+            ("chuenyu.east_garden", "chuenyu.east_castle"),
+            ("chuenyu.west_castle", "chuenyu.west_garden"),
+            ("chuenyu.west_garden", "chuenyu.west_castle"),
+        ] {
+            hall.location = LocationId::from(source);
+            hall.perform(Action::Interact(InteractionKind::ClimbChuenyuCastleWall));
+            assert_eq!(hall.location.as_str(), target);
+        }
+        hall.location = LocationId::from("chuenyu.rope_bridge");
+        hall.perform(Action::Interact(InteractionKind::DescendChuenyuRopeBridge));
+        assert_eq!(hall.location.as_str(), "chuenyu.base_b_m");
+
+        hall.location = LocationId::from("chuenyu.tunnel4");
+        for _ in 0..5 {
+            hall.perform(Action::Interact(InteractionKind::PushChuenyuDungeonSlab));
+        }
+        assert_eq!(hall.chuenyu_slab_passage_ticks, 3);
+        let climb = hall
+            .available_actions()
+            .into_iter()
+            .find(|action| {
+                matches!(
+                    action,
+                    Action::Move { target, .. } if target.as_str() == "chuenyu.east_castle"
+                )
+            })
+            .unwrap();
+        hall.perform(climb);
+        assert_eq!(hall.location.as_str(), "chuenyu.east_castle");
+        assert!(hall.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "chuenyu.tunnel4"
+        )));
+        for _ in 0..3 {
+            hall.tick();
+        }
+        assert_eq!(hall.chuenyu_slab_passage_ticks, 0);
+
+        hall.player.qi = 200;
+        hall.player.max_qi = 200;
+        hall.move_to(LocationId::from("chuenyu.trap_castle"));
+        let before_arrows = hall.player.qi;
+        hall.tick();
+        assert_eq!(hall.player.qi, before_arrows);
+        hall.tick();
+        assert!(hall.player.qi < before_arrows);
+
+        let mut green = Game::new();
+        green.location = LocationId::from("green.entrance");
+        green.player.combat_experience = 99_999;
+        assert!(!green.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "green.eight0"
+        )));
+        green.player.combat_experience = 100_000;
+        assert!(green.available_actions().iter().any(|action| matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "green.eight0"
+        )));
+        green.location = LocationId::from("green.eight7");
+        green.perform(Action::Move {
+            direction: "south".into(),
+            target: LocationId::from("green.stoneroom"),
+        });
+        assert!(green.green_bagua_completed);
+        green.location = LocationId::from("green.water");
+        green.rng_state = 2;
+        green.perform(Action::Interact(InteractionKind::SearchGreenStream));
+        assert!(green.green_windsword_rewarded);
+        assert!(green.player.has_item(&ItemId::from(GREEN_WIND_SWORD_ID)));
+
+        green.location = LocationId::from("green.closed");
+        green.perform(Action::Interact(InteractionKind::PushGreenBoulder));
+        assert_eq!(green.location.as_str(), "green.closed");
+        green.player.force = 560;
+        green.player.max_force = 560;
+        green
+            .player
+            .skills
+            .iter_mut()
+            .find(|skill| skill.kind.as_str() == FORCE_ID)
+            .unwrap()
+            .level = 40;
+        green.rng_state = 2;
+        green.perform(Action::Interact(InteractionKind::PushGreenBoulder));
+        assert_eq!(green.location.as_str(), "green.entrance");
+
+        green.location = LocationId::from("green.station0");
+        let wineskin = green.add_inventory_item(ItemId::from("chuenyu.obj.qiwine"), 1);
+        green.perform(Action::Interact(InteractionKind::FillGreenWell));
+        let filled = green.player.item(wineskin).unwrap();
+        assert_eq!(filled.remaining_uses, Some(15));
+        assert!(filled.filled_with_water);
+        green.player.water = 0;
+        green.perform(Action::ConsumeItem(wineskin));
+        assert_eq!(
+            green.player.item(wineskin).unwrap().remaining_uses,
+            Some(14)
+        );
+        assert!(green.player.condition(ConditionKind::Drunk).is_none());
+
+        let mut kitchen = Game::new();
+        kitchen.location = LocationId::from("sanyen.kitchen");
+        assert!(
+            !kitchen
+                .available_actions()
+                .contains(&Action::Interact(InteractionKind::TakeSanyenBun))
+        );
+        kitchen.win_combat(CombatState {
+            enemy: EnemyKind::Npc(NpcId::from(SANYEN_COOK_ID)),
+            health: 0,
+            max_health: 1,
+            rounds: 1,
+            mode: CombatMode::Lethal,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_attack_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
+        });
+        for _ in 0..5 {
+            kitchen.perform(Action::Interact(InteractionKind::TakeSanyenBun));
+        }
+        assert_eq!(kitchen.sanyen_buns_taken, 5);
+        assert_eq!(
+            kitchen
+                .player
+                .inventory
+                .iter()
+                .filter(|item| item.item_id.as_str() == SANYEN_BUN_ID)
+                .count(),
+            5
+        );
+        assert!(
+            !kitchen
+                .available_actions()
+                .contains(&Action::Interact(InteractionKind::TakeSanyenBun))
+        );
+
+        let pigmeat = kitchen.add_inventory_item(ItemId::from("chuenyu.obj.pigmeat"), 1);
+        kitchen.player.food = 0;
+        kitchen.player.max_food = 10_000;
+        for _ in 0..6 {
+            kitchen.perform(Action::ConsumeItem(pigmeat));
+        }
+        let bone = kitchen.player.item(pigmeat).unwrap();
+        assert_eq!(bone.display_name(), "山猪骨头");
+        assert_eq!(bone.total_weight(), 250);
+        assert_eq!(bone.unit_value(), 60);
+        assert_eq!(bone.remaining_uses, Some(0));
+        assert_eq!(bone.definition().weapon_skill(), Some("hammer"));
+        kitchen.perform(Action::EquipItem(pigmeat));
+        assert!(kitchen.player.is_equipped(pigmeat));
+
+        let restored: Game =
+            serde_json::from_str(&serde_json::to_string(&kitchen).unwrap()).unwrap();
+        assert_eq!(restored.sanyen_buns_taken, 5);
+        let restored_bone = restored.player.item(pigmeat).unwrap();
+        assert_eq!(restored_bone.display_name(), "山猪骨头");
+        assert_eq!(restored_bone.unit_value(), 60);
+    }
+
+    #[test]
+    fn m7_latemoon_teacher_clues_and_token_rewards_form_one_plot_chain() {
+        let mut game = Game::new();
+        game.location = LocationId::from("latemoon.latemoon1");
+        let apprentice = Action::BecomeApprentice("dancer".into());
+        assert!(game.available_actions().contains(&apprentice));
+        game.perform(apprentice.clone());
+        assert!(game.player.teacher.is_none());
+        game.player.gender = Gender::Female;
+        game.perform(apprentice);
+        assert_eq!(game.player.teacher.as_deref(), Some("dancer"));
+        assert_eq!(game.player.faction.as_deref(), Some("晚月庄"));
+
+        game.location = LocationId::from("latemoon.miroom2");
+        let bamboo = game.add_inventory_item(ItemId::from(LATEMOON_BAMBOO_IDS[0]), 1);
+        game.perform(Action::GiveItem {
+            instance_id: bamboo,
+            npc: NpcId::from(LATEMOON_SHAOWEI_ID),
+        });
+        assert!(game.latemoon_dragonfly_received);
+        assert!(game.player.item(bamboo).is_none());
+        let dragonfly = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| LATEMOON_DRAGONFLY_IDS.contains(&item.item_id.as_str()))
+            .unwrap()
+            .instance_id;
+
+        game.location = LocationId::from("latemoon.latemoon6");
+        game.perform(Action::GiveItem {
+            instance_id: dragonfly,
+            npc: NpcId::from(LATEMOON_FUNLIN_ID),
+        });
+        assert!(game.latemoon_bracelet_clue);
+        assert!(game.player.item(dragonfly).is_none());
+        game.location = LocationId::from("latemoon.latemoon2");
+        let search_bracelet = Action::Interact(InteractionKind::SearchLateMoonBracelet);
+        assert!(game.available_actions().contains(&search_bracelet));
+        game.perform(search_bracelet.clone());
+        assert!(game.latemoon_bracelet_received);
+        assert!(game.player.has_item(&ItemId::from("latemoon.obj.bracelet")));
+        assert!(!game.available_actions().contains(&search_bracelet));
+
+        game.location = LocationId::from("latemoon.upstar.uproom2");
+        game.perform(Action::AskNpc {
+            npc: NpcId::from(LATEMOON_SHINFUN_ID),
+            topic: "舞曲谱".into(),
+        });
+        assert!(game.latemoon_dance_book_clue);
+        game.location = LocationId::from("latemoon.latemoon8");
+        let search_book = Action::Interact(InteractionKind::SearchLateMoonDanceBook);
+        assert!(game.available_actions().contains(&search_book));
+        game.perform(search_book.clone());
+        assert!(game.latemoon_dance_book_received);
+        assert!(game.player.has_item(&ItemId::from("latemoon.obj.book")));
+        assert!(!game.available_actions().contains(&search_book));
+
+        game.location = LocationId::from("latemoon.room.lstudio");
+        game.player.max_force = 100;
+        game.player.force = 80;
+        game.rng_state = 0;
+        let token = game.add_inventory_item(ItemId::from(LATEMOON_TOKEN_ID), 1);
+        game.perform(Action::GiveItem {
+            instance_id: token,
+            npc: NpcId::from(LATEMOON_OLD_ID),
+        });
+        assert!(game.latemoon_token_rewarded);
+        assert!(game.player.item(token).is_none());
+        assert!((101..=110).contains(&game.player.max_force));
+        assert_eq!(game.player.force, 0);
+
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        assert!(restored.latemoon_bracelet_received);
+        assert!(restored.latemoon_dance_book_received);
+        assert!(restored.latemoon_token_rewarded);
+    }
+
+    #[test]
+    fn m7_cloud_escort_letter_crossing_and_exchanges_form_one_plot_chain() {
+        let mut game = Game::new();
+        game.location = LocationId::from("u.cloud.biaoju");
+        game.player.courage = 24;
+        let join = Action::Interact(InteractionKind::JoinCloudEscort);
+        game.perform(join.clone());
+        assert!(!game.cloud_escort_member);
+        game.player.courage = 25;
+        assert!(game.available_actions().contains(&join));
+        game.perform(join);
+        assert!(game.cloud_escort_member);
+        assert_eq!(game.player.faction.as_deref(), Some("振远镖局"));
+        assert_eq!(game.player.teacher.as_deref(), Some(CLOUD_B_HEADER_ID));
+
+        let grass = game.add_inventory_item(ItemId::from(CHOYIN_GRASS_ID), 1);
+        game.perform(Action::GiveItem {
+            instance_id: grass,
+            npc: NpcId::from(CLOUD_B_HEADER_ID),
+        });
+        assert!(game.cloud_escort_letter_received);
+        assert!(game.player.item(grass).is_none());
+        let letter = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == CLOUD_ESCORT_LETTER_ID)
+            .unwrap()
+            .instance_id;
+
+        game.location = LocationId::from("city.biaoju");
+        let chen = NpcId::from(crate::npcs::CITY_MASTER_CHEN_ID);
+        assert!(game.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::LearnFromNpc { npc, .. } if npc == &chen
+        )));
+        game.perform(Action::GiveItem {
+            instance_id: letter,
+            npc: chen.clone(),
+        });
+        assert!(game.city_chen_letter_delivered);
+        assert!(game.player.item(letter).is_none());
+        assert!(game.available_actions().iter().any(|action| matches!(
+            action,
+            Action::LearnFromNpc { npc, .. } if npc == &chen
+        )));
+
+        game.location = LocationId::from("u.cloud.dukou");
+        let fare = game.add_inventory_item(ItemId::from("obj.weapon.dagger"), 1);
+        game.perform(Action::GiveItem {
+            instance_id: fare,
+            npc: NpcId::from(CLOUD_BOATER_ID),
+        });
+        assert!(game.cloud_boater_paid);
+        assert!(game.player.item(fare).is_none());
+        game.move_to(LocationId::from("u.cloud.sunhill.northriver"));
+        let cross = game
+            .available_actions()
+            .into_iter()
+            .find(|action| {
+                matches!(
+                    action,
+                    Action::Move { target, .. }
+                        if target.as_str() == "u.cloud.sunhill.midriver"
+                )
+            })
+            .unwrap();
+        game.perform(cross);
+        assert_eq!(game.location.as_str(), "u.cloud.sunhill.midriver");
+        assert!(!game.cloud_boater_paid);
+
+        game.location = LocationId::from("u.cloud.dragonhill.hummock");
+        let passage = game.add_inventory_item(ItemId::from(GREEN_WIND_SWORD_ID), 1);
+        game.perform(Action::GiveItem {
+            instance_id: passage,
+            npc: NpcId::from(CLOUD_GANGSTER_ID),
+        });
+        assert!(game.cloud_gangster_pass);
+        assert!(game.player.item(passage).is_none());
+
+        game.location = LocationId::from("u.cloud.jiyuan2");
+        game.player.perception = 25;
+        let recognition = game.add_inventory_item(ItemId::from(LATEMOON_FIRE_ID), 1);
+        game.perform(Action::GiveItem {
+            instance_id: recognition,
+            npc: NpcId::from(CLOUD_GIRL_ID),
+        });
+        assert!(game.cloud_girl_recognized);
+        assert!(game.player.item(recognition).is_none());
+
+        game.location = LocationId::from("u.cloud.duchang");
+        let stake = game.add_inventory_item(ItemId::from("obj.weapon.dagger"), 1);
+        let money_before = game.player.money_value();
+        game.rng_state = 0;
+        game.perform(Action::GiveItem {
+            instance_id: stake,
+            npc: NpcId::from(CLOUD_JUDGE_ID),
+        });
+        assert!(game.player.item(stake).is_none());
+        assert!(
+            matches!(game.player.money_value(), value if value == money_before || value == money_before + 100)
+        );
+
+        game.location = LocationId::from("u.cloud.monky");
+        let donation = game.add_inventory_item(ItemId::from("obj.weapon.dagger"), 1);
+        game.perform(Action::GiveItem {
+            instance_id: donation,
+            npc: NpcId::from(CLOUD_MONK_ID),
+        });
+        assert!(game.player.item(donation).is_none());
+
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        assert!(restored.cloud_escort_member);
+        assert!(restored.city_chen_letter_delivered);
+        assert!(restored.cloud_gangster_pass);
+        assert!(restored.cloud_girl_recognized);
+    }
+
+    #[test]
+    fn m7_room_events_preserve_latemoon_and_death_state_machines() {
+        let mut game = Game::new();
+        game.location = LocationId::from("latemoon.latemoon2");
+        for _ in 0..2 {
+            let take = Action::Interact(InteractionKind::TakeLateMoonCloth);
+            assert!(game.available_actions().contains(&take));
+            game.perform(take);
+        }
+        assert_eq!(game.latemoon_clothes_taken, 2);
+        assert_eq!(
+            game.player
+                .inventory
+                .iter()
+                .filter(|item| item.item_id.as_str() == "latemoon.obj.skirt")
+                .count(),
+            2
+        );
+        assert!(
+            !game
+                .available_actions()
+                .contains(&Action::Interact(InteractionKind::TakeLateMoonCloth))
+        );
+
+        game.location = LocationId::from("latemoon.latemoon8");
+        game.player.max_spirit = 200;
+        game.player.spirit = 200;
+        game.perform(Action::Interact(InteractionKind::DanceLateMoonYuFong));
+        assert_eq!(game.location.as_str(), "latemoon.miroom");
+        assert_eq!(game.player.spirit, 100);
+        game.perform(Action::Interact(InteractionKind::DanceLateMoonOut));
+        assert_eq!(game.location.as_str(), "latemoon.bamboo");
+        assert_eq!(game.player.spirit, 20);
+
+        game.location = LocationId::from("latemoon.park.moonc");
+        for _ in 0..2 {
+            game.perform(Action::Interact(InteractionKind::PickLateMoonFlower));
+        }
+        assert_eq!(game.latemoon_flowers_picked, 2);
+        assert_eq!(
+            game.player
+                .inventory
+                .iter()
+                .filter(|item| item.item_id.as_str() == "latemoon.park.npc.obj.flower")
+                .map(|item| item.quantity)
+                .sum::<u32>(),
+            2
+        );
+
+        let mut male = Game::new();
+        male.location = LocationId::from("latemoon.room.bathroom");
+        male.player.qi = 100;
+        male.player.spirit = 100;
+        male.perform(Action::Interact(InteractionKind::BatheLateMoonPool));
+        assert_eq!(
+            male.player.condition(ConditionKind::RosePoison),
+            Some(&ConditionState {
+                kind: ConditionKind::RosePoison,
+                duration: 15,
+                potency: 10,
+            })
+        );
+        male.update_conditions();
+        assert_eq!(male.player.qi, 90);
+        assert_eq!(male.player.spirit, 80);
+        assert_eq!(
+            male.player
+                .condition(ConditionKind::RosePoison)
+                .unwrap()
+                .duration,
+            14
+        );
+        male.location = LocationId::from("latemoon.room.bathroom1");
+        male.move_to(LocationId::from("latemoon.room.flower1"));
+        assert_eq!(
+            male.player
+                .condition(ConditionKind::RosePoison)
+                .unwrap()
+                .duration,
+            5
+        );
+
+        let mut female = Game::new();
+        female.location = LocationId::from("latemoon.room.bathroom");
+        female.player.gender = Gender::Female;
+        female.player.max_essence = 200;
+        female.player.essence = 100;
+        female.player.max_spirit = 200;
+        female.player.spirit = 100;
+        female.rng_state = 0;
+        female.perform(Action::Interact(InteractionKind::BatheLateMoonPool));
+        assert_eq!(female.player.essence, 90);
+        assert!((105..=109).contains(&female.player.spirit));
+        assert!(female.player.condition(ConditionKind::RosePoison).is_none());
+
+        female.location = LocationId::from("latemoon.upstar.uproom3");
+        female.player.spirit = 100;
+        female.player.bellicosity = 100;
+        female.rng_state = 0;
+        female.perform(Action::Interact(InteractionKind::PonderLateMoonRoom));
+        assert_eq!(female.player.spirit, 50);
+        assert!(female.player.bellicosity <= 93);
+
+        let mut death = Game::new();
+        death.location = LocationId::from("death.gateway");
+        assert!(death.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == "death.gate"
+        )));
+        death.location = LocationId::from("death.road2");
+        for expected in 1..5 {
+            death.perform(Action::Move {
+                direction: "north".into(),
+                target: LocationId::from("death.road3"),
+            });
+            assert_eq!(death.location.as_str(), "death.road2");
+            assert_eq!(death.death_road_steps, expected);
+        }
+        death.perform(Action::Move {
+            direction: "north".into(),
+            target: LocationId::from("death.road3"),
+        });
+        assert_eq!(death.location.as_str(), "death.road3");
+        assert_eq!(death.death_road_steps, 0);
+        death.location = LocationId::from("death.road2");
+        death.death_road_steps = 3;
+        death.perform(Action::Move {
+            direction: "south".into(),
+            target: LocationId::from("death.road1"),
+        });
+        assert_eq!(death.death_road_steps, 0);
+
+        death.location = LocationId::from("death.inn1");
+        death.player.essence = 1;
+        death.player.qi = 2;
+        death.player.spirit = 3;
+        death.player.set_condition(ConditionKind::Poison, 8, 5);
+        death.perform(Action::Interact(InteractionKind::InspectDeathShadows));
+        assert!(death.logs.last().unwrap().contains("一模一样"));
+        death.perform(Action::Interact(InteractionKind::ReincarnateDeathInn));
+        assert_eq!(death.location.as_str(), "snow.temple");
+        assert_eq!(death.player.essence, death.player.max_essence);
+        assert_eq!(death.player.qi, death.player.max_qi);
+        assert_eq!(death.player.spirit, death.player.max_spirit);
+        assert!(death.player.conditions.is_empty());
+    }
+
+    #[test]
+    fn m7_item_commands_consumables_and_meat_residuals_preserve_source_behavior() {
+        let mut game = Game::new();
+        let book = game.add_inventory_item(ItemId::from("latemoon.npc.obj.book"), 1);
+        let use_book = Action::Interact(InteractionKind::UseLateMoonDanceBook(book));
+        game.location = LocationId::from("death.road1");
+        game.player.spirit = 40;
+        game.perform(use_book.clone());
+        assert_eq!(game.location.as_str(), "death.road1");
+        assert_eq!(game.player.spirit, 40);
+        game.player.spirit = 100;
+        game.perform(use_book);
+        assert_eq!(game.location.as_str(), "latemoon.latemoon8");
+        assert_eq!(game.player.spirit, 50);
+        assert!(!game.available_actions().contains(&Action::DropItem(book)));
+        game.perform(Action::DropItem(book));
+        game.perform(Action::SellItem(book));
+        assert!(game.player.item(book).is_some());
+
+        let bracelet = game.add_inventory_item(ItemId::from("latemoon.obj.bracelet"), 1);
+        game.player.spirit = 49;
+        game.perform(Action::Interact(InteractionKind::PrayLateMoonBracelet(
+            bracelet,
+        )));
+        assert_eq!(game.location.as_str(), "latemoon.latemoon8");
+        game.player.spirit = 100;
+        game.perform(Action::Interact(InteractionKind::PrayLateMoonBracelet(
+            bracelet,
+        )));
+        assert_eq!(game.location.as_str(), "snow.temple");
+        assert_eq!(game.player.spirit, 50);
+
+        let letter = game.add_inventory_item(ItemId::from(LATEMOON_SECRET_LETTER_ID), 1);
+        let read_letter = Action::Interact(InteractionKind::ReadLateMoonSecretLetter(letter));
+        assert!(!game.available_actions().contains(&read_letter));
+        let fire = game.add_inventory_item(ItemId::from(LATEMOON_FIRE_ID), 1);
+        assert!(game.available_actions().contains(&read_letter));
+        game.perform(read_letter);
+        assert!(game.logs.last().unwrap().contains("密室藏有舞谱"));
+        assert!(game.player.item(letter).is_some());
+        assert!(game.player.item(fire).is_some());
+
+        game.player.max_essence = 1_000;
+        game.player.max_qi = 1_000;
+        game.player.max_spirit = 1_000;
+        game.player.essence = 0;
+        game.player.qi = 0;
+        game.player.spirit = 0;
+        let bean = game.add_inventory_item(ItemId::from("latemoon.sell.bean"), 1);
+        game.perform(Action::ConsumeItem(bean));
+        assert_eq!(
+            (game.player.essence, game.player.qi, game.player.spirit),
+            (50, 100, 50)
+        );
+        assert!(game.player.item(bean).is_none());
+
+        game.player.spirit = 0;
+        game.player.set_condition(ConditionKind::RosePoison, 15, 10);
+        let flower = game.add_inventory_item(ItemId::from("latemoon.park.npc.obj.flower"), 1);
+        game.perform(Action::ConsumeItem(flower));
+        assert_eq!(game.player.spirit, 50);
+        assert_eq!(
+            game.player
+                .condition(ConditionKind::RosePoison)
+                .unwrap()
+                .duration,
+            5
+        );
+
+        game.player.essence = 0;
+        game.player.qi = 0;
+        game.player.spirit = 0;
+        let pill = game.add_inventory_item(ItemId::from("latemoon.sell.white_pill"), 1);
+        game.perform(Action::ConsumeItem(pill));
+        assert_eq!(
+            (game.player.essence, game.player.qi, game.player.spirit),
+            (100, 300, 100)
+        );
+        let wine = game.add_inventory_item(ItemId::from("latemoon.sell.wine"), 1);
+        game.perform(Action::ConsumeItem(wine));
+        assert_eq!((game.player.essence, game.player.spirit), (90, 120));
+
+        game.player.max_food = 10_000;
+        for (item_id, uses, residual_name, weight, value) in [
+            ("u.cloud.obj.meat.beef", 3, "牛肋骨", 200, 100),
+            ("u.cloud.obj.meat.dog_m", 3, "狗骨头", 250, 60),
+            ("u.cloud.obj.meat.hind", 5, "牛腿骨", 300, 150),
+        ] {
+            let meat = game.add_inventory_item(ItemId::from(item_id), 1);
+            if item_id == "u.cloud.obj.meat.hind" {
+                assert_eq!(
+                    game.player.item(meat).unwrap().definition().weapon_skill(),
+                    Some("hammer")
+                );
+                game.perform(Action::EquipItem(meat));
+                assert!(game.player.is_equipped(meat));
+            }
+            for _ in 0..uses {
+                game.player.food = 0;
+                game.perform(Action::ConsumeItem(meat));
+            }
+            let residual = game.player.item(meat).unwrap();
+            assert_eq!(residual.display_name(), residual_name);
+            assert_eq!(residual.total_weight(), weight);
+            assert_eq!(residual.unit_value(), value);
+            assert_eq!(residual.remaining_uses, Some(0));
+        }
+
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        assert_eq!(
+            restored
+                .player
+                .inventory
+                .iter()
+                .filter(|item| CLOUD_MEAT_IDS.contains(&item.item_id.as_str()))
+                .count(),
+            3
+        );
+    }
+
+    #[test]
+    fn m6_green_jade_and_slumber_chain_preserves_source_clues_and_exchanges() {
+        let mut game = Game::new();
+        game.location = LocationId::from("green.house4");
+        let oldman = NpcId::from("green.npc.oldman2");
+        game.perform(Action::AskNpc {
+            npc: oldman,
+            topic: "玉佩".into(),
+        });
+        assert!(game.green_elder_jade_clue);
+
+        game.location = LocationId::from("snow.mstreet2");
+        let drunk = NpcId::from("snow.npc.drunk");
+        for expected_jade_clue in [true, false] {
+            let wine = game.add_inventory_item(ItemId::from("chuenyu.obj.qiwine"), 1);
+            let gift = Action::GiveItem {
+                instance_id: wine,
+                npc: drunk.clone(),
+            };
+            assert!(game.available_actions().contains(&gift));
+            game.perform(gift);
+            assert!(game.player.item(wine).is_none());
+            if expected_jade_clue {
+                assert!(game.green_drunk_jade_clue);
+                assert!(!game.green_drunk_drug_clue);
+            }
+        }
+        assert!(game.green_drunk_drug_clue);
+
+        game.location = LocationId::from("green.shop0");
+        let shen = NpcId::from(GREEN_SHEN_ID);
+        let ask_jade = Action::AskNpc {
+            npc: shen.clone(),
+            topic: "玉佩".into(),
+        };
+        assert!(game.available_actions().contains(&ask_jade));
+        game.perform(ask_jade.clone());
+        assert!(game.green_jade_received);
+        assert!(game.player.has_item(&ItemId::from(GREEN_JADE_ID)));
+        assert!(!game.available_actions().contains(&ask_jade));
+
+        let ask_drug = Action::AskNpc {
+            npc: shen.clone(),
+            topic: "蒙汗药".into(),
+        };
+        assert!(game.available_actions().contains(&ask_drug));
+        game.perform(ask_drug.clone());
+        assert!(game.green_drug_offer_unlocked);
+        assert!(!game.available_actions().contains(&ask_drug));
+        let jade = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == GREEN_JADE_ID)
+            .unwrap()
+            .instance_id;
+        game.perform(Action::GiveItem {
+            instance_id: jade,
+            npc: shen,
+        });
+        assert!(game.player.item(jade).is_none());
+        assert!(game.player.has_item(&ItemId::from(items::SLUMBER_DRUG_ID)));
+
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        assert!(restored.green_elder_jade_clue);
+        assert!(restored.green_drunk_jade_clue);
+        assert!(restored.green_drunk_drug_clue);
+        assert!(restored.green_jade_received);
+        assert!(restored.green_drug_offer_unlocked);
+    }
+
+    #[test]
+    fn m6_source_juan_rescue_and_murder_share_the_existing_liu_plot() {
+        let mut rescue = Game::new();
+        rescue.location = LocationId::from("chuenyu.home");
+        let old_liu = NpcId::from(CHUENYU_OLD_LIU_ID);
+        assert!(
+            rescue
+                .available_actions()
+                .contains(&Action::Talk(old_liu.clone()))
+        );
+        rescue.perform(Action::Talk(old_liu.clone()));
+        assert_eq!(rescue.quest, QuestStage::FindJuan);
+
+        rescue.move_to(LocationId::from("chuenyu.dungeon"));
+        let boss_combat = match std::mem::replace(&mut rescue.activity, Activity::Idle) {
+            Activity::Fighting(combat) => combat,
+            _ => panic!("chuenyu boss must attack on dungeon entry"),
+        };
+        assert_eq!(
+            boss_combat.enemy,
+            EnemyKind::Npc(NpcId::from(CHUENYU_BOSS_ID))
+        );
+        assert_eq!(boss_combat.mode, CombatMode::Lethal);
+        rescue.win_combat(boss_combat);
+        assert_eq!(rescue.quest, QuestStage::FoundJuan);
+        let source_juan = NpcId::from(CHUENYU_XIAO_JUAN_PLACED_ID);
+        assert!(
+            rescue
+                .available_actions()
+                .contains(&Action::Talk(source_juan.clone()))
+        );
+        rescue.perform(Action::Talk(source_juan));
+        assert_eq!(rescue.quest, QuestStage::ReturnHome);
+        rescue.move_to(LocationId::from("chuenyu.home"));
+        rescue.perform(Action::Talk(old_liu));
+        assert_eq!(rescue.quest, QuestStage::Complete);
+        assert!(
+            rescue
+                .player
+                .has_item(&ItemId::from(items::HENGBING_SWORD_ID))
+        );
+        assert!(
+            rescue
+                .player
+                .has_item(&ItemId::from(items::PARRY_MANUAL_ID))
+        );
+
+        let mut murder = Game::new();
+        murder.quest = QuestStage::FoundJuan;
+        murder.location = LocationId::from("chuenyu.dungeon");
+        murder.win_combat(CombatState {
+            enemy: EnemyKind::Npc(NpcId::from(CHUENYU_XIAO_JUAN_PLACED_ID)),
+            health: 0,
+            max_health: 1,
+            rounds: 1,
+            mode: CombatMode::Lethal,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_attack_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
+        });
+        assert_eq!(murder.quest, QuestStage::MurderedJuan);
+        murder.move_to(LocationId::from("chuenyu.home"));
+        assert_eq!(murder.quest, QuestStage::Failed);
+        assert!(matches!(
+            murder.activity,
+            Activity::Fighting(CombatState {
+                enemy: EnemyKind::OldLiuRevenge,
+                mode: CombatMode::Lethal,
+                ..
+            })
+        ));
+    }
+
+    #[test]
+    fn m6_entry_aggression_elite_powerup_and_green_callbacks_are_bounded() {
+        let mut guard = Game::new();
+        guard.move_to(LocationId::from("chuenyu.tortureroom"));
+        assert!(matches!(
+            guard.activity,
+            Activity::Fighting(CombatState {
+                enemy: EnemyKind::Npc(ref npc),
+                mode: CombatMode::Lethal,
+                ..
+            }) if npc.as_str() == CHUENYU_GUARD_TWO_ID
+        ));
+
+        let mut elite = Game::new();
+        elite.location = LocationId::from("waterfog.east_2f");
+        elite.perform(Action::Fight(EnemyKind::Npc(NpcId::from(
+            WATERFOG_ELITE_GUARD_ID,
+        ))));
+        assert!(matches!(elite.activity, Activity::Idle));
+        elite.perform(Action::Kill(EnemyKind::Npc(NpcId::from(
+            WATERFOG_ELITE_GUARD_ID,
+        ))));
+        assert!(matches!(
+            elite.activity,
+            Activity::Fighting(CombatState {
+                mode: CombatMode::Lethal,
+                enemy_attack_bonus,
+                ..
+            }) if enemy_attack_bonus > 0
+        ));
+
+        let mut helper = Game::new();
+        helper.location = LocationId::from("green.house2");
+        let oldman = NpcId::from("green.npc.oldman");
+        let mut combat = CombatState {
+            enemy: EnemyKind::Npc(oldman.clone()),
+            health: 100,
+            max_health: 100,
+            rounds: 1,
+            mode: CombatMode::Lethal,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_attack_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
+        };
+        helper.run_npc_combat_callback(
+            &mut combat,
+            &oldman,
+            "(: this_object(), \"ask_for_help\" :)",
+        );
+        assert_eq!(combat.enemy_attack_bonus, 5);
+        for _ in 0..10 {
+            helper.run_npc_combat_callback(
+                &mut combat,
+                &oldman,
+                "(: this_object(), \"wield_something\" :)",
+            );
+        }
+        assert_eq!(combat.enemy_attack_bonus, 30);
+    }
+
+    #[test]
+    fn m5_oldpine_combat_hooks_spawn_help_once_and_apply_snake_poison() {
+        let mut game = Game::new();
+        game.location = LocationId::from("oldpine.pine1");
+        let fat_bandit = NpcId::from(OLDPINE_FAT_BANDIT_ID);
+        let mut combat = CombatState {
+            enemy: EnemyKind::Npc(fat_bandit.clone()),
+            health: 50,
+            max_health: 50,
+            rounds: 1,
+            mode: CombatMode::Lethal,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_attack_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
+        };
+        game.rng_state = 20;
+        assert!(!game.run_npc_combat_chat(&mut combat));
+        assert_eq!(game.spawned_npc_instances.len(), 1);
+        let chief = NpcId::from(OLDPINE_BANDIT_CHIEF_ID);
+        assert!(
+            game.available_actions()
+                .contains(&Action::Talk(chief.clone()))
+        );
+        assert!(
+            game.available_actions()
+                .contains(&Action::Kill(EnemyKind::Npc(chief.clone())))
+        );
+
+        let mut restored: Game =
+            serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        restored.run_npc_combat_callback(
+            &mut combat,
+            &fat_bandit,
+            "(: this_object(), \"call_for_help\" :)",
+        );
+        assert_eq!(restored.spawned_npc_instances.len(), 1);
+        restored.win_combat(CombatState {
+            enemy: EnemyKind::Npc(chief.clone()),
+            health: 0,
+            max_health: 1,
+            rounds: 1,
+            mode: CombatMode::Lethal,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_attack_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
+        });
+        assert!(!restored.npc_is_present(&chief));
+        assert!(
+            restored.ground_items[&restored.location]
+                .iter()
+                .any(|item| { item.item_id.as_str() == "oldpine.npc.obj.blade" })
+        );
+
+        let venom = EnemyKind::Npc(NpcId::from(OLDPINE_VENOM_SNAKE_ID));
+        for _ in 0..10 {
+            game.apply_npc_hit_hook(&venom, 100, 0);
+            if game.player.condition(ConditionKind::SnakePoison).is_some() {
+                break;
+            }
+        }
+        assert_eq!(
+            game.player.condition(ConditionKind::SnakePoison),
+            Some(&ConditionState {
+                kind: ConditionKind::SnakePoison,
+                duration: 20,
+                potency: 10,
+            })
+        );
+        game.player
+            .set_condition(ConditionKind::SnakePoison, 12, 10);
+        for _ in 0..10 {
+            game.apply_npc_hit_hook(&venom, 100, 0);
+        }
+        assert_eq!(
+            game.player
+                .condition(ConditionKind::SnakePoison)
+                .unwrap()
+                .duration,
+            12
+        );
+    }
+
+    #[test]
+    fn m5_goathill_leech_corpses_are_consumable_tonics() {
+        let mut game = Game::new();
+        game.location = LocationId::from("goathill.cavern1");
+        let lethal_state = |npc_id: &str| CombatState {
+            enemy: EnemyKind::Npc(NpcId::from(npc_id)),
+            health: 0,
+            max_health: 1,
+            rounds: 1,
+            mode: CombatMode::Lethal,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_attack_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
+        };
+        game.win_combat(lethal_state("goathill.npc.worm"));
+        let corpse = game.ground_items[&game.location]
+            .iter()
+            .find(|item| item.item_id.as_str() == GOATHILL_DEAD_LEECH_ID)
+            .unwrap()
+            .instance_id;
+        game.perform(Action::PickUpItem(corpse));
+        game.player.food = 0;
+        let force_before = game.player.force;
+        let max_mana_before = game.player.max_mana;
+        game.perform(Action::ConsumeItem(corpse));
+        assert_eq!(game.player.force, force_before + 1);
+        assert_eq!(game.player.max_mana, max_mana_before + 60);
+        assert_eq!(game.player.item(corpse).unwrap().remaining_uses, Some(2));
+
+        let count_corpses = |game: &Game| {
+            game.ground_items
+                .get(&game.location)
+                .into_iter()
+                .flatten()
+                .filter(|item| item.item_id.as_str() == GOATHILL_DEAD_LEECH_ID)
+                .count()
+        };
+        let corpses_before = count_corpses(&game);
+        game.win_combat(lethal_state("goathill.npc.huge_worm"));
+        let corpses_after = count_corpses(&game);
+        assert_eq!(corpses_after, corpses_before);
+    }
+
+    #[test]
+    fn m5_death_hooks_drop_grass_and_escalate_police_wanted_level() {
+        let lethal_state = |npc_id: &str| CombatState {
+            enemy: EnemyKind::Npc(NpcId::from(npc_id)),
+            health: 0,
+            max_health: 1,
+            rounds: 1,
+            mode: CombatMode::Lethal,
+            attack_bonus: 0,
+            dodge_bonus: 0,
+            enemy_attack_bonus: 0,
+            enemy_busy_rounds: 0,
+            technique_cooldown: 0,
+            power_up_active: false,
+            fake_fault_active: false,
+        };
+        let mut game = Game::new();
+
+        game.location = LocationId::from("choyin.lionroom");
+        game.win_combat(lethal_state(CHOYIN_LION_ID));
+        assert!(
+            game.ground_items[&game.location]
+                .iter()
+                .any(|item| item.item_id.as_str() == CHOYIN_GRASS_ID)
+        );
+
+        game.location = LocationId::from("choyin.yamen");
+        let wanted_before = game.player.wanted;
+        game.win_combat(lethal_state(CHOYIN_POLICE_ID));
+        assert_eq!(game.player.wanted, wanted_before + 6);
+        assert!(game.logs.iter().any(|log| log.contains("通缉额外 +5")));
+    }
+
+    #[test]
     fn source_noop_and_multiplayer_inquiries_remain_unavailable() {
         let mut game = Game::new();
         for (location, expected_topics) in [
@@ -4608,6 +9134,58 @@ mod tests {
     }
 
     #[test]
+    fn m4_source_apprenticeship_dispositions_bind_npc_lessons() {
+        fn npc_lessons(game: &Game, npc_id: &str) -> Vec<Action> {
+            game.available_actions()
+                .into_iter()
+                .filter(|action| {
+                    matches!(action, Action::LearnFromNpc { npc, .. } if npc.as_str() == npc_id)
+                })
+                .collect()
+        }
+
+        let mut game = Game::new();
+        game.location = LocationId::from("snow.school2");
+        assert!(npc_lessons(&game, SNOW_FIST_TRAINER_ID).is_empty());
+        game.player.faction = Some("封山剑派".into());
+        let fist_lessons = npc_lessons(&game, SNOW_FIST_TRAINER_ID);
+        assert_eq!(fist_lessons.len(), 3);
+        assert!(fist_lessons.iter().any(|action| matches!(
+            action,
+            Action::LearnFromNpc { skill, .. } if skill.as_str() == LIUH_KEN_ID
+        )));
+        let learned_before = game.player.learned_points;
+        game.perform(Action::LearnFromNpc {
+            skill: SkillId::from(UNARMED_ID),
+            npc: NpcId::from(SNOW_FIST_TRAINER_ID),
+        });
+        assert_eq!(game.player.learned_points, learned_before + 1);
+
+        game.location = LocationId::from("snow.nyard");
+        assert!(npc_lessons(&game, SNOW_GIRL_ID).is_empty());
+        game.player.faction = Some("封山剑派北宗".into());
+        assert_eq!(npc_lessons(&game, SNOW_GIRL_ID).len(), 10);
+
+        game.location = LocationId::from("city.biaoju");
+        assert!(npc_lessons(&game, "city.npc.chen").is_empty());
+
+        game.location = LocationId::from("temple.temple1");
+        assert!(npc_lessons(&game, TEMPLE_PROTECTOR_ID).is_empty());
+        assert!(npc_lessons(&game, TEMPLE_TRAINER_ID).is_empty());
+        game.player.faction = Some("茅山派".into());
+        assert_eq!(npc_lessons(&game, TEMPLE_PROTECTOR_ID).len(), 11);
+        assert_eq!(npc_lessons(&game, TEMPLE_TRAINER_ID).len(), 12);
+        assert!(
+            npc_lessons(&game, TEMPLE_TRAINER_ID)
+                .iter()
+                .any(|action| matches!(
+                    action,
+                    Action::LearnFromNpc { skill, .. } if skill.as_str() == "scratching"
+                ))
+        );
+    }
+
+    #[test]
     fn snow_guard_reveals_into_forced_combat_and_drops_blade_manual() {
         let mut game = Game::new();
         game.location = LocationId::from("snow.school1");
@@ -4640,6 +9218,289 @@ mod tests {
         assert!(game.available_actions().iter().all(|action| {
             !matches!(action, Action::Talk(npc) | Action::AskNpc { npc, .. } if npc.as_str() == SNOW_GUARD_ID)
         }));
+    }
+
+    #[test]
+    fn m4_source_fight_gates_bind_combat_to_the_current_npc() {
+        fn fight_action(game: &Game, npc_id: &str) -> Action {
+            game.available_actions()
+                .into_iter()
+                .find(|action| {
+                    matches!(action, Action::Fight(EnemyKind::Npc(npc)) if npc.as_str() == npc_id)
+                })
+                .expect("source fight action must be available")
+        }
+
+        let mut game = Game::new();
+        game.location = LocationId::from("city.bank");
+        game.perform(fight_action(&game, "city.npc.microsof"));
+        let combat = match std::mem::replace(&mut game.activity, Activity::Idle) {
+            Activity::Fighting(combat) => combat,
+            _ => panic!("city banker must force combat"),
+        };
+        assert_eq!(combat.mode, CombatMode::Lethal);
+        assert_eq!(
+            combat.enemy,
+            EnemyKind::Npc(NpcId::from("city.npc.microsof"))
+        );
+        game.win_combat(combat);
+        assert!(game.available_actions().iter().all(|action| {
+            !matches!(action, Action::Talk(npc) | Action::Fight(EnemyKind::Npc(npc)) if npc.as_str() == "city.npc.microsof")
+        }));
+        let mut restored: Game =
+            serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        restored.location = LocationId::from("city.bank");
+        assert!(restored.available_actions().iter().all(|action| {
+            !matches!(action, Action::Talk(npc) | Action::Fight(EnemyKind::Npc(npc)) if npc.as_str() == "city.npc.microsof")
+        }));
+
+        game.location = LocationId::from("snow.bank");
+        game.perform(fight_action(&game, "snow.npc.annihir"));
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(CombatState {
+                mode: CombatMode::Lethal,
+                enemy: EnemyKind::Npc(ref npc),
+                ..
+            }) if npc.as_str() == "snow.npc.annihir"
+        ));
+        game.activity = Activity::Idle;
+
+        game.location = LocationId::from("snow.school2");
+        game.perform(fight_action(&game, SNOW_FIST_TRAINER_ID));
+        assert_eq!(game.activity, Activity::Idle);
+        assert!(game.logs.last().unwrap().contains("不许和来这里的客人过招"));
+        game.player.faction = Some("封山剑派".into());
+        game.perform(fight_action(&game, SNOW_FIST_TRAINER_ID));
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(CombatState {
+                mode: CombatMode::Spar,
+                ..
+            })
+        ));
+        game.perform(Action::Surrender);
+
+        game.location = LocationId::from("snow.nyard");
+        game.perform(fight_action(&game, SNOW_GIRL_ID));
+        assert_eq!(game.activity, Activity::Idle);
+        assert!(game.logs.last().unwrap().contains("李教头"));
+        game.perform(Action::Kill(EnemyKind::Npc(NpcId::from(SNOW_GIRL_ID))));
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(CombatState {
+                mode: CombatMode::Lethal,
+                ..
+            })
+        ));
+        game.activity = Activity::Idle;
+
+        for (location, npc_id, rejection) in [
+            ("city.street8", SNOW_SCAVENGER_ID, "饶命"),
+            ("temple.restroom1", TEMPLE_OLD_TAOIST_ID, "年迈力衰"),
+        ] {
+            game.location = LocationId::from(location);
+            game.perform(fight_action(&game, npc_id));
+            assert_eq!(game.activity, Activity::Idle);
+            assert!(game.logs.last().unwrap().contains(rejection));
+        }
+
+        game.location = LocationId::from("temple.temple1");
+        game.perform(fight_action(&game, TEMPLE_PROTECTOR_ID));
+        assert_eq!(game.activity, Activity::Idle);
+        assert!(game.logs.last().unwrap().contains("不和别派"));
+        game.player.faction = Some("茅山派".into());
+        for npc_id in [TEMPLE_PROTECTOR_ID, TEMPLE_TRAINER_ID] {
+            game.perform(fight_action(&game, npc_id));
+            assert!(matches!(
+                game.activity,
+                Activity::Fighting(CombatState {
+                    mode: CombatMode::Spar,
+                    ..
+                })
+            ));
+            game.perform(Action::Surrender);
+        }
+    }
+
+    #[test]
+    fn every_placed_m4_m5_m6_m7_source_npc_exposes_combat_actions_when_present() {
+        let mut game = Game::new();
+        let mut placed = HashSet::new();
+        for catalog_json in [
+            include_str!("../migration/catalog/city.json"),
+            include_str!("../migration/catalog/snow.json"),
+            include_str!("../migration/catalog/temple.json"),
+            include_str!("../migration/catalog/canyon.json"),
+            include_str!("../migration/catalog/oldpine.json"),
+            include_str!("../migration/catalog/goathill.json"),
+            include_str!("../migration/catalog/choyin.json"),
+            include_str!("../migration/catalog/chuenyu.json"),
+            include_str!("../migration/catalog/green.json"),
+            include_str!("../migration/catalog/sanyen.json"),
+            include_str!("../migration/catalog/waterfog.json"),
+            include_str!("../migration/catalog/latemoon.json"),
+            include_str!("../migration/catalog/death.json"),
+            include_str!("../migration/catalog/graveyard.json"),
+            include_str!("../migration/catalog/jail.json"),
+            include_str!("../migration/catalog/cloud.json"),
+        ] {
+            let catalog: serde_json::Value = serde_json::from_str(catalog_json).unwrap();
+            for room in catalog["rooms"].as_array().unwrap() {
+                game.location = LocationId::from(room["id"].as_str().unwrap());
+                if game.location.as_str() == "chuenyu.dungeon" {
+                    game.quest = QuestStage::FoundJuan;
+                }
+                let actions = game.available_actions();
+                for source_path in room["object_sources"].as_array().unwrap() {
+                    let Some(npc) = source_path
+                        .as_str()
+                        .and_then(|source_path| npcs().id_for_source(source_path))
+                    else {
+                        continue;
+                    };
+                    placed.insert(npc.clone());
+                    assert!(
+                        actions.contains(&Action::Fight(EnemyKind::Npc(npc.clone()))),
+                        "{} lacks fight at {}",
+                        npc.as_str(),
+                        game.location.as_str()
+                    );
+                    assert!(
+                        actions.contains(&Action::Kill(EnemyKind::Npc(npc.clone()))),
+                        "{} lacks kill at {}",
+                        npc.as_str(),
+                        game.location.as_str()
+                    );
+                }
+            }
+        }
+        assert_eq!(placed.len(), 219);
+    }
+
+    #[test]
+    fn m5_fight_and_kill_gates_preserve_source_outcomes() {
+        let room_for = |npc_id: &str| {
+            let npc = NpcId::from(npc_id);
+            world()
+                .locations()
+                .find(|location| location.npcs.contains(&npc))
+                .unwrap()
+                .id
+                .clone()
+        };
+        let mut game = Game::new();
+
+        game.location = room_for(CHOYIN_HOTEL_GUARD_ID);
+        game.perform(Action::Fight(EnemyKind::Npc(NpcId::from(
+            CHOYIN_HOTEL_GUARD_ID,
+        ))));
+        assert_eq!(game.activity, Activity::Idle);
+        assert!(game.logs.last().unwrap().contains("不准任何人"));
+        game.perform(Action::Kill(EnemyKind::Npc(NpcId::from(
+            CHOYIN_HOTEL_GUARD_ID,
+        ))));
+        assert_eq!(game.player.wanted, 1);
+        assert!(game.logs.iter().any(|log| log.contains("报官缉拿")));
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(CombatState {
+                mode: CombatMode::Lethal,
+                ..
+            })
+        ));
+
+        game.activity = Activity::Idle;
+        game.location = room_for(CHOYIN_MAGISTRATE_ID);
+        game.perform(Action::Fight(EnemyKind::Npc(NpcId::from(
+            CHOYIN_MAGISTRATE_ID,
+        ))));
+        assert_eq!(game.activity, Activity::Idle);
+        assert!(game.logs.last().unwrap().contains("这是衙门"));
+
+        game.location = room_for(CHOYIN_OLD_MAN_ID);
+        game.perform(Action::Fight(EnemyKind::Npc(NpcId::from(
+            CHOYIN_OLD_MAN_ID,
+        ))));
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(CombatState {
+                mode: CombatMode::Spar,
+                ..
+            })
+        ));
+    }
+
+    #[test]
+    fn lethal_npc_defeats_preserve_same_room_counts_and_other_room_instances() {
+        let mut game = Game::new();
+        let guard = NpcId::from("city.npc.guard");
+        game.location = LocationId::from("city.eastdoor1");
+        assert_eq!(
+            game.current_location()
+                .npcs
+                .iter()
+                .filter(|npc| *npc == &guard)
+                .count(),
+            3
+        );
+        for defeated in 1..=3 {
+            game.perform(Action::Kill(EnemyKind::Npc(guard.clone())));
+            let combat = match std::mem::replace(&mut game.activity, Activity::Idle) {
+                Activity::Fighting(combat) => combat,
+                _ => panic!("city guard must enter lethal combat"),
+            };
+            game.win_combat(combat);
+            assert_eq!(
+                game.ground_items[&LocationId::from("city.eastdoor1")].len(),
+                defeated * 2
+            );
+            assert_eq!(
+                game.available_actions()
+                    .contains(&Action::Talk(guard.clone())),
+                defeated < 3
+            );
+        }
+        let drops = &game.ground_items[&LocationId::from("city.eastdoor1")];
+        assert_eq!(
+            drops
+                .iter()
+                .filter(|item| item.item_id.as_str() == "obj.cloth")
+                .count(),
+            3
+        );
+        assert_eq!(
+            drops
+                .iter()
+                .filter(|item| item.item_id.as_str() == "obj.longsword")
+                .count(),
+            3
+        );
+
+        game.location = LocationId::from("city.eastdoor2");
+        assert!(
+            game.available_actions()
+                .contains(&Action::Talk(guard.clone()))
+        );
+        let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
+        assert!(restored.available_actions().contains(&Action::Talk(guard)));
+    }
+
+    #[test]
+    fn source_combat_chat_executes_for_a_hundred_percent_chat_profile() {
+        let mut game = Game::new();
+        game.location = LocationId::from("temple.temple1");
+        game.player.essence = 10_000;
+        game.player.qi = 10_000;
+        game.player.spirit = 10_000;
+        game.perform(Action::Kill(EnemyKind::Npc(NpcId::from(TEMPLE_TRAINER_ID))));
+        let mut combat = match std::mem::replace(&mut game.activity, Activity::Idle) {
+            Activity::Fighting(combat) => combat,
+            _ => panic!("temple trainer must enter combat"),
+        };
+        let log_count = game.logs.len();
+        assert!(!game.run_npc_combat_chat(&mut combat));
+        assert_eq!(game.logs.len(), log_count + 1);
     }
 
     #[test]
@@ -4931,7 +9792,7 @@ mod tests {
     }
 
     #[test]
-    fn quest_advances_through_conversation_and_rescue() {
+    fn old_liu_plot_rescues_juan_and_grants_only_source_rewards() {
         let mut game = Game::new();
         game.perform(Action::Talk(NpcId::from(OLD_LIU_ID)));
         assert_eq!(game.quest, QuestStage::FindJuan);
@@ -4942,19 +9803,66 @@ mod tests {
         while matches!(game.activity, Activity::Fighting(_)) {
             game.tick();
         }
+        assert_eq!(game.quest, QuestStage::FoundJuan);
+        assert!(
+            game.available_actions()
+                .contains(&Action::Talk(NpcId::from(XIAO_JUAN_ID)))
+        );
+        assert!(
+            game.available_actions()
+                .contains(&Action::Kill(EnemyKind::XiaoJuan))
+        );
+
+        game.perform(Action::Talk(NpcId::from(XIAO_JUAN_ID)));
         assert_eq!(game.quest, QuestStage::ReturnHome);
+        let reputation = game.player.reputation;
+        let insight = game.player.insight;
 
         game.location = LocationId::from(content::LIU_HOME);
         game.perform(Action::Talk(NpcId::from(OLD_LIU_ID)));
         assert_eq!(game.quest, QuestStage::Complete);
-        assert_eq!(
+        assert!(
             game.player
-                .equipped(EquipmentSlot::Weapon)
-                .unwrap()
-                .item_id
-                .as_str(),
-            items::HENGBING_SWORD_ID
+                .has_item(&ItemId::from(items::HENGBING_SWORD_ID))
         );
+        assert!(game.player.has_item(&ItemId::from(items::PARRY_MANUAL_ID)));
+        assert_eq!(game.player.reputation, reputation);
+        assert_eq!(game.player.insight, insight);
+        assert!(
+            game.available_actions().iter().all(|action| {
+                !matches!(action, Action::Talk(npc) if npc.as_str() == OLD_LIU_ID)
+            })
+        );
+    }
+
+    #[test]
+    fn murdering_juan_triggers_old_liu_source_revenge() {
+        let mut game = Game::new();
+        game.perform(Action::Talk(NpcId::from(OLD_LIU_ID)));
+        game.location = LocationId::from(content::PINE_FOREST);
+        game.player.strength = 100;
+        game.perform(Action::Fight(EnemyKind::Bandit));
+        while matches!(game.activity, Activity::Fighting(_)) {
+            game.tick();
+        }
+
+        game.perform(Action::Kill(EnemyKind::XiaoJuan));
+        while matches!(game.activity, Activity::Fighting(_)) {
+            game.tick();
+        }
+        assert_eq!(game.quest, QuestStage::MurderedJuan);
+
+        game.move_to(LocationId::from(content::LIU_HOME));
+        assert_eq!(game.quest, QuestStage::Failed);
+        assert!(matches!(
+            game.activity,
+            Activity::Fighting(CombatState {
+                enemy: EnemyKind::OldLiuRevenge,
+                mode: CombatMode::Lethal,
+                ..
+            })
+        ));
+        assert!(game.logs.iter().any(|line| line.contains("纳命来")));
     }
 
     #[test]
@@ -5296,7 +10204,7 @@ mod tests {
         game.perform(Action::Fight(EnemyKind::Bandit));
 
         game.perform(Action::UseTechnique(TechniqueKind::NetherBolt));
-        let Activity::Fighting(combat) = game.activity else {
+        let Activity::Fighting(ref combat) = game.activity else {
             panic!("combat should continue");
         };
         assert_eq!(combat.mode, CombatMode::Lethal);
@@ -5313,6 +10221,159 @@ mod tests {
         game.perform(Action::Surrender);
         assert_eq!(game.activity, Activity::Idle);
         assert_eq!(game.player.reputation, 0);
+    }
+
+    #[test]
+    fn m4_source_room_events_control_passages_resources_and_rewards() {
+        let can_reach =
+            |game: &Game, target: &str| {
+                game.available_actions().iter().any(|action| matches!(
+                action,
+                Action::Move { target: action_target, .. } if action_target.as_str() == target
+            ))
+            };
+        let mut game = Game::new();
+
+        game.location = LocationId::from(CITY_ALTAR);
+        game.perform(Action::Interact(InteractionKind::TurnAltarForward));
+        for _ in 0..3 {
+            game.perform(Action::Interact(InteractionKind::TurnAltarBackward));
+        }
+        game.perform(Action::Interact(InteractionKind::PressAltarButton));
+        assert!(can_reach(&game, CITY_ALTAR_TUNNEL));
+        game.perform(Action::Move {
+            direction: "down".into(),
+            target: LocationId::from(CITY_ALTAR_TUNNEL),
+        });
+        for _ in 0..5 {
+            game.tick();
+        }
+        assert!(can_reach(&game, CITY_ALTAR));
+        game.perform(Action::Move {
+            direction: "up".into(),
+            target: LocationId::from(CITY_ALTAR),
+        });
+        for _ in 0..3 {
+            game.tick();
+        }
+        assert!(!can_reach(&game, CITY_ALTAR_TUNNEL));
+
+        game.location = LocationId::from(SNOW_WEAPON_STORAGE);
+        for _ in 0..3 {
+            game.perform(Action::Interact(InteractionKind::PushSnowShelf));
+        }
+        assert!(can_reach(&game, SNOW_SECRET_STORAGE));
+        game.perform(Action::Move {
+            direction: "down".into(),
+            target: LocationId::from(SNOW_SECRET_STORAGE),
+        });
+        for _ in 0..12 {
+            game.tick();
+        }
+        assert!(can_reach(&game, SNOW_WEAPON_STORAGE));
+
+        game.location = LocationId::from(SNOW_WORKPLACE);
+        game.player.essence = 30;
+        game.player.spirit = 30;
+        let silver_before = game.player.silver;
+        game.perform(Action::Interact(InteractionKind::WorkAtSnowWorkshop));
+        assert_eq!(game.player.essence, 0);
+        assert_eq!(game.player.spirit, 0);
+        assert_eq!(game.player.silver, silver_before + 1);
+
+        game.location = LocationId::from(CANYON_BAMBOO_BOULDER);
+        game.player.force = 560;
+        game.player.max_force = 560;
+        game.player
+            .skills
+            .iter_mut()
+            .find(|skill| skill.kind.as_str() == FORCE_ID)
+            .unwrap()
+            .level = 40;
+        game.perform(Action::Interact(InteractionKind::MoveBambooBoulder));
+        assert!(can_reach(&game, CANYON_BAMBOO_TRAINING_ROOM));
+        game.perform(Action::Move {
+            direction: "enter".into(),
+            target: LocationId::from(CANYON_BAMBOO_TRAINING_ROOM),
+        });
+        assert!(!game.canyon_boulder_open);
+        game.perform(Action::Interact(InteractionKind::SearchBambooBookcase));
+        assert!(game.player.has_item(&ItemId::from(CANYON_SLIPCASE_ID)));
+        assert!(game.player.has_item(&ItemId::from(CANYON_PARRY_BOOK_ID)));
+        assert!(
+            !game
+                .available_actions()
+                .contains(&Action::Interact(InteractionKind::SearchBambooBookcase))
+        );
+
+        game.location = LocationId::from(TEMPLE_SLIPPERY_ROAD);
+        game.player.spirituality = 1;
+        game.player.essence = 100;
+        game.player.qi = 80;
+        game.player.spirit = 70;
+        game.perform(Action::Move {
+            direction: "northwest".into(),
+            target: LocationId::from(content::TEMPLE_ROAD_TWO),
+        });
+        assert_eq!(game.location.as_str(), TEMPLE_SLIPPERY_ROAD);
+        assert_eq!(
+            (game.player.essence, game.player.qi, game.player.spirit),
+            (50, 40, 35)
+        );
+
+        game.location = LocationId::from(content::TEMPLE_ROAD_TWO);
+        assert!(!can_reach(&game, TEMPLE_BOOK_ROOM));
+        game.player.faction = Some("茅山派".into());
+        assert!(can_reach(&game, TEMPLE_BOOK_ROOM));
+    }
+
+    #[test]
+    fn city_exit_token_is_found_exchanged_and_consumed_on_the_live_north_route() {
+        let mut game = Game::new();
+        game.location = LocationId::from(content::CITY_RUINED_GARDEN);
+        game.player.spirituality = 35;
+        game.perform(Action::Interact(InteractionKind::SearchCityRuinedGarden));
+        let token = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == CITY_EXIT_TOKEN_ID)
+            .unwrap()
+            .instance_id;
+
+        game.location = LocationId::from(content::CITY_NORTH_GATE);
+        assert!(game.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == content::CITY_NORTH_ROAD
+        )));
+        game.perform(Action::GiveItem {
+            instance_id: token,
+            npc: NpcId::from(crate::npcs::CITY_GUARD_ID),
+        });
+        assert!(!game.player.has_item(&ItemId::from(CITY_EXIT_TOKEN_ID)));
+        assert!(game.city_exit_permit);
+
+        let encoded = serde_json::to_string(&game).unwrap();
+        let mut restored: Game = serde_json::from_str(&encoded).unwrap();
+        let leave = restored
+            .available_actions()
+            .into_iter()
+            .find(|action| {
+                matches!(
+                    action,
+                    Action::Move { target, .. } if target.as_str() == content::CITY_NORTH_ROAD
+                )
+            })
+            .unwrap();
+        restored.perform(leave);
+        assert_eq!(restored.location.as_str(), content::CITY_NORTH_ROAD);
+        assert!(!restored.city_exit_permit);
+
+        restored.location = LocationId::from(content::CITY_NORTH_GATE);
+        assert!(restored.available_actions().iter().all(|action| !matches!(
+            action,
+            Action::Move { target, .. } if target.as_str() == content::CITY_NORTH_ROAD
+        )));
     }
 
     #[test]
@@ -5431,6 +10492,9 @@ mod tests {
             amount: 30_000,
             npc: NpcId::from(crate::npcs::CITY_SHANGSHU_GUARD_ID),
         });
+        game.perform(Action::OpenSourceDoor {
+            target: LocationId::from(content::CITY_MANOR_YARD),
+        });
         let enter = game
             .available_actions()
             .into_iter()
@@ -5450,6 +10514,82 @@ mod tests {
             action,
             Action::Move { target, .. } if target.as_str() == content::CITY_MANOR_YARD
         )));
+    }
+
+    #[test]
+    fn manor_patrols_block_the_inner_road_until_both_are_defeated() {
+        let mut game = Game::new();
+        game.location = LocationId::from(content::CITY_MANOR_ROAD_TWO);
+        let can_move_to = |game: &Game, target: &str| {
+            game.available_actions().iter().any(
+                |action| matches!(action, Action::Move { target: exit, .. } if exit.as_str() == target),
+            )
+        };
+        assert!(can_move_to(&game, content::CITY_MANOR_YARD));
+        assert!(!can_move_to(&game, "city.shangshu.road1"));
+        assert!(!can_move_to(&game, "city.shangshu.kefang"));
+
+        for npc_id in [CITY_SHANGSHU_PATROL_ID, CITY_SHANGSHU_PATROL_ELITE_ID] {
+            game.defeated_npc_instances.push(DefeatedNpcInstance {
+                location: LocationId::from(content::CITY_MANOR_ROAD_TWO),
+                npc: NpcId::from(npc_id),
+            });
+        }
+        assert!(can_move_to(&game, "city.shangshu.road1"));
+        game.perform(Action::OpenSourceDoor {
+            target: LocationId::from("city.shangshu.kefang"),
+        });
+        assert!(can_move_to(&game, "city.shangshu.kefang"));
+    }
+
+    #[test]
+    fn temple_library_uses_a_stable_pair_from_the_source_random_guard_families() {
+        let mut game = Game::new();
+        game.location = LocationId::from(content::TEMPLE_ROAD_TWO);
+        for npc_id in [
+            crate::npcs::TEMPLE_LIBRARY_GUARD_ID,
+            crate::npcs::TEMPLE_LIBRARY_GUARD_PEER_ID,
+        ] {
+            let npc = NpcId::from(npc_id);
+            assert!(game.current_location().npcs.contains(&npc));
+            assert!(
+                game.available_actions()
+                    .contains(&Action::Fight(EnemyKind::Npc(npc.clone())))
+            );
+            assert!(
+                game.available_actions()
+                    .contains(&Action::Kill(EnemyKind::Npc(npc)))
+            );
+        }
+    }
+
+    #[test]
+    fn snow_temple_donations_reject_worthless_items_and_can_reduce_bellicosity() {
+        let mut game = Game::new();
+        game.location = LocationId::from("snow.temple");
+        game.player.bellicosity = 100;
+        game.player.spirituality = 10;
+        game.rng_state = 0;
+
+        let token = game.add_inventory_item(ItemId::from(CITY_EXIT_TOKEN_ID), 1);
+        game.perform(Action::GiveItem {
+            instance_id: token,
+            npc: NpcId::from(crate::npcs::SNOW_KEEPER_ID),
+        });
+        assert!(game.player.item(token).is_some());
+        assert_eq!(game.player.bellicosity, 100);
+
+        let lotus = game.add_inventory_item(ItemId::from("snow.npc.obj.ebony_lotus"), 1);
+        game.perform(Action::GiveItem {
+            instance_id: lotus,
+            npc: NpcId::from(crate::npcs::SNOW_KEEPER_ID),
+        });
+        assert!(game.player.item(lotus).is_none());
+        assert!(game.player.bellicosity < 100);
+        assert!(game.available_actions().contains(&Action::OfferMoney {
+            amount: 1_000,
+            npc: NpcId::from(crate::npcs::SNOW_KEEPER_ID),
+        }));
     }
 
     #[test]

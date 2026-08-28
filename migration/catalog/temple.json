@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "temple",
   "status": "structured",
@@ -26,7 +26,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "conditional_exit"
       ]
@@ -46,7 +49,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -71,7 +77,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -89,7 +98,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -114,7 +126,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -139,7 +154,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -178,7 +196,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "east",
+          "name": "木门",
+          "reverse_direction": "west",
+          "initially_closed": false
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -212,7 +240,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "木门",
+          "reverse_direction": "south",
+          "initially_closed": false
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -253,7 +291,23 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "红漆木门",
+          "reverse_direction": "south",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "door",
+          "description": null,
+          "door_direction": "north"
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door",
         "item_interaction"
@@ -288,7 +342,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -327,7 +384,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "east",
+          "name": "木门",
+          "reverse_direction": "west",
+          "initially_closed": false
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -354,7 +421,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -386,8 +456,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/temple/npc/little_taoist2.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/temple/npc/little_taoist2.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -413,8 +491,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/temple/npc/little_taoist1.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/temple/npc/little_taoist1.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -440,8 +526,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/temple/npc/guest.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/temple/npc/guest.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -467,7 +561,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -492,7 +589,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -517,7 +617,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -535,8 +638,23 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "木门",
+          "reverse_direction": "east",
+          "initially_closed": false
+        }
+      ],
+      "details": [],
       "object_sources": [
         "mudlib/d/temple/npc/old_taoist.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/temple/npc/old_taoist.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "door"
@@ -557,7 +675,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "木门",
+          "reverse_direction": "east",
+          "initially_closed": false
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -584,7 +712,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "conditional_exit",
         "random_behavior"
@@ -612,9 +743,27 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "slab",
+          "description": "石碑上写著 : \n\n    非\n    茅  不\n    山  得\n    弟  进\n    子  入",
+          "door_direction": null
+        }
+      ],
       "object_sources": [
         "mudlib/d/temple/npc/guard_taoist.c",
         "mudlib/d/temple/npc/taoist_guard.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/temple/npc/guard_taoist.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/temple/npc/taoist_guard.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "conditional_exit",
@@ -644,7 +793,23 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "红漆木门",
+          "reverse_direction": "south",
+          "initially_closed": false
+        }
+      ],
+      "details": [
+        {
+          "key": "door",
+          "description": null,
+          "door_direction": "north"
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door",
         "item_interaction"
@@ -672,7 +837,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -704,9 +872,34 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "红漆木门",
+          "reverse_direction": "north",
+          "initially_closed": false
+        }
+      ],
+      "details": [
+        {
+          "key": "door",
+          "description": null,
+          "door_direction": "south"
+        }
+      ],
       "object_sources": [
         "mudlib/d/temple/npc/tfighter.c",
         "mudlib/d/temple/npc/trainer.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/temple/npc/trainer.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/temple/npc/tfighter.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "door",
@@ -728,7 +921,23 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "红漆木门",
+          "reverse_direction": "north",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "door",
+          "description": null,
+          "door_direction": "south"
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door",
         "item_interaction"
@@ -749,9 +958,28 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "木门",
+          "reverse_direction": "north",
+          "initially_closed": false
+        }
+      ],
+      "details": [],
       "object_sources": [
         "mudlib/d/temple/npc/taoist.c",
         "mudlib/d/temple/npc/taoist2.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/temple/npc/taoist.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/temple/npc/taoist2.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "door"

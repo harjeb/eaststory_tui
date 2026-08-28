@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M6",
+  "status": "complete",
+  "scope": [
+    "mudlib/d/chuenyu",
+    "mudlib/d/green",
+    "mudlib/d/sanyen",
+    "mudlib/d/waterfog"
+  ],
+  "catalog": {
+    "definitions_with_behavior": 3,
+    "behavior_flags": 3,
+    "by_kind": {
+      "consume_hook": 2,
+      "custom_command": 1
+    }
+  },
+  "runtime_features": [
+    {
+      "feature": "chuenyu_pigmeat_weapon_food",
+      "status": "adapted",
+      "decision": "两个来源路径的烤山猪肉均保留 HAMMER 与 F_FOOD 双重语义：可按锤法装备、伤害 4，共六口且每口供给 90；吃完变为山猪骨头、重量 250，原价值 60 不被清零。"
+    },
+    {
+      "feature": "green_rope_self_harm_command",
+      "status": "excluded",
+      "decision": "hang self 仅在室内立即杀死玩家，既无剧情门槛也无可恢复结果；正常单人行动列表不暴露该自毁命令。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "M6 四区 3 项动态物品标记与固定源逐项对应：2 adapted、1 excluded，无未处置项。"
+    }
+  ],
+  "behavior_flags": {
+    "total": 3,
+    "disposed": 3,
+    "remaining": 0,
+    "status": "audited",
+    "by_status": {
+      "adapted": 2,
+      "excluded": 1
+    },
+    "dispositions": [
+      {
+        "source_path": "mudlib/d/chuenyu/npc/obj/pigmeat.c",
+        "flags": ["consume_hook"],
+        "status": "adapted",
+        "decision": "NPC 路径猪肉共享六口食物/锤兵器运行规则；最后一口转为重量 250、价值 60 的山猪骨头。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/obj/pigmeat.c",
+        "flags": ["consume_hook"],
+        "status": "adapted",
+        "decision": "厨房固定物品保留六口与每口 90 点食物供给，可按 hammer 装备；最后一口转为山猪骨头且保留来源价值。"
+      },
+      {
+        "source_path": "mudlib/d/green/obj/rope.c",
+        "flags": ["custom_command"],
+        "status": "excluded",
+        "decision": "来源 hang self 在室内直接令玩家死亡，且未被任何房间、NPC 或任务链引用；不在正常单人 UI 中提供该自毁动作。"
+      }
+    ],
+    "decision": "3 项标记与 items.json 中 M6 四区全部动态物品标记构成精确集合；物品行为审计完成。"
+  },
+  "dependencies": []
+}

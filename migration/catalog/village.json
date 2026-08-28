@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "village",
   "status": "structured",
@@ -26,7 +26,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -44,7 +47,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -62,8 +68,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/village/npc/woman1.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/woman1.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": []
     },
@@ -89,8 +103,29 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "木门",
+          "reverse_direction": "north",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "south",
+          "description": null,
+          "door_direction": "south"
+        }
+      ],
       "object_sources": [
         "mudlib/d/village/npc/oldliu.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/oldliu.c",
+          "quantity": 1
+        }
       ],
       "behavior_flags": [
         "door",
@@ -112,7 +147,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "conditional_exit"
@@ -133,7 +171,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -158,8 +199,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/village/npc/dragon.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/dragon.c",
+          "quantity": 6
+        }
       ],
       "behavior_flags": []
     },
@@ -185,8 +234,22 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "boat",
+          "description": "关内能经常见到的渔船，你可以划着(paddle)它到湖中心。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [
         "mudlib/d/village/npc/fisher.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/fisher.c",
+          "quantity": 3
+        }
       ],
       "behavior_flags": [
         "custom_command",
@@ -216,8 +279,23 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "木门",
+          "reverse_direction": "south",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [
         "mudlib/d/village/npc/flowergirl.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/flowergirl.c",
+          "quantity": 5
+        }
       ],
       "behavior_flags": [
         "door"
@@ -252,7 +330,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "田老财家大门",
+          "reverse_direction": "east",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -272,7 +360,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -290,7 +381,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "item_interaction"
@@ -318,7 +412,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "conditional_exit",
@@ -347,8 +444,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/village/npc/meloner.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/meloner.c",
+          "quantity": 3
+        }
       ],
       "behavior_flags": []
     },
@@ -374,7 +479,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -406,8 +514,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/village/npc/trader1.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/trader1.c",
+          "quantity": 2
+        }
       ],
       "behavior_flags": []
     },
@@ -433,7 +549,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "tablet",
+          "description": "你勉强分辨出那上面模糊的字迹：傅家坡",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "item_interaction"
       ]
@@ -474,7 +599,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -513,7 +641,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -538,7 +669,16 @@
           "dynamic": true
         }
       ],
+      "doors": [],
+      "details": [
+        {
+          "key": "grass",
+          "description": "高高的茅草，可以拨开(pushaside)。",
+          "door_direction": null
+        }
+      ],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "custom_command",
         "timed_behavior",
@@ -582,7 +722,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -607,7 +750,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -639,7 +785,17 @@
           "dynamic": false
         }
       ],
+      "doors": [
+        {
+          "direction": "east",
+          "name": "田老财家大门",
+          "reverse_direction": "west",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "door"
       ]
@@ -659,8 +815,16 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [
         "mudlib/d/village/npc/rat.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/village/npc/rat.c",
+          "quantity": 6
+        }
       ],
       "behavior_flags": []
     },
@@ -686,7 +850,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -711,7 +878,10 @@
           "dynamic": false
         }
       ],
+      "doors": [],
+      "details": [],
       "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     }
   ],

@@ -1,0 +1,236 @@
+{
+  "schema_version": 3,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M7",
+  "status": "complete",
+  "areas": [
+    "latemoon",
+    "death",
+    "graveyard",
+    "jail",
+    "u/cloud"
+  ],
+  "catalog": {
+    "rooms": 139,
+    "non_room_files": 204,
+    "by_area": {
+      "latemoon": 74,
+      "death": 12,
+      "graveyard": 2,
+      "jail": 0,
+      "cloud": 51
+    },
+    "warning_entries": 77,
+    "door_definitions": 32,
+    "room_details": 22,
+    "object_mappings": 78,
+    "object_instances": 117,
+    "npc_mappings": 69,
+    "npc_instances": 105,
+    "m7_npc_instances": 101,
+    "cross_stage_npc_instances": 4,
+    "fixed_room_item_mappings": 9,
+    "fixed_room_item_instances": 12,
+    "unresolved_object_mappings": 0,
+    "unresolved_object_instances": 0
+  },
+  "static_runtime": {
+    "status": "implemented",
+    "embedded_rooms": 139,
+    "embedded_npc_instances": 105,
+    "embedded_m7_npc_instances": 101,
+    "fixed_room_item_instances": 12,
+    "save_schema": 25,
+    "decisions": [
+      {
+        "source": "mudlib/d/latemoon/entrance.c <-> mudlib/u/cloud/wroad0.c",
+        "status": "verified",
+        "decision": "晚月庄入口与青云境西路固定源双向出口直接接入。"
+      },
+      {
+        "source": "mudlib/d/latemoon/sroad5.c <-> mudlib/d/sanyen/tunnel.c",
+        "status": "verified",
+        "decision": "M6 保留的三烟寺入口依赖由晚月庄固定源出口闭合。"
+      },
+      {
+        "source": "mudlib/u/cloud/dragonhill/nroad.c <-> mudlib/d/snow/sroad1.c",
+        "status": "verified",
+        "decision": "伏龙山北路与雪亭南路的固定源双向主干直接接入。"
+      },
+      {
+        "source": "mudlib/u/cloud/sunhill/road1.c <-> mudlib/d/choyin/n_gate.c",
+        "status": "verified",
+        "decision": "朝阳峰道路与乔阴北门的固定源双向主干直接接入。"
+      },
+      {
+        "source": "mudlib/u/cloud/sunhill/road4.c <-> mudlib/d/sanyen/sroad1.c",
+        "status": "verified",
+        "decision": "朝阳峰道路与三烟寺南路的固定源双向主干直接接入。"
+      }
+    ]
+  },
+  "fixed_source_resolutions": [
+    {
+      "source_path": "mudlib/d/snow/npc/beggar.c",
+      "placement": "u.cloud.monky",
+      "quantity": 2,
+      "status": "alias",
+      "decision": "NPC 定义由 M4 目录拥有；M7 房间保留两个固定源实例并通过全局来源索引解析，不重复导入定义。"
+    },
+    {
+      "source_path": "mudlib/obj/npc/garrison.c",
+      "placement": "u.cloud.nwroad3",
+      "quantity": 2,
+      "status": "alias",
+      "decision": "NPC 定义由 M5 目录拥有；M7 房间保留两个固定源实例并通过全局来源索引解析，不重复导入定义。"
+    }
+  ],
+  "runtime_features": [
+    {
+      "feature": "source_doors_and_details",
+      "status": "verified",
+      "decision": "31 项门行为进入通用共享门状态；目录中的 22 条房间细节可查看，灯笼、幽冥客栈影子和肉铺招牌三条导入器未结构化文本由显式查看补齐。"
+    },
+    {
+      "feature": "latemoon_room_events",
+      "status": "adapted",
+      "decision": "碧纱橱两件衣裳、舞步传送与性别成本、两朵解毒花、花池火玫瑰毒/女性恢复、离池中毒及缀芳阁静修进入单人状态机。"
+    },
+    {
+      "feature": "death_path_and_reincarnation",
+      "status": "adapted",
+      "decision": "鬼门关永久封闭南路；黄泉路连续五次北行后通过、南返重置；客栈影子可恢复资源、清除状态并转生到雪亭城隍庙。"
+    },
+    {
+      "feature": "cloud_static_rooms",
+      "status": "verified",
+      "decision": "青云境店铺招牌进入通用细节层；赌场 bet 来源 TODO 明确记为 source_noop，不制造输赢经济。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "M7 五区 77 项房间行为标记与固定源逐项对应：50 verified、23 adapted、1 deferred、1 excluded、2 source_noop，无未处置项。"
+    },
+    {
+      "feature": "latemoon_and_cloud_npc_plots",
+      "status": "adapted",
+      "decision": "晚月庄掌门、竹蜻蜓/手镯/舞谱/令牌，振远镖局荐书、北河渡船、买路与青云交换链进入存档 schema v25。"
+    }
+  ],
+  "regional_acceptance": {
+    "status": "complete",
+    "save_schema": 25,
+    "areas": [
+      {"area":"latemoon","status":"verified","decision":"主厅师承、晚月房间事件、线索奖励和来源 NPC 战斗/问答/交换可回归。"},
+      {"area":"death","status":"verified","decision":"黄泉五步路、鬼门封路、幽冥客栈投胎及来源 NPC 静态运行可回归。"},
+      {"area":"graveyard","status":"verified","decision":"两个固定源荒冢房间接入主世界，固定提交无额外动态行为。"},
+      {"area":"jail","status":"verified","decision":"固定提交无牢狱房间，唯一未放置守卫定义已明确排除，不伪造区域。"},
+      {"area":"u/cloud","status":"verified","decision":"五组跨区主干、振远镖局荐书、渡船、买路、商店与交换链可回归。"}
+    ],
+    "decision": "房间、物品与 NPC 行为均有精确机检处置；临时茶杯、尸体生命周期和世界调度明确绑定后续系统，不阻塞 M7 当前五区验收。"
+  },
+  "behavior_flags": {
+    "total": 77,
+    "disposed": 77,
+    "remaining": 0,
+    "status": "audited",
+    "by_category": {
+      "conditional_exit": 4,
+      "custom_command": 9,
+      "door": 31,
+      "dynamic_exit": 1,
+      "environment_damage": 4,
+      "item_interaction": 24,
+      "random_behavior": 3,
+      "timed_behavior": 1
+    },
+    "by_status": {
+      "verified": 50,
+      "adapted": 23,
+      "deferred": 1,
+      "excluded": 1,
+      "source_noop": 2
+    },
+    "dispositions": [
+      {"source_path":"mudlib/d/latemoon/entrance.c","flags":["door"],"status":"verified","decision":"庄门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/entrance.c","flags":["item_interaction"],"status":"verified","decision":"西门细节由通用房间查看层提供。"},
+      {"source_path":"mudlib/d/latemoon/gate.c","flags":["door"],"status":"verified","decision":"大门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/gate.c","flags":["item_interaction"],"status":"adapted","decision":"动态灯笼题字未被目录结构化，补为显式查看行动。"},
+      {"source_path":"mudlib/d/latemoon/latebook.c","flags":["item_interaction"],"status":"verified","decision":"舞图与曲名由通用房间细节提供。"},
+      {"source_path":"mudlib/d/latemoon/latemoon2.c","flags":["door"],"status":"verified","decision":"内门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/latemoon2.c","flags":["custom_command","item_interaction"],"status":"adapted","decision":"碧纱橱可查看并最多取得两件来源衣裳；正常 UI 不暴露可生成蟑螂的无效 parser 参数。"},
+      {"source_path":"mudlib/d/latemoon/latemoon3.c","flags":["conditional_exit"],"status":"deferred","decision":"离房归还临时茶杯依赖后续 NPC 递杯状态，绑定 M7 NPC 事件，不制造永久杯子。"},
+      {"source_path":"mudlib/d/latemoon/latemoon4.c","flags":["door"],"status":"verified","decision":"内门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/latemoon5.c","flags":["door"],"status":"verified","decision":"内门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/latemoon6.c","flags":["door"],"status":"verified","decision":"内门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/latemoon6.c","flags":["item_interaction"],"status":"verified","decision":"石墙幻境词句由通用房间细节提供。"},
+      {"source_path":"mudlib/d/latemoon/latemoon7.c","flags":["door"],"status":"verified","decision":"内门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/latemoon8.c","flags":["door"],"status":"verified","decision":"内门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/latemoon8.c","flags":["custom_command","environment_damage"],"status":"adapted","decision":"两套舞步按性别检查并扣除来源神值，分别移动至竹林或密室。"},
+      {"source_path":"mudlib/d/latemoon/miroom.c","flags":["door"],"status":"verified","decision":"密室门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/miroom.c","flags":["custom_command","environment_damage"],"status":"adapted","decision":"西出阳关按性别扣除来源神值并返回竹林；来源 get dance-book 参数与房间 hankie 别名冲突，不伪造伤害。"},
+      {"source_path":"mudlib/d/latemoon/miroom2.c","flags":["door"],"status":"verified","decision":"密室门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/park/moonc.c","flags":["custom_command","item_interaction"],"status":"adapted","decision":"海棠细节可查看，每份存档最多摘取两朵来源解毒花蕊。"},
+      {"source_path":"mudlib/d/latemoon/park/paroad2.c","flags":["item_interaction"],"status":"verified","decision":"宝剑护河山石牌由通用细节层提供。"},
+      {"source_path":"mudlib/d/latemoon/room/bathroom.c","flags":["custom_command","environment_damage","random_behavior"],"status":"adapted","decision":"男性沐浴获得十五拍火玫瑰毒；女性精减十并随机恢复五至九点神。"},
+      {"source_path":"mudlib/d/latemoon/room/bathroom1.c","flags":["door"],"status":"verified","decision":"浴池门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/bathroom1.c","flags":["conditional_exit"],"status":"adapted","decision":"男性离开外间时获得五拍火玫瑰毒。"},
+      {"source_path":"mudlib/d/latemoon/room/corridor7.c","flags":["door"],"status":"verified","decision":"走廊门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/eastroom.c","flags":["door"],"status":"verified","decision":"东厢门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/eroad1.c","flags":["door"],"status":"verified","decision":"东路门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/flower1.c","flags":["door"],"status":"verified","decision":"花房门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/lcenter.c","flags":["door"],"status":"verified","decision":"内院门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/twoc.c","flags":["door"],"status":"verified","decision":"双阁门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/westroom.c","flags":["door"],"status":"verified","decision":"西厢门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/room/wroad2.c","flags":["door"],"status":"verified","decision":"西路门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/upcenter.c","flags":["door"],"status":"verified","decision":"楼上中厅门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/uplook.c","flags":["door"],"status":"verified","decision":"观景阁门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/uproom.c","flags":["door"],"status":"verified","decision":"楼上房门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/uproom2.c","flags":["door"],"status":"verified","decision":"楼上房门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/uproom3.c","flags":["door"],"status":"verified","decision":"缀芳阁门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/uproom3.c","flags":["custom_command","environment_damage","random_behavior"],"status":"adapted","decision":"静修扣除五十点神，并按灵性随机值加七降低杀气。"},
+      {"source_path":"mudlib/d/latemoon/upstar/upstar3.c","flags":["door"],"status":"verified","decision":"楼梯门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/upstar4.c","flags":["door"],"status":"verified","decision":"楼梯门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/latemoon/upstar/upstarc.c","flags":["door"],"status":"verified","decision":"楼梯门使用通用固定源门状态。"},
+      {"source_path":"mudlib/d/death/block.c","flags":["custom_command"],"status":"excluded","decision":"来源仅供管理员阻断玩家命令并施罚，正常单人 UI 不暴露管理惩罚房。"},
+      {"source_path":"mudlib/d/death/gateway.c","flags":["conditional_exit"],"status":"adapted","decision":"来源永久拒绝南行，运行时不提供通往 death.gate 的移动动作。"},
+      {"source_path":"mudlib/d/death/inn1.c","flags":["custom_command","item_interaction"],"status":"adapted","decision":"补入未结构化影子查看；询问另一个自己后恢复精气神、清除状态并转生至雪亭城隍庙。"},
+      {"source_path":"mudlib/d/death/inn2.c","flags":["item_interaction"],"status":"verified","decision":"墙上留言由通用房间细节提供。"},
+      {"source_path":"mudlib/d/death/road2.c","flags":["conditional_exit"],"status":"adapted","decision":"连续五次北行才进入 road3，南返 road1 重置计数。"},
+      {"source_path":"mudlib/u/cloud/biaoju.c","flags":["item_interaction"],"status":"verified","decision":"镖局招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/bookstore.c","flags":["item_interaction"],"status":"verified","decision":"书店招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/butchery.c","flags":["item_interaction"],"status":"adapted","decision":"动态肉铺牛骨招牌未被目录结构化，补为显式查看行动。"},
+      {"source_path":"mudlib/u/cloud/drugstore.c","flags":["item_interaction"],"status":"verified","decision":"药铺招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/duchang.c","flags":["item_interaction"],"status":"verified","decision":"赌场招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/duchang2.c","flags":["custom_command","random_behavior"],"status":"source_noop","decision":"bet 实现仅留下 TODO 并无下注或结算代码，不制造赌博经济。"},
+      {"source_path":"mudlib/u/cloud/duchang2.c","flags":["item_interaction"],"status":"verified","decision":"押注说明招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/entrance.c","flags":["item_interaction"],"status":"verified","decision":"入镇收费公告由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/god1.c","flags":["door"],"status":"verified","decision":"神殿门使用通用固定源门状态。"},
+      {"source_path":"mudlib/u/cloud/jiyuan.c","flags":["item_interaction"],"status":"verified","decision":"怡红院招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/marry_room.c","flags":["item_interaction"],"status":"verified","decision":"婚约说明由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/monky.c","flags":["item_interaction"],"status":"verified","decision":"寺庙善字招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/sunhill/northriver.c","flags":["timed_behavior","dynamic_exit"],"status":"adapted","decision":"修复来源房间/玩家标记错位：向船夫交付价值至少二的物品后开放一次南行渡河，穿越后清除通行状态。"},
+      {"source_path":"mudlib/u/cloud/tailory.c","flags":["item_interaction"],"status":"verified","decision":"衣铺招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/tea_corridor.c","flags":["door"],"status":"verified","decision":"茶廊门使用通用固定源门状态。"},
+      {"source_path":"mudlib/u/cloud/tearoom.c","flags":["door"],"status":"verified","decision":"茶室门使用通用固定源门状态。"},
+      {"source_path":"mudlib/u/cloud/tearoom.c","flags":["item_interaction"],"status":"verified","decision":"香茗坊匾额由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/weapony.c","flags":["item_interaction"],"status":"verified","decision":"兵器铺招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/woodboxy.c","flags":["door"],"status":"verified","decision":"棺材铺门使用通用固定源门状态。"},
+      {"source_path":"mudlib/u/cloud/woodboxy.c","flags":["item_interaction"],"status":"verified","decision":"棺材铺招牌由通用房间细节提供。"},
+      {"source_path":"mudlib/u/cloud/zaihuoy.c","flags":["item_interaction"],"status":"verified","decision":"杂货铺招牌由通用房间细节提供。"}
+    ],
+    "decision": "77 项标记与五个 M7 区域目录的全部 behavior_flags 构成精确集合；北河渡船由 NPC 交换闭环，唯一房间延期为临时茶杯生命周期。"
+  },
+  "dependencies": [
+    {
+      "target": "M8-world-lifecycle",
+      "scope": "临时茶杯、尸体动画、食物腐败与跨区域临时对象生命周期",
+      "status": "deferred"
+    },
+    {
+      "target": "M8",
+      "scope": "环境对白、随机移动、日程、棋局、动态任务和世界调度",
+      "status": "deferred"
+    }
+  ]
+}

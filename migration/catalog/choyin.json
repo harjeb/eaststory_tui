@@ -1,0 +1,2211 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "area": "choyin",
+  "status": "structured",
+  "rooms": [
+    {
+      "id": "choyin.altar",
+      "source_path": "mudlib/d/choyin/altar.c",
+      "status": "structured",
+      "name": "火龙将军庙",
+      "description": "这里就是奉祀火龙将军的大殿，火龙将军高大威武的神像(statue)\n就立在你的面前，旁边还有火龙将军的部属虎豹熊鹰四位将军，你现在\n所站的地方是横过街道而建的一个高台，隔著栏杆可以看见下面的街道\n川流不息的人群，南北各有一道阶梯往下回到街道。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "choyin.dragon_temple",
+          "source_target": "__DIR__dragon_temple",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/lady.c",
+        "mudlib/d/choyin/obj/denotation.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/obj/denotation.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/lady.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.bridge1",
+      "source_path": "mudlib/d/choyin/bridge1.c",
+      "status": "structured",
+      "name": "曲桥",
+      "description": "这是一座弯弯曲曲的曲桥，横过翠柳湖连接东岸的雨桥庄跟西岸的\n乔阴县城，从这里可以欣赏翠柳湖的美景，许多睡莲散布在桥墩四周，\n湖面飘著数不尽的浮萍，浮萍底下有不少艳红锦鲤穿梭来去。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.bridge2",
+          "source_target": "__DIR__bridge2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.s_street1",
+          "source_target": "__DIR__s_street1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/visitor.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/visitor.c",
+          "quantity": 4
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.bridge2",
+      "source_path": "mudlib/d/choyin/bridge2.c",
+      "status": "structured",
+      "name": "曲桥",
+      "description": "这是一座弯弯曲曲的曲桥，横过翠柳湖连接东岸的雨桥庄跟西岸的\n乔阴县城，从这里可以欣赏翠柳湖的美景，许多睡莲散布在桥墩四周，\n湖面飘著数不尽的浮萍，浮萍底下有不少艳红锦鲤穿梭来去。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.bridge3",
+          "source_target": "__DIR__bridge3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.bridge1",
+          "source_target": "__DIR__bridge1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/scholar.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/scholar.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.bridge3",
+      "source_path": "mudlib/d/choyin/bridge3.c",
+      "status": "structured",
+      "name": "曲桥",
+      "description": "这是一座弯弯曲曲的曲桥，横过翠柳湖连接东岸的雨桥庄跟西岸的\n乔阴县城，从这里可以欣赏翠柳湖的美景，许多睡莲散布在桥墩四周，\n湖面飘著数不尽的浮萍，浮萍底下有不少艳红锦鲤穿梭来去。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.bridge4",
+          "source_target": "__DIR__bridge4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.bridge2",
+          "source_target": "__DIR__bridge2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/visitor.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/visitor.c",
+          "quantity": 4
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.bridge4",
+      "source_path": "mudlib/d/choyin/bridge4.c",
+      "status": "structured",
+      "name": "曲桥",
+      "description": "这是一座弯弯曲曲的曲桥，横过翠柳湖连接东岸的雨桥庄跟西岸的\n乔阴县城，从这里可以欣赏翠柳湖的美景，许多睡莲散布在桥墩四周，\n湖面飘著数不尽的浮萍，浮萍底下有不少艳红锦鲤穿梭来去。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "choyin.bridge5",
+          "source_target": "__DIR__bridge5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.bridge3",
+          "source_target": "__DIR__bridge3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/girl.c",
+        "mudlib/d/choyin/npc/maid.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/girl.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/maid.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.bridge5",
+      "source_path": "mudlib/d/choyin/bridge5.c",
+      "status": "structured",
+      "name": "曲桥",
+      "description": "这是一座弯弯曲曲的曲桥，横过翠柳湖连接东岸的雨桥庄跟西岸的\n乔阴县城，从这里可以欣赏翠柳湖的美景，许多睡莲散布在桥墩四周，\n湖面飘著数不尽的浮萍，浮萍底下有不少艳红锦鲤穿梭来去。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.entrance",
+          "source_target": "__DIR__entrance",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.bridge4",
+          "source_target": "__DIR__bridge4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.cloudpool",
+      "source_path": "mudlib/d/choyin/cloudpool.c",
+      "status": "structured",
+      "name": "云梦大泽",
+      "description": "云梦大泽八百里,雾气沼沼,商旅绝行.",
+      "exits": [
+        {
+          "direction": "southwest",
+          "target": "choyin.solidpath2",
+          "source_target": "__DIR__solidpath2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/serpent.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/serpent.c",
+          "quantity": 4
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.club",
+      "source_path": "mudlib/d/choyin/club.c",
+      "status": "structured",
+      "name": "草堂",
+      "description": "一间由白茅草搭成的草堂，室内仅有一竹榻，一矮几，四把竹椅．堂前一幅拓片装裱精\n致，上书:\n      书有未曾经我读\n      事无不可对人言\n矮几上摊有书卷(books)放着一支朱砂笔，一房歙砚竟题有岳武穆藏，另几张上好生宣．",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.fence",
+          "source_target": "__DIR__fence",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.yard",
+          "source_target": "__DIR__yard",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "柴门",
+          "reverse_direction": "west",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "books",
+          "description": "几上的书信手而放，装帧古朴，竟是宋版书，还有几卷汉碑原拓。你按捺不住好奇心想拿\n起来(scratch)仔细研究一番。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "custom_command",
+        "conditional_exit",
+        "door",
+        "random_behavior",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.court1",
+      "source_path": "mudlib/d/choyin/court1.c",
+      "status": "structured",
+      "name": "县府衙门",
+      "description": "这里是乔阴县府衙门的大门，就像你印象中的衙门一般，高大的大\n门、两只巨大的石狮、以及一种令人为之肃然的气氛。门口有一面大皮\n鼓(drum)，不用说，这当然是让百姓击鼓申冤用的，乔阴县的知县据说\n是槐阳王的侄子，虽然算不上是包青天，不过倒也没有听说过有什么贪\n赃枉法的劣迹。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "choyin.crossroad",
+          "source_target": "__DIR__crossroad",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/judge_gu.c",
+        "mudlib/d/choyin/npc/magistra.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/judge_gu.c",
+          "quantity": 4
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/magistra.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.craneroom",
+      "source_path": "mudlib/d/choyin/craneroom.c",
+      "status": "structured",
+      "name": "树冠",
+      "description": "古树果非寻常之物，树冠白雾升腾，上接霄汉，如仙境一般，让人流连忘返...",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "choyin.guyehill",
+          "source_target": "__DIR__guyehill",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/crane.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/crane.c",
+          "quantity": 4
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.crossroad",
+      "source_path": "mudlib/d/choyin/crossroad.c",
+      "status": "structured",
+      "name": "十字路口",
+      "description": "这里是昌平街跟承安街的交叉路口，往南就是乔阴县城的南门，往\n北不远处则是衙门的所在地，乔阴县到了这里显得格外安静，路人大多\n沈默地走著，不敢大声喧哗，和城东的花花世界相比，这里显得宁静许\n多。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.s_street5",
+          "source_target": "__DIR__s_street5",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.court1",
+          "source_target": "__DIR__court1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.s_gate",
+          "source_target": "__DIR__s_gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.dragon_temple",
+      "source_path": "mudlib/d/choyin/dragon_temple.c",
+      "status": "structured",
+      "name": "火龙将军庙",
+      "description": "这里是乔阴县城香火最盛的火龙将军庙，火龙将军据说就是两百年\n前率领官兵和杀死树王的骷髅妖怪作战的黎方黎将军，这里就是当年火\n龙将军驻兵扎营之处，如果你想知道火龙将军的事迹，不妨问问附近的\n年长的居民，将军庙的建筑十分奇特，一条道路东西贯通庙的中央，而\n火龙将军的神像立在横跨道路的一个高台上，往来的行人都从火龙将军\n的脚底走过，要上香的信徒必须从南北两边的阶梯爬上高台。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.sw_road1",
+          "source_target": "__DIR__sw_road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "choyin.altar",
+          "source_target": "__DIR__altar",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.s_gate",
+          "source_target": "__DIR__s_gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/crone.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/crone.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.e_gate",
+      "source_path": "mudlib/d/choyin/e_gate.c",
+      "status": "structured",
+      "name": "东城门",
+      "description": "这里乔阴县城的东门，一座高大的石牌楼上面刻著「北门」两个大\n字，一条土路青郁郁地通往南边的山上，石牌楼旁蹲著一只铁狮. 与南\n北两城门相比, 北门这一带显得比较冷清，偶见几个采药, 砍柴之人由\n此出入。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.solidpath1",
+          "source_target": "__DIR__solidpath1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.e_street1",
+          "source_target": "__DIR__e_street1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/cityguard.c",
+        "mudlib/d/choyin/npc/ghost.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/cityguard.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/ghost.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.e_street1",
+      "source_path": "mudlib/d/choyin/e_street1.c",
+      "status": "structured",
+      "name": "东大街",
+      "description": "这里是乔阴县城的东大街，西边不远处的石台便是远近驰名的「树\n王坟」，东大街往东一直通往东城门，街道两边有许多的民宅，街上行\n人渐稀。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.e_gate",
+          "source_target": "__DIR__e_gate",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.tree_tomb",
+          "source_target": "__DIR__tree_tomb",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.entrance",
+      "source_path": "mudlib/d/choyin/entrance.c",
+      "status": "structured",
+      "name": "曼雩台",
+      "description": "这里是雨桥庄西边的曼雩台，也是乔阴县城的文人墨客时常聚集谈\n论诗文的地方，台宽约十丈，西边是连接乔阴县城的翠柳曲桥，从翠柳\n湖中的片片睡莲中弯弯曲曲地通往西边的广场，北边和南边各有数十根\n梁柱，常有许多落拓的士人将他们的作品贴在这里希望得到贵人赏识，\n往东是一片桃树林，春天时和翠柳湖畔的柳树相辉映，蔚为乔阴县的第\n一盛景。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.taolin",
+          "source_target": "__DIR__taolin",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.bridge5",
+          "source_target": "/d/choyin/bridge5",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "conditional_exit"
+      ]
+    },
+    {
+      "id": "choyin.fence",
+      "source_path": "mudlib/d/choyin/fence.c",
+      "status": "structured",
+      "name": "竹林",
+      "description": "诺大的一片竹林，密密匝匝，望不道尽头。游目四顾，没有路了。\n微风乍起，竹林深处现出一角竹篱(fence)。",
+      "exits": [
+        {
+          "direction": "eastup",
+          "target": "choyin.rockyu",
+          "source_target": "__DIR__rockyu",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.club",
+          "source_target": "__DIR__club",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "柴门",
+          "reverse_direction": "east",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "fence",
+          "description": "篱笆依地势而曲折延伸，你注意到柴门里面有一间草堂。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.guyehill",
+      "source_path": "mudlib/d/choyin/guyehill.c",
+      "status": "structured",
+      "name": "绝壁",
+      "description": "采药人言曰：有仙人乘鹤飞升，径入此山，不知所终.....\n此地林木(tree)繁茂，藤蔓(vine)错杂。南耸绝壁，下临深谷.\n半山腰处，隐隐可见一洞，流云出岫。",
+      "exits": [
+        {
+          "direction": "northdown",
+          "target": "choyin.rockroad",
+          "source_target": "__DIR__rockroad",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "tree",
+          "description": "这是一株万年古树，寻常人等休想爬得上去.",
+          "door_direction": null
+        },
+        {
+          "key": "vine",
+          "description": "其中有一根藤蔓距离你比较近，你可以试著抓住(hold)藤蔓",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "custom_command",
+        "random_behavior",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.halfhole",
+      "source_path": "mudlib/d/choyin/halfhole.c",
+      "status": "structured",
+      "name": "山洞",
+      "description": "这里就是半山腰处的山洞。四壁空无一物，极为荒凉......",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "choyin.guyehill",
+          "source_target": "__DIR__guyehill",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/obj/goldenrope.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/obj/goldenrope.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.hollow",
+      "source_path": "mudlib/d/choyin/hollow.c",
+      "status": "structured",
+      "name": "寒谷",
+      "description": "两面皆为峭壁，光滑无物。一阵寒谷幽香，沁人心脾，却不知来自何方。。。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.hollow1",
+          "source_target": "__DIR__hollow1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.hollow1",
+      "source_path": "mudlib/d/choyin/hollow1.c",
+      "status": "structured",
+      "name": "寒谷",
+      "description": "两面皆为峭壁，光滑无物。一阵寒谷幽香，沁人心脾，却不知来自何方。。。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.hollow2",
+          "source_target": "__DIR__hollow2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.hollow1",
+          "source_target": "__DIR__hollow1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.hollow",
+          "source_target": "__DIR__hollow",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.hollow2",
+      "source_path": "mudlib/d/choyin/hollow2.c",
+      "status": "structured",
+      "name": "寒谷",
+      "description": "两面皆为峭壁，光滑无物。一阵寒谷幽香，沁人心脾，却不知来自何方。。。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "choyin.hollow1",
+          "source_target": "__DIR__hollow1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.hollow3",
+          "source_target": "__DIR__hollow3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.hollow3",
+      "source_path": "mudlib/d/choyin/hollow3.c",
+      "status": "structured",
+      "name": "寒谷尽头",
+      "description": "两面皆为峭壁，光滑无物。一株寒谷幽兰,暗香浮动，沁人心脾。山壁天然行成\n一空穴(vase),积满寒露.",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.hollow1",
+          "source_target": "__DIR__hollow1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "vase",
+          "description": "石穴呈瓶状,想是用来插(interject)什么东东的.",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/choyin/obj/orchid.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/obj/orchid.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.hotel1",
+      "source_path": "mudlib/d/choyin/hotel1.c",
+      "status": "structured",
+      "name": "福林酒楼",
+      "description": "这里便是乔阴县驰名远近的福林酒楼，连乔阴县最热闹的一条大街\n都以此命名，福林酒楼是一家近百年老店，传到现在的这位掌柜已经是\n第三代，如果你是初到此地的外地人，不妨和他攀攀交情，酒楼一楼多\n半是县城里熟客人，东北边有一道方梯通往楼上雅座，往西则可以出大\n街。",
+      "exits": [
+        {
+          "direction": "up",
+          "target": "choyin.hotel2",
+          "source_target": "__DIR__hotel2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.s_street2",
+          "source_target": "__DIR__s_street2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/boss.c",
+        "mudlib/d/choyin/npc/sergeant.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/boss.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/sergeant.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.hotel2",
+      "source_path": "mudlib/d/choyin/hotel2.c",
+      "status": "structured",
+      "name": "福林酒楼",
+      "description": "这里是福林酒楼的二楼雅座，这里的客人大多衣冠鲜明，若不是富\n豪巨绅，便是秀才举人，使你不知不觉跟著斯文起来，从这里可以眺望\n乔阴县城的市景，东边不远处隔著几栋建筑便是县府衙门，南边是碧波\n荡漾的翠柳湖，湖对岸的雨桥庄在柳树间若隐若现，东边许多民房，再\n过去便是一方方的稻田，北边可望见树王坟的石台，以及乔阴县城北的\n建筑。你可以沿角落的方梯回到一楼，或者到三楼的客房。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "choyin.hotel1",
+          "source_target": "__DIR__hotel1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "choyin.hotel3",
+          "source_target": "__DIR__hotel3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/servant.c",
+        "mudlib/d/choyin/npc/youngman.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/youngman.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/servant.c",
+          "quantity": 3
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.hotel3",
+      "source_path": "mudlib/d/choyin/hotel3.c",
+      "status": "structured",
+      "name": "福林酒楼",
+      "description": "这里是福林酒楼的客房，住的都是一些从外地来的富商大贾，为了\n预防宵小盗窃财物，福林酒楼的汤掌柜特别雇请了许多武师担任守卫的\n工作，往下可以回到二楼。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "choyin.hotel2",
+          "source_target": "__DIR__hotel2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/guard.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/guard.c",
+          "quantity": 3
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.lionroom",
+      "source_path": "mudlib/d/choyin/lionroom.c",
+      "status": "structured",
+      "name": "神秘洞穴",
+      "description": "洞内黑漆漆的，几乎什么都看不见，只是在一个角落里\n有两点红光闪烁，凭你多年的经验，那一定是一双野兽的眼\n睛。这个地方最好不要久留。",
+      "exits": [],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/lion.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/lion.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "custom_command"
+      ]
+    },
+    {
+      "id": "choyin.n_gate",
+      "source_path": "mudlib/d/choyin/n_gate.c",
+      "status": "structured",
+      "name": "乔阴县城北门",
+      "description": "这里乔阴县城的北门，一座高大的石牌楼上面刻著「北门」两个大\n字，一条黄土路往北穿过一片松树林，青郁郁地通往北边的山上，石牌\n楼旁蹲著两只石狮，由于乔阴县城最热闹的火龙将军庙远在城南，因此\n北门这一带反而显得比较冷清，和附近的乡村一般的宁静纯朴。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "choyin.n_street1",
+          "source_target": "__DIR__n_street1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.sunhill.road1",
+          "source_target": "/u/cloud/sunhill/road1",
+          "internal": false,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/cityguard.c",
+        "mudlib/d/choyin/npc/ghost.c",
+        "mudlib/obj/npc/garrison.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/cityguard.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/ghost.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/obj/npc/garrison.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.n_street1",
+      "source_path": "mudlib/d/choyin/n_street1.c",
+      "status": "structured",
+      "name": "福林大街",
+      "description": "你现在正走在一条宽敞的街道上，这里是乔阴县城联通北门与南\n门的福林大街，街道两旁有做生意的，有做粗活的，这里的老百姓大多\n是老老实实的农人与工匠，街上卖的也多半是一些日用品，往东边是一\n条小巷子，南边的街道似乎比较热闹一些，北边则是北门。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.n_gate",
+          "source_target": "__DIR__n_gate",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.n_street2",
+          "source_target": "__DIR__n_street2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/cake_vendor.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/cake_vendor.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.n_street2",
+      "source_path": "mudlib/d/choyin/n_street2.c",
+      "status": "structured",
+      "name": "福林大街",
+      "description": "你现在正走在一条宽敞的街道上，这里是乔阴县联通南北城门的福\n林大街，街道从这里向南北延伸，往北远远地可以望见北门的石牌楼，\n南边不远处则是乔阴县城著名的地标「树王坟」，你的东边有一家三层\n楼的酒馆，西边则是远近驰名的老姚布庄，街上不时有贩夫走卒穿梭\n而过，十分热闹。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.n_street1",
+          "source_target": "__DIR__n_street1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.n_street3",
+          "source_target": "__DIR__n_street3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.n_street3",
+      "source_path": "mudlib/d/choyin/n_street3.c",
+      "status": "structured",
+      "name": "福林大街",
+      "description": "你现在正走在一条宽敞的大街上，街道往北边笔直地延伸，南边则\n是一个隆起的石台，你可以看见石台前有块石碑，上书「树王坟」三个\n大字，街道的东边和西边都是石板空地，围绕著树王坟成为一个圆环，\n许多小贩客商都聚集在这里交易买卖。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.n_street2",
+          "source_target": "__DIR__n_street2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.tree_tomb",
+          "source_target": "__DIR__tree_tomb",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.nw_street",
+          "source_target": "__DIR__nw_street",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/dumpling_seller.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/dumpling_seller.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.nw_street",
+      "source_path": "mudlib/d/choyin/nw_street.c",
+      "status": "structured",
+      "name": "石板空地",
+      "description": "这里是树王坟西北边的石板空地，因为树王的根范围太广，因此树\n王坟周围十几丈都没有办法盖房子，因此这里铺了石板，平时便当作百\n姓散步休憩的地方。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.n_street3",
+          "source_target": "__DIR__n_street3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.w_street3",
+          "source_target": "__DIR__w_street3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.w_street4",
+          "source_target": "__DIR__w_street4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.platform",
+      "source_path": "mudlib/d/choyin/platform.c",
+      "status": "structured",
+      "name": "云台",
+      "description": "姑射之巅，祥云朵朵，瑞彩千条。藐姑射之山，有神人居焉，肌肤若冰雪，绰约如处子..\n仙踪难觅，只觉风声飒然，云开之出，凸现一座云台(platform)",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "choyin.stove",
+          "source_target": "__DIR__stove",
+          "internal": true,
+          "dynamic": true
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "flag",
+          "description": "此幡可翻云覆雨,最好不要碰(touch)它.",
+          "door_direction": null
+        },
+        {
+          "key": "platform",
+          "description": "一座精雕细琢的玉台,放有一矮几;几上立有玉瓶,几株寒谷幽兰\n绽放其中.台旁置一云幡(flag),可是仙家宝物.",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/choyin/npc/lboy.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/lboy.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "timed_behavior",
+        "random_behavior",
+        "dynamic_exit",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.rockpath1",
+      "source_path": "mudlib/d/choyin/rockpath1.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "铺路的青石采自桐柏山.因行人稀少,已快被茅草遮没.",
+      "exits": [
+        {
+          "direction": "northdown",
+          "target": "choyin.rockpath2",
+          "source_target": "__DIR__rockpath2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southup",
+          "target": "choyin.rockyu",
+          "source_target": "__DIR__rockyu",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.rockpath2",
+      "source_path": "mudlib/d/choyin/rockpath2.c",
+      "status": "structured",
+      "name": "青石小路",
+      "description": "铺路的青石采自桐柏山.因行人稀少,已快被茅草遮没.",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.solidpath1",
+          "source_target": "__DIR__solidpath1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southup",
+          "target": "choyin.rockpath1",
+          "source_target": "__DIR__rockpath1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.rockroad",
+      "source_path": "mudlib/d/choyin/rockroad.c",
+      "status": "structured",
+      "name": "砾石路",
+      "description": "这是一条铺著砾石的上路，险峻难行。南面一座高山，云雾\n缭绕险峻异常。山前断碑字迹依稀可辨--「姑射山』。传说中有\n位仙人曾居于此地，不知如今还在不在......",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.spath",
+          "source_target": "/d/choyin/spath",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southup",
+          "target": "choyin.guyehill",
+          "source_target": "/d/choyin/guyehill",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.rockyu",
+      "source_path": "mudlib/d/choyin/rockyu.c",
+      "status": "structured",
+      "name": "青石峪",
+      "description": "此地山势平缓,山坡尽是湘妃竹.南面就是桐柏山了,西面即为隐士结庐修身之所\n.往北可见下山的青石小径.",
+      "exits": [
+        {
+          "direction": "northdown",
+          "target": "choyin.rockpath1",
+          "source_target": "__DIR__rockpath1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southup",
+          "target": "choyin.tongbhill",
+          "source_target": "__DIR__tongbhill",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "westdown",
+          "target": "choyin.fence",
+          "source_target": "__DIR__fence",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/oldman.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/oldman.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.s_gate",
+      "source_path": "mudlib/d/choyin/s_gate.c",
+      "status": "structured",
+      "name": "乔阴县城南门",
+      "description": "这里是乔阴县城的南门，由于这个南门是十多年前重建的，因此和\n古老斑驳的东、西、北门相比，南门显得漂亮许多，而且南门正对著县\n府衙门，平日的修缮当然也勤快些。乔阴县城南门外住著许多上次羿水\n河鲁公堤溃决之后迁来的农民，因此虽然出了城门，街道依然人来人往\n，往东是一条沿著城墙的街道，可以经过火龙将军庙入城，西边的街道\n沿著城墙通往新建的驿站，往南则是许多房舍与农田。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.dragon_temple",
+          "source_target": "__DIR__dragon_temple",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.crossroad",
+          "source_target": "__DIR__crossroad",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.spath",
+          "source_target": "__DIR__spath",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/cityguard.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/cityguard.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.s_street1",
+      "source_path": "mudlib/d/choyin/s_street1.c",
+      "status": "structured",
+      "name": "南门广场",
+      "description": "这里便是乔阴县城最大的一处广场，往北是贯通县城南北门的福林\n大道，往东则是一个绿柳环绕的湖泊「翠柳湖」，广场上只见卖艺的，\n卖糖葫芦的，捏面人的，各色小贩穿梭来去，广场中央有一口大井，井\n旁用绳索绑著几只杯子供人取水喝(drink)，南门的牌楼因为几年前改建\n翠柳湖的曲桥，因此移到西边的县府衙门所在的昌平街，现在广场的南\n面就是一座曲桥通往湖东岸的雨桥庄，西南边一条宽敞的街道沿著湖岸\n通往城外，广场的西边则一直延伸到昌平街。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.s_street2",
+          "source_target": "__DIR__s_street2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.bridge1",
+          "source_target": "__DIR__bridge1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southwest",
+          "target": "choyin.sw_road1",
+          "source_target": "__DIR__sw_road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.s_street4",
+          "source_target": "__DIR__s_street4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/cucurbit_seller.c",
+        "mudlib/d/choyin/npc/dumpling_seller.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/cucurbit_seller.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/dumpling_seller.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "custom_command"
+      ]
+    },
+    {
+      "id": "choyin.s_street2",
+      "source_path": "mudlib/d/choyin/s_street2.c",
+      "status": "structured",
+      "name": "福林大街",
+      "description": "这里是乔阴县城的福林大街，东首一栋雕梁画栋，美仑美奂的华厦\n便是乔阴县最大的酒楼「福林楼」，不但乔阴县城的富商大贾常来此楼\n饮宴，就连方圆百里内的许多豪门巨绅也常常到这里喝酒，西边是一条\n宽敞的青石官道，通往县府衙门，街道往南则是热闹的南门广场。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.hotel1",
+          "source_target": "__DIR__hotel1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.s_street3",
+          "source_target": "__DIR__s_street3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.s_street1",
+          "source_target": "__DIR__s_street1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.s_street3",
+      "source_path": "mudlib/d/choyin/s_street3.c",
+      "status": "structured",
+      "name": "福林大街",
+      "description": "这里是乔阴县城的福林大街，往北是一座高台，台上便是著名的「\n树王坟」，打从这里往南就是乔阴县最热闹的街道，接上来往的行商贩\n子也最多，你的东边和西边都是石板空地，平常的市集便在此处，遇到\n赛会节庆这里更是挤得水泄不通，福林大街往南是个路口。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.tree_tomb",
+          "source_target": "__DIR__tree_tomb",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.s_street2",
+          "source_target": "__DIR__s_street2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.s_street4",
+      "source_path": "mudlib/d/choyin/s_street4.c",
+      "status": "structured",
+      "name": "承安街",
+      "description": "这里是乔阴县城城南的承安街，街道十分宽敞，南北两边都是一些\n贩卖南北货、日用品的商店，这里虽然正当乔阴县人车来往最频繁的要\n冲，可是却没有福林大街热闹，往东走便是南门广场，往西则是和昌平\n街的交叉路口。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.s_street1",
+          "source_target": "__DIR__s_street1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.s_street5",
+          "source_target": "__DIR__s_street5",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.s_street5",
+      "source_path": "mudlib/d/choyin/s_street5.c",
+      "status": "structured",
+      "name": "承安街",
+      "description": "这里是乔阴县城南的承安街，往东可以通往热闹的南门广场，西边\n的路口则是通往县府衙门的昌平街，街道北边是一些贩卖日常用具的商\n店，南边则是一块空地，从这里可以看到南边的城墙。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.s_street4",
+          "source_target": "__DIR__s_street4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.crossroad",
+          "source_target": "__DIR__crossroad",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.solidpath1",
+      "source_path": "mudlib/d/choyin/solidpath1.c",
+      "status": "structured",
+      "name": "土路",
+      "description": "黄土铺就的小路.阴雨天,泥泞难行.往南就上山了.",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.solidpath2",
+          "source_target": "__DIR__solidpath2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.rockpath2",
+          "source_target": "__DIR__rockpath2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.e_gate",
+          "source_target": "__DIR__e_gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.solidpath2",
+      "source_path": "mudlib/d/choyin/solidpath2.c",
+      "status": "structured",
+      "name": "荒野小径",
+      "description": "荒野中的小路,依稀可变,蜿蜒曲折,不知通向何方.",
+      "exits": [
+        {
+          "direction": "northeast",
+          "target": "choyin.cloudpool",
+          "source_target": "__DIR__cloudpool",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.solidpath1",
+          "source_target": "__DIR__solidpath1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.spath",
+      "source_path": "mudlib/d/choyin/spath.c",
+      "status": "structured",
+      "name": "土路",
+      "description": "这是一条土路，路旁隐约可见房舍，皆已破败。往南是一座高山，\n据说有鬼怪出没。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.s_gate",
+          "source_target": "__DIR__s_gate",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.rockroad",
+          "source_target": "__DIR__rockroad",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.stonehole",
+      "source_path": "mudlib/d/choyin/stonehole.c",
+      "status": "structured",
+      "name": "石室",
+      "description": "石室黑漆漆的,双目不见物.你的双手好象触到了什么东西(object),惧意顿生.",
+      "exits": [],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.stove",
+      "source_path": "mudlib/d/choyin/stove.c",
+      "status": "structured",
+      "name": "丹炉",
+      "description": "雷霆不断击向一粒粒仙丹,仙丹慢慢由黑转为红色.你注意到炉门好象开着.",
+      "exits": [
+        {
+          "direction": "out",
+          "target": "choyin.tongbhill",
+          "source_target": "__DIR__tongbhill",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/obj/tablet.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/obj/tablet.c",
+          "quantity": 5
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.sw_road1",
+      "source_path": "mudlib/d/choyin/sw_road1.c",
+      "status": "structured",
+      "name": "街道",
+      "description": "这是一条沿著湖岸的街道，往东北可以通到人车来往的南门广场，\n这一带原本是在乔阴县城的旧南门之外，因此仍然保留浓厚的乡村气息\n，往南是一条小路继续沿著湖岸通往翠柳湖南岸，街道往东通往著名的\n火龙将军庙。",
+      "exits": [
+        {
+          "direction": "northeast",
+          "target": "choyin.s_street1",
+          "source_target": "__DIR__s_street1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.dragon_temple",
+          "source_target": "__DIR__dragon_temple",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.taolin",
+      "source_path": "mudlib/d/choyin/taolin.c",
+      "status": "structured",
+      "name": "桃林",
+      "description": "这是很大的一片桃林。每年花开的季节，这里一片桃花灿烂，总引得\n邻近的镇集的游客来观看，甚至京城的游客也不乏其人。桃林中阡陌纵横\n，不熟悉此地的游客经常迷路。当然啦，一些先行者在桃树枝上挂了些字\n条以指示道路。看。。字条（note）在那儿。。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.taolin",
+          "source_target": "__DIR__taolin",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.taolin",
+          "source_target": "__DIR__taolin",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "northwest",
+          "target": "choyin.taolin",
+          "source_target": "__DIR__taolin",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.taolin",
+          "source_target": "__DIR__taolin",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southeast",
+          "target": "choyin.taolin",
+          "source_target": "__DIR__taolin",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.taolin",
+          "source_target": "__DIR__taolin",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "note",
+          "description": "这是一张指示路径的字条.似乎可以读(read)它.",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "custom_command",
+        "random_behavior",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.tomb1",
+      "source_path": "mudlib/d/choyin/tomb1.c",
+      "status": "structured",
+      "name": "树王坟",
+      "description": "这里是树王坟内部的树洞，由于这棵大树实在太大，因此你站在树\n洞里，一点也不觉得局促，树洞约有两个人的高度那么深，你可以攀附\n粗糙的洞壁往上离开，东边的树根比较少，露出一些土层，北边跟西边\n则是树洞的另一端。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.tomb3",
+          "source_target": "__DIR__tomb3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "choyin.tree_tomb",
+          "source_target": "__DIR__tree_tomb",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.tomb2",
+          "source_target": "__DIR__tomb2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/shadow.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/shadow.c",
+          "quantity": 3
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.tomb2",
+      "source_path": "mudlib/d/choyin/tomb2.c",
+      "status": "structured",
+      "name": "树王坟内部",
+      "description": "这里是树王坟树洞的内部，你的北、西、南三面都是盘根错节的树\n根，地面上铺著一堆乾草，似乎有人睡过的样子，往东的出口通往树洞\n的另一端。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.tomb1",
+          "source_target": "__DIR__tomb1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.tomb3",
+      "source_path": "mudlib/d/choyin/tomb3.c",
+      "status": "structured",
+      "name": "树王坟内部",
+      "description": "这里是树王坟树洞的内部，你在这里可以闻到一股浓郁的檀香，奇\n怪的是，这棵大树并不是檀木，却不知这股香味从哪里来？往南的出口\n通往树洞的另一端。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "choyin.tomb1",
+          "source_target": "__DIR__tomb1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/obj/chest.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/obj/chest.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.tongbhill",
+      "source_path": "mudlib/d/choyin/tongbhill.c",
+      "status": "structured",
+      "name": "桐柏山",
+      "description": "鬼神皆修于桐柏,故而此地人烟稀少,仅山下青石峪的那位隐士结庐在此.东边山\n壁天成一洞,据传是姑射山的仙人炼丹之所,终日烈焰雄雄,烤得此地寸草不生.\n然而,一株老松仍枝繁叶茂,立于巨石(stone)之上.",
+      "exits": [
+        {
+          "direction": "northdown",
+          "target": "choyin.rockyu",
+          "source_target": "__DIR__rockyu",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.tree_tomb",
+      "source_path": "mudlib/d/choyin/tree_tomb.c",
+      "status": "structured",
+      "name": "树王坟",
+      "description": "你现在来到了著名的「树王坟」前，这里是个高台，中央约两丈见方\n的地上有一截巨大的树桩，少说有三、四十人合抱那么粗，树桩中间有一\n个大洞(hole)，望下去黑漆漆地，石台靠南的地方还有一间小庙(shrine)\n，东西南北四个方向都有阶梯通往四面的街道。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.e_street1",
+          "source_target": "__DIR__e_street1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.n_street3",
+          "source_target": "__DIR__n_street3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.s_street3",
+          "source_target": "__DIR__s_street3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.w_street3",
+          "source_target": "__DIR__w_street3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "hole",
+          "description": "一个黑漆漆的大洞，看来像是什么蛀虫蛀出来的，可是天底下哪里\n有这么大的蛀虫？这个洞连人也进得去。",
+          "door_direction": null
+        },
+        {
+          "key": "shrine",
+          "description": "一间砖砌的小庙，庙里供奉的当然就是「树王公」，你注意到庙里\n树王公的神像左手残缺不全，木刻的神像竟然有一条条白蚁的痕迹，和\n一般庙里金身神像给人的印象不太一样。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.w_street1",
+      "source_path": "mudlib/d/choyin/w_street1.c",
+      "status": "structured",
+      "name": "西大街",
+      "description": "这里是乔阴县城的西大街，西边就是县城的西门，一座巨大的牌楼\n上刻著「西门」二字，往北有一条小巷，南边则是一间书肆，街道中央\n立著一尊石狮(statue)，而且是站著的，将来往行人分为左右两道。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.w_street2",
+          "source_target": "__DIR__w_street2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "statue",
+          "description": "这尊石狮跟一般寻常人家放在门口镇宅避邪的石狮颇有不同，姿势是立\n著的，而且大小要大得多，只怕有几万斤重，从来没见过谁能举起它。\n你注意到石狮的额头上刻著一个「□」字，不知是何用意？",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "custom_command",
+        "conditional_exit",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "choyin.w_street2",
+      "source_path": "mudlib/d/choyin/w_street2.c",
+      "status": "structured",
+      "name": "西大街",
+      "description": "这里是乔阴县城的西大街，西门就在你的西边几十丈外，望东则是\n通往乔阴县的著名地标「树王坟」，街上有许多商店，北边是一家大酒\n楼，南边则有一间染坊。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.w_street3",
+          "source_target": "__DIR__w_street3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.w_street1",
+          "source_target": "__DIR__w_street1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.w_street3",
+      "source_path": "mudlib/d/choyin/w_street3.c",
+      "status": "structured",
+      "name": "西大街",
+      "description": "这里是乔阴县城的西大街，东边不远处的石台便是远近驰名的「树\n王坟」，西大街往西一直通往西城门，街道两边有许多的商店，街上人\n来人往好不热闹。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.tree_tomb",
+          "source_target": "__DIR__tree_tomb",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "choyin.nw_street",
+          "source_target": "__DIR__nw_street",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "choyin.w_street2",
+          "source_target": "__DIR__w_street2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.w_street4",
+      "source_path": "mudlib/d/choyin/w_street4.c",
+      "status": "structured",
+      "name": "西大街",
+      "description": "这里是乔阴县城的西大街.",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.nw_street",
+          "source_target": "__DIR__nw_street",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.w_street2",
+          "source_target": "__DIR__w_street2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.yamen",
+      "source_path": "mudlib/d/choyin/yamen.c",
+      "status": "structured",
+      "name": "大堂",
+      "description": "正中高悬一匾(borad),匾下的书案上放着笔,墨,纸,砚,惊堂木等物.两旁各置屏风.堂下摆着各式刑具,你从未见过.",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.yamen_iner",
+          "source_target": "__DIR__yamen_iner",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.yamen_yard",
+          "source_target": "__DIR__yamen_yard",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "铜钉大门",
+          "reverse_direction": "north",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/judgeman.c",
+        "mudlib/d/choyin/npc/magistra.c",
+        "mudlib/d/choyin/npc/yamen_po.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/judgeman.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/magistra.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/d/choyin/npc/yamen_po.c",
+          "quantity": 8
+        }
+      ],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "choyin.yamen_iner",
+      "source_path": "mudlib/d/choyin/yamen_iner.c",
+      "status": "structured",
+      "name": "内厅",
+      "description": "内厅是老爷与好友叙话, 品茶, 吟诗, 作画之所; 格外幽静......",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "choyin.yamen",
+          "source_target": "__DIR__yamen",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.yamen_yard",
+      "source_path": "mudlib/d/choyin/yamen_yard.c",
+      "status": "structured",
+      "name": "县衙内院",
+      "description": "院内草木繁茂,亭榭错落有致,可见这位县太爷也是位雅人.",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "choyin.yamen",
+          "source_target": "__DIR__yamen",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "choyin.court1",
+          "source_target": "__DIR__court1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "铜钉大门",
+          "reverse_direction": "south",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/choyin/npc/magistra.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/choyin/npc/magistra.c",
+          "quantity": 4
+        }
+      ],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "choyin.yard",
+      "source_path": "mudlib/d/choyin/yard.c",
+      "status": "structured",
+      "name": "庭院",
+      "description": "这是一间什麽也没有的空房间。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.club",
+          "source_target": "__DIR__club",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    }
+  ],
+  "non_room_files": [
+    "mudlib/d/choyin/npc/boss.c",
+    "mudlib/d/choyin/npc/cake_vendor.c",
+    "mudlib/d/choyin/npc/cityguard.c",
+    "mudlib/d/choyin/npc/crane.c",
+    "mudlib/d/choyin/npc/crone.c",
+    "mudlib/d/choyin/npc/cucurbit_seller.c",
+    "mudlib/d/choyin/npc/dumpling_seller.c",
+    "mudlib/d/choyin/npc/ghost.c",
+    "mudlib/d/choyin/npc/girl.c",
+    "mudlib/d/choyin/npc/guard.c",
+    "mudlib/d/choyin/npc/judge_gu.c",
+    "mudlib/d/choyin/npc/judgeman.c",
+    "mudlib/d/choyin/npc/lady.c",
+    "mudlib/d/choyin/npc/lboy.c",
+    "mudlib/d/choyin/npc/lion.c",
+    "mudlib/d/choyin/npc/magistra.c",
+    "mudlib/d/choyin/npc/maid.c",
+    "mudlib/d/choyin/npc/obj/amulet.c",
+    "mudlib/d/choyin/npc/obj/blade.c",
+    "mudlib/d/choyin/npc/obj/book.c",
+    "mudlib/d/choyin/npc/obj/book1.c",
+    "mudlib/d/choyin/npc/obj/book2.c",
+    "mudlib/d/choyin/npc/obj/cake.c",
+    "mudlib/d/choyin/npc/obj/chest.c",
+    "mudlib/d/choyin/npc/obj/cloth.c",
+    "mudlib/d/choyin/npc/obj/cloth_piece.c",
+    "mudlib/d/choyin/npc/obj/cucurbit.c",
+    "mudlib/d/choyin/npc/obj/denotation.c",
+    "mudlib/d/choyin/npc/obj/hat.c",
+    "mudlib/d/choyin/npc/obj/lady_dress.c",
+    "mudlib/d/choyin/npc/obj/magic_book.c",
+    "mudlib/d/choyin/npc/obj/red_guay.c",
+    "mudlib/d/choyin/npc/obj/silk_bag.c",
+    "mudlib/d/choyin/npc/obj/silver_clasp.c",
+    "mudlib/d/choyin/npc/obj/tomatoo.c",
+    "mudlib/d/choyin/npc/obj/underwear.c",
+    "mudlib/d/choyin/npc/oldman.c",
+    "mudlib/d/choyin/npc/roc.c",
+    "mudlib/d/choyin/npc/scholar.c",
+    "mudlib/d/choyin/npc/sergeant.c",
+    "mudlib/d/choyin/npc/serpent.c",
+    "mudlib/d/choyin/npc/servant.c",
+    "mudlib/d/choyin/npc/shadow.c",
+    "mudlib/d/choyin/npc/visitor.c",
+    "mudlib/d/choyin/npc/yamen_po.c",
+    "mudlib/d/choyin/npc/youngman.c",
+    "mudlib/d/choyin/obj/amulet.c",
+    "mudlib/d/choyin/obj/blade.c",
+    "mudlib/d/choyin/obj/book.c",
+    "mudlib/d/choyin/obj/cake.c",
+    "mudlib/d/choyin/obj/chest.c",
+    "mudlib/d/choyin/obj/cloth.c",
+    "mudlib/d/choyin/obj/cloth_piece.c",
+    "mudlib/d/choyin/obj/cucurbit.c",
+    "mudlib/d/choyin/obj/denotation.c",
+    "mudlib/d/choyin/obj/goldenrope.c",
+    "mudlib/d/choyin/obj/grass.c",
+    "mudlib/d/choyin/obj/hat.c",
+    "mudlib/d/choyin/obj/lady_dress.c",
+    "mudlib/d/choyin/obj/magic_book.c",
+    "mudlib/d/choyin/obj/orchid.c",
+    "mudlib/d/choyin/obj/red_guay.c",
+    "mudlib/d/choyin/obj/silk_bag.c",
+    "mudlib/d/choyin/obj/silver_clasp.c",
+    "mudlib/d/choyin/obj/tablet.c",
+    "mudlib/d/choyin/obj/underwear.c"
+  ],
+  "warnings": [
+    "mudlib/d/choyin/club.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/choyin/club.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/club.c: 动态行为待实现 [door]",
+    "mudlib/d/choyin/club.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/club.c: 动态行为待实现 [random_behavior]",
+    "mudlib/d/choyin/entrance.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/choyin/fence.c: 动态行为待实现 [door]",
+    "mudlib/d/choyin/fence.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/guyehill.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/guyehill.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/guyehill.c: 动态行为待实现 [random_behavior]",
+    "mudlib/d/choyin/hollow3.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/hollow3.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/lionroom.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/platform.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/platform.c: 动态行为待实现 [dynamic_exit]",
+    "mudlib/d/choyin/platform.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/platform.c: 动态行为待实现 [random_behavior]",
+    "mudlib/d/choyin/platform.c: 动态行为待实现 [timed_behavior]",
+    "mudlib/d/choyin/s_street1.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/taolin.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/taolin.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/taolin.c: 动态行为待实现 [random_behavior]",
+    "mudlib/d/choyin/tree_tomb.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/w_street1.c: 动态行为待实现 [conditional_exit]",
+    "mudlib/d/choyin/w_street1.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/choyin/w_street1.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/choyin/yamen.c: 动态行为待实现 [door]",
+    "mudlib/d/choyin/yamen_yard.c: 动态行为待实现 [door]"
+  ]
+}

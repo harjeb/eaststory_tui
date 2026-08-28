@@ -2,11 +2,14 @@
   "schema_version": 1,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "milestone": "M4",
-  "status": "in_progress",
+  "status": "complete",
   "catalog": {
     "definitions": 73,
-    "placed_definitions": 59,
-    "runtime_room_references": 78,
+    "static_placed_definitions": 59,
+    "static_room_mappings": 78,
+    "static_room_instances": 113,
+    "placed_definitions": 61,
+    "runtime_room_references": 115,
     "vendors": 9,
     "vendor_goods": 27,
     "inquiry_npcs": 30,
@@ -19,7 +22,35 @@
     "runtime_scripted_inquiries": 10,
     "total_runtime_inquiry_npcs": 26,
     "total_runtime_inquiries": 60,
-    "total_runtime_inquiry_references": 105
+    "total_runtime_inquiry_references": 105,
+    "fight_gate_npcs": 9,
+    "runtime_fight_gate_npcs": 8,
+    "apprenticeship_npcs": 8,
+    "placed_apprenticeship_npcs": 6,
+    "runtime_lesson_npcs": 5,
+    "runtime_lessons": 37,
+    "combat_profiles": 72,
+    "combat_skill_entries": 316,
+    "combat_mapping_entries": 94,
+    "combat_apply_entries": 21,
+    "combat_chat_npcs": 25,
+    "combat_chat_entries": 87,
+    "carried_item_npcs": 55,
+    "carried_item_entries": 93,
+    "carried_items": 5,
+    "worn_items": 56,
+    "wielded_items": 32,
+    "runtime_carried_item_npcs": 44,
+    "runtime_carried_item_references": 86,
+    "runtime_drop_entries": 136,
+    "runtime_combat_npcs": 61,
+    "runtime_combat_npc_instances": 115,
+    "runtime_combat_chat_npcs": 18,
+    "runtime_combat_chat_instances": 36,
+    "custom_command_npcs": 11,
+    "placed_custom_command_npcs": 10,
+    "runtime_custom_command_npcs": 10,
+    "runtime_object_exchange_npcs": 10
   },
   "runtime_features": [
     {
@@ -29,8 +60,8 @@
     },
     {
       "feature": "source_placements",
-      "status": "verified",
-      "decision": "四区 78 个可解析 NPC 房间引用由规范化源路径自动放置，重复房间引用保持独立。"
+      "status": "adapted",
+      "decision": "区域目录 schema v4 保留四区 78 条静态 NPC 映射的数量，运行时展开为 113 个同房间实例；temple/road2.c 的 reset 再从两组三人池各随机一名守卫，单人存档确定化为清灵和清风。合计 61 个定义、115 个运行时实例；同源同房间个体逐个击杀、逐个掉落。"
     },
     {
       "feature": "source_vendors",
@@ -55,12 +86,100 @@
     {
       "feature": "object_exchange_audit",
       "status": "verified",
-      "decision": "19 个 accept_object 候选均有逐源处置；7 项 verified、1 项 adapted 已接入运行时，6 项跨区或世界状态交换 deferred，5 项未放置或空实现 excluded。"
+      "decision": "19 个 accept_object 候选均有逐源处置；8 项 verified、2 项 adapted 已接入运行时，4 项跨区或世界状态交换 deferred，5 项未放置或空实现 excluded。"
+    },
+    {
+      "feature": "snow_temple_donation",
+      "status": "verified",
+      "decision": "雪亭城隍庙庙祝按源拒绝无价值物品，收下其他未装备物品；价值超过一两时以物品价值和玩家灵性判定并降低杀气。单人界面另提供十两香火钱快捷捐献，使用同一源公式。"
+    },
+    {
+      "feature": "source_fight_gates",
+      "status": "verified",
+      "decision": "9 个 accept_fight 候选全部绑定稳定 NPC ID：京城和雪亭钱庄老板将比试强制升级为死斗，李火狮与两名茅山弟子仅接受同门比试，柳绘心、乞丐、收破烂者和老道士按源拒绝；8 个已放置 NPC 可运行，未放置乞丐不虚构位置。"
+    },
+    {
+      "feature": "source_npc_lessons",
+      "status": "verified",
+      "decision": "8 个 apprenticeship 标记全部逐源处置；李火狮、柳绘心、魏无极和两名茅山 NPC 按原版同门或付费学生条件开放共 37 项技能上限，行动绑定具体 NpcId。陈天星等待 M6 署名信物，两个未放置定义不虚构位置。"
+    },
+    {
+      "feature": "source_npc_combat_profiles",
+      "status": "adapted",
+      "decision": "schema v4 保留 72 个静态战斗档案的 combat_exp、八项先天属性、精气神/内力资源、316 项技能、94 项映射和 21 项初始 apply 修正；59 个静态放置定义与 2 个确定化随机守卫共 115 个运行时实例均提供比试与死斗。单人战斗数值由这些源字段确定性换算，死斗移除按地点、NpcId 与已败数量持久化，避免同源多房间或同房间多实例被整体删除；存档进入 schema v10。"
+    },
+    {
+      "feature": "source_npc_carried_items",
+      "status": "adapted",
+      "decision": "schema v4 从 create() 提取 55 个 NPC 的 93 件初始携带物，保留 5 件 carried、56 件 worn 与 32 件 wielded 状态，全部命中现有物品目录；排除注释代码和刘安禄身份揭露时动态取得的刀谱。加入两名确定化藏经楼守卫后，44 个已放置定义形成 86 个房间实例和 136 件可结算战利品；首次死斗胜利按地点实例直接落地，M7 尸体系统接入后再改为尸体承载。"
+    },
+    {
+      "feature": "source_npc_combat_chat",
+      "status": "adapted",
+      "decision": "25 个源定义的 87 条 combat-chat 全部按 text/spell/force/perform/command/movement 类型保留；16 个静态放置定义与 2 个确定化藏经楼守卫形成 36 个运行时实例，按原概率执行文本、三项资源伤害、招魂强化、内功强化/恢复、反击、投降与无尸体反馈。随机移动仍由 M8 调度，尸体动画等待 M7 尸体系统。"
+    },
+    {
+      "feature": "source_custom_commands",
+      "status": "adapted",
+      "decision": "11 个 add_action 候选逐源处置为 9 verified、1 adapted、1 excluded：9 名已放置商人的 list 由绑定具体商人与货品的购买行动表达；京师守城兵的 kill 由通用死斗表达，废园令牌、交验和一次性北门通行链已接入；未放置 guardbak 不生成位置。"
+    },
+    {
+      "feature": "city_exit_token",
+      "status": "adapted",
+      "decision": "废园 find 按福缘式随机搜索取得 city.obj.token，交给已放置守城兵后获得一次性通行许可。固定源五座城门的 out 出口均被注释，唯一可用 northdoor -> nroad1 路线又错误检查 dir == out；单人版将许可绑定到这条通往北驿道的实际路线并在离城时消耗，存档进入 schema v11。"
+    },
+    {
+      "feature": "old_liu_family_plot",
+      "status": "adapted",
+      "decision": "刘老农询问、救出后小娟跟随标记、衡冰剑与过招要旨奖励、父女离场、小娟遇害标记及刘老农强化死斗按 village/oldliu.c 与 chuenyu/xiaojuan2.c 接入。小娟原版位于 M6 绮云镇地牢；M4 先沿 M0 单人任务的黑松林入口适配安置，M6 导入地牢时迁回来源位置。存档进入 schema v9。"
     },
     {
       "feature": "generic_conversation",
       "status": "adapted",
       "decision": "没有可运行专用主题的源 NPC 仍提供简短单人交谈反馈；其余脚本主题按 scripted_inquiries 台账延期或排除。"
+    }
+  ],
+  "apprenticeship_dispositions": [
+    {
+      "source_path": "mudlib/d/city/npc/chen.c",
+      "status": "deferred",
+      "target": "M6",
+      "decision": "陈天星只在收到绮云镇陈剑秋为当前玩家署名的信物后收徒；来源区域尚未迁移，不伪造信物或跳过身份校验。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/fist_trainer.c",
+      "status": "verified",
+      "decision": "李火狮的 recognize_apprentice 只认可封山剑派弟子；同门可按源上限请教拳脚 30、柳家拳 20 和闪躲 30。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/girl.c",
+      "status": "verified",
+      "decision": "柳绘心没有收徒回调；create_family 赋予同门授业权限，仅封山剑派北宗身份可按她的 10 项源技能上限请教。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/mercenary.c",
+      "status": "excluded",
+      "decision": "逄义只有封山剑派身份而无收徒回调，且固定源没有房间放置；不生成授业位置。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/teacher.c",
+      "status": "verified",
+      "decision": "魏无极仅认可已付足五两学费的学生，并按源上限教授读书识字至 60；学费状态已持久化。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/teacher1.c",
+      "status": "excluded",
+      "decision": "与 teacher.c 重复且固定源未放置；由已放置版本保留付费识字行为，不虚构第二位魏无极。"
+    },
+    {
+      "source_path": "mudlib/d/temple/npc/tfighter.c",
+      "status": "verified",
+      "decision": "僵尸护法没有收徒回调；仅茅山派同门可按其 11 项源技能上限请教。"
+    },
+    {
+      "source_path": "mudlib/d/temple/npc/trainer.c",
+      "status": "verified",
+      "decision": "僵尸侍者没有收徒回调；仅茅山派同门可按其 12 项源技能上限请教，随机移动仍独立延期到 M8。"
     }
   ],
   "scripted_inquiries": [
@@ -166,9 +285,8 @@
     },
     {
       "source_path": "mudlib/d/city/npc/guard.c",
-      "status": "deferred",
-      "target": "M4-rooms",
-      "decision": "官府通令交验与出城门槛等待京城令牌来源和动态出口审计。"
+      "status": "adapted",
+      "decision": "守城兵只接受废园可找到的 city.obj.token，交验后获得一次性出城许可；固定源可用北门路线的方向检查错误，单人版将许可绑定 northdoor -> nroad1 并在通过后消耗。"
     },
     {
       "source_path": "mudlib/d/city/npc/guardbak.c",
@@ -199,14 +317,13 @@
     {
       "source_path": "mudlib/d/snow/npc/drunk.c",
       "status": "deferred",
-      "target": "M4-events",
-      "decision": "酒袋剩余量和玉佩、蒙汗药线索依赖沈记商行剧情状态。"
+      "target": "M6",
+      "decision": "醉汉的首个 give_alcohol 标记必须先由 green/oldman2.c 的玉佩问答设置 elder_info，后续玉佩和蒙汗药又由 green/npc/shen.c 结算；整条跨区链随 M6 青石村接入，不在 M4 伪造前置状态。"
     },
     {
       "source_path": "mudlib/d/snow/npc/keeper.c",
-      "status": "deferred",
-      "target": "M4-events",
-      "decision": "香火捐献按价值和福缘随机降低杀气，等待福缘属性处置。"
+      "status": "verified",
+      "decision": "拒绝无价值物品并收下其他捐献；价值超过一两时按原物品价值与现有灵性属性进行概率判定，降低既有 bellicosity 杀气且不低于零。另提供十两香火钱快捷捐献。"
     },
     {
       "source_path": "mudlib/d/snow/npc/mercenary.c",
@@ -240,6 +357,63 @@
       "decision": "按价值计算雇佣天数并跟随玩家，等待统一 NPC 移动与离线计时。"
     }
   ],
+  "custom_command_dispositions": [
+    {
+      "source_path": "mudlib/d/city/npc/caker.c",
+      "status": "verified",
+      "decision": "list 由绑定卖饼大叔及其源货品的大饼购买行动表达。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/clother.c",
+      "status": "verified",
+      "decision": "list 由绑定绸缎庄老板娘及其三项源货品的购买行动表达。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/dumpling_seller.c",
+      "status": "verified",
+      "decision": "list 由绑定卖包子小贩及其源货品的购买行动表达。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/guard.c",
+      "status": "adapted",
+      "decision": "kill guard 由绑定该房间守城兵的通用死斗行动表达；out 因固定源出口被注释且北门方向检查错误，改由废园令牌交验后开放一次 northdoor -> nroad1。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/guardbak.c",
+      "status": "excluded",
+      "decision": "固定源未放置的守城兵备份版本；已放置 guard.c 承担死斗和令牌行为，不生成重复位置。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/shoer.c",
+      "status": "verified",
+      "decision": "list 由绑定鞋店李掌柜及其三项源货品的购买行动表达。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/vendor.c",
+      "status": "verified",
+      "decision": "list 由绑定卖艺壮汉及其金疮药源货品的购买行动表达。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/waiter.c",
+      "status": "verified",
+      "decision": "list 由店小二三项源货品购买行动表达；go up 已由十两礼物持久开放 jiulou -> jiulou_2 的条件移动。"
+    },
+    {
+      "source_path": "mudlib/d/city/npc/weaponor.c",
+      "status": "verified",
+      "decision": "list 由绑定万晓生及其九项源货品的购买行动表达。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/herbalist.c",
+      "status": "verified",
+      "decision": "list 由绑定杨掌柜及其两项源药品的购买行动表达。"
+    },
+    {
+      "source_path": "mudlib/d/snow/npc/waiter.c",
+      "status": "verified",
+      "decision": "list 由绑定雪亭店小二及其四项源货品的购买行动表达；relay_say 生日彩蛋并非 add_action，留待环境对白审计。"
+    }
+  ],
   "behavior_flags": [
     {
       "flag": "ambient_chat",
@@ -252,29 +426,26 @@
       "flag": "apprenticeship",
       "candidates": 8,
       "status": "deferred",
-      "target": "M4-combat",
-      "decision": "与四区师门条件、请教位置和 NPC 战斗身份共同接入。"
+      "target": "M6",
+      "decision": "8/8 个候选已逐源审计为 5 verified、1 deferred、2 excluded；5 个已放置授业 NPC 的 37 项课程可运行。仅陈天星仍等待 M6 陈剑秋署名信物链。"
     },
     {
       "flag": "combat_chat",
       "candidates": 25,
-      "status": "deferred",
-      "target": "M4-combat",
-      "decision": "与 NPC 战斗属性、绝招和战利品共同接入。"
+      "status": "adapted",
+      "decision": "25/25 个定义的 87 条战斗消息已结构化，16 个已放置 NPC 可运行；文本、法术、内功、反击、投降和尸体缺失反馈已适配，随机移动与尸体动画分别保留 M8/M7 依赖。"
     },
     {
       "flag": "custom_command",
       "candidates": 11,
-      "status": "deferred",
-      "target": "M4-events",
-      "decision": "逐项审计给予、购买、邮寄、工作和剧情命令。"
+      "status": "adapted",
+      "decision": "11/11 个候选逐源处置为 9 verified、1 adapted、1 excluded；10 个已放置定义的 vendor list、店小二上楼、守城兵死斗及废园令牌出城链均可运行，无 deferred。"
     },
     {
       "flag": "fight_gate",
       "candidates": 9,
-      "status": "deferred",
-      "target": "M4-combat",
-      "decision": "与 NPC 比试/死斗入口和门派条件共同实现。"
+      "status": "verified",
+      "decision": "9/9 个源 accept_fight 已处置；8 个已放置 NPC 通过稳定 NpcId 提供拒绝、同门比试或强制死斗，未放置乞丐保留源拒绝策略但不生成位置。死斗移除状态进入存档 schema v8。"
     },
     {
       "flag": "inquiry",
@@ -288,7 +459,7 @@
       "candidates": 19,
       "status": "deferred",
       "target": "M4-events",
-      "decision": "19 个候选已逐项审计：7 个 verified、1 个 adapted、6 个任务或世界状态交换 deferred、5 个未放置或空实现 excluded。"
+      "decision": "19 个候选已逐项审计：8 个 verified、2 个 adapted、4 个跨区或调度依赖 deferred、5 个未放置或空实现 excluded；M4 范围内已无未实现交换。"
     },
     {
       "flag": "random_identity",

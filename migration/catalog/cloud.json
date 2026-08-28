@@ -1,0 +1,1919 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "area": "cloud",
+  "status": "structured",
+  "rooms": [
+    {
+      "id": "u.cloud.biaoju",
+      "source_path": "mudlib/u/cloud/biaoju.c",
+      "status": "structured",
+      "name": "镖局",
+      "description": "你现在正站在镖局里。靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.eroad2",
+          "source_target": "__DIR__eroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：镖。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/b_header.c",
+        "mudlib/u/cloud/npc/bfighter.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/b_header.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/u/cloud/npc/bfighter.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.bookstore",
+      "source_path": "mudlib/u/cloud/bookstore.c",
+      "status": "structured",
+      "name": "书局",
+      "description": "你现在正站在书局里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.wroad1",
+          "source_target": "/u/cloud/wroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：书。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/book_seller.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/book_seller.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.butchery",
+      "source_path": "mudlib/u/cloud/butchery.c",
+      "status": "structured",
+      "name": "镇北肉铺",
+      "description": "你现在正站在镇北肉铺里，肉架上挂满了血淋淋的生肉，一股腥\n气扑面而来，不时有几只苍蝇在屋里飞来飞去。\n    靠近门口的地方有一块牛骨雕成的招牌(sign)，上面写着些\n什么。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.nwroad1",
+          "source_target": "/u/cloud/nwroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/butcher.c",
+        "mudlib/u/cloud/npc/fly.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/butcher.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/u/cloud/npc/fly.c",
+          "quantity": 6
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.cross",
+      "source_path": "mudlib/u/cloud/cross.c",
+      "status": "structured",
+      "name": "十字路口",
+      "description": "绮云镇的两条青石路在这里交叉，路旁栽着棵古槐，有两个汉子合\n抱那么粗。槐树下有个告示，象是官府立的。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.eroad1",
+          "source_target": "__DIR__eroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.nroad2",
+          "source_target": "__DIR__nroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.sroad1",
+          "source_target": "__DIR__sroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.wroad2",
+          "source_target": "__DIR__wroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.dragonhill.hummock",
+      "source_path": "mudlib/u/cloud/dragonhill/hummock.c",
+      "status": "structured",
+      "name": "卧龙岗",
+      "description": "这是位于雪亭和绮云两镇间的一道山梁。据说山上时常有强盗拦路\n抢劫。",
+      "exits": [
+        {
+          "direction": "northdown",
+          "target": "u.cloud.dragonhill.nhillfoot",
+          "source_target": "__DIR__nhillfoot",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southdown",
+          "target": "u.cloud.dragonhill.shillfoot",
+          "source_target": "__DIR__shillfoot",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/gangster.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/gangster.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.dragonhill.nhillfoot",
+      "source_path": "mudlib/u/cloud/dragonhill/nhillfoot.c",
+      "status": "structured",
+      "name": "卧龙岗北坡",
+      "description": "从这往西北有条路通往雪亭镇，向南爬就是卧龙岗。",
+      "exits": [
+        {
+          "direction": "northwest",
+          "target": "u.cloud.dragonhill.nroad",
+          "source_target": "__DIR__nroad",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southup",
+          "target": "u.cloud.dragonhill.hummock",
+          "source_target": "__DIR__hummock",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.dragonhill.nroad",
+      "source_path": "mudlib/u/cloud/dragonhill/nroad.c",
+      "status": "structured",
+      "name": "黄土路",
+      "description": "这里是雪亭镇通往绮云镇的必经之路。北面就是雪亭镇，南面通往\n卧龙岗。早先官府想在此修条大路连接两镇，无奈地势所限，加上卧龙\n岗上常有强人出没，只得做罢。虽说是土路，可过往的人很多，路面已\n被踩得很平了。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "snow.sroad1",
+          "source_target": "/d/snow/sroad1",
+          "internal": false,
+          "dynamic": false
+        },
+        {
+          "direction": "southeast",
+          "target": "u.cloud.dragonhill.nhillfoot",
+          "source_target": "__DIR__nhillfoot",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.dragonhill.shillfoot",
+      "source_path": "mudlib/u/cloud/dragonhill/shillfoot.c",
+      "status": "structured",
+      "name": "卧龙岗南坡",
+      "description": "这是卧龙岗的东南坡。东南的路通向绮云镇，往北就要过岗了。",
+      "exits": [
+        {
+          "direction": "northup",
+          "target": "u.cloud.dragonhill.hummock",
+          "source_target": "__DIR__hummock",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southeast",
+          "target": "u.cloud.entrance",
+          "source_target": "/u/cloud/entrance",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.dragonhill.sroad",
+      "source_path": "mudlib/u/cloud/dragonhill/sroad.c",
+      "status": "structured",
+      "name": "黄土路",
+      "description": "这里是雪亭镇通往绮云镇的必经之路。南面就是绮云镇，北面通往\n卧龙岗。早先官府想在此修条大路连接两镇，无奈地势所限，加上卧龙\n岗上常有强人出没，只得做罢。虽说是土路，可过往的人很多，路面已\n被踩得很平了。",
+      "exits": [
+        {
+          "direction": "northwest",
+          "target": "u.cloud.dragonhill.shillfoot",
+          "source_target": "__DIR__shillfoot",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southeast",
+          "target": "u.cloud.entrance",
+          "source_target": "/u/cloud/entrance",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.drugstore",
+      "source_path": "mudlib/u/cloud/drugstore.c",
+      "status": "structured",
+      "name": "药店",
+      "description": "你现在正站在药店里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "u.cloud.nroad1",
+          "source_target": "/u/cloud/nroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：药。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/doctor.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/doctor.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.duchang",
+      "source_path": "mudlib/u/cloud/duchang.c",
+      "status": "structured",
+      "name": "赌场",
+      "description": "你现在正站在赌场里。靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.eroad1",
+          "source_target": "__DIR__eroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "u.cloud.duchang2",
+          "source_target": "__DIR__duchang2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌上写着：赌，胜者赢双。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/judge.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/judge.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.duchang2",
+      "source_path": "mudlib/u/cloud/duchang2.c",
+      "status": "structured",
+      "name": "赌场",
+      "description": "这里是赌场的二楼，很多人在围着几张桌子高声叫嚷，煞是热闹。\n靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "u.cloud.duchang",
+          "source_target": "__DIR__duchang",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：赌(bet)：押注一两纹银，赢了得二两。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "custom_command",
+        "random_behavior",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.dukou",
+      "source_path": "mudlib/u/cloud/dukou.c",
+      "status": "structured",
+      "name": "江北渡口",
+      "description": "这是个虽说不大却过客甚多的渡口。往北去是通往绮云镇里的青石\n道，南面就是无风亦起浪的泓水了。向南望去，隐约可见对岸日照山的\n轮廓，山顶有袅袅炊烟升起。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.sroad1",
+          "source_target": "__DIR__sroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.sunhill.northriver",
+          "source_target": "__DIR__sunhill/northriver",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/boater.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/boater.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.entrance",
+      "source_path": "mudlib/u/cloud/entrance.c",
+      "status": "structured",
+      "name": "绮云镇",
+      "description": "这里是绮云镇的入口。绮云镇是坐落在泓水北岸的一个大镇, 以其商业\n发达和盛产茶叶而为来往客商们所青睐。北边过了卧龙岗就是著名的\n封山剑派北宗所在的雪亭镇; 镇南有个渡口, 过了江就是少林的支脉\n-- 山烟寺。镇上很是热闹, 在这里就能听到南边集市上传来的叫卖声。\n入口处有个官府的公告(sign), 不知是写了些什么。",
+      "exits": [
+        {
+          "direction": "northwest",
+          "target": "u.cloud.dragonhill.sroad",
+          "source_target": "__DIR__dragonhill/sroad",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.nwroad1",
+          "source_target": "__DIR__nwroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "公告上写着:[启事] 由此入镇收取黄金一两",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.eroad1",
+      "source_path": "mudlib/u/cloud/eroad1.c",
+      "status": "structured",
+      "name": "绮云镇街道",
+      "description": "这里是十字路口的东侧，两边房子里都颇为吵闹。北面似乎是家春\n楼，不时可听到风尘女子的卖笑声。南面却是些三教九流的人物在吆三\n喝五，象是家赌场。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.eroad2",
+          "source_target": "/u/cloud/eroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.jiyuan",
+          "source_target": "/u/cloud/jiyuan",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.duchang",
+          "source_target": "/u/cloud/duchang",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.cross",
+          "source_target": "/u/cloud/cross",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.eroad2",
+      "source_path": "mudlib/u/cloud/eroad2.c",
+      "status": "structured",
+      "name": "绮云镇街道",
+      "description": "这里是绮云镇东，通往茶场的路。南边是一家有名的大镖局 -- 振\n远镖局。北面是绮云张家的宅院。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.park",
+          "source_target": "/u/cloud/park",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "northeast",
+          "target": "u.cloud.eroad3",
+          "source_target": "/u/cloud/eroad3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.biaoju",
+          "source_target": "/u/cloud/biaoju",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.eroad1",
+          "source_target": "/u/cloud/eroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.eroad3",
+      "source_path": "mudlib/u/cloud/eroad3.c",
+      "status": "structured",
+      "name": "绮云镇街道",
+      "description": "这里是绮云镇东头，北面是张家，东南方就是茶场。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.rich",
+          "source_target": "/u/cloud/rich",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southeast",
+          "target": "u.cloud.eroad4",
+          "source_target": "/u/cloud/eroad4",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southwest",
+          "target": "u.cloud.eroad2",
+          "source_target": "/u/cloud/eroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.eroad4",
+      "source_path": "mudlib/u/cloud/eroad4.c",
+      "status": "structured",
+      "name": "茶场",
+      "description": "这里是绮云镇的茶场，绮云盛产茶叶，因此这里有不少茶工在忙着\n采茶。",
+      "exits": [
+        {
+          "direction": "northwest",
+          "target": "u.cloud.eroad3",
+          "source_target": "/u/cloud/eroad3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/worker.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/worker.c",
+          "quantity": 6
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.god1",
+      "source_path": "mudlib/u/cloud/god1.c",
+      "status": "structured",
+      "name": "场院",
+      "description": "这里好象是大户人家子弟玩乐的场院, 原来建有秋千架的草地，\n已经成了荆棘丛生的荒草场了。再往西是一座凉亭，亭子似乎也快要倒塌了...",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.woodboxy",
+          "source_target": "/u/cloud/woodboxy",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.god2",
+          "source_target": "/u/cloud/god2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "east",
+          "name": "木门",
+          "reverse_direction": "west",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "u.cloud.god2",
+      "source_path": "mudlib/u/cloud/god2.c",
+      "status": "structured",
+      "name": "场院前厅",
+      "description": "这里是这座场院的前厅，简单的陈设中透出一股尊贵不凡的气派。\n一张黑漆镶金的八仙桌摆放在大厅中央，两只黝黑的太师椅座在这张桌\n子的两旁。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.god1",
+          "source_target": "/u/cloud/god1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/god.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/god.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.jiyuan",
+      "source_path": "mudlib/u/cloud/jiyuan.c",
+      "status": "structured",
+      "name": "怡红院",
+      "description": "你现在正站在怡红院里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "u.cloud.eroad1",
+          "source_target": "/u/cloud/eroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "u.cloud.jiyuan2",
+          "source_target": "/u/cloud/jiyuan2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：怡红院",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/mother.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/mother.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.jiyuan2",
+      "source_path": "mudlib/u/cloud/jiyuan2.c",
+      "status": "structured",
+      "name": "怡红院二楼",
+      "description": "这是怡红院的姑娘们陪客人们饮酒品茗，吟诗作赋的地方，甚是幽\n雅。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "u.cloud.jiyuan",
+          "source_target": "/u/cloud/jiyuan",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/girl.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/girl.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.m_house",
+      "source_path": "mudlib/u/cloud/m_house.c",
+      "status": "structured",
+      "name": "张百万家",
+      "description": "这里是张百万的府宅，常人可进不来",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "u.cloud.rich",
+          "source_target": "__DIR__rich",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/jiading.c",
+        "mudlib/u/cloud/npc/millinare.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/millinare.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/u/cloud/npc/jiading.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.marry_room",
+      "source_path": "mudlib/u/cloud/marry_room.c",
+      "status": "structured",
+      "name": "红娘庄",
+      "description": "你现在正站在红娘庄里，这里是专门替人缔结婚约和解除婚约的地方，\n镇里所有的夫妇都是在这里喜结良缘的，就连附近镇子也有许多慕名\n而来的。靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "u.cloud.wroad0",
+          "source_target": "__DIR__wroad0",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "缔结或解除婚约。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/mei_po.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/mei_po.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.monky",
+      "source_path": "mudlib/u/cloud/monky.c",
+      "status": "structured",
+      "name": "斋院",
+      "description": "你现在正站在斋院里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.wroad2",
+          "source_target": "/u/cloud/wroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：善。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/snow/npc/beggar.c",
+        "mudlib/obj/example/dumpling.c",
+        "mudlib/u/cloud/npc/monk.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/monk.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/d/snow/npc/beggar.c",
+          "quantity": 2
+        },
+        {
+          "source_path": "mudlib/obj/example/dumpling.c",
+          "quantity": 3
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.nroad1",
+      "source_path": "mudlib/u/cloud/nroad1.c",
+      "status": "structured",
+      "name": "东市场",
+      "description": "这里是绮云镇的东市场，北面是药店，东面是兵器店。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.weapony",
+          "source_target": "/u/cloud/weapony",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.drugstore",
+          "source_target": "/u/cloud/drugstore",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.nroad2",
+          "source_target": "/u/cloud/nroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.nwroad3",
+          "source_target": "/u/cloud/nwroad3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.nroad2",
+      "source_path": "mudlib/u/cloud/nroad2.c",
+      "status": "structured",
+      "name": "南市场",
+      "description": "这里是绮云镇的南市场，西面是杂货铺，向东可看到 怡红院 的二楼。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.nroad1",
+          "source_target": "/u/cloud/nroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.cross",
+          "source_target": "/u/cloud/cross",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.zaihuoy",
+          "source_target": "/u/cloud/zaihuoy",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.nwroad1",
+      "source_path": "mudlib/u/cloud/nwroad1.c",
+      "status": "structured",
+      "name": "北市场",
+      "description": "这里是绮云镇的北市场，再向北就是镇口了。\n    一股茶香与腥膻相混合的气味扑鼻而来，西首铺子外挂着个牛头;\n东面是家二层的茶楼，金字招牌十分晃眼。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.tearoom",
+          "source_target": "/u/cloud/tearoom",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.entrance",
+          "source_target": "/u/cloud/entrance",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.nwroad2",
+          "source_target": "/u/cloud/nwroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.butchery",
+          "source_target": "/u/cloud/butchery",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.nwroad2",
+      "source_path": "mudlib/u/cloud/nwroad2.c",
+      "status": "structured",
+      "name": "西市场",
+      "description": "这里是绮云镇的西市场，西边是家棺材铺，南面是家布庄。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.nwroad3",
+          "source_target": "/u/cloud/nwroad3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.nwroad1",
+          "source_target": "/u/cloud/nwroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.tailory",
+          "source_target": "/u/cloud/tailory",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.woodboxy",
+          "source_target": "/u/cloud/woodboxy",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.nwroad3",
+      "source_path": "mudlib/u/cloud/nwroad3.c",
+      "status": "structured",
+      "name": "中市场",
+      "description": "这里是绮云镇的中市场，北面是茶楼，南面是杂货铺。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.nroad1",
+          "source_target": "/u/cloud/nroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.tearoom",
+          "source_target": "/u/cloud/tearoom",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.zaihuoy",
+          "source_target": "/u/cloud/zaihuoy",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.nwroad2",
+          "source_target": "/u/cloud/nwroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/obj/npc/garrison.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/obj/npc/garrison.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.park",
+      "source_path": "mudlib/u/cloud/park.c",
+      "status": "structured",
+      "name": "张家花园",
+      "description": "你现在正站在张家花园里",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "u.cloud.eroad2",
+          "source_target": "/u/cloud/eroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/thief.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/thief.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.rich",
+      "source_path": "mudlib/u/cloud/rich.c",
+      "status": "structured",
+      "name": "张百万家",
+      "description": "你现在正站在张百万家里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.m_house",
+          "source_target": "__DIR__m_house",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.eroad3",
+          "source_target": "__DIR__eroad3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/room_gua.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/room_gua.c",
+          "quantity": 5
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sroad1",
+      "source_path": "mudlib/u/cloud/sroad1.c",
+      "status": "structured",
+      "name": "绮云镇街道",
+      "description": "这里是绮云镇南，通往过江的渡口。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.cross",
+          "source_target": "__DIR__cross",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.dukou",
+          "source_target": "__DIR__dukou",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sunhill.dukou",
+      "source_path": "mudlib/u/cloud/sunhill/dukou.c",
+      "status": "structured",
+      "name": "江南渡口",
+      "description": "这里是泓水南岸，再往南不远就是日照山了。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.sunhill.southriver",
+          "source_target": "__DIR__southriver",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.sunhill.road1",
+          "source_target": "__DIR__road1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sunhill.midriver",
+      "source_path": "mudlib/u/cloud/sunhill/midriver.c",
+      "status": "structured",
+      "name": "江心",
+      "description": "这里虽说是泓水最窄的地方，可泓水在这里转了个弯，所以常有暗\n流出现。常有过往船只在这里沉入江底，连水性了得的船夫们也不敢在\n风大浪急时过江。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.sunhill.northriver",
+          "source_target": "__DIR__northriver",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.sunhill.southriver",
+          "source_target": "__DIR__southriver",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sunhill.northriver",
+      "source_path": "mudlib/u/cloud/sunhill/northriver.c",
+      "status": "structured",
+      "name": "泓水北侧",
+      "description": "这里已靠近北岸，江水齐胸深，偶尔一个湍流卷过来，仿佛要将人\n打入江底似的。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.dukou",
+          "source_target": "/u/cloud/dukou",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.sunhill.midriver",
+          "source_target": "__DIR__midriver",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "timed_behavior",
+        "dynamic_exit"
+      ]
+    },
+    {
+      "id": "u.cloud.sunhill.road1",
+      "source_path": "mudlib/u/cloud/sunhill/road1.c",
+      "status": "structured",
+      "name": "山脚小路",
+      "description": "这是条崎岖的黄土小径，北面通向渡口，往南小路蜿蜒而上，通往\n山顶。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "choyin.n_gate",
+          "source_target": "/d/choyin/n_gate",
+          "internal": false,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.sunhill.dukou",
+          "source_target": "__DIR__dukou",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southup",
+          "target": "u.cloud.sunhill.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sunhill.road2",
+      "source_path": "mudlib/u/cloud/sunhill/road2.c",
+      "status": "structured",
+      "name": "盘山小径",
+      "description": "这是条崎岖的黄土小径。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.sunhill.road1",
+          "source_target": "__DIR__road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.sunhill.road3",
+          "source_target": "__DIR__road3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sunhill.road3",
+      "source_path": "mudlib/u/cloud/sunhill/road3.c",
+      "status": "structured",
+      "name": "盘山小径",
+      "description": "这是条崎岖的黄土小径。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.sunhill.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.sunhill.road4",
+          "source_target": "__DIR__road4",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sunhill.road4",
+      "source_path": "mudlib/u/cloud/sunhill/road4.c",
+      "status": "structured",
+      "name": "盘山小径",
+      "description": "这是条崎岖的黄土小径。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.sunhill.road3",
+          "source_target": "__DIR__road3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "southwest",
+          "target": "sanyen.sroad1",
+          "source_target": "/d/sanyen/sroad1",
+          "internal": false,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.sunhill.southriver",
+      "source_path": "mudlib/u/cloud/sunhill/southriver.c",
+      "status": "structured",
+      "name": "泓水南侧",
+      "description": "这里靠近南岸，江水甚是寒冷。从这儿已能望到山烟寺的一角。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.sunhill.midriver",
+          "source_target": "__DIR__midriver",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.sunhill.dukou",
+          "source_target": "__DIR__dukou",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.tailory",
+      "source_path": "mudlib/u/cloud/tailory.c",
+      "status": "structured",
+      "name": "布庄",
+      "description": "你现在正站在布庄里。靠近门口的墙壁上挂着招牌(sign)。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.nwroad2",
+          "source_target": "/u/cloud/nwroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：衣。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/tailor.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/tailor.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.tea_corridor",
+      "source_path": "mudlib/u/cloud/tea_corridor.c",
+      "status": "structured",
+      "name": "香茗坊茶窖",
+      "description": "茶窖里有几个大竹箩，里面装满了茶叶。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "u.cloud.tearoom",
+          "source_target": "/u/cloud/tearoom",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "木雕门",
+          "reverse_direction": "north",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "u.cloud.tearoom",
+      "source_path": "mudlib/u/cloud/tearoom.c",
+      "status": "structured",
+      "name": "香茗坊",
+      "description": "你来到绮云镇西边的一家茶坊里, 它的历史已不下百年, 绮云镇本\n就是以盛产茶叶而闻名于世, 因此茶楼的生意出奇的好。\n    高高悬起的金匾(sign)让你的有一种眩晕的感觉, 幸好阵阵茶香使\n你清醒了许多。\n    站在门口, 你可以看到北首有一扇不太起眼的木雕门(door)。\n    东侧的楼梯通往楼上的雅座, 不时能听到上面传来丝竹之声和阵阵\n笑声...",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "u.cloud.tea_corridor",
+          "source_target": "/u/cloud/tea_corridor",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.nwroad3",
+          "source_target": "/u/cloud/nwroad3",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "up",
+          "target": "u.cloud.tearoom2",
+          "source_target": "/u/cloud/tearoom2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.nwroad1",
+          "source_target": "/u/cloud/nwroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "木雕门",
+          "reverse_direction": "south",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "door",
+          "description": null,
+          "door_direction": "north"
+        },
+        {
+          "key": "sign",
+          "description": "匾上写着: 香茗坊 ， 旁边一排小字: 御赐亲笔。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/tea_waiter.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/tea_waiter.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.tearoom2",
+      "source_path": "mudlib/u/cloud/tearoom2.c",
+      "status": "structured",
+      "name": "香茗坊二楼",
+      "description": "这是茶楼的二层，附近的文人墨客常喜欢在此品茗作赋。\n    里首摆着个棋盘。",
+      "exits": [
+        {
+          "direction": "down",
+          "target": "u.cloud.tearoom",
+          "source_target": "/u/cloud/tearoom",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/u/cloud/npc/chess_player.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/chess_player.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.weapony",
+      "source_path": "mudlib/u/cloud/weapony.c",
+      "status": "structured",
+      "name": "兵器屋",
+      "description": "你现在正站在兵器屋里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "u.cloud.nroad1",
+          "source_target": "/u/cloud/nroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：专卖各式兵器",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/weaponor.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/weaponor.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.woodboxy",
+      "source_path": "mudlib/u/cloud/woodboxy.c",
+      "status": "structured",
+      "name": "棺材铺",
+      "description": "你现在正站在棺材铺里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.nwroad2",
+          "source_target": "/u/cloud/nwroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.god1",
+          "source_target": "/u/cloud/god1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "west",
+          "name": "木门",
+          "reverse_direction": "east",
+          "initially_closed": true
+        }
+      ],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：棺。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/box_boss.c",
+        "mudlib/u/cloud/npc/box_waiter.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/box_boss.c",
+          "quantity": 1
+        },
+        {
+          "source_path": "mudlib/u/cloud/npc/box_waiter.c",
+          "quantity": 8
+        }
+      ],
+      "behavior_flags": [
+        "door",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "u.cloud.wroad0",
+      "source_path": "mudlib/u/cloud/wroad0.c",
+      "status": "structured",
+      "name": "绮云镇街道",
+      "description": "东边青板石铺的路与向西的碎石小径在这里汇合。西面仿佛是座庄\n院，似可听到曲乐声，却又分辨不清; 北面是红娘庄，常常有一对对\n男女来往。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.wroad1",
+          "source_target": "__DIR__wroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.marry_room",
+          "source_target": "__DIR__marry_room",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "latemoon.entrance",
+          "source_target": "/d/latemoon/entrance",
+          "internal": false,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.wroad1",
+      "source_path": "mudlib/u/cloud/wroad1.c",
+      "status": "structured",
+      "name": "绮云镇街道",
+      "description": "东边青板石铺的路与向西的碎石小径在这里汇合。西面仿佛是座庄\n院，似可听到曲乐声，却又分辨不清; 南面是家私塾。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.wroad2",
+          "source_target": "__DIR__wroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.bookstore",
+          "source_target": "__DIR__bookstore",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.wroad0",
+          "source_target": "__DIR__wroad0",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.wroad2",
+      "source_path": "mudlib/u/cloud/wroad2.c",
+      "status": "structured",
+      "name": "绮云镇街道",
+      "description": "这里是绮云镇西，东边就是十字路口。南面的院子里甚是喧闹，象\n是有很多人的样子。北面是杂货铺，不过门不朝这个方向开。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.cross",
+          "source_target": "/u/cloud/cross",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "u.cloud.monky",
+          "source_target": "/u/cloud/monky",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "u.cloud.wroad1",
+          "source_target": "/u/cloud/wroad1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "u.cloud.zaihuoy",
+      "source_path": "mudlib/u/cloud/zaihuoy.c",
+      "status": "structured",
+      "name": "杂货铺",
+      "description": "你现在正站在杂货铺里\n    靠近门口的地方有一块乌木雕成的招牌(sign)。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "u.cloud.nroad2",
+          "source_target": "/u/cloud/nroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "u.cloud.nwroad3",
+          "source_target": "/u/cloud/nwroad3",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "sign",
+          "description": "招牌写著：商。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/u/cloud/npc/seller.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cloud/npc/seller.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    }
+  ],
+  "non_room_files": [
+    "mudlib/u/cloud/board/bonze_b.c",
+    "mudlib/u/cloud/board/common_b.c",
+    "mudlib/u/cloud/board/dancer_b.c",
+    "mudlib/u/cloud/npc/b_header.c",
+    "mudlib/u/cloud/npc/beggar.c",
+    "mudlib/u/cloud/npc/bfighter.c",
+    "mudlib/u/cloud/npc/boater.c",
+    "mudlib/u/cloud/npc/book_seller.c",
+    "mudlib/u/cloud/npc/box_boss.c",
+    "mudlib/u/cloud/npc/box_waiter.c",
+    "mudlib/u/cloud/npc/butcher.c",
+    "mudlib/u/cloud/npc/chess_player.c",
+    "mudlib/u/cloud/npc/doctor.c",
+    "mudlib/u/cloud/npc/fly.c",
+    "mudlib/u/cloud/npc/gangster.c",
+    "mudlib/u/cloud/npc/girl.c",
+    "mudlib/u/cloud/npc/god.c",
+    "mudlib/u/cloud/npc/goddd.c",
+    "mudlib/u/cloud/npc/jiading.c",
+    "mudlib/u/cloud/npc/judge.c",
+    "mudlib/u/cloud/npc/lm_guard.c",
+    "mudlib/u/cloud/npc/mei_po.c",
+    "mudlib/u/cloud/npc/millinare.c",
+    "mudlib/u/cloud/npc/monk.c",
+    "mudlib/u/cloud/npc/monk_guard.c",
+    "mudlib/u/cloud/npc/monk_waiter.c",
+    "mudlib/u/cloud/npc/mother.c",
+    "mudlib/u/cloud/npc/obj/letter.c",
+    "mudlib/u/cloud/npc/room_gua.c",
+    "mudlib/u/cloud/npc/seller.c",
+    "mudlib/u/cloud/npc/tailor.c",
+    "mudlib/u/cloud/npc/tea_waiter.c",
+    "mudlib/u/cloud/npc/teacher.c",
+    "mudlib/u/cloud/npc/thief.c",
+    "mudlib/u/cloud/npc/weaponor.c",
+    "mudlib/u/cloud/npc/worker.c",
+    "mudlib/u/cloud/obj/book/magic_book.c",
+    "mudlib/u/cloud/obj/book/old_book.c",
+    "mudlib/u/cloud/obj/book/spells_book.c",
+    "mudlib/u/cloud/obj/cloth/black_cloth.c",
+    "mudlib/u/cloud/obj/cloth/cloth.c",
+    "mudlib/u/cloud/obj/etc/rope.c",
+    "mudlib/u/cloud/obj/literate_book.c",
+    "mudlib/u/cloud/obj/meat/b_beef.c",
+    "mudlib/u/cloud/obj/meat/b_zasui.c",
+    "mudlib/u/cloud/obj/meat/beef.c",
+    "mudlib/u/cloud/obj/meat/dog_m.c",
+    "mudlib/u/cloud/obj/meat/hind.c",
+    "mudlib/u/cloud/obj/meat/tail.c",
+    "mudlib/u/cloud/obj/meat/zasui.c",
+    "mudlib/u/cloud/obj/npc/b_header/moon_blade.c",
+    "mudlib/u/cloud/obj/npc/butcher/knife.c",
+    "mudlib/u/cloud/obj/npc/butcher/skin_belt.c",
+    "mudlib/u/cloud/obj/npc/chess_player/chess.c",
+    "mudlib/u/cloud/obj/npc/flower_girl/guihua.c",
+    "mudlib/u/cloud/obj/npc/gangster/blade.c",
+    "mudlib/u/cloud/obj/npc/girl/pink_cloth.c",
+    "mudlib/u/cloud/obj/npc/lm_guard/color_cloth.c",
+    "mudlib/u/cloud/obj/npc/lm_guard/whip.c",
+    "mudlib/u/cloud/obj/npc/monk/jiasha.c",
+    "mudlib/u/cloud/obj/npc/monk/stick.c",
+    "mudlib/u/cloud/obj/npc/tailor/ruler.c",
+    "mudlib/u/cloud/obj/npc/tailor/scissors.c",
+    "mudlib/u/cloud/obj/npc/worker/tea_leaf.c",
+    "mudlib/u/cloud/obj/sword_book.c"
+  ],
+  "warnings": [
+    "mudlib/u/cloud/biaoju.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/bookstore.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/butchery.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/drugstore.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/duchang.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/duchang2.c: 动态行为待实现 [custom_command]",
+    "mudlib/u/cloud/duchang2.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/duchang2.c: 动态行为待实现 [random_behavior]",
+    "mudlib/u/cloud/entrance.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/god1.c: 动态行为待实现 [door]",
+    "mudlib/u/cloud/jiyuan.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/marry_room.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/monky.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/sunhill/northriver.c: 动态行为待实现 [dynamic_exit]",
+    "mudlib/u/cloud/sunhill/northriver.c: 动态行为待实现 [timed_behavior]",
+    "mudlib/u/cloud/tailory.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/tea_corridor.c: 动态行为待实现 [door]",
+    "mudlib/u/cloud/tearoom.c: 动态行为待实现 [door]",
+    "mudlib/u/cloud/tearoom.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/weapony.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/woodboxy.c: 动态行为待实现 [door]",
+    "mudlib/u/cloud/woodboxy.c: 动态行为待实现 [item_interaction]",
+    "mudlib/u/cloud/zaihuoy.c: 动态行为待实现 [item_interaction]"
+  ]
+}

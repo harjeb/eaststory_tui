@@ -1,0 +1,386 @@
+{
+  "schema_version": 6,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M5",
+  "status": "complete",
+  "catalog": {
+    "rooms": 119,
+    "rooms_by_area": {
+      "oldpine": 41,
+      "goathill": 16,
+      "choyin": 62
+    },
+    "non_room_files": 125,
+    "warning_entries": 73,
+    "rooms_with_warnings": 39,
+    "warning_entries_by_kind": {
+      "conditional_exit": 12,
+      "custom_command": 17,
+      "door": 4,
+      "dynamic_exit": 2,
+      "item_interaction": 19,
+      "random_behavior": 18,
+      "timed_behavior": 1
+    },
+    "source_doors": 4,
+    "room_details": 25,
+    "object_mappings": 68,
+    "object_instances": 138,
+    "fixed_room_item_mappings": 6,
+    "fixed_room_item_instances": 10
+  },
+  "static_runtime": {
+    "status": "structured",
+    "source_rooms_loaded": 119,
+    "world_source_rooms": 292,
+    "world_locations_with_adaptations": 296,
+    "fixed_room_items": 10,
+    "save_schema": 15,
+    "decision": "三份区域目录以 schema v4 嵌入运行时；固定房间物品按区域单独初始化，使 v14 旧档升级时只补入 M5 的 10 个实例且不重复 M1-M4 物品。动态迷宫和脚本事件的最终处置见后续批次字段。"
+  },
+  "generic_room_features": {
+    "warning_entries_disposed": 23,
+    "door_audit": {
+      "warning_entries": 4,
+      "source_definitions": 4,
+      "runtime_pairs": 1,
+      "runtime_endpoints": 2,
+      "status_counts": {
+        "verified": 2,
+        "excluded": 2
+      },
+      "dispositions": [
+        {
+          "source_paths": "mudlib/d/choyin/{yamen,yamen_yard}.c",
+          "status": "verified",
+          "warning_entries": 2,
+          "source_definitions": 2,
+          "decision": "县衙铜钉大门两端方向和反向参数互认，接入通用双向门状态；打开、移动和关闭均可运行并沿用 schema v13 存档字段。"
+        },
+        {
+          "source_paths": "mudlib/d/choyin/{club,fence}.c",
+          "status": "excluded",
+          "warning_entries": 2,
+          "source_definitions": 2,
+          "decision": "草堂把柴门建在 west 却指向同为 west 的反向参数，而竹篱 west 出口声明反向 east；两端定义无法互认，目录保留但不伪造运行时门。"
+        }
+      ]
+    },
+    "room_detail_audit": {
+      "warning_entries": 19,
+      "rooms": 19,
+      "details": 25,
+      "text_details": 25,
+      "status_counts": {
+        "verified": 16,
+        "adapted": 3
+      },
+      "dispositions": [
+        {
+          "source_paths": "M5 目录中的 16 个静态 item_desc 房间",
+          "status": "verified",
+          "warning_entries": 16,
+          "details": 22,
+          "decision": "静态字符串、拼接字符串和 heredoc 细节由区域目录 schema v4 原样保留，当前房间生成逐项查看行动。"
+        },
+        {
+          "source_paths": "mudlib/d/oldpine/{cave5,path3}.c + mudlib/d/choyin/taolin.c",
+          "status": "adapted",
+          "warning_entries": 3,
+          "details": 3,
+          "decision": "三个闭包回调均只返回普通玩家可见的固定文本；导入器提取该分支并由通用查看行动呈现，不执行 LPC 闭包。"
+        }
+      ]
+    }
+  },
+  "scripted_room_batch_1": {
+    "warning_entries_disposed": 29,
+    "rooms": 19,
+    "status_counts": {
+      "adapted": 28,
+      "source_noop": 1
+    },
+    "dispositions": [
+      {
+        "source_paths": "mudlib/d/oldpine/cave1-4.c",
+        "status": "adapted",
+        "warning_entries": 4,
+        "decision": "四个洞窟的 cave + random(N) 占位出口在行动生成时由持久化 RNG 状态解析为 cave1-cave4；移动后推进 RNG，固定的 cave1->cave2->cave4->cave5 逃生链保持可用。"
+      },
+      {
+        "source_paths": "mudlib/d/oldpine/pine1-7.c",
+        "status": "adapted",
+        "warning_entries": 14,
+        "decision": "七个松林的随机目标解析为 pine2-pine6，方向提示保留；pine1->pine4->pine5->pine6->pine7 与 pine2->keep1 的固定出口确保单人可回归。"
+      },
+      {
+        "source_paths": "mudlib/d/oldpine/cliffdown.c",
+        "status": "adapted",
+        "warning_entries": 2,
+        "decision": "四条随机松林出口解析为 pine1-pine6，固定 northeast->pine7 保留；climb down 作为显式移动行动进入 cliff2。"
+      },
+      {
+        "source_paths": "mudlib/d/oldpine/epath2.c",
+        "status": "adapted",
+        "warning_entries": 2,
+        "decision": "抓藤蔓行动按 dodge 技能与持久化 RNG 判断：失败落入 waterfall，成功进入 passage。"
+      },
+      {
+        "source_paths": "mudlib/d/oldpine/{clearing,cliff1,cliff2,path3,riverbank1,stone}.c",
+        "status": "adapted",
+        "warning_entries": 6,
+        "decision": "六处 climb 命令转换为九条带原方向语义的显式移动行动，目标均来自固定源。"
+      },
+      {
+        "source_paths": "mudlib/d/oldpine/clearing.c",
+        "status": "source_noop",
+        "warning_entries": 1,
+        "decision": "valid_leave 只向 tree1 的旁观者广播玩家离开，没有门槛或玩家状态变化；单角色运行时无需额外效果。"
+      }
+    ]
+  },
+  "scripted_room_batch_2": {
+    "warning_entries_disposed": 9,
+    "rooms": 4,
+    "save_schema": 16,
+    "status_counts": {
+      "verified": 1,
+      "adapted": 8
+    },
+    "dispositions": [
+      {
+        "source_paths": "mudlib/d/choyin/guyehill.c",
+        "status": "adapted",
+        "warning_entries": 2,
+        "decision": "climb tree 直接进入 craneroom；hold vine 按 dodge 技能与持久化 RNG 判断落入 hollow 或攀进 halfhole。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/platform.c",
+        "status": "adapted",
+        "warning_entries": 4,
+        "decision": "触碰云幡短暂开放 down->stove，并启动延迟雷击；雷击在玩家离开云台后停止。入口与雷击倒计时进入存档 schema v16。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/s_street1.c",
+        "status": "verified",
+        "warning_entries": 1,
+        "decision": "井水行动每次补充 20 点饮水，上限沿用玩家饮水容量。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/w_street1.c",
+        "status": "adapted",
+        "warning_entries": 2,
+        "decision": "石狮累计抬动次数与 strength/5 达到 10 时打开机关并落入 lionroom；累计状态进入存档 schema v16。"
+      }
+    ]
+  },
+  "transitions": [
+    {
+      "source_paths": [
+        "mudlib/d/oldpine/spath4.c",
+        "mudlib/d/choyin/n_gate.c"
+      ],
+      "targets": [
+        "oldpine.spath4",
+        "choyin.n_gate"
+      ],
+      "status": "adapted",
+      "decision": "固定源两端各保留一条被注释的互相引用，导致乔阴县没有主世界入口。单人版恢复 south/north 双向主干，并保留 source_target 为空以区分适配出口。"
+    },
+    {
+      "source_paths": [
+        "mudlib/d/snow/eroad3.c",
+        "mudlib/d/oldpine/npath1.c"
+      ],
+      "targets": [
+        "snow.eroad3",
+        "oldpine.npath1"
+      ],
+      "status": "verified",
+      "decision": "黑松山北路与雪亭东路在固定源中双向互认，目录加载后直接连通。"
+    },
+    {
+      "source_paths": [
+        "mudlib/d/snow/crossroad.c",
+        "mudlib/d/goathill/mroad1.c"
+      ],
+      "targets": [
+        "snow.crossroad",
+        "goathill.mroad1"
+      ],
+      "status": "verified",
+      "decision": "牧羊山官道与雪亭十字路在固定源中双向互认，目录加载后直接连通。"
+    }
+  ],
+  "random_topology": [
+    {
+      "source_paths": "mudlib/d/oldpine/cave1-4.c",
+      "targets": [
+        "oldpine.cave1",
+        "oldpine.cave2",
+        "oldpine.cave3",
+        "oldpine.cave4"
+      ],
+      "status": "adapted",
+      "decision": "动态 cave 占位目标在运行时解析为固定源的四个真实洞窟，并保留确定逃生链。"
+    },
+    {
+      "source_paths": "mudlib/d/oldpine/pine1-7.c + cliffdown.c",
+      "targets": [
+        "oldpine.pine1",
+        "oldpine.pine2",
+        "oldpine.pine3",
+        "oldpine.pine4",
+        "oldpine.pine5",
+        "oldpine.pine6",
+        "oldpine.pine7"
+      ],
+      "status": "adapted",
+      "decision": "动态 pine 占位目标解析为真实松林房间，固定的寨门和悬崖出口保持可达。"
+    }
+  ],
+  "scripted_room_batch_3": {
+    "warning_entries_disposed": 12,
+    "rooms": 7,
+    "save_schema": 19,
+    "status_counts": {
+      "adapted": 10,
+      "deferred": 1,
+      "excluded": 1
+    },
+    "dispositions": [
+      {
+        "source_paths": "mudlib/d/oldpine/cave5.c",
+        "status": "adapted",
+        "warning_entries": 2,
+        "decision": "掩埋房间中的唯一骸骨后按源 random(kar+10) 判定：高值在地面生成过招要旨，其他结果坠入 waterfall；骸骨移除和地面物品由现有存档持久化。"
+      },
+      {
+        "source_paths": "mudlib/d/oldpine/keep2.c",
+        "status": "adapted",
+        "warning_entries": 2,
+        "decision": "首次向东深入山寨时封闭 keep1/keep2 双向退路；持有两个来源路径任一竹哨时可触发 pipe_notify 重新移开巨石。封门状态进入存档 schema v17；多人广播与额外临时守卫压缩为单人事件日志。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/club.c",
+        "status": "adapted",
+        "warning_entries": 3,
+        "decision": "scratch books 按源 2:1 比例取得 book1/book2；离开草堂时移除所有本次可借书卷并记录归还。无效 pray/dancing 只产生文本且不改变状态，不单独开放行动。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/taolin.c",
+        "status": "adapted",
+        "warning_entries": 2,
+        "decision": "保留 11 条诗句提示与方向映射；进入后连续三次按当前提示方向移动才返回 entrance，错误方向增加三步，提示由持久化 RNG 更新；步数和提示进入存档 schema v17。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/entrance.c + mudlib/daemon/class/scholar/master.c",
+        "status": "adapted",
+        "warning_entries": 1,
+        "decision": "骆云舟从雪亭适配师父列表移回乔阴入口；首次拜师设置书生试炼状态并开放东行桃林，连续三次解题后标记完成，第二次拜师加入步玄派并清除入口标记。状态进入存档 schema v19。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/hollow3.c",
+        "status": "deferred",
+        "target_milestone": "M7",
+        "warning_entries": 1,
+        "decision": "interject orchid 目标为 M7 区域 latemoon.bamboo；幽兰物品与来源房间保留，目标区域导入前不开放跨区移动。"
+      },
+      {
+        "source_paths": "mudlib/d/choyin/lionroom.c",
+        "status": "excluded",
+        "warning_entries": 1,
+        "decision": "smell grass 指向固定提交之外的玩家目录 /u/cloud/biaoju，且源函数缺少花括号导致无条件 return；不制造不可审计目标。"
+      }
+    ]
+  },
+  "regional_gameplay": {
+    "status": "complete",
+    "save_schema": 19,
+    "item_ledger": "migration/overrides/m5-items.json",
+    "runtime_features": [
+      {
+        "feature": "oldpine_reinforcement_and_poison",
+        "status": "adapted",
+        "source_paths": [
+          "mudlib/d/oldpine/npc/fat_bandit.c",
+          "mudlib/d/oldpine/npc/bandit_chief.c",
+          "mudlib/d/oldpine/npc/venomsnake.c"
+        ],
+        "decision": "矮胖土匪 combat-chat 回调每个来源实例位置只召来一名持久化土匪老大；动态老大可战斗、死亡后不重复召唤并按源掉落。金银花蛇命中按伤害与护甲判定施加 20 回合蛇毒，已有时长不少于 10 时不刷新。"
+      },
+      {
+        "feature": "goathill_leech_corpse_tonic",
+        "status": "adapted",
+        "source_paths": [
+          "mudlib/d/goathill/npc/{worm,fat_worm,big_worm}.c",
+          "mudlib/d/goathill/npc/obj/dead_leech.c"
+        ],
+        "decision": "三类声明 corpse_ob 的岩蛭死斗后直接留下死岩蛭；巨岩蛭按源不掉落。死岩蛭保留三口食物与每口内力/最大法力补益，腐败时钟留 M7。"
+      },
+      {
+        "feature": "choyin_rope_tablet_and_scholar_trial",
+        "status": "adapted",
+        "source_paths": [
+          "mudlib/d/choyin/{halfhole,craneroom,stove,entrance,taolin}.c",
+          "mudlib/d/choyin/obj/{goldenrope,tablet}.c",
+          "mudlib/daemon/class/scholar/master.c"
+        ],
+        "decision": "半山洞取绳、鹤室缚鹤、云台与丹炉构成可运行链；仙丹按源恢复精气神。入口掌门的首次试炼、桃林解题和第二次正式入派形成完整步玄派状态机。"
+      },
+      {
+        "feature": "source_unplaced_definitions",
+        "status": "verified",
+        "source_paths": [
+          "mudlib/d/goathill/npc/silver_worm.c",
+          "mudlib/d/choyin/npc/roc.c"
+        ],
+        "decision": "固定提交中两项定义没有房间、NPC 或动态生成引用，目录保留定义但不伪造放置；土匪老大则有明确 call_for_help 动态来源并已接入。"
+      }
+    ],
+    "acceptance": [
+      {
+        "area": "oldpine",
+        "status": "verified",
+        "coverage": "雪亭入口、随机松林/洞窟逃生链、藤蔓与攀爬路径、埋骨、封寨/竹哨、静态敌人、动态援军、蛇毒和来源掉落均有规则回归。"
+      },
+      {
+        "area": "goathill",
+        "status": "verified",
+        "coverage": "雪亭官道至山寨主路、路口群匪与庙中首领、四段岩蛭洞窟、三类尸体掉落及补品效果均由世界引用与规则测试覆盖。"
+      },
+      {
+        "area": "choyin",
+        "status": "verified",
+        "coverage": "北门主干、县城商店/问答/交换、县衙门与通缉、绝壁至云台丹炉、草堂借书、树王坟奖励和步玄派桃林试炼均可从 TUI 行动完成。"
+      }
+    ],
+    "retained_dependencies": [
+      {
+        "milestone": "M7",
+        "status": "deferred",
+        "feature": "hollow3 幽兰跨区目标、死岩蛭腐败及通用尸体生命周期"
+      },
+      {
+        "milestone": "M8",
+        "status": "deferred",
+        "feature": "NPC 环境聊天、随机移动、县衙案件/追捕与本地司法调度"
+      }
+    ]
+  },
+  "importer_resolutions": [
+    {
+      "source_path": "mudlib/d/choyin/stove.c",
+      "status": "verified",
+      "decision": "固定源用紧凑 set(\"exits\",([\"out\":...])) 语法声明炉门；通用映射项解析器现支持同行 ([ 前缀，目录保留 out->choyin.tongbhill，避免丹炉成为陷阱。"
+    }
+  ],
+  "source_defects": [
+    {
+      "source_path": "mudlib/d/goathill/cavern1.c.c",
+      "target": "goathill.cavern1.c",
+      "status": "excluded",
+      "decision": "固定源同时存在 cavern1.c 与无引用的 cavern1.c.c 空房备份。导入器只移除一个 .c 扩展名以保留唯一身份，运行时不为备份制造入口。"
+    }
+  ]
+}

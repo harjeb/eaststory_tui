@@ -1,0 +1,650 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "area": "sanyen",
+  "status": "structured",
+  "rooms": [
+    {
+      "id": "sanyen.back_temple",
+      "source_path": "mudlib/d/sanyen/back_temple.c",
+      "status": "structured",
+      "name": "后殿",
+      "description": "一间宽大的后殿, 正中有一尊药师如来的金身塑像。四周的墙上\n唯妙唯肖地彩绘著十八罗汉, 每个罗汉的旁边并写著他得道升天的过\n程。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.tower",
+          "source_target": "/d/sanyen/tower",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "sanyen.corridor",
+          "source_target": "/d/sanyen/corridor",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/little_bonze.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/little_bonze.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.corridor",
+      "source_path": "mudlib/d/sanyen/corridor.c",
+      "status": "structured",
+      "name": "走廊",
+      "description": "你正走在一条长廊上, 两旁种植著一排月桂树。南边的布幔后是\n大殿, 北方则是后殿。东边是个不小的广场, 广场上正晒著一些不知\n名的药草。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "sanyen.back_temple",
+          "source_target": "/d/sanyen/back_temple",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "sanyen.temple",
+          "source_target": "/d/sanyen/temple",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "sanyen.corridor1",
+          "source_target": "/d/sanyen/corridor1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.corridor1",
+      "source_path": "mudlib/d/sanyen/corridor1.c",
+      "status": "structured",
+      "name": "走廊",
+      "description": "你正走在一条长廊上, 两旁分别是流云轩及后殿的外墙, 墙上画\n著大慈大悲观世音菩萨救苦救难的事迹。长廊往东西两边延伸, 西边\n的尽是一间相当大的房屋。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.corridor",
+          "source_target": "__DIR__corridor",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "sanyen.kitchen",
+          "source_target": "__DIR__kitchen",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.door",
+      "source_path": "mudlib/d/sanyen/door.c",
+      "status": "structured",
+      "name": "山烟寺寺门",
+      "description": "出现在眼前的是一座宏伟壮丽的寺门, 上方覆著镶金的瓦片, 瓦\n片的下方挂著一方翡翠匾额, 上面写著『山烟寺』三个烫金大字。正\n中的大门正紧紧关闭著, 只有在迎接大人物时才会开启。现在只开著\n两旁的偏门。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "sanyen.road1",
+          "source_target": "/d/sanyen/road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "sanyen.front_yard",
+          "source_target": "/d/sanyen/front_yard",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.drug_field",
+      "source_path": "mudlib/d/sanyen/drug_field.c",
+      "status": "structured",
+      "name": "药圃",
+      "description": "一片广阔的药圃, 药香就是从这里散发出来的。这里似乎经过详\n细的规划, 一块一块的, 哪边种当归, 哪边种枸杞, 绝不会混在一起\n。只是看来看去都只是些寻常的药材, 看不到比较珍贵特殊的。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "sanyen.road2",
+          "source_target": "__DIR__road2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.front_yard",
+      "source_path": "mudlib/d/sanyen/front_yard.c",
+      "status": "structured",
+      "name": "山烟寺前广场",
+      "description": "这里是山烟寺前的空地，平日僧人们就在这里练武强身，空地四周\n种了一排白杨树，靠北边的地方放了一堆用来锻链膂力的砖头，寺门就\n在你的北边, 东边则是山门。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "sanyen.door",
+          "source_target": "__DIR__door",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "sanyen.gate",
+          "source_target": "__DIR__gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/monk_guard.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/monk_guard.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.gate",
+      "source_path": "mudlib/d/sanyen/gate.c",
+      "status": "structured",
+      "name": "山烟寺山门",
+      "description": "这里是往山烟寺的山门，山烟寺在你的西面不远，由于寺中的老方丈\n玄智和尚医术通神，不少受过恩惠的各地富豪将山烟寺修整得金碧辉煌，\n庄严雄伟，因此山烟寺规模虽然不及京城的白象禅院，但是名气却是\n大得多了。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "sanyen.front_yard",
+          "source_target": "__DIR__front_yard",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "sanyen.sroad2",
+          "source_target": "__DIR__sroad2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "sanyen.tunnele",
+          "source_target": "__DIR__tunnele",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/greeting.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/greeting.c",
+          "quantity": 2
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.heal_room",
+      "source_path": "mudlib/d/sanyen/heal_room.c",
+      "status": "structured",
+      "name": "流云轩",
+      "description": "你走进这里, 一阵刺鼻药味向你扑了过来。这是一间相当宽敞的\n的大房间, 是玄智方丈为人看病的地方, 也是存放药草的地方。与屋\n顶齐高的木柜, 画分成许多抽屉, 里面分别摆放著药材。两侧的墙璧\n上挂了许许多多的檀木扁额(plaque)。",
+      "exits": [
+        {
+          "direction": "south",
+          "target": "sanyen.inner_yard",
+          "source_target": "/d/sanyen/inner_yard",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "plaque",
+          "description": "┌————————┐ ┌————————┐ ┌————————┐\n│                │ │                │ │                │\n│ 妙  手  回  春 │ │ 华  陀  再  世 │ │ 扁  鹊  重  生 │\n│                │ │                │ │                │\n│    发呆部部长  │ │    打混部部长  │ │    摸鱼部部长  │\n│    兼奸商部部长│ │    兼强盗部部长│ │    兼奸商部次长│\n│         Elon 赠│ │     风火血舞 赠│ │       梦忆柔 赠│\n└————————┘ └————————┘ └————————┘\n┌————————┐ ┌————————┐ ┌————————┐\n│                │ │                │ │                │\n│ 药  到  病  除 │ │ 仁  心  德  术 │ │ 杏  坛  佳  话 │\n│                │ │                │ │                │\n│                │ │                │ │                │\n│    插花部部长  │ │    无言部部长  │ │    发呆部次长  │\n│     雷神之子 赠│ │     上官逸倩 赠│ │       克□□ 赠│\n└————————┘ └————————┘ └————————┘\n┌————————┐ ┌————————┐ ┌————————┐\n│                │ │                │ │                │\n│ 悬  壶  济  世 │ │ 技  惊  关  羽 │ │ 医  界  圣  手 │\n│                │ │ 吓  死  曹  操 │ │                │\n│    打混部次长  │ │                │ │                │\n│    兼强盗部次长│ │    摸鱼部次长  │ │    发呆部食客  │\n│      托佛尼亚赠│ │         陈平 赠│ │         悟明 赠│\n└————————┘ └————————┘ └————————┘\n          ┌———————————————————┐ \n          │                                      │ \n          │      全      是      放      屁      │ \n          │                                      │ \n          │                                      │ \n          │                超  级  打  屁  大  神│ \n          │                  安 尼 席 洛 特 尔 赠│ \n          └———————————————————┘",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/drug_bonze.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/drug_bonze.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "sanyen.inner_yard",
+      "source_path": "mudlib/d/sanyen/inner_yard.c",
+      "status": "structured",
+      "name": "庭园",
+      "description": "你正站在山烟寺的庭园里, 这庭园里不但花草茂盛, 而且小桥流\n水, 假山凉亭, 应有尽有, 气派非凡。北边有间雅房, 东边穿过拱门\n则是大殿。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.temple",
+          "source_target": "__DIR__temple",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "sanyen.heal_room",
+          "source_target": "__DIR__heal_room",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/cripple.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/cripple.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.kitchen",
+      "source_path": "mudlib/d/sanyen/kitchen.c",
+      "status": "structured",
+      "name": "香积厨",
+      "description": "一间整理相乾净的厨房, 西北边的角落里砌了两个大灶, 灶里正\n燃著熊熊大火, 灶上分别放著一个大锅(pot) 及一个蒸笼(steampot)\n。锅子及蒸笼正冒著阵阵的热气以及香气, 你忍不住想打开来看看。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.corridor1",
+          "source_target": "__DIR__corridor1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [
+        {
+          "key": "pot",
+          "description": "一个冒著腾腾的热气的黑色大铁锅, 里头正煮著小米粥。",
+          "door_direction": null
+        },
+        {
+          "key": "steampot",
+          "description": "一个竹藤编成的蒸笼, 阵阵的香味使你想打开(open)来瞧一瞧。",
+          "door_direction": null
+        }
+      ],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/cook_bonze.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/cook_bonze.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "item_interaction"
+      ]
+    },
+    {
+      "id": "sanyen.road1",
+      "source_path": "mudlib/d/sanyen/road1.c",
+      "status": "structured",
+      "name": "石板大道",
+      "description": "一条铺著青石板的大道, 两旁种植一排芍药。北方就是大雄宝殿\n, 一座上覆金瓦的雄伟建筑, 屋檐的四个角落雕就著四只栩栩如的金\n龙, 屋檐下还各挂著一串金风铃, 清风吹来, 发出阵阵清脆的铃声。\n东边有条小一点的石板路, 阵阵的药香就从东边传来。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.road2",
+          "source_target": "/d/sanyen/road2",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "sanyen.temple",
+          "source_target": "/d/sanyen/temple",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "sanyen.door",
+          "source_target": "/d/sanyen/door",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "north",
+          "name": "金门",
+          "reverse_direction": "south",
+          "initially_closed": false
+        }
+      ],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/monk.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/monk.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "sanyen.road2",
+      "source_path": "mudlib/d/sanyen/road2.c",
+      "status": "structured",
+      "name": "石板小径",
+      "description": "你正走在一条青石板铺造的小径上, 两旁种植著一排芍药。阵阵\n药香随风送了过来, 原来北边是片广大的药圃。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "sanyen.drug_field",
+          "source_target": "__DIR__drug_field",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "sanyen.road1",
+          "source_target": "__DIR__road1",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/bonze.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/bonze.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.sroad1",
+      "source_path": "mudlib/d/sanyen/sroad1.c",
+      "status": "structured",
+      "name": "山路",
+      "description": "这是一条铺著生满青苔大石的山路，但是路面大概常有人行走，因\n此倒也并不湿滑，往南是一段石阶缓缓下山，往北则是通往山中的山路\n，东面的山壁上刻著「山烟寺」几个大字，看起来岁月已经颇久了。",
+      "exits": [
+        {
+          "direction": "northeast",
+          "target": "u.cloud.sunhill.road4",
+          "source_target": "/u/cloud/sunhill/road4",
+          "internal": false,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "sanyen.sroad2",
+          "source_target": "__DIR__sroad2",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.sroad2",
+      "source_path": "mudlib/d/sanyen/sroad2.c",
+      "status": "structured",
+      "name": "山路",
+      "description": "这条山路到这里转了个弯，往东穿过一个山壁上凿出来的隧道，往\n南则顺著山势缓缓下山。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.sroad1",
+          "source_target": "__DIR__sroad1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "north",
+          "target": "sanyen.gate",
+          "source_target": "__DIR__gate",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.temple",
+      "source_path": "mudlib/d/sanyen/temple.c",
+      "status": "structured",
+      "name": "大雄宝殿",
+      "description": "一阵耀眼的金光向你袭来, 你定神一看原来是座一丈八尺的如来\n佛祖金身, 坐在一座三尺高的莲台上, 前方的香炉里香烟缓缓飘上天\n。这整座山烟寺都是由上好的桧木搭建而成, 南方则是两扇敞开的金\n门, 价值不菲, 气势不凡, 在佛像的右侧有道黄布幔, 布幔后似乎是\n条通道。西边则传来阵阵的流水声。",
+      "exits": [
+        {
+          "direction": "north",
+          "target": "sanyen.corridor",
+          "source_target": "/d/sanyen/corridor",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "south",
+          "target": "sanyen.road1",
+          "source_target": "/d/sanyen/road1",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "sanyen.inner_yard",
+          "source_target": "/d/sanyen/inner_yard",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [
+        {
+          "direction": "south",
+          "name": "金门",
+          "reverse_direction": "north",
+          "initially_closed": true
+        }
+      ],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": [
+        "door"
+      ]
+    },
+    {
+      "id": "sanyen.tower",
+      "source_path": "mudlib/d/sanyen/tower.c",
+      "status": "structured",
+      "name": "塔林",
+      "description": "你正站在两座高塔前, 左边这一座名曰: 『明心塔』, 右方名叫\n『见性塔』。历来, 当山烟寺中的高僧涅盘后, 遗体火化后所得的舍\n利子就存放在这两座塔里。",
+      "exits": [
+        {
+          "direction": "west",
+          "target": "sanyen.back_temple",
+          "source_target": "/d/sanyen/back_temple",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [
+        "mudlib/d/sanyen/npc/work_bonze.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/d/sanyen/npc/work_bonze.c",
+          "quantity": 1
+        }
+      ],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.tunnel",
+      "source_path": "mudlib/d/sanyen/tunnel.c",
+      "status": "structured",
+      "name": "隧道",
+      "description": "你走进了一个凿穿山壁开成的隧道，隧道也不甚长，约七、八丈左\n右，西边就是隧道的出口，隧道中你可以闻到一股硫磺的味道，想必左\n近便有温泉或是火山。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.tunnele",
+          "source_target": "__DIR__tunnele",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "latemoon.sroad5",
+          "source_target": "/d/latemoon/sroad5",
+          "internal": false,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.tunnele",
+      "source_path": "mudlib/d/sanyen/tunnele.c",
+      "status": "structured",
+      "name": "隧道口",
+      "description": "你走进了一个凿穿山壁开成的隧道，东边是隧道的出口，往西不远\n处也可以从这里瞧见西边的出口，一股硫磺的味道从隧道壁中传来，想\n必左近便有温泉或是火山。",
+      "exits": [
+        {
+          "direction": "east",
+          "target": "sanyen.gate",
+          "source_target": "__DIR__gate",
+          "internal": true,
+          "dynamic": false
+        },
+        {
+          "direction": "west",
+          "target": "sanyen.tunnel",
+          "source_target": "__DIR__tunnel",
+          "internal": true,
+          "dynamic": false
+        }
+      ],
+      "doors": [],
+      "details": [],
+      "object_sources": [],
+      "object_placements": [],
+      "behavior_flags": []
+    }
+  ],
+  "non_room_files": [
+    "mudlib/d/sanyen/npc/bonze.c",
+    "mudlib/d/sanyen/npc/cook_bonze.c",
+    "mudlib/d/sanyen/npc/cripple.c",
+    "mudlib/d/sanyen/npc/drug_bonze.c",
+    "mudlib/d/sanyen/npc/greeting.c",
+    "mudlib/d/sanyen/npc/little_bonze.c",
+    "mudlib/d/sanyen/npc/monk.c",
+    "mudlib/d/sanyen/npc/obj/blade.c",
+    "mudlib/d/sanyen/npc/obj/brass_staff.c",
+    "mudlib/d/sanyen/npc/obj/broom.c",
+    "mudlib/d/sanyen/npc/obj/carver.c",
+    "mudlib/d/sanyen/npc/obj/cloth.c",
+    "mudlib/d/sanyen/npc/obj/eye_patch.c",
+    "mudlib/d/sanyen/npc/obj/maintal.c",
+    "mudlib/d/sanyen/npc/obj/monk_cloth.c",
+    "mudlib/d/sanyen/npc/obj/shoe.c",
+    "mudlib/d/sanyen/npc/work_bonze.c",
+    "mudlib/d/sanyen/obj/blade.c",
+    "mudlib/d/sanyen/obj/brass_staff.c",
+    "mudlib/d/sanyen/obj/broom.c",
+    "mudlib/d/sanyen/obj/carver.c",
+    "mudlib/d/sanyen/obj/cloth.c",
+    "mudlib/d/sanyen/obj/eye_patch.c",
+    "mudlib/d/sanyen/obj/maintal.c",
+    "mudlib/d/sanyen/obj/monk_cloth.c",
+    "mudlib/d/sanyen/obj/shoe.c"
+  ],
+  "warnings": [
+    "mudlib/d/sanyen/heal_room.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/sanyen/kitchen.c: 动态行为待实现 [custom_command]",
+    "mudlib/d/sanyen/kitchen.c: 动态行为待实现 [item_interaction]",
+    "mudlib/d/sanyen/road1.c: 动态行为待实现 [door]",
+    "mudlib/d/sanyen/temple.c: 动态行为待实现 [door]"
+  ]
+}

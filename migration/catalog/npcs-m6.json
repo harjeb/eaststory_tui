@@ -1,0 +1,2733 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "scope": "m6-npcs",
+  "status": "structured",
+  "summary": {
+    "total": 57,
+    "placed": 48,
+    "vendors": 1,
+    "vendor_goods": 6,
+    "inquiry_npcs": 8,
+    "inquiry_topics": 17,
+    "static_inquiries": 10,
+    "scripted_inquiries": 7,
+    "runtime_inquiry_npcs": 4,
+    "runtime_inquiries": 10,
+    "runtime_inquiry_references": 14,
+    "combat_profiles": 53,
+    "combat_skill_entries": 162,
+    "combat_mapping_entries": 31,
+    "combat_apply_entries": 28,
+    "combat_chat_npcs": 18,
+    "combat_chat_entries": 33,
+    "carried_item_npcs": 42,
+    "carried_item_entries": 81,
+    "worn_item_entries": 54,
+    "wielded_item_entries": 20,
+    "placed_combat_npcs": 48,
+    "placed_combat_chat_npcs": 16,
+    "placed_carried_item_npcs": 36,
+    "by_area": {
+      "chuenyu": 23,
+      "green": 17,
+      "sanyen": 8,
+      "waterfog": 9
+    }
+  },
+  "npcs": [
+    {
+      "id": "chuenyu.npc.ant",
+      "source_path": "mudlib/d/chuenyu/npc/ant.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "蚂蚁",
+      "description": "一只小小的小蚂蚁",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 200
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chuenyu.npc.bee",
+      "source_path": "mudlib/d/chuenyu/npc/bee.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "蜜蜂",
+      "description": "一只疯狂的杀人蜂",
+      "combat_exp": 200,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chuenyu.npc.chuenyu",
+      "source_path": "mudlib/d/chuenyu/npc/chuenyu.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "淳于怀太",
+      "description": null,
+      "combat_exp": 10000,
+      "attributes": {
+        "int": 12,
+        "per": 10,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 40,
+        "liuh-ken": 20,
+        "parry": 30,
+        "pyrobat-steps": 100,
+        "snowwhip": 80,
+        "unarmed": 60,
+        "whip": 30
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "unarmed": "liuh-ken",
+        "whip": "snowwhip"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "chuenyu.npc.obj.chwhip",
+          "source_path": "mudlib/d/chuenyu/npc/obj/chwhip.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.cleangirl",
+      "source_path": "mudlib/d/chuenyu/npc/cleangirl.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "女佣人",
+      "description": "满脸风霜的女佣人",
+      "combat_exp": 700,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 35,
+        "parry": 25,
+        "throwing": 20,
+        "unarmed": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.feather",
+          "source_path": "mudlib/d/chuenyu/npc/obj/feather.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "小娟",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        },
+        {
+          "topic": "淳于",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        },
+        {
+          "topic": "淳于怀太",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        },
+        {
+          "topic": "堡主",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.cook",
+      "source_path": "mudlib/d/chuenyu/npc/cook.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "厨子",
+      "description": "你看到一个小厨子， 正在用碧玉刀剔猪骨。",
+      "combat_exp": 2500,
+      "attributes": {
+        "int": 14,
+        "str": 29
+      },
+      "resources": {},
+      "skills": {
+        "dagger": 100,
+        "dodge": 150,
+        "parry": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.bknife",
+          "source_path": "mudlib/d/chuenyu/npc/obj/bknife.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.qiwine",
+          "source_path": "mudlib/d/chuenyu/npc/obj/qiwine.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.pigmeat",
+          "source_path": "mudlib/d/chuenyu/npc/obj/pigmeat.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "小娟",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        },
+        {
+          "topic": "淳于",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        },
+        {
+          "topic": "淳于怀太",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        },
+        {
+          "topic": "堡主",
+          "response": "这要到地牢去找。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.flower_seller",
+      "source_path": "mudlib/d/chuenyu/npc/flower_seller.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "卖花姑娘",
+      "description": "美丽的卖花姑娘正在向行人售花儿",
+      "combat_exp": 700,
+      "attributes": {
+        "per": 40
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 150,
+        "parry": 25,
+        "throwing": 100,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/flower.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/flower.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "chuenyu.npc.obj.black_flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/black_flower.c"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.blue_flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/blue_flower.c"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.purple_flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/purple_flower.c"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.red_flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/red_flower.c"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.white_flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/white_flower.c"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.yellow_flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/yellow_flower.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "小娟",
+          "response": "这要到黑松山去问。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "inquiry",
+        "random_movement",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.flowergirl",
+      "source_path": "mudlib/d/chuenyu/npc/flowergirl.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "采花妞",
+      "description": "天真的小女孩正在玩耍着",
+      "combat_exp": 700,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 100,
+        "parry": 25,
+        "throwing": 50,
+        "unarmed": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.flower",
+          "source_path": "mudlib/d/chuenyu/npc/obj/flower.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 5,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "小娟",
+          "response": "这要到黑松山去问。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.fly",
+      "source_path": "mudlib/d/chuenyu/npc/fly.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "蝴蝶",
+      "description": "一只美丽的小蝴蝶",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 250
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chuenyu.npc.frog",
+      "source_path": "mudlib/d/chuenyu/npc/frog.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "蛐蛐",
+      "description": "一只方头方脑的大蛐蛐",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 150
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chuenyu.npc.gardener",
+      "source_path": "mudlib/d/chuenyu/npc/gardener.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "园工",
+      "description": "黑松一剪是方园几十里有名的园工。一把大剪使的出神如化。",
+      "combat_exp": 2000,
+      "attributes": {
+        "cor": 20,
+        "cps": 30,
+        "int": 30,
+        "spi": 30,
+        "str": 20
+      },
+      "resources": {
+        "atman": 1500,
+        "eff_gin": 500,
+        "eff_sen": 500,
+        "force": 150,
+        "force_factor": 5,
+        "gin": 500,
+        "mana": 3000,
+        "mana_factor": 50,
+        "max_atman": 1500,
+        "max_force": 150,
+        "max_gin": 500,
+        "max_mana": 3000,
+        "max_sen": 500,
+        "sen": 500
+      },
+      "skills": {
+        "dodge": 30,
+        "force": 50,
+        "gouyee": 30,
+        "literate": 10,
+        "magic": 50,
+        "necromancy": 30,
+        "parry": 30,
+        "scratching": 30,
+        "spells": 50,
+        "sword": 30,
+        "taoism": 30,
+        "unarmed": 30
+      },
+      "mappings": {
+        "spells": "necromancy"
+      },
+      "combat_apply": {
+        "armor": 30,
+        "dodge": 30
+      },
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"invocation\" :)"
+          },
+          {
+            "kind": "command",
+            "value": "(: command(\"cast animate on corpse\") :)"
+          },
+          {
+            "kind": "command",
+            "value": "(:command(\"cast animate on corpse\") :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "chuenyu.npc.obj.scissors",
+          "source_path": "mudlib/d/chuenyu/npc/obj/scissors.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.guard",
+      "source_path": "mudlib/d/chuenyu/npc/guard.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "护院",
+      "description": "这是黑松堡的护院",
+      "combat_exp": 5000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 70,
+        "move": 100,
+        "parry": 70,
+        "sword": 30,
+        "unarmed": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "护院喝道：来人啦！抓小贼呀！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.guard2",
+      "source_path": "mudlib/d/chuenyu/npc/guard2.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "狱卒",
+      "description": "这是黑松堡的狱卒",
+      "combat_exp": 5000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 80,
+        "move": 100,
+        "parry": 80,
+        "sword": 30,
+        "unarmed": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "movement",
+            "value": "(: random_move :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.highrat",
+      "source_path": "mudlib/d/chuenyu/npc/highrat.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "大老鼠",
+      "description": "一只疯狂的大老鼠",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 5,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.jiading",
+      "source_path": "mudlib/d/chuenyu/npc/jiading.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "青衣家丁",
+      "description": "这是一位黑松堡的家丁，专负责盘察去黑松堡的行人。",
+      "combat_exp": 2000,
+      "attributes": {
+        "cor": 27,
+        "cps": 25,
+        "int": 23,
+        "str": 28
+      },
+      "resources": {
+        "force": 100,
+        "force_factor": 10,
+        "max_force": 100
+      },
+      "skills": {
+        "dodge": 40,
+        "hammer": 40,
+        "parry": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.6hammer",
+          "source_path": "mudlib/d/chuenyu/npc/obj/6hammer.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.jiading2",
+      "source_path": "mudlib/d/chuenyu/npc/jiading2.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "蓝衣家丁",
+      "description": null,
+      "combat_exp": 2000,
+      "attributes": {
+        "cor": 27,
+        "cps": 25,
+        "int": 23,
+        "str": 28
+      },
+      "resources": {
+        "force": 100,
+        "force_factor": 10,
+        "max_force": 100
+      },
+      "skills": {
+        "dodge": 40,
+        "hammer": 50,
+        "parry": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.7hammer",
+          "source_path": "mudlib/d/chuenyu/npc/obj/7hammer.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.jiading3",
+      "source_path": "mudlib/d/chuenyu/npc/jiading3.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "紫衣家丁",
+      "description": null,
+      "combat_exp": 2000,
+      "attributes": {
+        "cor": 27,
+        "cps": 25,
+        "int": 23,
+        "str": 28
+      },
+      "resources": {
+        "force": 100,
+        "force_factor": 10,
+        "max_force": 100
+      },
+      "skills": {
+        "dodge": 50,
+        "hammer": 60,
+        "parry": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.8hammer",
+          "source_path": "mudlib/d/chuenyu/npc/obj/8hammer.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.oldliu",
+      "source_path": "mudlib/d/chuenyu/npc/oldliu.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "刘老农",
+      "description": null,
+      "combat_exp": 10000,
+      "attributes": {
+        "int": 12,
+        "per": 10,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 120,
+        "liuh-ken": 70,
+        "parry": 120,
+        "pyrobat-steps": 80,
+        "six-chaos-sword": 150,
+        "sword": 150,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "sword": "six-chaos-sword",
+        "unarmed": "liuh-ken"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.parrybook",
+          "source_path": "mudlib/d/chuenyu/npc/obj/parrybook.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "fight_gate",
+        "random_movement",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.pigeon",
+      "source_path": "mudlib/d/chuenyu/npc/pigeon.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "信鸽",
+      "description": "一只乖巧的小信鸽",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 250
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chuenyu.npc.rat",
+      "source_path": "mudlib/d/chuenyu/npc/rat.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "大老鼠",
+      "description": "一只鼠头鼠脑的大老鼠",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 80
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chuenyu.npc.smallgardener",
+      "source_path": "mudlib/d/chuenyu/npc/smallgardener.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "小园工",
+      "description": "一位年轻的小园工",
+      "combat_exp": 500,
+      "attributes": {
+        "int": 24,
+        "str": 12
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 30,
+        "parry": 30,
+        "sword": 30
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "chuenyu.npc.obj.scissors",
+          "source_path": "mudlib/d/chuenyu/npc/obj/scissors.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "chuenyu.npc.wolfdog",
+      "source_path": "mudlib/d/chuenyu/npc/wolfdog.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "巨型犬",
+      "description": "这是一只凶猛无比，半人多高的巨型狼犬",
+      "combat_exp": 20000,
+      "attributes": {
+        "cor": 52,
+        "cps": 22,
+        "str": 48
+      },
+      "resources": {
+        "max_gin": 600,
+        "max_sen": 900
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 40,
+        "attack": 60
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "狼犬向你疯狂的哮道：呜汪！呜汪！呜汪！呜汪！"
+          }
+        ]
+      },
+      "carried_items": [],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "chuenyu.npc.xiaojuan",
+      "source_path": "mudlib/d/chuenyu/npc/xiaojuan.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "小娟",
+      "description": null,
+      "combat_exp": 1,
+      "attributes": {
+        "per": 30,
+        "str": 1
+      },
+      "resources": {
+        "eff_gin": 1,
+        "eff_sen": 1,
+        "gin": 1,
+        "max_gin": 500,
+        "max_sen": 500,
+        "sen": 1
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "小娟说道：唉！ 没料道你和那些坏人是一伙的！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "chuenyu.npc.obj.torn_pink_cloth",
+          "source_path": "mudlib/d/chuenyu/npc/obj/torn_pink_cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat",
+        "death_hook",
+        "fight_gate",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "chuenyu.xiaojuan2",
+      "source_path": "mudlib/d/chuenyu/xiaojuan2.c",
+      "status": "structured",
+      "area": "chuenyu",
+      "name": "小娟",
+      "description": null,
+      "combat_exp": 1,
+      "attributes": {
+        "per": 30,
+        "str": 1
+      },
+      "resources": {
+        "eff_gin": 1,
+        "eff_sen": 1,
+        "gin": 1,
+        "max_gin": 500,
+        "max_sen": 500,
+        "sen": 1
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "小娟说道：唉！ 没料道你和那些坏人是一伙的！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "chuenyu.obj.torn_pink_cloth",
+          "source_path": "mudlib/d/chuenyu/obj/torn_pink_cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat",
+        "death_hook",
+        "fight_gate",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "green.npc.kid1",
+      "source_path": "mudlib/d/green/npc/kid1.c",
+      "status": "structured",
+      "area": "green",
+      "name": "工匠的小孩",
+      "description": null,
+      "combat_exp": 10,
+      "attributes": {
+        "con": 20,
+        "str": 25
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 5
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "green.npc.kid2",
+      "source_path": "mudlib/d/green/npc/kid2.c",
+      "status": "structured",
+      "area": "green",
+      "name": "小孩",
+      "description": null,
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "green.npc.kid3",
+      "source_path": "mudlib/d/green/npc/kid3.c",
+      "status": "structured",
+      "area": "green",
+      "name": "小孩",
+      "description": null,
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "green.npc.kid4",
+      "source_path": "mudlib/d/green/npc/kid4.c",
+      "status": "structured",
+      "area": "green",
+      "name": "小孩",
+      "description": null,
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat"
+      ]
+    },
+    {
+      "id": "green.npc.kid5",
+      "source_path": "mudlib/d/green/npc/kid5.c",
+      "status": "structured",
+      "area": "green",
+      "name": "测试用的小孩 - 不准杀!!!!",
+      "description": null,
+      "combat_exp": 99999999,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "attack": 1000,
+        "dodge": 1000,
+        "unarmed": 1000
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "death_hook",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "green.npc.master",
+      "source_path": "mudlib/d/green/npc/master.c",
+      "status": "structured",
+      "area": "green",
+      "name": "龙若法王",
+      "description": "龙若法王本是释家中人，后得奇人点化，佛道双修，齐入化境，\n于二十九年前创下绝尘一派。",
+      "combat_exp": 3000000,
+      "attributes": {
+        "con": 21,
+        "cor": 23,
+        "cps": 30,
+        "int": 30,
+        "per": 22,
+        "spi": 30,
+        "str": 21
+      },
+      "resources": {
+        "atman": 3000,
+        "force": 3000,
+        "force_factor": 5,
+        "mana": 2000,
+        "mana_factor": 5,
+        "max_atman": 2000,
+        "max_force": 2000,
+        "max_mana": 4000
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 100,
+        "jingang-staff": 120,
+        "literate": 120,
+        "magic": 150,
+        "magic-array": 100,
+        "parry": 100,
+        "perception": 100,
+        "spells": 150,
+        "staff": 100,
+        "tao-mystery": 100,
+        "unarmed": 80,
+        "wu-shun": 120
+      },
+      "mappings": {
+        "force": "wu-shun",
+        "staff": "jingang-staff"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 30,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "//                (: exert_function, \"chillgaze\" :)"
+          }
+        ]
+      },
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "apprenticeship",
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "green.npc.oldman",
+      "source_path": "mudlib/d/green/npc/oldman.c",
+      "status": "structured",
+      "area": "green",
+      "name": "老公公",
+      "description": null,
+      "combat_exp": 70,
+      "attributes": {},
+      "resources": {
+        "max_gin": 100,
+        "max_sen": 70
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "callback",
+            "value": "(: this_object(), \"ask_for_help\" :)"
+          },
+          {
+            "kind": "callback",
+            "value": "(: this_object(), \"wield_something\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.example.dagger",
+          "source_path": "mudlib/obj/example/dagger.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "green.npc.oldman2",
+      "source_path": "mudlib/d/green/npc/oldman2.c",
+      "status": "structured",
+      "area": "green",
+      "name": "村长",
+      "description": null,
+      "combat_exp": 500,
+      "attributes": {},
+      "resources": {
+        "max_gin": 100,
+        "max_sen": 100
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "玉佩",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "green.npc.oldwoman",
+      "source_path": "mudlib/d/green/npc/oldwoman.c",
+      "status": "structured",
+      "area": "green",
+      "name": "老婆婆",
+      "description": null,
+      "combat_exp": 55,
+      "attributes": {},
+      "resources": {
+        "max_gin": 70,
+        "max_sen": 50
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 55,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "callback",
+            "value": "(: this_object(), \"ask_for_help\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "green.npc.s",
+      "source_path": "mudlib/d/green/npc/s.c",
+      "status": "structured",
+      "area": "green",
+      "name": "沈万年",
+      "description": null,
+      "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "attack": 3,
+        "dodge": 5
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "玉佩",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "蒙汗药",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "object_exchange",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "green.npc.shen",
+      "source_path": "mudlib/d/green/npc/shen.c",
+      "status": "structured",
+      "area": "green",
+      "name": "沈万年",
+      "description": null,
+      "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "attack": 3,
+        "dodge": 5
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "玉佩",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "蒙汗药",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "green.npc.shen1",
+      "source_path": "mudlib/d/green/npc/shen1.c",
+      "status": "structured",
+      "area": "green",
+      "name": "沈万年",
+      "description": null,
+      "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "attack": 3,
+        "dodge": 5
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "玉佩",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "蒙汗药",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "green.npc.spider",
+      "source_path": "mudlib/d/green/npc/spider.c",
+      "status": "structured",
+      "area": "green",
+      "name": "蜘蛛",
+      "description": null,
+      "combat_exp": null,
+      "attributes": {
+        "str": 20
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 5,
+        "attack": 15,
+        "dodge": 10
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "green.npc.woman1",
+      "source_path": "mudlib/d/green/npc/woman1.c",
+      "status": "structured",
+      "area": "green",
+      "name": "妇人",
+      "description": null,
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "callback",
+            "value": "(: wield_weapon :)"
+          },
+          {
+            "kind": "callback",
+            "value": "(: converse_one :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "green.npc.obj.ricewine",
+          "source_path": "mudlib/d/green/npc/obj/ricewine.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "green.npc.obj.knife",
+          "source_path": "mudlib/d/green/npc/obj/knife.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "green.npc.woman2",
+      "source_path": "mudlib/d/green/npc/woman2.c",
+      "status": "structured",
+      "area": "green",
+      "name": "妇人",
+      "description": null,
+      "combat_exp": 50,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 3
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat"
+      ]
+    },
+    {
+      "id": "green.npc.worker1",
+      "source_path": "mudlib/d/green/npc/worker1.c",
+      "status": "structured",
+      "area": "green",
+      "name": "工匠",
+      "description": null,
+      "combat_exp": 100,
+      "attributes": {
+        "con": 20,
+        "str": 30
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 10
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "green.obj.hammer",
+          "source_path": "mudlib/d/green/obj/hammer.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "green.npc.worker2",
+      "source_path": "mudlib/d/green/npc/worker2.c",
+      "status": "structured",
+      "area": "green",
+      "name": "采石工",
+      "description": null,
+      "combat_exp": null,
+      "attributes": {
+        "con": 20,
+        "str": 30
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "green.obj.hammer",
+          "source_path": "mudlib/d/green/obj/hammer.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "green.obj.rope",
+          "source_path": "mudlib/d/green/obj/rope.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 5,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.npc.bonze",
+      "source_path": "mudlib/d/sanyen/npc/bonze.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "僧人",
+      "description": "一个笑咪咪的僧人对著你微微颔首。",
+      "combat_exp": 6000,
+      "attributes": {
+        "cor": 14,
+        "cps": 29,
+        "int": 25,
+        "str": 26
+      },
+      "resources": {
+        "force": 500,
+        "force_factor": 5,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 60,
+        "force": 60,
+        "unarmed": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "sanyen.npc.obj.cloth",
+          "source_path": "mudlib/d/sanyen/npc/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.shoe",
+          "source_path": "mudlib/d/sanyen/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "sanyen.npc.cook_bonze",
+      "source_path": "mudlib/d/sanyen/npc/cook_bonze.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "烧饭僧",
+      "description": "一位长得肥肥胖胖, 福福泰泰的中年僧人。",
+      "combat_exp": 1100,
+      "attributes": {},
+      "resources": {
+        "force": 800,
+        "force_factor": 2,
+        "max_force": 800
+      },
+      "skills": {
+        "blade": 45,
+        "buddhism": 40,
+        "dodge": 35,
+        "force": 40,
+        "lotusforce": 50,
+        "unarmed": 40
+      },
+      "mappings": {
+        "force": "lotusforce"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "sanyen.npc.obj.carver",
+          "source_path": "mudlib/d/sanyen/npc/obj/carver.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "sanyen.npc.obj.cloth",
+          "source_path": "mudlib/d/sanyen/npc/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.shoe",
+          "source_path": "mudlib/d/sanyen/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "sanyen.npc.cripple",
+      "source_path": "mudlib/d/sanyen/npc/cripple.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "跛僧人",
+      "description": "这个僧人跛了右腿，脸上没有什么表情，一副若有所思的样子。",
+      "combat_exp": 4000,
+      "attributes": {
+        "cor": 24,
+        "cps": 12,
+        "int": 20,
+        "str": 26
+      },
+      "resources": {
+        "force": 1300,
+        "force_factor": 3,
+        "max_force": 1300
+      },
+      "skills": {
+        "buddhism": 60,
+        "dodge": 30,
+        "force": 90,
+        "lotusforce": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "lotusforce"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 20,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "movement",
+            "value": "(: random_move :)"
+          },
+          {
+            "kind": "command",
+            "value": "(: command, \"sigh\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "sanyen.npc.obj.cloth",
+          "source_path": "mudlib/d/sanyen/npc/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.shoe",
+          "source_path": "mudlib/d/sanyen/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat",
+        "fight_gate",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "sanyen.npc.drug_bonze",
+      "source_path": "mudlib/d/sanyen/npc/drug_bonze.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "药僧",
+      "description": "一位长得相当精壮的年轻僧人, 他正在整理药材。",
+      "combat_exp": 1800,
+      "attributes": {
+        "int": 28,
+        "str": 30
+      },
+      "resources": {
+        "force": 1000,
+        "force_factor": 3,
+        "max_force": 1000
+      },
+      "skills": {
+        "buddhism": 60,
+        "dodge": 45,
+        "force": 50,
+        "lotusforce": 58,
+        "unarmed": 55
+      },
+      "mappings": {
+        "force": "lotusforce"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "sanyen.npc.obj.cloth",
+          "source_path": "mudlib/d/sanyen/npc/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.shoe",
+          "source_path": "mudlib/d/sanyen/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "sanyen.npc.greeting",
+      "source_path": "mudlib/d/sanyen/npc/greeting.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "知客僧",
+      "description": "这个知客僧脸色和蔼，虽然在寺中的地位不高，但是他总是让人有一种\n值得信赖的感觉。",
+      "combat_exp": 2000,
+      "attributes": {
+        "cor": 22,
+        "cps": 26,
+        "int": 23,
+        "str": 26
+      },
+      "resources": {
+        "force": 300,
+        "force_factor": 3,
+        "max_force": 300
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 40,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "sanyen.npc.little_bonze",
+      "source_path": "mudlib/d/sanyen/npc/little_bonze.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "小沙弥",
+      "description": "一个天真无邪的小和尚, 一颗圆滚滚光溜溜可爱的小光头, 让人看了\n就十分的喜欢他。他正在为油灯添上香油。",
+      "combat_exp": 800,
+      "attributes": {},
+      "resources": {
+        "force": 600,
+        "force_factor": 1,
+        "max_force": 400
+      },
+      "skills": {
+        "buddhism": 50,
+        "dodge": 25,
+        "force": 30,
+        "lotusforce": 30,
+        "unarmed": 20
+      },
+      "mappings": {
+        "force": "lotusforce"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "sanyen.npc.obj.cloth",
+          "source_path": "mudlib/d/sanyen/npc/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.shoe",
+          "source_path": "mudlib/d/sanyen/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "sanyen.npc.monk",
+      "source_path": "mudlib/d/sanyen/npc/monk.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "独眼头陀",
+      "description": "瞧这个头陀的模样与服色，似乎不是山烟寺的僧人，但是他大喇喇地站在\n这里，一副不可一世的样子。",
+      "combat_exp": 60000,
+      "attributes": {
+        "cor": 24,
+        "cps": 12,
+        "int": 20,
+        "str": 26
+      },
+      "resources": {
+        "force": 1700,
+        "force_factor": 3,
+        "max_force": 1700
+      },
+      "skills": {
+        "blade": 80,
+        "dodge": 80,
+        "force": 90,
+        "lotusforce": 90,
+        "move": 60,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "lotusforce"
+      },
+      "combat_apply": {
+        "attack": 60,
+        "dodge": 70
+      },
+      "combat_chat": {
+        "chance": 30,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "movement",
+            "value": "(: random_move :)"
+          },
+          {
+            "kind": "command",
+            "value": "(: command, \"hehe\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "sanyen.npc.obj.blade",
+          "source_path": "mudlib/d/sanyen/npc/obj/blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "sanyen.npc.obj.monk_cloth",
+          "source_path": "mudlib/d/sanyen/npc/obj/monk_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.eye_patch",
+          "source_path": "mudlib/d/sanyen/npc/obj/eye_patch.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.shoe",
+          "source_path": "mudlib/d/sanyen/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "sanyen.npc.work_bonze",
+      "source_path": "mudlib/d/sanyen/npc/work_bonze.c",
+      "status": "structured",
+      "area": "sanyen",
+      "name": "扫地僧",
+      "description": "一个肥肥胖胖的僧人, 看他拿著扫把有一下没一下的扫著, 就知道他\n平常也是摸鱼大王。",
+      "combat_exp": 200,
+      "attributes": {
+        "cor": 24,
+        "cps": 12,
+        "int": 20,
+        "str": 16
+      },
+      "resources": {
+        "force": 300,
+        "max_force": 300
+      },
+      "skills": {
+        "cloudstaff": 15,
+        "dodge": 10,
+        "force": 20,
+        "lotusforce": 15,
+        "staff": 20,
+        "unarmed": 25
+      },
+      "mappings": {
+        "force": "lotusforce",
+        "staff": "cloudstaff"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "sanyen.npc.obj.broom",
+          "source_path": "mudlib/d/sanyen/npc/obj/broom.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "sanyen.npc.obj.monk_cloth",
+          "source_path": "mudlib/d/sanyen/npc/obj/monk_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "sanyen.npc.obj.shoe",
+          "source_path": "mudlib/d/sanyen/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "fight_gate"
+      ]
+    },
+    {
+      "id": "waterfog.npc.celes_tiger",
+      "source_path": "mudlib/d/waterfog/npc/celes_tiger.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "天邪虎",
+      "description": "这是一只天邪派的灵兽「天邪虎」，火红的毛皮上有著如白银般的\n白纹，湛蓝色的眼珠中散发出妖异的光芒。",
+      "combat_exp": 1000000,
+      "attributes": {
+        "cor": 40,
+        "int": 60,
+        "spi": 40,
+        "str": 110
+      },
+      "resources": {
+        "max_gin": 2000,
+        "max_sen": 1000
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 20,
+        "attack": 80,
+        "damage": 160
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "waterfog.npc.elder5",
+      "source_path": "mudlib/d/waterfog/npc/elder5.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "南危水",
+      "description": "南危水是当世使剑的名家，也是槐阳王的弟弟，一身武学集天邪、封山\n两派之所长，在水烟阁七长老中武功\\仅次于二长老莫谦容。南危水手中\n的焦殇剑也是一把罕见的利器，传说这把剑是名铸剑师黄炎炎生平六把\n名剑中排名第一的杰作。",
+      "combat_exp": 800000,
+      "attributes": {
+        "con": 27,
+        "cor": 30,
+        "cps": 30,
+        "str": 25
+      },
+      "resources": {
+        "force": 1800,
+        "force_factor": 3,
+        "max_force": 1800
+      },
+      "skills": {
+        "celestial": 100,
+        "celestrike": 90,
+        "dodge": 95,
+        "fonxansword": 100,
+        "force": 100,
+        "parry": 80,
+        "sword": 100,
+        "unarmed": 95
+      },
+      "mappings": {
+        "force": "celestial",
+        "parry": "fonxansword",
+        "sword": "fonxansword",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 90,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "perform",
+            "value": "(: perform_action, \"sword.counterattack\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "waterfog.npc.obj.sorrowfire",
+          "source_path": "mudlib/d/waterfog/npc/obj/sorrowfire.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "waterfog.npc.elder6",
+      "source_path": "mudlib/d/waterfog/npc/elder6.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "陈坚石",
+      "description": "陈长老本来的名字已经没有人知道了，但是他的横练功\\夫「石猿功\\」成名\n数十年，加上个性有点....那个....顽固，因此水烟阁执法使潘军禅给他\n起了个绰号叫「坚石」，久而久之陈长老倒也挺喜欢这个名字，索性舍弃\n了原来的名字改名叫陈坚石。",
+      "combat_exp": 360000,
+      "attributes": {
+        "con": 27,
+        "cor": 23,
+        "cps": 23,
+        "str": 25
+      },
+      "resources": {
+        "force": 1700,
+        "force_factor": 5,
+        "max_force": 1700
+      },
+      "skills": {
+        "celestial": 90,
+        "celestrike": 80,
+        "dodge": 95,
+        "force": 100,
+        "parry": 80,
+        "staff": 100,
+        "unarmed": 95
+      },
+      "mappings": {
+        "force": "celestial",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {
+        "armor": 100
+      },
+      "combat_chat": {
+        "chance": 90,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "waterfog.obj.iron_staff",
+          "source_path": "mudlib/d/waterfog/obj/iron_staff.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "waterfog.npc.elder7",
+      "source_path": "mudlib/d/waterfog/npc/elder7.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "颜违",
+      "description": "颜违是水烟阁七位长老中最年轻的，虽然他的武功\\跟其他六位长老\n相比仍略逊一筹，但是他办事十分精明干练，因此七长老每年都派\n他出外办理武林大会事宜。",
+      "combat_exp": 270000,
+      "attributes": {
+        "con": 27,
+        "cor": 23,
+        "cps": 23,
+        "str": 25
+      },
+      "resources": {
+        "force": 1700,
+        "force_factor": 5,
+        "max_force": 1700
+      },
+      "skills": {
+        "celestial": 90,
+        "celestrike": 80,
+        "dodge": 75,
+        "force": 100,
+        "parry": 80,
+        "unarmed": 80
+      },
+      "mappings": {
+        "force": "celestial",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 60,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "waterfog.npc.elite_guard",
+      "source_path": "mudlib/d/waterfog/npc/elite_guard.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "水烟阁红衣武士",
+      "description": "这个人身著红色水烟阁武士服色，眼神十分锐利。",
+      "combat_exp": 100000,
+      "attributes": {
+        "con": 27,
+        "cor": 27,
+        "cps": 27,
+        "str": 28
+      },
+      "resources": {
+        "force": 1800,
+        "force_factor": 40,
+        "max_force": 1000
+      },
+      "skills": {
+        "celestial": 80,
+        "celestrike": 80,
+        "dodge": 80,
+        "force": 80,
+        "parry": 80,
+        "pyrobat-steps": 80,
+        "unarmed": 90
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "force": "celestial",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "text",
+            "value": "红衣武士喝道：这点玩意儿也敢上水烟阁撒野，真是不自量力！"
+          },
+          {
+            "kind": "text",
+            "value": "红衣武士说道：快快滚下山去，别在这里罗唆！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "waterfog.npc.obj.guard_suit",
+          "source_path": "mudlib/d/waterfog/npc/obj/guard_suit.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "waterfog.npc.obj.red_suit",
+          "source_path": "mudlib/d/waterfog/npc/obj/red_suit.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "waterfog.npc.obj.red_hat",
+          "source_path": "mudlib/d/waterfog/npc/obj/red_hat.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "waterfog.npc.obj.leather_boot",
+          "source_path": "mudlib/d/waterfog/npc/obj/leather_boot.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat",
+        "fight_gate",
+        "kill_gate"
+      ]
+    },
+    {
+      "id": "waterfog.npc.guard",
+      "source_path": "mudlib/d/waterfog/npc/guard.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "水烟阁武士",
+      "description": "这个人相貌十分魁梧。",
+      "combat_exp": 20000,
+      "attributes": {
+        "con": 27,
+        "cor": 23,
+        "cps": 23,
+        "str": 25
+      },
+      "resources": {
+        "force": 700,
+        "force_factor": 5,
+        "max_force": 700
+      },
+      "skills": {
+        "celestial": 50,
+        "celestrike": 50,
+        "dodge": 50,
+        "force": 50,
+        "parry": 50,
+        "unarmed": 60
+      },
+      "mappings": {
+        "force": "celestial",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "waterfog.npc.obj.guard_suit",
+          "source_path": "mudlib/d/waterfog/npc/obj/guard_suit.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "waterfog.npc.obj.leather_boot",
+          "source_path": "mudlib/d/waterfog/npc/obj/leather_boot.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "waterfog.npc.little_tiger",
+      "source_path": "mudlib/d/waterfog/npc/little_tiger.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "小天邪虎",
+      "description": "这是一只天邪派的灵兽「天邪虎」，火红的毛皮上有著如白银般的\n白纹，然而这只天邪虎的年纪显然还很小，说不定还不到两岁。",
+      "combat_exp": 2000,
+      "attributes": {
+        "con": 36,
+        "cor": 20,
+        "cps": 25,
+        "int": 60,
+        "kar": 70,
+        "per": 60,
+        "spi": 30,
+        "str": 26
+      },
+      "resources": {
+        "max_gin": 300,
+        "max_sen": 100
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 10,
+        "attack": 20,
+        "damage": 20
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "waterfog.npc.servant",
+      "source_path": "mudlib/d/waterfog/npc/servant.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "仆役",
+      "description": "这个人看起来十分和蔼可亲，看起来不像是会武功\\的人。",
+      "combat_exp": 100,
+      "attributes": {
+        "con": 27,
+        "cor": 23,
+        "cps": 23,
+        "str": 25
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "waterfog.npc.watcher",
+      "source_path": "mudlib/d/waterfog/npc/watcher.c",
+      "status": "structured",
+      "area": "waterfog",
+      "name": "水烟阁司事",
+      "description": "这个人看起来十分和蔼可亲，一双眼睛炯炯有神。",
+      "combat_exp": 60000,
+      "attributes": {
+        "con": 27,
+        "cor": 23,
+        "cps": 23,
+        "str": 25
+      },
+      "resources": {
+        "force": 1100,
+        "force_factor": 5,
+        "max_force": 1100
+      },
+      "skills": {
+        "celestial": 70,
+        "celestrike": 60,
+        "dodge": 65,
+        "force": 70,
+        "parry": 60,
+        "unarmed": 70
+      },
+      "mappings": {
+        "force": "celestial",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "waterfog.obj.leather_boot",
+          "source_path": "mudlib/d/waterfog/obj/leather_boot.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "waterfog.obj.watcher_suit",
+          "source_path": "mudlib/d/waterfog/obj/watcher_suit.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "waterfog.obj.watcher_hat",
+          "source_path": "mudlib/d/waterfog/obj/watcher_hat.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    }
+  ],
+  "warnings": [
+    "mudlib/d/chuenyu/npc/chuenyu.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/chuenyu/npc/cleangirl.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/chuenyu/npc/cook.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/chuenyu/npc/cook.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/chuenyu/npc/flower_seller.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/chuenyu/npc/flower_seller.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/chuenyu/npc/flower_seller.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/chuenyu/npc/flower_seller.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/chuenyu/npc/flower_seller.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/chuenyu/npc/flowergirl.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/chuenyu/npc/gardener.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/chuenyu/npc/guard.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/chuenyu/npc/guard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/chuenyu/npc/guard.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/chuenyu/npc/guard2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/chuenyu/npc/guard2.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/chuenyu/npc/guard2.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/chuenyu/npc/highrat.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/chuenyu/npc/highrat.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/chuenyu/npc/jiading.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/chuenyu/npc/jiading2.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/chuenyu/npc/jiading3.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/chuenyu/npc/oldliu.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/chuenyu/npc/oldliu.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/chuenyu/npc/oldliu.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/chuenyu/npc/oldliu.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/chuenyu/npc/oldliu.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/chuenyu/npc/wolfdog.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/chuenyu/npc/wolfdog.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/chuenyu/npc/xiaojuan.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/chuenyu/npc/xiaojuan.c: NPC 行为待实现 [death_hook]",
+    "mudlib/d/chuenyu/npc/xiaojuan.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/chuenyu/npc/xiaojuan.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/chuenyu/xiaojuan2.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/chuenyu/xiaojuan2.c: NPC 行为待实现 [death_hook]",
+    "mudlib/d/chuenyu/xiaojuan2.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/chuenyu/xiaojuan2.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/green/npc/kid2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/green/npc/kid2.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/green/npc/kid3.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/green/npc/kid3.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/green/npc/kid4.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/green/npc/kid5.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/green/npc/kid5.c: NPC 行为待实现 [death_hook]",
+    "mudlib/d/green/npc/kid5.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/green/npc/master.c: NPC 行为待实现 [apprenticeship]",
+    "mudlib/d/green/npc/master.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/green/npc/oldman.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/green/npc/oldman2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/green/npc/oldman2.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/green/npc/oldwoman.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/green/npc/s.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/green/npc/s.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/green/npc/s.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/green/npc/s.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/green/npc/shen.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/green/npc/shen.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/green/npc/shen.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/green/npc/shen1.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/green/npc/shen1.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/green/npc/shen1.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/green/npc/woman1.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/green/npc/woman2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/sanyen/npc/bonze.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/sanyen/npc/cook_bonze.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/sanyen/npc/cripple.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/sanyen/npc/cripple.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/sanyen/npc/cripple.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/sanyen/npc/greeting.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/sanyen/npc/little_bonze.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/sanyen/npc/monk.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/sanyen/npc/monk.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/sanyen/npc/work_bonze.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/waterfog/npc/elder5.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/waterfog/npc/elder6.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/waterfog/npc/elder7.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/waterfog/npc/elite_guard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/waterfog/npc/elite_guard.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/waterfog/npc/elite_guard.c: NPC 行为待实现 [kill_gate]",
+    "mudlib/d/waterfog/npc/guard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/waterfog/npc/watcher.c: NPC 行为待实现 [combat_chat]"
+  ]
+}

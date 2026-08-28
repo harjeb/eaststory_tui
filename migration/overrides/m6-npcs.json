@@ -1,0 +1,490 @@
+{
+  "schema_version": 2,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M6",
+  "status": "complete",
+  "catalog": {
+    "definitions": 57,
+    "by_area": {
+      "chuenyu": 23,
+      "green": 17,
+      "sanyen": 8,
+      "waterfog": 9
+    },
+    "placed_definitions": 48,
+    "runtime_instances": 92,
+    "vendors": 1,
+    "vendor_goods": 6,
+    "inquiry_npcs": 8,
+    "inquiry_topics": 17,
+    "static_inquiries": 10,
+    "scripted_inquiries": 7,
+    "combat_profiles": 53,
+    "combat_skill_entries": 162,
+    "combat_mapping_entries": 31,
+    "combat_apply_entries": 28,
+    "combat_chat_npcs": 18,
+    "combat_chat_entries": 33,
+    "carried_item_npcs": 42,
+    "carried_item_entries": 81,
+    "runtime_drop_entries": 133,
+    "save_schema": 22
+  },
+  "runtime_features": [
+    {
+      "feature": "source_npc_placements",
+      "status": "adapted",
+      "decision": "56 条可解析对象映射展开为 92 个固定房间实例；三烟寺缺失的两个 monk_guard 引用由拓扑台账排除。"
+    },
+    {
+      "feature": "source_static_vendor",
+      "status": "verified",
+      "decision": "绮云镇卖花姑娘的 6 项花卉货品进入通用商店，来源 list 命令由同一货品列表表达。"
+    },
+    {
+      "feature": "source_inquiries_and_exchanges",
+      "status": "adapted",
+      "decision": "10 个固定主题进入通用问答；青石老人、沈万三的 3 个已放置脚本主题与醉汉/沈万三交换完成，4 个未放置重复主题明确排除。"
+    },
+    {
+      "feature": "source_combat_profiles_and_chat",
+      "status": "adapted",
+      "decision": "53 个战斗档案及 18 个定义的 33 条战斗消息进入单人换算；文本、内力、招式直接运行，青石互助/持械回调转为有上限的攻击修正。"
+    },
+    {
+      "feature": "source_carried_items",
+      "status": "adapted",
+      "decision": "42 个定义的 81 件携带物结构化，固定实例首次死斗按通用掉落层结算，共 133 件运行时战利品。"
+    },
+    {
+      "feature": "source_fight_and_kill_gates",
+      "status": "adapted",
+      "decision": "10 项比试门槛全部显式拒绝；水烟阁红衣武士死斗仍可开始，并按来源 powerup 转为有界攻击加成。"
+    },
+    {
+      "feature": "chuenyu_juan_and_old_liu_plot",
+      "status": "adapted",
+      "decision": "地牢堡主死斗解锁小娟，营救/遇害与刘老农奖励/复仇复用既有任务阶段；来源人物与早期单人适配入口共享同一状态。"
+    },
+    {
+      "feature": "chuenyu_entry_aggression",
+      "status": "adapted",
+      "decision": "地牢堡主、西阁及刑房护院按来源进场即死斗；吊桥家丁按玩家感知随机检查后攻击，单战斗槽中只触发一个当前敌人。"
+    },
+    {
+      "feature": "green_jade_and_slumber_plot",
+      "status": "adapted",
+      "decision": "青石老人玉佩线索、醉汉两次独立烈酒交换、沈万三一次玉佩与千文蒙汗药交易形成可保存的单人任务链。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "M6 四区 81 项 NPC 行为标记与固定源逐项对应：17 verified、23 adapted、23 deferred、13 excluded、4 alias、1 source_noop，无未处置项。"
+    }
+  ],
+  "behavior_flags": {
+    "total": 81,
+    "disposed": 81,
+    "remaining": 0,
+    "status": "audited",
+    "by_category": {
+      "ambient_chat": 13,
+      "apprenticeship": 1,
+      "combat_chat": 19,
+      "custom_command": 4,
+      "death_hook": 3,
+      "fight_gate": 10,
+      "inquiry": 8,
+      "kill_gate": 1,
+      "object_exchange": 3,
+      "random_movement": 10,
+      "timed_behavior": 9
+    },
+    "by_status": {
+      "verified": 17,
+      "adapted": 23,
+      "deferred": 23,
+      "excluded": 13,
+      "alias": 4,
+      "source_noop": 1
+    },
+    "dispositions": [
+      {
+        "source_path": "mudlib/d/chuenyu/npc/chuenyu.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "非战斗环境对白依赖统一 NPC 调度；地牢进场攻击已作为来源关键行为进入当前运行层。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/cleangirl.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "小娟、淳于、淳于怀太与堡主四个固定回答由通用问答提供。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/cook.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "四个固定地牢线索主题由通用问答提供。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/cook.c",
+        "flags": ["timed_behavior"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "延迟问候与房间调度归入统一 NPC 时钟，不影响固定问答。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/flower_seller.c",
+        "flags": ["custom_command", "inquiry"],
+        "status": "verified",
+        "decision": "list 转为通用商店的 6 项来源货品，小娟固定问答直接可用。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/flower_seller.c",
+        "flags": ["ambient_chat", "random_movement", "timed_behavior"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "随机叫卖、移动与延迟问候统一留给环境 NPC 调度层。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/flowergirl.c",
+        "flags": ["inquiry"],
+        "status": "verified",
+        "decision": "五个房间实例共享小娟固定问答。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/gardener.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "invocation 法术进入通用战斗消息；两条 animate corpse 命令保留为 M7 尸体生命周期依赖，当前战斗中记录但不伪造尸体。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/guard.c",
+        "flags": ["combat_chat"],
+        "status": "verified",
+        "decision": "护院呼救文本按目录概率直接进入战斗日志。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/guard.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "环境呼喊和随机巡逻绑定统一 NPC 调度；西阁进场攻击已单独适配。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/guard2.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "战斗中随机移动在单战斗房间模型中改为受阻日志，不改变当前敌人位置。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/guard2.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "环境呼喊与随机巡逻归入统一 NPC 调度；两间刑房进场攻击已运行。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/highrat.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "高个流氓的环境对白与随机移动不影响战斗/掉落，留给统一调度。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/jiading.c",
+        "flags": ["timed_behavior"],
+        "status": "excluded",
+        "decision": "定义未被固定源任何房间放置，不制造运行时实例。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/jiading2.c",
+        "flags": ["timed_behavior"],
+        "status": "excluded",
+        "decision": "定义未被固定源任何房间放置，不制造运行时实例。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/jiading3.c",
+        "flags": ["timed_behavior"],
+        "status": "adapted",
+        "decision": "进入吊桥时执行来源感知随机检查，命中后由一个在场家丁开始死斗。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/oldliu.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "普通比试按来源明确拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/oldliu.c",
+        "flags": ["combat_chat", "timed_behavior"],
+        "status": "adapted",
+        "decision": "救女奖励、离场与杀女复仇复用既有任务状态；复仇战使用强化后的来源战斗档案。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/oldliu.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "非剧情环境对白与随机移动留统一调度，不影响营救/复仇主线。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/wolfdog.c",
+        "flags": ["combat_chat"],
+        "status": "verified",
+        "decision": "狼犬咆哮文本按目录概率进入战斗日志。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/wolfdog.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "非战斗犬吠归入环境调度。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/npc/xiaojuan.c",
+        "flags": ["combat_chat", "death_hook", "fight_gate", "timed_behavior"],
+        "status": "alias",
+        "decision": "未放置定义与 dungeon 使用的 xiaojuan2 是同一人物逻辑别名，共享拒绝比试、战斗文本、遇害标记与营救状态。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/xiaojuan2.c",
+        "flags": ["combat_chat", "fight_gate"],
+        "status": "verified",
+        "decision": "地牢小娟的战斗文本可执行，普通比试按来源拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/chuenyu/xiaojuan2.c",
+        "flags": ["death_hook", "timed_behavior"],
+        "status": "adapted",
+        "decision": "营救后加入既有护送阶段；被玩家死斗杀害后写入 MurderedJuan，并在刘老农家触发复仇。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/kid2.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "儿童环境对白与随机移动统一留给 NPC 调度。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/kid3.c",
+        "flags": ["ambient_chat", "random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "儿童环境对白与随机移动统一留给 NPC 调度。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/kid4.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "儿童环境对白统一留给 NPC 调度。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/kid5.c",
+        "flags": ["ambient_chat", "death_hook", "random_movement"],
+        "status": "excluded",
+        "decision": "固定源未放置的“测试用的小孩”会在受击时无条件杀死攻击者，作为测试夹具不进入正式单人世界。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/master.c",
+        "flags": ["apprenticeship"],
+        "status": "excluded",
+        "decision": "绝尘派掌门定义无任何固定源放置，运行时明确为 ExcludedUnplaced，不伪造授业地点。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/master.c",
+        "flags": ["combat_chat"],
+        "status": "source_noop",
+        "decision": "目录捕获的 chillgaze 行前有来源注释符，固定源实际不会注册该战斗消息。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/oldman.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "呼唤老伴与持匕首回调在单战斗槽中转为有上限的敌方攻击加成与来源日志。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/oldman2.c",
+        "flags": ["inquiry"],
+        "status": "adapted",
+        "decision": "询问玉佩给出来源身世文本并持久化老人线索，开启醉汉交换链。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/oldman2.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "环境闲聊归入统一 NPC 调度，不影响玉佩脚本。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/oldwoman.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "呼唤老伴回调在单战斗槽中转为有上限的攻击加成与日志。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/s.c",
+        "flags": ["custom_command", "inquiry", "object_exchange", "timed_behavior"],
+        "status": "excluded",
+        "decision": "未放置的沈万三早期重复定义不制造实例；已放置 shen.c 承担正式玉佩/蒙汗药链。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/shen.c",
+        "flags": ["custom_command", "inquiry", "object_exchange"],
+        "status": "adapted",
+        "decision": "无来源货品表的 list/buy 拒绝流程收敛为剧情问答；玉佩只发一次，蒙汗药在第二条醉汉线索后以价值千文供物交换。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/shen1.c",
+        "flags": ["custom_command", "inquiry", "object_exchange"],
+        "status": "excluded",
+        "decision": "未放置重复定义还引用不存在的 jade1，运行时不制造人物或缺失物品。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/woman1.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "持刀回调转为有上限攻击加成，年龄对白转为来源战斗日志。"
+      },
+      {
+        "source_path": "mudlib/d/green/npc/woman2.c",
+        "flags": ["ambient_chat"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "环境闲聊归入统一 NPC 调度。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/bonze.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "普通比试按来源拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/cook_bonze.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "普通比试按来源拒绝；死斗离场后蒸笼状态由房间层处理。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/cripple.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "普通比试按来源拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/cripple.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "战斗随机移动在单战斗模型中记为受阻，叹气命令转为战斗日志。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/cripple.c",
+        "flags": ["random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "非战斗随机移动归入统一 NPC 调度。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/greeting.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "两个房间实例的普通比试均按来源拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/little_bonze.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "普通比试按来源拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/monk.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "战斗随机移动记为受阻，笑声命令转为来源日志。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/monk.c",
+        "flags": ["random_movement"],
+        "status": "deferred",
+        "target": "M8",
+        "decision": "非战斗随机移动归入统一 NPC 调度。"
+      },
+      {
+        "source_path": "mudlib/d/sanyen/npc/work_bonze.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "普通比试按来源拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/npc/elder5.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "counterattack、powerup 与 recover 由通用招式/内力战斗换算执行。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/npc/elder6.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "powerup 与 recover 由通用内力战斗换算执行。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/npc/elder7.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "powerup 与 recover 由通用内力战斗换算执行。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/npc/elite_guard.c",
+        "flags": ["fight_gate"],
+        "status": "verified",
+        "decision": "普通比试按来源拒绝。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/npc/elite_guard.c",
+        "flags": ["combat_chat", "kill_gate"],
+        "status": "adapted",
+        "decision": "死斗入口执行来源 powerup 的有界攻击加成；recover/powerup 与两条喝斥文本继续由战斗消息层运行。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/npc/guard.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "recover 与 powerup 由通用内力战斗换算执行。"
+      },
+      {
+        "source_path": "mudlib/d/waterfog/npc/watcher.c",
+        "flags": ["combat_chat"],
+        "status": "adapted",
+        "decision": "powerup 与 recover 由通用内力战斗换算执行。"
+      }
+    ],
+    "decision": "81 项标记与 npcs-m6.json 全部 behavior_flags 构成精确集合；M7/M8 只承接已绑定的尸体与环境调度，不阻塞 M6 当前剧情、战斗和掉落验收。"
+  },
+  "dependencies": [
+    {
+      "target": "M7",
+      "source_paths": [
+        "mudlib/d/chuenyu/npc/gardener.c"
+      ],
+      "scope": "animate corpse 所需尸体生命周期与召唤运行层",
+      "status": "deferred"
+    },
+    {
+      "target": "M7-omitted-areas",
+      "source_paths": [
+        "mudlib/u/cloud/npc/b_header.c",
+        "mudlib/u/cloud/npc/obj/letter.c"
+      ],
+      "scope": "陈剑秋位于未导入的 u/cloud 振远镖局；玩家绑定荐书依赖乔阴忘忧草，不属于 d/chuenyu 当前目录",
+      "status": "deferred"
+    },
+    {
+      "target": "M8",
+      "scope": "13 项环境对白、10 项随机移动及非关键延迟问候的统一 NPC 调度",
+      "status": "deferred"
+    }
+  ]
+}

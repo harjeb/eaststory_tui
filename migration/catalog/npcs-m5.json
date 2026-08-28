@@ -1,0 +1,2304 @@
+{
+  "schema_version": 4,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "scope": "m5-npcs",
+  "status": "structured",
+  "summary": {
+    "total": 49,
+    "placed": 46,
+    "vendors": 4,
+    "vendor_goods": 5,
+    "inquiry_npcs": 12,
+    "inquiry_topics": 31,
+    "static_inquiries": 25,
+    "scripted_inquiries": 6,
+    "runtime_inquiry_npcs": 9,
+    "runtime_inquiries": 25,
+    "runtime_inquiry_references": 55,
+    "combat_profiles": 48,
+    "combat_skill_entries": 105,
+    "combat_mapping_entries": 10,
+    "combat_apply_entries": 85,
+    "combat_chat_npcs": 10,
+    "combat_chat_entries": 29,
+    "carried_item_npcs": 29,
+    "carried_item_entries": 53,
+    "worn_item_entries": 27,
+    "wielded_item_entries": 20,
+    "placed_combat_npcs": 46,
+    "placed_combat_chat_npcs": 9,
+    "placed_carried_item_npcs": 28,
+    "by_area": {
+      "choyin": 27,
+      "goathill": 8,
+      "obj": 1,
+      "oldpine": 13
+    }
+  },
+  "npcs": [
+    {
+      "id": "choyin.npc.boss",
+      "source_path": "mudlib/d/choyin/npc/boss.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "汤掌柜",
+      "description": "汤掌柜是这家大酒楼的主人，别看他只是一个小小的酒楼老板，乔阴\n县境内除了知县老爷以外，恐怕就属他最财大势大。",
+      "combat_exp": 1000,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "name",
+          "response": "在下姓汤单名一个业字。",
+          "scripted": false
+        },
+        {
+          "topic": "here",
+          "response": "此处便是福林酒楼，客倌如要点菜，吩咐店里的小二一声便可。",
+          "scripted": false
+        },
+        {
+          "topic": "汤业",
+          "response": "不敢，在下便是汤业，不知客倌有何吩咐？",
+          "scripted": false
+        },
+        {
+          "topic": "福林酒楼",
+          "response": "这里就是，客倌是第一次来吗？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.cake_vendor",
+      "source_path": "mudlib/d/choyin/npc/cake_vendor.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "卖饼大叔",
+      "description": "一个相貌朴实的卖饼大叔，憨厚的脸上挂著和蔼的笑容。",
+      "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "choyin.npc.obj.cake",
+          "source_path": "mudlib/d/choyin/npc/obj/cake.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "大饼",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.cityguard",
+      "source_path": "mudlib/d/choyin/npc/cityguard.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "守城官兵",
+      "description": "这是个正在这里站岗的守城官兵，虽然和许\\多武林人物比起来，官兵\n们的武功\\实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
+      "combat_exp": 100000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 70,
+        "move": 100,
+        "parry": 70,
+        "sword": 70,
+        "unarmed": 70
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 70,
+        "attack": 70,
+        "damage": 30,
+        "defense": 70,
+        "move": 100
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：还不快放下武器束手就缚？"
+          },
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：大胆刁民！竟敢杀官造反？"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "choyin.npc.crane",
+      "source_path": "mudlib/d/choyin/npc/crane.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "仙鹤",
+      "description": "白羽如雪，不似凡间之物。",
+      "combat_exp": 1000000,
+      "attributes": {},
+      "resources": {
+        "max_gin": 300,
+        "max_sen": 900
+      },
+      "skills": {
+        "dodge": 150,
+        "move": 150,
+        "parry": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.npc.crone",
+      "source_path": "mudlib/d/choyin/npc/crone.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "乾瘪老太婆",
+      "description": "这个老太婆怀中抱了个竹篓，似乎在卖什么东西，也许\\你可以跟她问问\n价钱？",
+      "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "choyin.npc.obj.amulet",
+          "source_path": "mudlib/d/choyin/npc/obj/amulet.c"
+        },
+        {
+          "item_id": "choyin.npc.obj.red_guay",
+          "source_path": "mudlib/d/choyin/npc/obj/red_guay.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "年龄",
+          "response": "老身今年七十有八啦。",
+          "scripted": false
+        },
+        {
+          "topic": "here",
+          "response": "这一带我可熟了。",
+          "scripted": false
+        },
+        {
+          "topic": "忘忧草",
+          "response": "老身隐隐约约地听说过什么‘草’啊，‘狮子’的，具体的也就不知了。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.cucurbit_seller",
+      "source_path": "mudlib/d/choyin/npc/cucurbit_seller.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "卖糖葫芦的",
+      "description": null,
+      "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [
+        {
+          "item_id": "choyin.npc.obj.cucurbit",
+          "source_path": "mudlib/d/choyin/npc/obj/cucurbit.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "糖葫芦",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.dumpling_seller",
+      "source_path": "mudlib/d/choyin/npc/dumpling_seller.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "卖包子的",
+      "description": "这个卖包子的小贩对你微微一笑，说道：热腾腾的包子，来一笼吧？",
+      "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [
+        {
+          "item_id": "obj.example.dumpling",
+          "source_path": "mudlib/obj/example/dumpling.c"
+        }
+      ],
+      "inquiries": [
+        {
+          "topic": "包子",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.ghost",
+      "source_path": "mudlib/d/choyin/npc/ghost.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "孤魂野鬼",
+      "description": null,
+      "combat_exp": null,
+      "attributes": {
+        "cor": 26,
+        "str": 24
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 3,
+        "attack": 10
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.cloth_piece",
+          "source_path": "mudlib/d/choyin/npc/obj/cloth_piece.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "choyin.npc.girl",
+      "source_path": "mudlib/d/choyin/npc/girl.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "官家小姐",
+      "description": "一个看起来像是有钱人家的女子，正在这里游湖。",
+      "combat_exp": 10,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.lady_dress",
+          "source_path": "mudlib/d/choyin/npc/obj/lady_dress.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "choyin.npc.obj.silver_clasp",
+          "source_path": "mudlib/d/choyin/npc/obj/silver_clasp.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "name",
+          "response": "我 ... ？ 你们外地人都做兴这么问陌生姑娘的闺名吗？",
+          "scripted": false
+        },
+        {
+          "topic": "here",
+          "response": "这里啊？这里就是乔阴县有名的翠柳湖啊！",
+          "scripted": false
+        },
+        {
+          "topic": "闺名",
+          "response": "真是没有礼貌的家伙，我才不告诉你！",
+          "scripted": false
+        },
+        {
+          "topic": "游晋",
+          "response": null,
+          "scripted": true
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.guard",
+      "source_path": "mudlib/d/choyin/npc/guard.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "酒楼守卫",
+      "description": "一个身穿蓝布衣的人，从他锐利的眼神跟神情，显然是个练家子。",
+      "combat_exp": 100000,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "force_factor": 15,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 65,
+        "parry": 60,
+        "sword": 60
+      },
+      "mappings": {},
+      "combat_apply": {
+        "attack": 60,
+        "damage": 20,
+        "defense": 60
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "fight_gate",
+        "kill_gate"
+      ]
+    },
+    {
+      "id": "choyin.npc.judge_gu",
+      "source_path": "mudlib/d/choyin/npc/judge_gu.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "衙役",
+      "description": null,
+      "combat_exp": 8000,
+      "attributes": {
+        "cor": 18,
+        "cps": 21,
+        "int": 25,
+        "per": 27,
+        "str": 18
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 80,
+        "fall-steps": 80,
+        "liuh-ken": 80,
+        "staff": 40,
+        "unarmed": 40
+      },
+      "mappings": {
+        "dodge": "fall-steps",
+        "unarmed": "liuh-ken"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "衙役说道：你当这里是什么地方，敢来这里骚扰？"
+          },
+          {
+            "kind": "text",
+            "value": "衙役说道：你要是再无理取闹，当心捕头把你抓去坐牢!"
+          },
+          {
+            "kind": "text",
+            "value": "衙役手中的刀越砍越快，让你应接不暇。"
+          },
+          {
+            "kind": "text",
+            "value": "衙役说道：衙门岂是你放肆的地方？！"
+          }
+        ]
+      },
+      "carried_items": [],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "choyin.npc.judgeman",
+      "source_path": "mudlib/d/choyin/npc/judgeman.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "程不平",
+      "description": "他虽然出身望族，然攻读刻苦，榜中探花，如今已是才高八斗，满腹\n经纶，还略通佛理。为官数年清贫廉正，人人敬仰。",
+      "combat_exp": 5000000,
+      "attributes": {
+        "con": 24,
+        "cor": 25,
+        "cps": 20,
+        "int": 30,
+        "kar": 25,
+        "per": 23,
+        "spi": 15,
+        "str": 22
+      },
+      "resources": {
+        "atman": 1000,
+        "atman_factor": 3,
+        "force": 1000,
+        "force_factor": 100,
+        "mana": 1000,
+        "mana_factor": 3,
+        "max_atman": 1000,
+        "max_force": 1000,
+        "max_mana": 1000
+      },
+      "skills": {
+        "buddhism": 90,
+        "dodge": 100,
+        "force": 100,
+        "literate": 100,
+        "parry": 100,
+        "pyrobat-steps": 100,
+        "spells": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "custom_command",
+        "fight_gate",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "choyin.npc.lady",
+      "source_path": "mudlib/d/choyin/npc/lady.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "妇人",
+      "description": "一个衣饰华丽的妇人正跪在这里虔诚地膜拜著。",
+      "combat_exp": 10,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.lady_dress",
+          "source_path": "mudlib/d/choyin/npc/obj/lady_dress.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "choyin.npc.obj.silver_clasp",
+          "source_path": "mudlib/d/choyin/npc/obj/silver_clasp.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.npc.lboy",
+      "source_path": "mudlib/d/choyin/npc/lboy.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "紫衣童子",
+      "description": null,
+      "combat_exp": 1200000,
+      "attributes": {
+        "per": 30
+      },
+      "resources": {
+        "force": 500,
+        "force_factor": 0,
+        "max_force": 500
+      },
+      "skills": {
+        "dodge": 150,
+        "force": 15,
+        "mysterrier": 150,
+        "unarmed": 150
+      },
+      "mappings": {
+        "dodge": "mysterrier"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 10,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "紫衣童子拧眉说道：你欺负我年纪小是吗？"
+          },
+          {
+            "kind": "text",
+            "value": "紫衣童子笑道：你杀不死我的。"
+          },
+          {
+            "kind": "text",
+            "value": "紫衣童子冲你一龇牙, 说道: 您盗过古墓吗?"
+          }
+        ]
+      },
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "仙人",
+          "response": "只度有缘人。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.lion",
+      "source_path": "mudlib/d/choyin/npc/lion.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "护草神兽",
+      "description": "看守忘忧草的护草神兽。",
+      "combat_exp": 100000,
+      "attributes": {
+        "cor": 70,
+        "int": 10,
+        "spi": 20,
+        "str": 30
+      },
+      "resources": {
+        "max_gin": 300,
+        "max_sen": 300
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 50,
+        "attack": 30,
+        "damage": 10,
+        "dodge": 40
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "death_hook"
+      ]
+    },
+    {
+      "id": "choyin.npc.magistra",
+      "source_path": "mudlib/d/choyin/npc/magistra.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "带刀侍卫",
+      "description": null,
+      "combat_exp": 1000000,
+      "attributes": {
+        "cor": 28,
+        "cps": 18,
+        "int": 10,
+        "per": 10,
+        "str": 45
+      },
+      "resources": {},
+      "skills": {
+        "blade": 120,
+        "dodge": 120,
+        "fall-steps": 120,
+        "parry": 80,
+        "shortsong-blade": 150
+      },
+      "mappings": {
+        "blade": "shortsong-blade",
+        "dodge": "fall-steps"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.blade",
+          "source_path": "mudlib/d/choyin/npc/obj/blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 8,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "custom_command",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "choyin.npc.maid",
+      "source_path": "mudlib/d/choyin/npc/maid.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "丫鬟",
+      "description": "一个服侍有钱人家小姐的丫鬟，正无聊地玩弄著衣角。",
+      "combat_exp": 10,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "here",
+          "response": "这里啊？这里就是乔阴县有名的翠柳湖啊！",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.oldman",
+      "source_path": "mudlib/d/choyin/npc/oldman.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "老者",
+      "description": "他白发苍苍,老态龙钟.\n他终年采药于深山，当有些不同凡响之处。\n他宽五尺，高三尺.你实在无法理解他怎么这么的胖。",
+      "combat_exp": null,
+      "attributes": {
+        "cor": 24,
+        "cps": 18,
+        "int": 42,
+        "per": 24,
+        "str": 44
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 150,
+        "force": 1,
+        "parry": 1,
+        "unarmed": 1
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.cloth",
+          "source_path": "mudlib/d/choyin/npc/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "fight_gate",
+        "random_movement",
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "choyin.npc.roc",
+      "source_path": "mudlib/d/choyin/npc/roc.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "北冥大鹏",
+      "description": "这是一种来自北冥大泽的大鸟，它挥动翅膀卷起的飓风可以把人吹跑。",
+      "combat_exp": 70000,
+      "attributes": {
+        "cor": 40,
+        "int": 20,
+        "spi": 40,
+        "str": 80
+      },
+      "resources": {
+        "max_gin": 500,
+        "max_sen": 1100
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 30,
+        "attack": 80,
+        "damage": 40,
+        "dodge": 70
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.npc.scholar",
+      "source_path": "mudlib/d/choyin/npc/scholar.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "书生",
+      "description": "一个看起来相当斯文的书生，正拿著一本书摇头晃脑地读著。",
+      "combat_exp": 10,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.book",
+          "source_path": "mudlib/d/choyin/npc/obj/book.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "choyin.npc.sergeant",
+      "source_path": "mudlib/d/choyin/npc/sergeant.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "武官",
+      "description": "一位相貌威武的武官，独自一个人站在这里发呆，似乎正有什么\n事困扰著他。",
+      "combat_exp": 250000,
+      "attributes": {
+        "cor": 28,
+        "cps": 28,
+        "str": 28
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 70,
+        "parry": 70,
+        "sword": 75,
+        "unarmed": 60
+      },
+      "mappings": {},
+      "combat_apply": {
+        "attack": 60,
+        "damage": 30,
+        "defense": 60
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "name",
+          "response": "在下姓陈，名显祖，阁下是？",
+          "scripted": false
+        },
+        {
+          "topic": "here",
+          "response": "真是不巧，我也是外地来的，对这个地方并不熟悉。",
+          "scripted": false
+        },
+        {
+          "topic": "rumors",
+          "response": "在下失落了一件重要物事，是装在一个桃木箱子里，不知你有没有看见？",
+          "scripted": false
+        },
+        {
+          "topic": "箱子",
+          "response": "对，是桃木做成的箱子。",
+          "scripted": false
+        },
+        {
+          "topic": "桃木箱子",
+          "response": "如果你见著了，麻烦送还给我，在下定当重重报答。",
+          "scripted": false
+        },
+        {
+          "topic": "陈显祖",
+          "response": "不敢，正是在下，不知阁下有何指教？",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "choyin.npc.serpent",
+      "source_path": "mudlib/d/choyin/npc/serpent.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "黑冠巨蟒",
+      "description": "一只乌黑油亮的巨蟒，头上生著一个大肉瘤。",
+      "combat_exp": 500000,
+      "attributes": {
+        "cor": 70,
+        "int": 10,
+        "spi": 20,
+        "str": 40
+      },
+      "resources": {
+        "max_gin": 900,
+        "max_sen": 500
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 90,
+        "attack": 60,
+        "damage": 20,
+        "dodge": 80
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.npc.servant",
+      "source_path": "mudlib/d/choyin/npc/servant.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "家丁",
+      "description": "一个穿著家人服色的男子，必恭必敬地垂手站在一旁。",
+      "combat_exp": 500,
+      "attributes": {
+        "cor": 17,
+        "cps": 22,
+        "str": 23
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 10,
+        "parry": 10,
+        "unarmed": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.npc.shadow",
+      "source_path": "mudlib/d/choyin/npc/shadow.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "朦胧鬼影",
+      "description": "一个高大的身影，看起来像是个人，不过 ....",
+      "combat_exp": 200000,
+      "attributes": {
+        "cor": 37,
+        "str": 44
+      },
+      "resources": {
+        "max_gin": 400,
+        "max_sen": 400
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 70,
+        "armor_vs_force": 1000,
+        "attack": 80,
+        "blade": 80,
+        "damage": 30,
+        "dodge": 70,
+        "parry": 80
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.blade",
+          "source_path": "mudlib/d/choyin/npc/obj/blade.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "choyin.npc.visitor",
+      "source_path": "mudlib/d/choyin/npc/visitor.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "游客",
+      "description": "这是一位来乔阴县游玩的游客。",
+      "combat_exp": 5000,
+      "attributes": {
+        "cor": 50,
+        "str": 20
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 90,
+        "unarmed": 76
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 30
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 8,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "here",
+          "response": "我游历过大半个中国，小小的乔阴县对我能有什么秘密？",
+          "scripted": false
+        },
+        {
+          "topic": "忘忧草",
+          "response": "这个。。好象是给狮子衔去了。",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry"
+      ]
+    },
+    {
+      "id": "choyin.npc.yamen_po",
+      "source_path": "mudlib/d/choyin/npc/yamen_po.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "巡捕",
+      "description": null,
+      "combat_exp": 500000,
+      "attributes": {
+        "cor": 50,
+        "cps": 35,
+        "int": 20,
+        "kar": 15,
+        "per": 20,
+        "str": 45
+      },
+      "resources": {},
+      "skills": {
+        "blade": 100,
+        "dodge": 70,
+        "parry": 90,
+        "perception": 50,
+        "pyrobat-steps": 60,
+        "spring-blade": 100
+      },
+      "mappings": {
+        "blade": "spring-blade",
+        "dodge": "pyrobat-steps"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "巡捕说道：你想干什么? 还不跟我去县衙受审!?"
+          },
+          {
+            "kind": "text",
+            "value": "巡捕说道：大胆! 居然敢当街拒捕! 想造反？"
+          },
+          {
+            "kind": "text",
+            "value": "巡捕手中的刀越砍越快，让你应接不暇。"
+          },
+          {
+            "kind": "text",
+            "value": "巡捕说道：别胡闹了，还是乖乖的跟我走吧。"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.blade",
+          "source_path": "mudlib/d/choyin/npc/obj/blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "choyin.npc.obj.cloth",
+          "source_path": "mudlib/d/choyin/npc/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "choyin.npc.obj.amulet",
+          "source_path": "mudlib/d/choyin/npc/obj/amulet.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 8,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "bribery",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "salary",
+          "response": "哎，老爷俸银微薄，我们的年饷自然更少了......",
+          "scripted": false
+        },
+        {
+          "topic": "money",
+          "response": "说实在的，我也想要钱。但要是让老爷知道了我收受贿赂(bribery)，\n不死也得扒层皮",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "custom_command",
+        "death_hook",
+        "inquiry",
+        "random_identity"
+      ]
+    },
+    {
+      "id": "choyin.npc.youngman",
+      "source_path": "mudlib/d/choyin/npc/youngman.c",
+      "status": "structured",
+      "area": "choyin",
+      "name": "贵公子",
+      "description": "一个相貌俊美的年轻贵公子正优雅地欣赏著窗外的景物。",
+      "combat_exp": 2500,
+      "attributes": {
+        "cor": 26,
+        "cps": 26,
+        "per": 29,
+        "str": 20
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 40,
+        "parry": 40,
+        "sword": 40,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "choyin.npc.obj.hat",
+          "source_path": "mudlib/d/choyin/npc/obj/hat.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [
+        {
+          "topic": "name",
+          "response": "在下姓游，单名一个晋字，不知阁下如何称呼？",
+          "scripted": false
+        },
+        {
+          "topic": "here",
+          "response": "这里是乔阴县城，您是外地来的吧？",
+          "scripted": false
+        },
+        {
+          "topic": "trouble",
+          "response": null,
+          "scripted": true
+        },
+        {
+          "topic": "姑娘",
+          "response": "就是那位绿裙黄衫的姑娘 ...",
+          "scripted": false
+        }
+      ],
+      "behavior_flags": [
+        "inquiry",
+        "object_exchange"
+      ]
+    },
+    {
+      "id": "goathill.npc.bandit",
+      "source_path": "mudlib/d/goathill/npc/bandit.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "土匪爪牙",
+      "description": "一个眼神凶恶的土匪，脸上好几条长长的刀疤，看起来就知道不好惹。",
+      "combat_exp": 6000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "blade": 40,
+        "dodge": 40,
+        "parry": 40
+      },
+      "mappings": {},
+      "combat_apply": {
+        "attack": 40,
+        "defense": 30
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "goathill.npc.obj.steel_blade",
+          "source_path": "mudlib/d/goathill/npc/obj/steel_blade.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.npc.bandit_hwang",
+      "source_path": "mudlib/d/goathill/npc/bandit_hwang.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "黄霸",
+      "description": "黄霸原是关外一个山寨的寨主，后来因为逃避官府追捕而到也羊山\n避祸，他的成名武器是一对各重四十斤的大金槌，内功\\跟横练功\\夫\n也都有不错的造诣。",
+      "combat_exp": 150000,
+      "attributes": {
+        "con": 30,
+        "cor": 26,
+        "cps": 25,
+        "int": 21,
+        "kar": 19,
+        "per": 13,
+        "spi": 16,
+        "str": 30
+      },
+      "resources": {
+        "force": 1000,
+        "force_factor": 30,
+        "max_force": 1000
+      },
+      "skills": {
+        "dodge": 90,
+        "force": 60,
+        "hammer": 90,
+        "parry": 80,
+        "serpentforce": 70
+      },
+      "mappings": {
+        "force": "serpentforce"
+      },
+      "combat_apply": {
+        "armor": 100,
+        "attack": 100,
+        "defense": 90
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "goathill.npc.obj.sledge_hammer",
+          "source_path": "mudlib/d/goathill/npc/obj/sledge_hammer.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "goathill.npc.obj.sledge_hammer",
+          "source_path": "mudlib/d/goathill/npc/obj/sledge_hammer.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "goathill.npc.obj.boots",
+          "source_path": "mudlib/d/goathill/npc/obj/boots.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.npc.bandit_leader",
+      "source_path": "mudlib/d/goathill/npc/bandit_leader.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "土匪首领",
+      "description": "这个土匪看起来相当强悍，至少你从他的动作就可以看得出来他显然\n是练过武功\\的硬手，并不是泛泛之辈。",
+      "combat_exp": 14000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "axe": 70,
+        "dodge": 70,
+        "parry": 60
+      },
+      "mappings": {},
+      "combat_apply": {
+        "attack": 60,
+        "defense": 80
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "goathill.npc.obj.hand_axe",
+          "source_path": "mudlib/d/goathill/npc/obj/hand_axe.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "goathill.npc.obj.hand_axe",
+          "source_path": "mudlib/d/goathill/npc/obj/hand_axe.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.npc.big_worm",
+      "source_path": "mudlib/d/goathill/npc/big_worm.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "大岩蛭",
+      "description": "一条色作浅灰，带著白色斑点的水蛭模样怪虫，口中露出六对白森森\n的牙齿，看起来恶心极了。",
+      "combat_exp": 4000,
+      "attributes": {
+        "con": 40,
+        "cor": 80,
+        "cps": 5,
+        "int": 1,
+        "kar": 5,
+        "per": 0,
+        "spi": 1,
+        "str": 80
+      },
+      "resources": {
+        "max_gin": 200,
+        "max_sen": 200
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 40,
+        "attack": 60,
+        "damage": 25,
+        "dodge": 30
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.npc.fat_worm",
+      "source_path": "mudlib/d/goathill/npc/fat_worm.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "肥岩蛭",
+      "description": "一条色作浅灰，带著白色斑点的水蛭模样怪虫，口中露出六对白森森\n的牙齿，看起来恶心极了。",
+      "combat_exp": 3000,
+      "attributes": {
+        "con": 40,
+        "cor": 80,
+        "cps": 5,
+        "int": 1,
+        "kar": 5,
+        "per": 0,
+        "spi": 1,
+        "str": 80
+      },
+      "resources": {
+        "max_gin": 400,
+        "max_sen": 400
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 40,
+        "attack": 40,
+        "damage": 30,
+        "dodge": 20
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.npc.huge_worm",
+      "source_path": "mudlib/d/goathill/npc/huge_worm.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "巨岩蛭",
+      "description": "一条色作浅灰，带著白色斑点的水蛭模样怪虫，口中露出六对白森森\n的牙齿，看起来恶心极了。",
+      "combat_exp": 10000,
+      "attributes": {
+        "con": 40,
+        "cor": 80,
+        "cps": 5,
+        "int": 1,
+        "kar": 5,
+        "per": 0,
+        "spi": 1,
+        "str": 80
+      },
+      "resources": {
+        "max_gin": 400,
+        "max_sen": 400
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 80,
+        "attack": 60,
+        "damage": 35,
+        "dodge": 30
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.npc.silver_worm",
+      "source_path": "mudlib/d/goathill/npc/silver_worm.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "银色岩蛭",
+      "description": "这条岩蛭看起来银光闪闪，跟其他丑恶的岩蛭大不相同，你注意到它\n口中白牙中竟微微地发著光，不知道肚子里藏了什么东西。",
+      "combat_exp": 400000,
+      "attributes": {
+        "con": 80,
+        "cor": 80,
+        "cps": 80,
+        "int": 40,
+        "kar": 80,
+        "per": 10,
+        "spi": 20,
+        "str": 80
+      },
+      "resources": {
+        "max_gin": 1500,
+        "max_sen": 1500
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 160,
+        "armor_vs_force": 1000,
+        "attack": 90,
+        "damage": 55,
+        "dodge": 90
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "goathill.npc.worm",
+      "source_path": "mudlib/d/goathill/npc/worm.c",
+      "status": "structured",
+      "area": "goathill",
+      "name": "岩蛭",
+      "description": "一条色作浅灰，带著白色斑点的水蛭模样怪虫，口中露出六对白森森\n的牙齿，看起来恶心极了。",
+      "combat_exp": 1000,
+      "attributes": {
+        "con": 40,
+        "cor": 80,
+        "cps": 5,
+        "int": 1,
+        "kar": 5,
+        "per": 0,
+        "spi": 1,
+        "str": 80
+      },
+      "resources": {
+        "max_gin": 200,
+        "max_sen": 200
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 30,
+        "attack": 30,
+        "damage": 20,
+        "dodge": 20
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 7,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "obj.npc.garrison",
+      "source_path": "mudlib/obj/npc/garrison.c",
+      "status": "structured",
+      "area": "obj",
+      "name": "县城官兵",
+      "description": "这是个正在执行公务的县城官兵，虽然和许多武林人物比起来，官兵\n们的武功实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
+      "combat_exp": 100000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 70,
+        "move": 100,
+        "parry": 70,
+        "sword": 70,
+        "unarmed": 70
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 70,
+        "attack": 70,
+        "damage": 30,
+        "defense": 70,
+        "move": 100
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "县城官兵喝道：还不快放下武器束手就缚？"
+          },
+          {
+            "kind": "text",
+            "value": "县城官兵喝道：大胆刁民竟敢拒捕？反了！反了！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "oldpine.npc.bandit",
+      "source_path": "mudlib/d/oldpine/npc/bandit.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "土匪探哨",
+      "description": "这人满脸匪气，一付百无聊赖的模样，令人望而生厌。",
+      "combat_exp": 600,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 10,
+        "parry": 10,
+        "sword": 10
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.short_sword",
+          "source_path": "mudlib/d/oldpine/npc/obj/short_sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "oldpine.npc.bandit_chief",
+      "source_path": "mudlib/d/oldpine/npc/bandit_chief.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "土匪老大",
+      "description": "这家伙眼神凶恶，一双精光四射的眼珠正盯著你的脖子。",
+      "combat_exp": 6000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "blade": 60,
+        "dodge": 50,
+        "parry": 50
+      },
+      "mappings": {},
+      "combat_apply": {
+        "attack": 50,
+        "dodge": 30
+      },
+      "combat_chat": {
+        "chance": 10,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "土匪老大阴恻恻地说道：乖乖地躺下吧！"
+          },
+          {
+            "kind": "text",
+            "value": "土匪老大说道：自从刘老三洗手不干以后，只怕这附近还没有我的对手！"
+          },
+          {
+            "kind": "text",
+            "value": "土匪老大虎吼一声，欺身上前。"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.blade",
+          "source_path": "mudlib/d/oldpine/npc/obj/blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "oldpine.npc.obj.leather",
+          "source_path": "mudlib/d/oldpine/npc/obj/leather.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 0,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "oldpine.npc.bandit_commander",
+      "source_path": "mudlib/d/oldpine/npc/bandit_commander.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "常老大",
+      "description": null,
+      "combat_exp": 260000,
+      "attributes": {},
+      "resources": {
+        "force": 1500,
+        "force_factor": 3,
+        "max_force": 1000
+      },
+      "skills": {
+        "blade": 100,
+        "dodge": 70,
+        "force": 60,
+        "parry": 100
+      },
+      "mappings": {},
+      "combat_apply": {
+        "attack": 100,
+        "defense": 60
+      },
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.glaive",
+          "source_path": "mudlib/d/oldpine/npc/obj/glaive.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "oldpine.npc.obj.leather",
+          "source_path": "mudlib/d/oldpine/npc/obj/leather.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "oldpine.npc.obj.fur_coat",
+          "source_path": "mudlib/d/oldpine/npc/obj/fur_coat.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "oldpine.npc.obj.bamboo_pipe",
+          "source_path": "mudlib/d/oldpine/npc/obj/bamboo_pipe.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "oldpine.npc.bandit_guard",
+      "source_path": "mudlib/d/oldpine/npc/bandit_guard.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "土匪喽罗",
+      "description": "这家伙满脸横肉，一付凶神恶煞的模样，令人望而生畏。",
+      "combat_exp": 3600,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 40,
+        "parry": 40,
+        "sword": 50
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.short_sword",
+          "source_path": "mudlib/d/oldpine/npc/obj/short_sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "oldpine.npc.bandit_leader",
+      "source_path": "mudlib/d/oldpine/npc/bandit_leader.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "土匪首领",
+      "description": "这家伙眼神凶恶，一双精光四射的眼珠正盯著你的脖子。",
+      "combat_exp": 50000,
+      "attributes": {},
+      "resources": {
+        "force": 1300,
+        "force_factor": 4,
+        "max_force": 700
+      },
+      "skills": {
+        "blade": 60,
+        "dodge": 70,
+        "parry": 70
+      },
+      "mappings": {},
+      "combat_apply": {
+        "attack": 70,
+        "dodge": 50
+      },
+      "combat_chat": {
+        "chance": 20,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "土匪首领阴恻恻地说道：这种三脚猫的功\\夫也敢上老松寨来撒野？！"
+          },
+          {
+            "kind": "text",
+            "value": "土匪首领说道：去你的，老子今天要剁下你的头来练练毒爪！"
+          },
+          {
+            "kind": "text",
+            "value": "土匪首领虎吼一声，欺身上前。"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.blade",
+          "source_path": "mudlib/d/oldpine/npc/obj/blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "oldpine.npc.obj.leather",
+          "source_path": "mudlib/d/oldpine/npc/obj/leather.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 4,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "oldpine.npc.butterfly",
+      "source_path": "mudlib/d/oldpine/npc/butterfly.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "蝴蝶",
+      "description": "一只翩翩起舞的小蝴蝶哦!",
+      "combat_exp": 100,
+      "attributes": {
+        "cor": 8,
+        "per": 33,
+        "str": 6
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "dodge": 50
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 6,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "random_movement"
+      ]
+    },
+    {
+      "id": "oldpine.npc.fat_bandit",
+      "source_path": "mudlib/d/oldpine/npc/fat_bandit.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "土匪",
+      "description": "这家伙又矮又胖，圆滚滚的眼珠子在满脸肥肉中骨碌碌地转来转去。",
+      "combat_exp": 500,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 10,
+        "parry": 10,
+        "sword": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 10,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "矮胖子土匪大叫：把你身上的钱通通留下来！"
+          },
+          {
+            "kind": "text",
+            "value": "矮胖子土匪嘴里不乾不净地咒骂著。"
+          },
+          {
+            "kind": "callback",
+            "value": "(: this_object(), \"call_for_help\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.short_sword",
+          "source_path": "mudlib/d/oldpine/npc/obj/short_sword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "oldpine.npc.obj.leather",
+          "source_path": "mudlib/d/oldpine/npc/obj/leather.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "oldpine.npc.maniac",
+      "source_path": "mudlib/d/oldpine/npc/maniac.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "疯老头子",
+      "description": "这个老头子正对著你龇牙裂嘴，他看起来已经完全疯了。",
+      "combat_exp": 40000,
+      "attributes": {
+        "cor": 30,
+        "str": 30
+      },
+      "resources": {
+        "force": 600,
+        "force_factor": 2,
+        "mana": 800,
+        "max_force": 600,
+        "max_mana": 800
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 100,
+        "necromancy": 70,
+        "spells": 50,
+        "unarmed": 50
+      },
+      "mappings": {
+        "spells": "necromancy"
+      },
+      "combat_apply": {
+        "attack": 30,
+        "damage": 20
+      },
+      "combat_chat": {
+        "chance": 60,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.robe",
+          "source_path": "mudlib/d/oldpine/npc/obj/robe.c",
+          "state": "worn"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "combat_chat"
+      ]
+    },
+    {
+      "id": "oldpine.npc.serpent",
+      "source_path": "mudlib/d/oldpine/npc/serpent.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "黑冠巨蟒",
+      "description": "一只乌黑油亮的巨蟒，头上生著一个大肉瘤。",
+      "combat_exp": 250000,
+      "attributes": {
+        "cor": 70,
+        "int": 10,
+        "spi": 20,
+        "str": 40
+      },
+      "resources": {
+        "max_gin": 900,
+        "max_sen": 500
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 90,
+        "attack": 60,
+        "damage": 20,
+        "dodge": 80
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 5,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "oldpine.npc.spy",
+      "source_path": "mudlib/d/oldpine/npc/spy.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "黑衣人",
+      "description": "这个男人看起来鬼鬼祟祟的，想必不是什么好东西。",
+      "combat_exp": 6000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 40,
+        "parry": 20,
+        "sword": 20,
+        "throwing": 20,
+        "unarmed": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.throwing_knife",
+          "source_path": "mudlib/d/oldpine/npc/obj/throwing_knife.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "oldpine.npc.obj.black_cloth",
+          "source_path": "mudlib/d/oldpine/npc/obj/black_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.dust",
+          "source_path": "mudlib/obj/dust.c",
+          "state": "carried"
+        }
+      ],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "timed_behavior"
+      ]
+    },
+    {
+      "id": "oldpine.npc.tall_bandit",
+      "source_path": "mudlib/d/oldpine/npc/tall_bandit.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "土匪",
+      "description": "这家伙长得高高瘦瘦，脸色苍白，一付无精打采的样子。",
+      "combat_exp": 900,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 10,
+        "parry": 15,
+        "sword": 15
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "oldpine.npc.obj.long_sword",
+          "source_path": "mudlib/d/oldpine/npc/obj/long_sword.c",
+          "state": "wielded"
+        }
+      ],
+      "placement_count": 2,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "oldpine.npc.venomsnake",
+      "source_path": "mudlib/d/oldpine/npc/venomsnake.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "金银花蛇",
+      "description": "一支昂首吐信的毒蛇正虎视眈眈地盯著你。",
+      "combat_exp": 30000,
+      "attributes": {
+        "cor": 50,
+        "str": 10
+      },
+      "resources": {
+        "max_gin": 260,
+        "max_sen": 100
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 60,
+        "attack": 70,
+        "damage": 70
+      },
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 3,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": []
+    },
+    {
+      "id": "oldpine.npc.wolf_dog",
+      "source_path": "mudlib/d/oldpine/npc/wolf_dog.c",
+      "status": "structured",
+      "area": "oldpine",
+      "name": "狼狗",
+      "description": "一只凶猛的狼狗，一只独眼正恶狠狠地瞪著你。",
+      "combat_exp": 10000,
+      "attributes": {
+        "cor": 30,
+        "str": 26
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 45,
+        "attack": 45,
+        "damage": 40
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "狼狗大声吠叫：汪！汪！汪！"
+          },
+          {
+            "kind": "text",
+            "value": "狼狗突然跳了起来，口中乱咬，向你扑来。"
+          }
+        ]
+      },
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "combat_chat"
+      ]
+    }
+  ],
+  "warnings": [
+    "mudlib/d/choyin/npc/boss.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/cake_vendor.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/cake_vendor.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/choyin/npc/cake_vendor.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/cityguard.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/choyin/npc/crone.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/choyin/npc/crone.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/cucurbit_seller.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/cucurbit_seller.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/choyin/npc/cucurbit_seller.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/dumpling_seller.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/dumpling_seller.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/choyin/npc/dumpling_seller.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/ghost.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/ghost.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/choyin/npc/girl.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/guard.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/choyin/npc/guard.c: NPC 行为待实现 [kill_gate]",
+    "mudlib/d/choyin/npc/judge_gu.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/choyin/npc/judgeman.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/judgeman.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/choyin/npc/judgeman.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/choyin/npc/judgeman.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/choyin/npc/lboy.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/lboy.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/choyin/npc/lboy.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/lion.c: NPC 行为待实现 [death_hook]",
+    "mudlib/d/choyin/npc/magistra.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/choyin/npc/magistra.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/choyin/npc/maid.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/oldman.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/oldman.c: NPC 行为待实现 [fight_gate]",
+    "mudlib/d/choyin/npc/oldman.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/choyin/npc/oldman.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/choyin/npc/scholar.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/scholar.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/choyin/npc/sergeant.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/sergeant.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/choyin/npc/visitor.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/yamen_po.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/choyin/npc/yamen_po.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/choyin/npc/yamen_po.c: NPC 行为待实现 [custom_command]",
+    "mudlib/d/choyin/npc/yamen_po.c: NPC 行为待实现 [death_hook]",
+    "mudlib/d/choyin/npc/yamen_po.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/yamen_po.c: NPC 行为待实现 [random_identity]",
+    "mudlib/d/choyin/npc/youngman.c: NPC 行为待实现 [inquiry]",
+    "mudlib/d/choyin/npc/youngman.c: NPC 行为待实现 [object_exchange]",
+    "mudlib/d/oldpine/npc/bandit_chief.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/oldpine/npc/bandit_leader.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/oldpine/npc/butterfly.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/oldpine/npc/butterfly.c: NPC 行为待实现 [random_movement]",
+    "mudlib/d/oldpine/npc/fat_bandit.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/oldpine/npc/maniac.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/d/oldpine/npc/spy.c: NPC 行为待实现 [timed_behavior]",
+    "mudlib/d/oldpine/npc/wolf_dog.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/d/oldpine/npc/wolf_dog.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/obj/npc/garrison.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/obj/npc/garrison.c: NPC 行为待实现 [combat_chat]",
+    "mudlib/obj/npc/garrison.c: NPC 行为待实现 [random_movement]"
+  ]
+}

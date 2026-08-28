@@ -364,7 +364,7 @@ fn render_actions(frame: &mut Frame<'_>, area: Rect, app: &App, titled: bool) {
 }
 
 fn render_combat(frame: &mut Frame<'_>, area: Rect, game: &Game) {
-    let Activity::Fighting(combat) = game.activity else {
+    let Activity::Fighting(combat) = &game.activity else {
         return;
     };
     let ratio = (combat.health.max(0) as f64 / combat.max_health as f64).clamp(0.0, 1.0);

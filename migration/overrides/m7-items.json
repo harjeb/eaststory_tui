@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M7",
+  "status": "complete",
+  "scope": [
+    "mudlib/d/latemoon",
+    "mudlib/d/death",
+    "mudlib/d/graveyard",
+    "mudlib/d/jail",
+    "mudlib/u/cloud"
+  ],
+  "catalog": {
+    "definitions_with_behavior": 18,
+    "behavior_flags": 22,
+    "by_kind": {
+      "consume_hook": 3,
+      "custom_command": 10,
+      "restricted_movement": 9
+    }
+  },
+  "runtime_features": [
+    {
+      "feature": "latemoon_bound_items",
+      "status": "verified",
+      "decision": "两套舞谱、手镯、舞册、手帕与金牌均由通用 restricted_movement 校验阻止卖出、赠送、捐献和丢弃，执行层与行动列表使用同一目录标记。"
+    },
+    {
+      "feature": "latemoon_item_commands",
+      "status": "adapted",
+      "decision": "两套舞谱与手镯消耗 50 点神后按来源传送；密函仅在携带火摺时显示暗字且不消耗物品。"
+    },
+    {
+      "feature": "latemoon_combined_consumables",
+      "status": "adapted",
+      "decision": "仙豆、金黄花蕊、白凤丸与女儿红按来源恢复或损耗精气神；花蕊同时减少十拍火玫瑰毒，每次消耗一个组合物品。"
+    },
+    {
+      "feature": "cloud_meat_residuals",
+      "status": "adapted",
+      "decision": "牛肉、狗肉和鹿腿最后一口分别留下牛肋骨、狗骨头和牛腿骨，保留来源重量与价值；鹿腿同时按锤兵器伤害 5 运行。"
+    },
+    {
+      "feature": "behavior_flag_audit",
+      "status": "audited",
+      "decision": "M7 区域 22 项动态物品标记与固定源逐项对应：9 verified、13 adapted，无未处置项。"
+    }
+  ],
+  "behavior_flags": {
+    "total": 22,
+    "disposed": 22,
+    "remaining": 0,
+    "status": "audited",
+    "by_status": {
+      "verified": 9,
+      "adapted": 13
+    },
+    "dispositions": [
+      {
+        "source_path": "mudlib/d/latemoon/npc/obj/book.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "dancing home 转为显式行动；神不少于 50 时扣除 50 并传送至 latemoon8。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/npc/obj/book.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "no_drop 由目录驱动的通用转移限制执行。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/npc/obj/bracelet.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "pray start 转为显式行动；神不少于 50 时扣除 50 并传送至雪亭城隍庙。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/npc/obj/bracelet.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "no_drop 由目录驱动的通用转移限制执行。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/npc/obj/dance_book.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "来源舞册不可转移，通用 restricted_movement 校验覆盖所有转移入口。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/npc/obj/hankie.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "来源手帕不可转移，通用 restricted_movement 校验覆盖所有转移入口。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/obj/book.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "dancing home 转为显式行动；神不少于 50 时扣除 50 并传送至 latemoon1。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/obj/book.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "no_drop 由目录驱动的通用转移限制执行。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/obj/bracelet.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "pray start 转为显式行动；神不少于 50 时扣除 50 并传送至雪亭城隍庙。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/obj/bracelet.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "no_drop 由目录驱动的通用转移限制执行。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/obj/dance_book.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "来源舞册不可转移，通用 restricted_movement 校验覆盖所有转移入口。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/obj/hankie.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "来源手帕不可转移，通用 restricted_movement 校验覆盖所有转移入口。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/park/npc/obj/bean.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "eat bean 转为组合物品食用：精 +50、气 +100、神 +50。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/park/npc/obj/flower.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "eat flower 转为组合物品食用：神 +50，并减少十拍火玫瑰毒。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/room/npc/obj/gold_token.c",
+        "flags": ["restricted_movement"],
+        "status": "verified",
+        "decision": "金牌 no_drop 由目录驱动的通用转移限制执行。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/room/npc/obj/letter.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "fire letter 转为携带火摺时的显式查看行动，只揭示暗字，不消耗密函或火摺。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/sell/bean.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "eat bean 转为组合物品食用：精 +50、气 +100、神 +50。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/sell/white_pill.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "eat pill 转为组合物品食用：精 +100、气 +300、神 +100。"
+      },
+      {
+        "source_path": "mudlib/d/latemoon/sell/wine.c",
+        "flags": ["custom_command"],
+        "status": "adapted",
+        "decision": "drink wine 转为组合物品饮用：精 -10、神 +20。"
+      },
+      {
+        "source_path": "mudlib/u/cloud/obj/meat/beef.c",
+        "flags": ["consume_hook"],
+        "status": "adapted",
+        "decision": "三口食用完成后保留重量 200、价值 100 的牛肋骨。"
+      },
+      {
+        "source_path": "mudlib/u/cloud/obj/meat/dog_m.c",
+        "flags": ["consume_hook"],
+        "status": "adapted",
+        "decision": "三口食用完成后保留重量 250、价值 60 的狗骨头。"
+      },
+      {
+        "source_path": "mudlib/u/cloud/obj/meat/hind.c",
+        "flags": ["consume_hook"],
+        "status": "adapted",
+        "decision": "五口食用完成后保留重量 300、价值 150 的牛腿骨；HAMMER 继承继续提供锤兵器伤害 5。"
+      }
+    ],
+    "decision": "22 项标记与 items.json 中 M7 区域全部动态物品标记构成精确集合；物品行为审计完成。"
+  },
+  "dependencies": []
+}

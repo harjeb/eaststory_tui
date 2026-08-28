@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "scope": "m4-npcs",
   "status": "structured",
@@ -15,6 +15,19 @@
     "runtime_inquiry_npcs": 21,
     "runtime_inquiries": 50,
     "runtime_inquiry_references": 95,
+    "combat_profiles": 72,
+    "combat_skill_entries": 316,
+    "combat_mapping_entries": 94,
+    "combat_apply_entries": 21,
+    "combat_chat_npcs": 25,
+    "combat_chat_entries": 87,
+    "carried_item_npcs": 55,
+    "carried_item_entries": 93,
+    "worn_item_entries": 56,
+    "wielded_item_entries": 32,
+    "placed_combat_npcs": 59,
+    "placed_combat_chat_npcs": 16,
+    "placed_carried_item_npcs": 42,
     "by_area": {
       "canyon": 10,
       "city": 23,
@@ -31,6 +44,76 @@
       "name": "赫造基",
       "description": "道光满面，□智不言而现，气象万千，显然是茅山术高手中的高\n手，经纶羽扇，和大将军正是绝配。",
       "combat_exp": 300000,
+      "attributes": {
+        "int": 30,
+        "str": 20
+      },
+      "resources": {
+        "atman": 600,
+        "force": 600,
+        "force_factor": 5,
+        "mana": 2000,
+        "mana_factor": 5,
+        "max_atman": 600,
+        "max_force": 600,
+        "max_mana": 1200
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 25,
+        "gouyee": 50,
+        "literate": 60,
+        "magic": 60,
+        "necromancy": 70,
+        "parry": 35,
+        "spells": 80,
+        "sword": 40,
+        "taoism": 60,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {
+        "armor": 15,
+        "dodge": 15
+      },
+      "combat_chat": {
+        "chance": 80,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"invocation\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "canyon.npc.obj.fan_sword",
+          "source_path": "mudlib/d/canyon/npc/obj/fan_sword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "canyon.npc.obj.hat",
+          "source_path": "mudlib/d/canyon/npc/obj/hat.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -55,6 +138,37 @@
       "name": "大队长",
       "description": "他不苟言笑的样子，带领著小兵驻守隘口的队长。",
       "combat_exp": 120000,
+      "attributes": {
+        "int": 25,
+        "str": 27
+      },
+      "resources": {
+        "force": 700,
+        "force_factor": 5,
+        "max_force": 700
+      },
+      "skills": {
+        "dodge": 70,
+        "force": 70,
+        "parry": 70,
+        "sword": 70,
+        "unarmed": 65
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "canyon.npc.obj.sword",
+          "source_path": "mudlib/d/canyon/npc/obj/sword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "canyon.npc.obj.armor",
+          "source_path": "mudlib/d/canyon/npc/obj/armor.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -89,6 +203,31 @@
       "name": "小兵",
       "description": "他看起来有点精悍，手中紧握著刀，惊惊颤颤的样子。",
       "combat_exp": 60000,
+      "attributes": {
+        "int": 24,
+        "str": 26
+      },
+      "resources": {
+        "force": 600,
+        "force_factor": 5,
+        "max_force": 600
+      },
+      "skills": {
+        "blade": 50,
+        "dodge": 50,
+        "parry": 60,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "canyon.npc.obj.blade",
+          "source_path": "mudlib/d/canyon/npc/obj/blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 2,
       "vendor_goods": [],
       "inquiries": [],
@@ -102,6 +241,66 @@
       "name": "严廷殷",
       "description": "容光焕发，左佩刀，右佩剑，威风□□，其高七尺六寸，虎背\n熊腰，年轻时同和大天邪于兰天武同拜一师，武功\\造诣不在大\n天邪之下，但志向不同，后成了京师武功\\第一、人人称羡的镇\n国大将军。",
       "combat_exp": 900000,
+      "attributes": {
+        "int": 28,
+        "str": 29
+      },
+      "resources": {
+        "eff_gin": 200,
+        "eff_sen": 200,
+        "force": 1800,
+        "force_factor": 20,
+        "gin": 200,
+        "max_force": 1800,
+        "max_gin": 200,
+        "max_sen": 200,
+        "sen": 200
+      },
+      "skills": {
+        "celestial": 80,
+        "celestrike": 85,
+        "dodge": 60,
+        "force": 80,
+        "parry": 50,
+        "pyrobat-steps": 60,
+        "six-chaos-sword": 85,
+        "sword": 80,
+        "unarmed": 80
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "force": "celestial",
+        "parry": "six-chaos-sword",
+        "sword": "six-chaos-sword",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 80,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "canyon.npc.obj.broken_sword",
+          "source_path": "mudlib/d/canyon/npc/obj/broken_sword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "canyon.npc.obj.cloud_armor",
+          "source_path": "mudlib/d/canyon/npc/obj/cloud_armor.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -141,6 +340,24 @@
       "name": "小兵",
       "description": "风沙满面，无精打采，毫无生气的样子，真难以想像是这\n□的守军。",
       "combat_exp": 40000,
+      "attributes": {
+        "int": 24,
+        "str": 26
+      },
+      "resources": {
+        "force": 300,
+        "force_factor": 5,
+        "max_force": 300
+      },
+      "skills": {
+        "dodge": 50,
+        "parry": 60,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 4,
       "vendor_goods": [],
       "inquiries": [],
@@ -154,6 +371,24 @@
       "name": "老兵",
       "description": "风沙满面，无精打采，毫无生气的样子，真难以想像是这\n□的守军。",
       "combat_exp": 40000,
+      "attributes": {
+        "int": 24,
+        "str": 26
+      },
+      "resources": {
+        "force": 300,
+        "force_factor": 5,
+        "max_force": 300
+      },
+      "skills": {
+        "dodge": 50,
+        "parry": 60,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -186,6 +421,32 @@
       "name": "小队长",
       "description": "不苟言笑的样子，带领著小兵驻守隘口的小队长。",
       "combat_exp": 80000,
+      "attributes": {
+        "int": 25,
+        "str": 27
+      },
+      "resources": {
+        "force": 400,
+        "force_factor": 5,
+        "max_force": 400
+      },
+      "skills": {
+        "dodge": 60,
+        "force": 60,
+        "parry": 60,
+        "sword": 60,
+        "unarmed": 65
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "canyon.npc.obj.sword",
+          "source_path": "mudlib/d/canyon/npc/obj/sword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 2,
       "vendor_goods": [],
       "inquiries": [],
@@ -199,6 +460,32 @@
       "name": "老队长",
       "description": "不苟言笑的样子，带领著小兵驻守隘口的小队长。",
       "combat_exp": 80000,
+      "attributes": {
+        "int": 25,
+        "str": 27
+      },
+      "resources": {
+        "force": 400,
+        "force_factor": 5,
+        "max_force": 400
+      },
+      "skills": {
+        "blade": 60,
+        "dodge": 60,
+        "force": 60,
+        "parry": 60,
+        "unarmed": 65
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "canyon.npc.obj.blade",
+          "source_path": "mudlib/d/canyon/npc/obj/blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -226,6 +513,19 @@
       "name": "后备兵",
       "description": "环顾四方，眼神锐利，看来想杀价是不可能的事了。",
       "combat_exp": 50000,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "canyon.npc.obj.blade",
+          "source_path": "mudlib/d/canyon/npc/obj/blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -241,6 +541,66 @@
       "name": "李信",
       "description": "原是禁卫军的队长，也因其强大的声望和实力，被先帝调离京师\n和镇国大将军共同镇守黄石隘口。",
       "combat_exp": 400000,
+      "attributes": {
+        "int": 25,
+        "str": 27
+      },
+      "resources": {
+        "eff_gin": 200,
+        "eff_sen": 200,
+        "force": 800,
+        "force_factor": 10,
+        "gin": 200,
+        "max_force": 800,
+        "max_gin": 200,
+        "max_sen": 200,
+        "sen": 200
+      },
+      "skills": {
+        "celestial": 80,
+        "celestrike": 75,
+        "dodge": 60,
+        "force": 80,
+        "parry": 50,
+        "pyrobat-steps": 60,
+        "six-chaos-sword": 75,
+        "sword": 70,
+        "unarmed": 70
+      },
+      "mappings": {
+        "dodge": "pyrobat-steps",
+        "force": "celestial",
+        "parry": "six-chaos-sword",
+        "sword": "six-chaos-sword",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 80,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "canyon.npc.obj.armor",
+          "source_path": "mudlib/d/canyon/npc/obj/armor.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -257,6 +617,19 @@
       "name": "钱掌柜",
       "description": "钱掌柜长得如一个大面团般，白白胖胖的，虽说早已步入知天命\n的年龄，可保养得很好。一双小眼睛如俩枣核嵌在脸上，不时滴\n溜溜地乱转。他开的「太白酒楼」可是京城最大的。",
       "combat_exp": 1000,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -294,6 +667,13 @@
       "name": "卖饼大叔",
       "description": "一个相貌朴实的卖饼大叔，憨厚的脸上挂著和蔼的笑容。",
       "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -322,6 +702,44 @@
       "name": "陈天星",
       "description": null,
       "combat_exp": 1000000,
+      "attributes": {
+        "cor": 27,
+        "cps": 29,
+        "int": 30,
+        "str": 38
+      },
+      "resources": {
+        "force": 2000,
+        "force_factor": 40,
+        "max_force": 3200
+      },
+      "skills": {
+        "blade": 150,
+        "celestial": 80,
+        "celestrike": 80,
+        "dodge": 80,
+        "force": 100,
+        "parry": 100,
+        "pyrobat-steps": 70,
+        "spring-blade": 150,
+        "unarmed": 100
+      },
+      "mappings": {
+        "blade": "spring-blade",
+        "dodge": "pyrobat-steps",
+        "force": "celestial",
+        "parry": "spring-blade",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "city.npc.obj.duoqing_blade",
+          "source_path": "mudlib/d/city/npc/obj/duoqing_blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -365,6 +783,45 @@
       "name": "老板娘",
       "description": "李掌柜是不难看的女人，一直经营着祖传鞋店生意。",
       "combat_exp": 300000,
+      "attributes": {},
+      "resources": {
+        "atman": 1000,
+        "atman_factor": 3,
+        "force": 1000,
+        "force_factor": 3,
+        "mana": 1000,
+        "mana_factor": 3,
+        "max_atman": 1000,
+        "max_force": 1000,
+        "max_mana": 1000
+      },
+      "skills": {
+        "chaos-steps": 100,
+        "dodge": 120,
+        "fonxanforce": 100,
+        "fonxansword": 100,
+        "force": 120,
+        "sword": 120
+      },
+      "mappings": {
+        "dodge": "chaos-steps",
+        "force": "fonxanforce",
+        "sword": "fonxansword"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "city.npc.obj.wuqing_sword",
+          "source_path": "mudlib/d/city/npc/obj/wuqing_sword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -411,6 +868,13 @@
       "name": "卖包子的",
       "description": "这个卖包子的小贩对你微微一笑，说道：热腾腾的包子，来一笼吧？",
       "combat_exp": 30,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -439,6 +903,53 @@
       "name": "京师守城兵",
       "description": "这是个正在这里站岗的京师官兵，虽然和许多武林人物比起来，官兵\n们的武功实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
       "combat_exp": 100000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 90,
+        "move": 100,
+        "parry": 90,
+        "sword": 90,
+        "unarmed": 90
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 90,
+        "attack": 90,
+        "damage": 40,
+        "defense": 90,
+        "move": 100
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：还不快放下武器束手就缚？"
+          },
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：大胆刁民！竟敢在天子脚下造反？"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 18,
       "vendor_goods": [],
       "inquiries": [
@@ -468,6 +979,53 @@
       "name": "京师守城兵",
       "description": "这是个正在这里站岗的京师官兵，虽然和许多武林人物比起来，官兵\n们的武功实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
       "combat_exp": 100000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 90,
+        "move": 100,
+        "parry": 90,
+        "sword": 90,
+        "unarmed": 90
+      },
+      "mappings": {},
+      "combat_apply": {
+        "armor": 90,
+        "attack": 90,
+        "damage": 40,
+        "defense": 90,
+        "move": 100
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：还不快放下武器束手就缚？"
+          },
+          {
+            "kind": "text",
+            "value": "守城官兵喝道：大胆刁民！竟敢在天子脚下造反？"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [
@@ -497,6 +1055,102 @@
       "name": "黑你没商量",
       "description": "黑你没商量是个看起来相当精明的中年人，他的本名叫做“魏阮”。\n不知作了什么黑心的生意，一夜之间暴富起来，开了钱庄后，逐渐地\n把其它钱庄全挤倒闭了，京师的居民对他的很多做法都非常不满，于\n是有了这个绰号。大家都知道他小肚鸡肠，所以谁也不去惹他。",
       "combat_exp": 100000,
+      "attributes": {
+        "con": 24,
+        "cor": 25,
+        "cps": 25,
+        "int": 26,
+        "kar": 25,
+        "per": 25,
+        "spi": 25,
+        "str": 22
+      },
+      "resources": {
+        "atman": 1000,
+        "atman_factor": 3,
+        "force": 1000,
+        "force_factor": 3,
+        "mana": 1000,
+        "mana_factor": 3,
+        "max_atman": 1000,
+        "max_force": 1000,
+        "max_mana": 1000
+      },
+      "skills": {
+        "celestial": 100,
+        "celestrike": 100,
+        "chaos-steps": 100,
+        "dodge": 100,
+        "fonxansword": 100,
+        "force": 100,
+        "necromancy": 100,
+        "parry": 100,
+        "six-chaos-sword": 100,
+        "spells": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "chaos-steps",
+        "force": "celestial",
+        "spells": "necromancy",
+        "sword": "fonxansword",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "黑你没商量突然三角眼倒立，眉间闪过几道黑气。"
+          },
+          {
+            "kind": "text",
+            "value": "黑你没商量的喉咙发出咕咕两声怪叫。"
+          },
+          {
+            "kind": "text",
+            "value": "黑你没商量神情忽然严肃了起来，不过好像是在想自己的事，与你无关。"
+          },
+          {
+            "kind": "text",
+            "value": "黑你没商量忽然呵呵呵地笑了起来，却不知道在笑些什么...."
+          },
+          {
+            "kind": "perform",
+            "value": "(: perform_action, \"sword.counterattack\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -515,6 +1169,28 @@
       "name": "李掌柜",
       "description": "李掌柜是不难看的女人，一直经营着祖传鞋店生意。",
       "combat_exp": 220000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 120,
+        "sword": 120,
+        "unarmed": 150
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "city.npc.obj.wuqing_sword",
+          "source_path": "mudlib/d/city/npc/obj/wuqing_sword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -551,6 +1227,38 @@
       "name": "商人",
       "description": "这是一位从关外来的商人。",
       "combat_exp": 5000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "bloodystrike": 20,
+        "iron-cloth": 50,
+        "unarmed": 30
+      },
+      "mappings": {
+        "unarmed": "bloodystrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "光天化日，朗朗乾坤，你也想打劫？"
+          },
+          {
+            "kind": "movement",
+            "value": "(: random_move :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -568,6 +1276,38 @@
       "name": "商人",
       "description": "这是一位从关外来的商人。",
       "combat_exp": 5000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "bloodystrike": 70,
+        "iron-cloth": 50,
+        "unarmed": 30
+      },
+      "mappings": {
+        "unarmed": "bloodystrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "光天化日，朗朗乾坤，你也想打劫？"
+          },
+          {
+            "kind": "movement",
+            "value": "(: random_move :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -585,6 +1325,34 @@
       "name": "商人",
       "description": "这是一位从关外来的商人。",
       "combat_exp": 5000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "blade": 30,
+        "dodge": 100,
+        "fall-steps": 30,
+        "parry": 20,
+        "shortsong-blade": 10
+      },
+      "mappings": {
+        "blade": "shortsong-blade",
+        "dodge": "fall-steps",
+        "parry": "shortsong-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "city.npc.obj.hu-blade",
+          "source_path": "mudlib/d/city/npc/obj/hu-blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -601,6 +1369,13 @@
       "name": "卖艺壮汉",
       "description": "一个满脸横肉的壮汉，口水四溅，正说着什么。",
       "combat_exp": 30000,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -629,6 +1404,13 @@
       "name": "店小二",
       "description": "这位店小二正笑咪咪地忙著，还不时拿起挂在脖子上的抹布擦脸。",
       "combat_exp": 5,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 2,
       "vendor_goods": [
         {
@@ -658,6 +1440,19 @@
       "name": "行人",
       "description": null,
       "combat_exp": 30000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "parry": 40,
+        "spicyclaw": 20,
+        "unarmed": 40
+      },
+      "mappings": {
+        "unarmed": "spicyclaw"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 3,
       "vendor_goods": [],
       "inquiries": [
@@ -681,6 +1476,28 @@
       "name": "万晓生",
       "description": "万晓生是个须发皆白的老人，闯荡江湖已近五十年。",
       "combat_exp": 120000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 100,
+        "sword": 100,
+        "unarmed": 100
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.weapon.longsword",
+          "source_path": "mudlib/obj/weapon/longsword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -741,6 +1558,73 @@
       "name": "花匠",
       "description": "一个老老实实、本本分分的庄园花匠，多年的风霜刻满\n了他的额头。多年以来从来没有人认真注意过他，他也\n总是默默地在花园里工作。",
       "combat_exp": 500000,
+      "attributes": {
+        "cor": 23,
+        "cps": 28,
+        "int": 27,
+        "spi": 30,
+        "str": 25
+      },
+      "resources": {
+        "atman": 1200,
+        "force": 1800,
+        "force_factor": 25,
+        "mana": 3500,
+        "mana_factor": 4,
+        "max_atman": 1200,
+        "max_force": 900,
+        "max_mana": 1800
+      },
+      "skills": {
+        "dodge": 40,
+        "force": 30,
+        "gouyee": 60,
+        "literate": 100,
+        "magic": 40,
+        "necromancy": 90,
+        "parry": 40,
+        "scratching": 90,
+        "spells": 90,
+        "sword": 40,
+        "taoism": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "parry": "scratching",
+        "spells": "necromancy",
+        "sword": "scratching"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 80,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"invocation\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "city.shangshu.npc.obj.sword",
+          "source_path": "mudlib/d/city/shangshu/npc/obj/sword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -773,6 +1657,27 @@
       "name": "门房",
       "description": "尚书府的门房虽然没什么官衔，但所有想晋见\n尚书的白衣无不对他毕恭毕敬的n",
       "combat_exp": 1000,
+      "attributes": {
+        "cor": 26,
+        "cps": 25,
+        "str": 27
+      },
+      "resources": {},
+      "skills": {
+        "dodge": 90,
+        "parry": 60,
+        "unarmed": 90
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -789,6 +1694,41 @@
       "name": "尚书府护院",
       "description": null,
       "combat_exp": 2000,
+      "attributes": {
+        "con": 20,
+        "cor": 20,
+        "int": 20,
+        "str": 20
+      },
+      "resources": {
+        "force": 400,
+        "force_factor": 3,
+        "max_force": 400
+      },
+      "skills": {
+        "blade": 30,
+        "dodge": 50,
+        "fall-steps": 40,
+        "force": 30,
+        "parry": 30,
+        "shortsong-blade": 40,
+        "wu-shun": 40
+      },
+      "mappings": {
+        "blade": "shortsong-blade",
+        "dodge": "fall-steps",
+        "force": "wu-shun",
+        "parry": "shortsong-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "city.shangshu.npc.obj.blade",
+          "source_path": "mudlib/d/city/shangshu/npc/obj/blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 2,
       "vendor_goods": [],
       "inquiries": [],
@@ -806,6 +1746,50 @@
       "name": "尚书府护院",
       "description": null,
       "combat_exp": 2000,
+      "attributes": {
+        "con": 20,
+        "cor": 20,
+        "int": 20,
+        "str": 20
+      },
+      "resources": {
+        "force": 400,
+        "force_factor": 3,
+        "max_force": 400
+      },
+      "skills": {
+        "blade": 50,
+        "dodge": 50,
+        "fall-steps": 40,
+        "force": 30,
+        "lotusforce": 40,
+        "parry": 30,
+        "shortsong-blade": 60
+      },
+      "mappings": {
+        "blade": "shortsong-blade",
+        "dodge": "fall-steps",
+        "force": "lotusforce",
+        "parry": "shortsong-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": null,
+        "chance_expression": "random(40)",
+        "entries": [
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"heal\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "city.shangshu.npc.obj.blade",
+          "source_path": "mudlib/d/city/shangshu/npc/obj/blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -829,6 +1813,21 @@
       "name": "丫鬟",
       "description": "她是尚书府的司职厨务的丫鬟，一年四季呆在厨房中。但粗重的\n杂活也掩不住其天生丽质。",
       "combat_exp": 1000,
+      "attributes": {
+        "per": 27
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "city.shangshu.npc.obj.pink_cloth",
+          "source_path": "mudlib/d/city/shangshu/npc/obj/pink_cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -842,6 +1841,75 @@
       "name": "庾清尘",
       "description": "她是尚书府的千金。平时一直呆在自己的绣房里，所以虽然外界\n如何盛传她是如何如何的文雅、娴淑，却极少有能见过她的人。\n不知从何时起，她竺信起道教来，所以一切讲究素雅。",
       "combat_exp": 70000,
+      "attributes": {
+        "int": 30,
+        "per": 27
+      },
+      "resources": {
+        "atman": 1000,
+        "force": 500,
+        "force_factor": 20,
+        "mana": 2000,
+        "mana_factor": 3,
+        "max_atman": 1000,
+        "max_force": 300,
+        "max_mana": 1000
+      },
+      "skills": {
+        "dodge": 60,
+        "force": 50,
+        "gouyee": 60,
+        "literate": 90,
+        "magic": 30,
+        "necromancy": 60,
+        "parry": 40,
+        "scratching": 60,
+        "spells": 70,
+        "stormdance": 60,
+        "sword": 40
+      },
+      "mappings": {
+        "dodge": "stormdance",
+        "force": "gouyee",
+        "parry": "scratching",
+        "spells": "necromancy",
+        "sword": "scratching"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"invocation\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "city.shangshu.npc.obj.white_cloth",
+          "source_path": "mudlib/d/city/shangshu/npc/obj/white_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "city.shangshu.npc.obj.sword",
+          "source_path": "mudlib/d/city/shangshu/npc/obj/sword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -857,6 +1925,45 @@
       "name": "庾子建",
       "description": "他是当今皇上身边的红人，与宫中的关系也很熟络，手中掌管着\n兵马大权。不过能爬上这个位置，绝不是仅仅因为溜须拍马的缘\n故，当年战功赫赫，才有今天的地位。",
       "combat_exp": 400000,
+      "attributes": {
+        "int": 25,
+        "str": 27
+      },
+      "resources": {
+        "eff_gin": 200,
+        "eff_sen": 200,
+        "force": 1400,
+        "force_factor": 10,
+        "gin": 200,
+        "max_force": 800,
+        "max_gin": 200,
+        "max_sen": 200,
+        "sen": 200
+      },
+      "skills": {
+        "blade": 70,
+        "dodge": 60,
+        "fall-steps": 60,
+        "force": 80,
+        "parry": 50,
+        "shortsong-blade": 105,
+        "wu-shun": 80
+      },
+      "mappings": {
+        "blade": "shortsong-blade",
+        "dodge": "fall-steps",
+        "force": "wu-shun",
+        "parry": "shortsong-blade"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "city.shangshu.npc.obj.blade",
+          "source_path": "mudlib/d/city/shangshu/npc/obj/blade.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -870,6 +1977,102 @@
       "name": "安惜迩",
       "description": "安惜迩是个看起来相当斯文的年轻人，不过有时候会有些心不在焉的\n样子，雪亭镇的居民对安惜迩都觉得有点神秘莫测的感觉，为什么他\n年纪轻轻就身为一家大钱庄的老板，还有他一身稀奇古怪的武功，所\n幸安惜迩似乎天性恬淡，甚至有些隐者的风骨，只要旁人不去惹他，\n他也绝不会去招惹旁人。",
       "combat_exp": 200000,
+      "attributes": {
+        "con": 24,
+        "cor": 30,
+        "cps": 30,
+        "int": 26,
+        "kar": 25,
+        "per": 23,
+        "spi": 30,
+        "str": 22
+      },
+      "resources": {
+        "atman": 1000,
+        "atman_factor": 3,
+        "force": 1000,
+        "force_factor": 3,
+        "mana": 1000,
+        "mana_factor": 3,
+        "max_atman": 1000,
+        "max_force": 1000,
+        "max_mana": 1000
+      },
+      "skills": {
+        "celestial": 100,
+        "celestrike": 100,
+        "chaos-steps": 100,
+        "dodge": 100,
+        "fonxansword": 100,
+        "force": 100,
+        "necromancy": 100,
+        "parry": 100,
+        "six-chaos-sword": 100,
+        "spells": 100,
+        "unarmed": 100
+      },
+      "mappings": {
+        "dodge": "chaos-steps",
+        "force": "celestial",
+        "spells": "necromancy",
+        "sword": "fonxansword",
+        "unarmed": "celestrike"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "安惜迩似笑非笑地望著你，脸上的神气古理古怪，不知道在想些什么？"
+          },
+          {
+            "kind": "text",
+            "value": "安惜迩的身影晃了一下，似乎在你身上各处大穴摸了一下，不过也许是你的错觉。"
+          },
+          {
+            "kind": "text",
+            "value": "安惜迩神情忽然严肃了起来，不过好像是在想自己的事，与你无关。"
+          },
+          {
+            "kind": "text",
+            "value": "安惜迩忽然呵呵呵地笑了起来，却不知道在笑些什么...."
+          },
+          {
+            "kind": "perform",
+            "value": "(: perform_action, \"sword.counterattack\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"powerup\" :)"
+          },
+          {
+            "kind": "force",
+            "value": "(: exert_function, \"recover\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -888,6 +2091,25 @@
       "name": "乞丐",
       "description": "一个满脸风霜之色的老乞丐。",
       "combat_exp": 100,
+      "attributes": {
+        "str": 27
+      },
+      "resources": {
+        "force": 200,
+        "force_factor": 2,
+        "max_force": 200
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.old_book",
+          "source_path": "mudlib/obj/old_book.c",
+          "state": "carried"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -906,6 +2128,37 @@
       "name": "疯狗",
       "description": "一只浑身脏兮兮的野狗，一双眼睛正恶狠狠地瞪著你。",
       "combat_exp": 100,
+      "attributes": {
+        "cor": 30,
+        "str": 26
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 2,
+        "attack": 15,
+        "damage": 6
+      },
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "movement",
+            "value": "(: random_move :)"
+          },
+          {
+            "kind": "text",
+            "value": "疯狗大声吠叫：汪！汪！汪！汪！汪！汪！"
+          },
+          {
+            "kind": "text",
+            "value": "疯狗突然跳了起来，口中乱咬，却不知道是在咬谁。"
+          }
+        ]
+      },
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -923,6 +2176,19 @@
       "name": "野狗",
       "description": "一只浑身脏兮兮的野狗。",
       "combat_exp": null,
+      "attributes": {
+        "cor": 26,
+        "str": 24
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {
+        "armor": 3,
+        "attack": 10
+      },
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 2,
       "vendor_goods": [],
       "inquiries": [],
@@ -940,6 +2206,27 @@
       "name": "醉汉",
       "description": null,
       "combat_exp": 100,
+      "attributes": {
+        "con": 30,
+        "str": 30
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "obj.example.wineskin",
+          "source_path": "mudlib/obj/example/wineskin.c",
+          "state": "carried"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -956,6 +2243,41 @@
       "name": "农夫",
       "description": "你看到一位面色黝黑的农夫。",
       "combat_exp": 20,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "农夫叫道：杀人哪！杀人哪！"
+          },
+          {
+            "kind": "text",
+            "value": "农夫叫道：有土匪哪！光天化日下打劫哪！"
+          },
+          {
+            "kind": "command",
+            "value": "(: command, \"surrender\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.raincoat",
+          "source_path": "mudlib/d/snow/npc/obj/raincoat.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "snow.npc.obj.sandals",
+          "source_path": "mudlib/d/snow/npc/obj/sandals.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 2,
       "vendor_goods": [],
       "inquiries": [],
@@ -971,6 +2293,26 @@
       "name": "李火狮",
       "description": "李火狮是个孔武有力的大块头，他正在训练他的弟子们习练「柳家拳\n法」。",
       "combat_exp": 3000,
+      "attributes": {
+        "int": 14,
+        "str": 26
+      },
+      "resources": {
+        "force": 120,
+        "force_factor": 1,
+        "max_force": 120
+      },
+      "skills": {
+        "dodge": 30,
+        "liuh-ken": 20,
+        "unarmed": 30
+      },
+      "mappings": {
+        "unarmed": "liuh-ken"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -1004,6 +2346,72 @@
       "name": "柳绘心",
       "description": "柳绘心是淳风武馆馆主柳淳风的独生女。",
       "combat_exp": 1000,
+      "attributes": {
+        "cor": 24,
+        "cps": 11,
+        "int": 27,
+        "per": 27,
+        "str": 16
+      },
+      "resources": {
+        "force": 200,
+        "force_factor": 2,
+        "max_force": 200
+      },
+      "skills": {
+        "chaos-steps": 70,
+        "dodge": 50,
+        "fonxanforce": 40,
+        "fonxansword": 40,
+        "force": 30,
+        "literate": 70,
+        "liuh-ken": 40,
+        "parry": 40,
+        "sword": 30,
+        "unarmed": 20
+      },
+      "mappings": {
+        "dodge": "chaos-steps",
+        "parry": "fonxansword",
+        "sword": "fonxansword",
+        "unarmed": "liuh-ken"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 25,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "perform",
+            "value": "(: perform_action, \"sword.counterattack\" :)"
+          },
+          {
+            "kind": "text",
+            "value": "柳绘心秀眉微蹙，说道：喂！我哪里得罪你了？干嘛这样跟我拼死拼活？"
+          },
+          {
+            "kind": "text",
+            "value": "柳绘心不住地望著窗外：你还是快走吧，我没空陪你练功夫！"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.thin_sword",
+          "source_path": "mudlib/d/snow/npc/obj/thin_sword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "snow.npc.obj.pink_cloth",
+          "source_path": "mudlib/d/snow/npc/obj/pink_cloth.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "snow.npc.obj.shoe",
+          "source_path": "mudlib/d/snow/npc/obj/shoe.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1021,6 +2429,53 @@
       "name": "刘安禄",
       "description": "刘安禄是淳风武馆的门房，除了馆主柳淳风没有人知道他的出身来历，只知\n到他的武艺不弱，一手快刀在这一带罕有敌手。",
       "combat_exp": 20000,
+      "attributes": {
+        "cor": 30,
+        "cps": 30,
+        "int": 11,
+        "str": 29
+      },
+      "resources": {},
+      "skills": {
+        "blade": 40,
+        "parry": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 15,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "刘安禄说道：你当这里是什么地方，敢来这里撒野？"
+          },
+          {
+            "kind": "text",
+            "value": "刘安禄说道：想我堂堂....呃....连我这个淳风武馆的小小的门房都可以收拾你！"
+          },
+          {
+            "kind": "text",
+            "value": "刘安录忽然挥出一刀，招数精奇，但是刀到中途忽然像是想起什么，急忙收招。"
+          },
+          {
+            "kind": "text",
+            "value": "刘安禄说道：你快走吧，就算我输了你啦...."
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.blade",
+          "source_path": "mudlib/d/snow/npc/obj/blade.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -1050,6 +2505,20 @@
       "name": "杨掌柜",
       "description": "杨掌柜是这附近相当有名的大善人，常常施舍草药给付不起药钱的穷人\n。此外他的医术也不错，年轻时曾经跟著山烟寺的玄智和尚学医，一般\n的伤寒小病直接问他开药吃比医生还灵。",
       "combat_exp": 1300,
+      "attributes": {},
+      "resources": {
+        "max_gin": 200,
+        "max_sen": 300
+      },
+      "skills": {
+        "dodge": 60,
+        "literate": 70,
+        "unarmed": 60
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -1091,6 +2560,13 @@
       "name": "庙祝",
       "description": "这个老人看起来七十多岁了，看著他□偻的身影，你忽然觉得心情沈重了下来。",
       "combat_exp": 1,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1107,6 +2583,43 @@
       "name": "逄义",
       "description": "逄义是封山派中和柳淳风同辈的弟子，但是生性好赌的他并不受师父\n及同门师兄弟的喜爱，因此辈分虽高，却未曾担任门中任何重要职务\n。逄义经常外出，美其名曰：旅行，实则避债，碍于门规又不敢做那\n打家劫舍的勾当，因此经常四处寻找赚钱发财的机会。",
       "combat_exp": null,
+      "attributes": {},
+      "resources": {
+        "force": 1000,
+        "max_force": 600
+      },
+      "skills": {
+        "chaos-steps": 70,
+        "dodge": 70,
+        "fonxanforce": 80,
+        "fonxansword": 80,
+        "force": 65,
+        "literate": 60,
+        "liuh-ken": 80,
+        "move": 80,
+        "sword": 70,
+        "unarmed": 80
+      },
+      "mappings": {
+        "dodge": "chaos-steos",
+        "force": "fonxanforce",
+        "sword": "fonxansword",
+        "unarmed": "liuh-ken"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.longsword",
+          "source_path": "mudlib/obj/longsword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [
@@ -1151,6 +2664,41 @@
       "name": "老农夫",
       "description": "你看到一位面色黝黑的农夫。",
       "combat_exp": 20,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "text",
+            "value": "农夫叫道：杀人哪！杀人哪！"
+          },
+          {
+            "kind": "text",
+            "value": "农夫叫道：有土匪哪！光天化日下打劫哪！"
+          },
+          {
+            "kind": "command",
+            "value": "(: command, \"surrender\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.raincoat",
+          "source_path": "mudlib/d/snow/npc/obj/raincoat.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "snow.npc.obj.sandals",
+          "source_path": "mudlib/d/snow/npc/obj/sandals.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -1166,6 +2714,17 @@
       "name": "杜宽",
       "description": "杜宽担任雪亭驿的驿长已经有十几年了，虽然期间有几次升迁的\n机会，但是他都因为舍不得离开这个小山村而放弃了，雪亭镇的\n居民对杜宽的风评相当不错，常常会来到驿站跟他聊天。",
       "combat_exp": 800,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 50,
+        "literate": 70,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -1197,6 +2756,19 @@
       "name": "媒婆",
       "description": "一个打扮得花枝招展的中年妇人，如果你对哪家姑娘有意思，可以请她\n帮你去提亲。",
       "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.color_cloth",
+          "source_path": "mudlib/d/snow/npc/obj/color_cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [
@@ -1224,6 +2796,15 @@
       "name": "老鼠",
       "description": "一只贼头贼脑的大老鼠。",
       "combat_exp": null,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 120
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 6,
       "vendor_goods": [],
       "inquiries": [],
@@ -1237,6 +2818,25 @@
       "name": "收破烂的",
       "description": "这个人不但自己收破烂，身上也穿得破烂不堪。",
       "combat_exp": 10,
+      "attributes": {
+        "str": 27
+      },
+      "resources": {
+        "force": 30,
+        "force_factor": 1,
+        "max_force": 30
+      },
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.old_book",
+          "source_path": "mudlib/obj/old_book.c",
+          "state": "carried"
+        }
+      ],
       "placement_count": 11,
       "vendor_goods": [],
       "inquiries": [],
@@ -1255,6 +2855,19 @@
       "name": "王铁匠",
       "description": "王铁匠正用铁钳夹住一块红热的铁块放进炉中。",
       "combat_exp": 400,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.hammer",
+          "source_path": "mudlib/d/snow/npc/obj/hammer.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -1296,6 +2909,17 @@
       "name": "魏无极",
       "description": "魏无极是个博学多闻的教书先生，他年轻时曾经中过举人，但是\n因为生性喜爱自由而不愿做官，魏无极以教书为业，如果你付他\n一笔学费，就可以成为他的弟子学习读书识字。",
       "combat_exp": null,
+      "attributes": {
+        "int": 26
+      },
+      "resources": {},
+      "skills": {
+        "literate": 60
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -1329,6 +2953,17 @@
       "name": "魏无极",
       "description": "魏无极是个博学多闻的教书先生，他年轻时曾经中过举人，但是\n因为生性喜爱自由而不愿做官，魏无极以教书为业，如果你付他\n一笔学费，就可以成为他的弟子学习读书识字。",
       "combat_exp": null,
+      "attributes": {
+        "int": 26
+      },
+      "resources": {},
+      "skills": {
+        "literate": 60
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [
@@ -1362,6 +2997,19 @@
       "name": "武馆弟子",
       "description": "你看到一位身材高大的汉子，正在辛苦地操练著。",
       "combat_exp": 100,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.linen",
+          "source_path": "mudlib/d/snow/npc/obj/linen.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 6,
       "vendor_goods": [],
       "inquiries": [],
@@ -1375,6 +3023,28 @@
       "name": "旅客",
       "description": "这是一位来雪亭镇的外地旅客.",
       "combat_exp": 600,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 50,
+        "throwing": 30,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.throwing_knife",
+          "source_path": "mudlib/d/snow/npc/obj/throwing_knife.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 3,
       "vendor_goods": [],
       "inquiries": [],
@@ -1391,6 +3061,22 @@
       "name": "旅客",
       "description": "这是一位来雪亭镇的外地旅客.",
       "combat_exp": 600,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 50,
+        "unarmed": 40
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 2,
       "vendor_goods": [],
       "inquiries": [],
@@ -1407,6 +3093,15 @@
       "name": "店小二",
       "description": "这位店小二正笑咪咪地忙著，还不时拿起挂在脖子上的抹布擦脸。",
       "combat_exp": 10000,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 300
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [
         {
@@ -1440,6 +3135,26 @@
       "name": "樵夫",
       "description": "你看到一个粗壮的大汉，身上穿著普通樵夫的衣服。",
       "combat_exp": 140,
+      "attributes": {
+        "str": 30
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "snow.npc.obj.lumber_axe",
+          "source_path": "mudlib/d/snow/npc/obj/lumber_axe.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1456,6 +3171,21 @@
       "name": "苦力",
       "description": "一个苦力打扮的汉子在这里等人来雇用(employment)。",
       "combat_exp": null,
+      "attributes": {
+        "str": 27
+      },
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "obj.cloth",
+          "source_path": "mudlib/obj/cloth.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 4,
       "vendor_goods": [],
       "inquiries": [
@@ -1489,6 +3219,67 @@
       "name": "清灵",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
       "combat_exp": 50000,
+      "attributes": {
+        "con": 26,
+        "cor": 25,
+        "spi": 28
+      },
+      "resources": {
+        "atman": 900,
+        "force": 700,
+        "force_factor": 5,
+        "mana": 1800,
+        "max_atman": 900,
+        "max_force": 700,
+        "max_mana": 1800
+      },
+      "skills": {
+        "dodge": 35,
+        "force": 30,
+        "gouyee": 50,
+        "magic": 35,
+        "necromancy": 80,
+        "parry": 35,
+        "spells": 75,
+        "taoism": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 55,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe1",
+          "source_path": "mudlib/d/temple/npc/obj/robe1.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.jade_hat",
+          "source_path": "mudlib/d/temple/npc/obj/jade_hat.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -1504,6 +3295,67 @@
       "name": "清平",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
       "combat_exp": 49000,
+      "attributes": {
+        "con": 26,
+        "cor": 25,
+        "spi": 28
+      },
+      "resources": {
+        "atman": 900,
+        "force": 700,
+        "force_factor": 5,
+        "mana": 1800,
+        "max_atman": 900,
+        "max_force": 700,
+        "max_mana": 1800
+      },
+      "skills": {
+        "dodge": 35,
+        "force": 30,
+        "gouyee": 50,
+        "magic": 35,
+        "necromancy": 80,
+        "parry": 35,
+        "spells": 75,
+        "taoism": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe1",
+          "source_path": "mudlib/d/temple/npc/obj/robe1.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.jade_hat",
+          "source_path": "mudlib/d/temple/npc/obj/jade_hat.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -1519,6 +3371,67 @@
       "name": "清玄",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
       "combat_exp": 50000,
+      "attributes": {
+        "con": 26,
+        "cor": 25,
+        "spi": 28
+      },
+      "resources": {
+        "atman": 900,
+        "force": 700,
+        "force_factor": 5,
+        "mana": 1800,
+        "max_atman": 900,
+        "max_force": 700,
+        "max_mana": 1800
+      },
+      "skills": {
+        "dodge": 35,
+        "force": 30,
+        "gouyee": 50,
+        "magic": 35,
+        "necromancy": 80,
+        "parry": 35,
+        "spells": 75,
+        "taoism": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe1",
+          "source_path": "mudlib/d/temple/npc/obj/robe1.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.jade_hat",
+          "source_path": "mudlib/d/temple/npc/obj/jade_hat.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -1534,6 +3447,13 @@
       "name": "进香客",
       "description": "一个福福泰泰的中年人, 他正气喘嘘嘘地走著石梯道",
       "combat_exp": 600,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1547,6 +3467,45 @@
       "name": "玄真",
       "description": "一个长得眉清目秀的小男孩, 正努力地在打扫石阶",
       "combat_exp": 1500,
+      "attributes": {
+        "str": 25
+      },
+      "resources": {
+        "force": 200,
+        "force_factor": 2,
+        "mana": 100,
+        "max_force": 200,
+        "max_mana": 100,
+        "max_sen": 150,
+        "sen": 150
+      },
+      "skills": {
+        "dodge": 15,
+        "force": 20,
+        "parry": 18,
+        "spells": 15,
+        "staff": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.broom",
+          "source_path": "mudlib/d/temple/npc/obj/broom.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "temple.npc.obj.robe",
+          "source_path": "mudlib/d/temple/npc/obj/robe.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.boots",
+          "source_path": "mudlib/d/temple/npc/obj/boots.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1560,6 +3519,40 @@
       "name": "玄和",
       "description": "一个长得眉清目秀的小男孩, 正忙著浇花除草",
       "combat_exp": 1000,
+      "attributes": {
+        "str": 25
+      },
+      "resources": {
+        "force": 200,
+        "force_factor": 2,
+        "mana": 100,
+        "max_force": 200,
+        "max_mana": 100,
+        "max_sen": 150,
+        "sen": 150
+      },
+      "skills": {
+        "dodge": 15,
+        "force": 20,
+        "parry": 18,
+        "spells": 15,
+        "unarmed": 20
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe",
+          "source_path": "mudlib/d/temple/npc/obj/robe.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.boots",
+          "source_path": "mudlib/d/temple/npc/obj/boots.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1573,6 +3566,28 @@
       "name": "老道士",
       "description": "一位四处云游的老道士, 他正在观心观挂单中。\n看他饱经沧桑的脸孔, 似乎他也是经历过无数的大风大浪。",
       "combat_exp": 2500,
+      "attributes": {},
+      "resources": {},
+      "skills": {
+        "dodge": 10,
+        "parry": 15,
+        "whip": 25
+      },
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.whip",
+          "source_path": "mudlib/d/temple/npc/obj/whip.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "temple.npc.obj.old_robe",
+          "source_path": "mudlib/d/temple/npc/obj/old_robe.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1588,6 +3603,54 @@
       "name": "清虚",
       "description": "一位神色和平的中年道士, 他正在教授他的徒弟如何运功\\导气",
       "combat_exp": 10000,
+      "attributes": {
+        "cor": 22,
+        "spi": 28
+      },
+      "resources": {
+        "atman": 300,
+        "force": 400,
+        "force_factor": 5,
+        "mana": 500,
+        "max_atman": 300,
+        "max_force": 400,
+        "max_mana": 500
+      },
+      "skills": {
+        "dodge": 30,
+        "force": 30,
+        "gouyee": 40,
+        "magic": 35,
+        "necromancy": 30,
+        "parry": 25,
+        "spells": 35,
+        "taoism": 40,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe",
+          "source_path": "mudlib/d/temple/npc/obj/robe.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.hat",
+          "source_path": "mudlib/d/temple/npc/obj/hat.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.boots",
+          "source_path": "mudlib/d/temple/npc/obj/boots.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1601,6 +3664,54 @@
       "name": "明心",
       "description": "一位身材魁武的年轻道士, 他正在练拳, 你看他舞得虎虎生风",
       "combat_exp": 5000,
+      "attributes": {
+        "con": 30,
+        "str": 30
+      },
+      "resources": {
+        "atman": 250,
+        "force": 300,
+        "force_factor": 4,
+        "mana": 450,
+        "max_atman": 250,
+        "max_force": 300,
+        "max_mana": 450
+      },
+      "skills": {
+        "dodge": 20,
+        "force": 25,
+        "gouyee": 30,
+        "magic": 27,
+        "necromancy": 28,
+        "parry": 20,
+        "spells": 25,
+        "taoism": 30,
+        "unarmed": 20
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe",
+          "source_path": "mudlib/d/temple/npc/obj/robe.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.hat",
+          "source_path": "mudlib/d/temple/npc/obj/hat.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.boots",
+          "source_path": "mudlib/d/temple/npc/obj/boots.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
@@ -1614,6 +3725,67 @@
       "name": "清风",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
       "combat_exp": 48000,
+      "attributes": {
+        "con": 26,
+        "cor": 25,
+        "spi": 28
+      },
+      "resources": {
+        "atman": 900,
+        "force": 700,
+        "force_factor": 5,
+        "mana": 1800,
+        "max_atman": 900,
+        "max_force": 700,
+        "max_mana": 1800
+      },
+      "skills": {
+        "dodge": 35,
+        "force": 30,
+        "gouyee": 50,
+        "magic": 35,
+        "necromancy": 80,
+        "parry": 35,
+        "spells": 75,
+        "taoism": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe1",
+          "source_path": "mudlib/d/temple/npc/obj/robe1.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.jade_hat",
+          "source_path": "mudlib/d/temple/npc/obj/jade_hat.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -1629,6 +3801,67 @@
       "name": "清音",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
       "combat_exp": 52000,
+      "attributes": {
+        "con": 26,
+        "cor": 25,
+        "spi": 28
+      },
+      "resources": {
+        "atman": 900,
+        "force": 700,
+        "force_factor": 5,
+        "mana": 1800,
+        "max_atman": 900,
+        "max_force": 700,
+        "max_mana": 1800
+      },
+      "skills": {
+        "dodge": 35,
+        "force": 30,
+        "gouyee": 50,
+        "magic": 35,
+        "necromancy": 80,
+        "parry": 35,
+        "spells": 75,
+        "taoism": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe1",
+          "source_path": "mudlib/d/temple/npc/obj/robe1.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.jade_hat",
+          "source_path": "mudlib/d/temple/npc/obj/jade_hat.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -1644,6 +3877,67 @@
       "name": "清云",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
       "combat_exp": 51000,
+      "attributes": {
+        "con": 26,
+        "cor": 25,
+        "spi": 28
+      },
+      "resources": {
+        "atman": 900,
+        "force": 700,
+        "force_factor": 5,
+        "mana": 1800,
+        "max_atman": 900,
+        "max_force": 700,
+        "max_mana": 1800
+      },
+      "skills": {
+        "dodge": 35,
+        "force": 30,
+        "gouyee": 50,
+        "magic": 35,
+        "necromancy": 80,
+        "parry": 35,
+        "spells": 75,
+        "taoism": 90,
+        "unarmed": 30
+      },
+      "mappings": {
+        "force": "gouyee",
+        "magic": "taoism",
+        "spells": "necromancy"
+      },
+      "combat_apply": {},
+      "combat_chat": {
+        "chance": 50,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "temple.npc.obj.robe1",
+          "source_path": "mudlib/d/temple/npc/obj/robe1.c",
+          "state": "worn"
+        },
+        {
+          "item_id": "temple.npc.obj.jade_hat",
+          "source_path": "mudlib/d/temple/npc/obj/jade_hat.c",
+          "state": "worn"
+        }
+      ],
       "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [],
@@ -1659,6 +3953,71 @@
       "name": "僵尸护法",
       "description": "僵尸护法是茅山派的护法，着一身黑色的道袍",
       "combat_exp": 50000,
+      "attributes": {
+        "cps": 30,
+        "int": 30,
+        "spi": 30
+      },
+      "resources": {
+        "atman": 150,
+        "force": 150,
+        "force_factor": 5,
+        "mana": 300,
+        "mana_factor": 5,
+        "max_atman": 150,
+        "max_force": 150,
+        "max_mana": 300
+      },
+      "skills": {
+        "dodge": 100,
+        "force": 30,
+        "gouyee": 60,
+        "literate": 50,
+        "magic": 30,
+        "necromancy": 60,
+        "parry": 100,
+        "spells": 60,
+        "sword": 100,
+        "taoism": 70,
+        "unarmed": 50
+      },
+      "mappings": {
+        "force": "gouyee",
+        "spells": "necromancy"
+      },
+      "combat_apply": {
+        "armor": 30,
+        "dodge": 30
+      },
+      "combat_chat": {
+        "chance": 40,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"invocation\" :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.weapon.longsword",
+          "source_path": "mudlib/obj/weapon/longsword.c",
+          "state": "wielded"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
@@ -1688,6 +4047,91 @@
       "name": "僵尸侍者",
       "description": "僵尸侍者是林忌的弟子，着一身黑色的道袍",
       "combat_exp": 14000,
+      "attributes": {
+        "cor": 20,
+        "cps": 30,
+        "int": 30,
+        "spi": 30,
+        "str": 20
+      },
+      "resources": {
+        "atman": 300,
+        "force": 500,
+        "force_factor": 20,
+        "mana": 400,
+        "mana_factor": 20,
+        "max_atman": 300,
+        "max_force": 500,
+        "max_mana": 400
+      },
+      "skills": {
+        "dodge": 80,
+        "force": 50,
+        "gouyee": 60,
+        "literate": 10,
+        "magic": 60,
+        "necromancy": 60,
+        "parry": 80,
+        "scratching": 20,
+        "spells": 60,
+        "sword": 100,
+        "taoism": 60,
+        "unarmed": 100
+      },
+      "mappings": {
+        "spells": "necromancy"
+      },
+      "combat_apply": {
+        "armor": 40,
+        "dodge": 40
+      },
+      "combat_chat": {
+        "chance": 100,
+        "chance_expression": null,
+        "entries": [
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"drainerbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"netherbolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"feeblebolt\" :)"
+          },
+          {
+            "kind": "spell",
+            "value": "(: cast_spell, \"invocation\" :)"
+          },
+          {
+            "kind": "command",
+            "value": "(: command(\"cast manimate on corpse\") :)"
+          },
+          {
+            "kind": "command",
+            "value": "(: command(\"cast animate on corpse\") :)"
+          }
+        ]
+      },
+      "carried_items": [
+        {
+          "item_id": "obj.weapon.longsword",
+          "source_path": "mudlib/obj/weapon/longsword.c",
+          "state": "wielded"
+        },
+        {
+          "item_id": "temple.npc.obj.magic_book",
+          "source_path": "mudlib/d/temple/npc/obj/magic_book.c",
+          "state": "carried"
+        },
+        {
+          "item_id": "temple.npc.obj.spells_book",
+          "source_path": "mudlib/d/temple/npc/obj/spells_book.c",
+          "state": "carried"
+        }
+      ],
       "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [
