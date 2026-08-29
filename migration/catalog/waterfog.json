@@ -2,12 +2,13 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "waterfog",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "waterfog.clifftop",
       "source_path": "mudlib/d/waterfog/clifftop.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "水烟阁半山亭",
       "description": "这里是一个用白石砌成的亭子，亭子的东面和北面都是深不见底的\n悬崖，从这里望出去只见一片云雾之中突出几座山峰，云雾之中隐隐可\n以看到好似水波的微光，使你一时之间彷佛以为这座亭子是建在一个湖\n中，往西北望去可以看到水烟阁漂浮在云雾之中。",
       "exits": [
@@ -47,7 +48,7 @@
     {
       "id": "waterfog.east_2f",
       "source_path": "mudlib/d/waterfog/east_2f.c",
-      "status": "structured",
+      "status": "verified",
       "name": "东侧厅",
       "description": "这里是水烟阁东侧厅的二楼，由于侧厅是挑高建筑，因此这里只有\n一条约七、八尺宽的走道连接楼梯与往西的门。",
       "exits": [
@@ -82,7 +83,7 @@
     {
       "id": "waterfog.easthall",
       "source_path": "mudlib/d/waterfog/easthall.c",
-      "status": "structured",
+      "status": "verified",
       "name": "水烟阁东侧花厅",
       "description": "这里是水烟阁正门东边的花厅，东边和南边围著一圈白石栏杆，栏\n杆外种著许多茶花，往西是水烟阁的正门，往北则是东侧的侧厅，从这\n里可以看见通往二楼的阶梯。",
       "exits": [
@@ -110,7 +111,7 @@
     {
       "id": "waterfog.eaststair",
       "source_path": "mudlib/d/waterfog/eaststair.c",
-      "status": "structured",
+      "status": "verified",
       "name": "东侧厅",
       "description": "这里是水烟阁东边的侧厅，东边隔著栏杆就是深不见底的深谷，从\n这里向外眺望，更可以感受到水烟阁孤立于独峰之上，傲视群山的气魄\n，这里有一道阶梯通往二楼，往北是厨房与储存杂物的仓库。",
       "exits": [
@@ -145,7 +146,7 @@
     {
       "id": "waterfog.entrance",
       "source_path": "mudlib/d/waterfog/entrance.c",
-      "status": "structured",
+      "status": "verified",
       "name": "水烟阁正门",
       "description": "这里是水烟阁的正门，一股沁人心脾的檀香使你精神为之一振，正\n门共分三进，全部都是上等的檀木雕成，最里的门上悬著一块匾额，上\n面龙飞凤舞地写著几个大字，可是你全然看不出到底是什么字。",
       "exits": [
@@ -196,7 +197,7 @@
     {
       "id": "waterfog.forehall",
       "source_path": "mudlib/d/waterfog/forehall.c",
-      "status": "structured",
+      "status": "verified",
       "name": "聆啸厅",
       "description": "这里是水烟阁二楼的聆啸厅，南面是一个大露台，按著西、西南、\n南、东南、东等方向立著五块灰绿色的怪石(stone)，东西各有一个出\n口通往侧厅，往北则是水烟阁主所居的春秋水色斋。",
       "exits": [
@@ -241,7 +242,8 @@
     {
       "id": "waterfog.frontyard",
       "source_path": "mudlib/d/waterfog/frontyard.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "水烟阁前",
       "description": "你现在正站在一座高大的楼阁，水烟阁前，琉璃色的屋瓦和白玉般\n的白石砖使得水烟阁在崇山峻岭中显得十分抢眼，这座楼阁最早的主人\n据说是有「武术之神」称号的太阳神君「杞庸」，后来被当作历代武林\n盟主的居所，可说是学武之人的朝圣地，一条白石阶梯沿著山腰往南而\n下，水烟阁的大门就在你的北方。",
       "exits": [
@@ -276,7 +278,7 @@
     {
       "id": "waterfog.kitchen",
       "source_path": "mudlib/d/waterfog/kitchen.c",
-      "status": "structured",
+      "status": "verified",
       "name": "厨房",
       "description": "这里是水烟阁的厨房，东首一座大灶，灶边堆著许多瓦瓮，北边是\n一张方桌，桌上锅碗瓢盆一应俱全，西边则是一个橱柜，往南可以回到\n厅中。",
       "exits": [
@@ -297,7 +299,7 @@
     {
       "id": "waterfog.servroom",
       "source_path": "mudlib/d/waterfog/servroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "仆役卧室",
       "description": "这里是在水烟阁从事杂役的仆佣所住的卧室，房间相当宽敞，东西\n向一张大通铺最少可以睡二、三十人，东首一张大炕(bed)是冬天才用\n的，因为有不少仆役回家过冬，所以比床铺稍小，北边开了几扇窗子，\n南边则是摆放仆役私物的橱柜。",
       "exits": [
@@ -318,7 +320,8 @@
     {
       "id": "waterfog.sroad1",
       "source_path": "mudlib/d/waterfog/sroad1.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "青石官道",
       "description": "这是一条宽敞坚实的青石板大道，从这里已经可以望见北边山腰上\n水烟阁琉璃色的屋瓦，映著山上茂密的枫树林，显得十分诗情画意，由\n于这条路是禁兵统领亲自督造，因此造得格外平整，从这里开始已经进\n入由历代水烟阁主人所管辖的封地，即使是官府也不能过问这片土地上\n发生的事，因此你最好小心一点。",
       "exits": [
@@ -346,7 +349,8 @@
     {
       "id": "waterfog.sroad2",
       "source_path": "mudlib/d/waterfog/sroad2.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "青石官道",
       "description": "这是一条宽敞坚实的青石板大道，从这里沿著山势弯向西边与南边\n，往西不远处就是通往水烟阁的石阶。",
       "exits": [
@@ -374,7 +378,8 @@
     {
       "id": "waterfog.sroad3",
       "source_path": "mudlib/d/waterfog/sroad3.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "青石官道",
       "description": "这是一条宽敞坚实的青石大道，大道沿著山腰往东向山下延伸，一\n道长长的白石阶梯从这里往北边上山，从这里仰望阶梯的尽头有一座雄\n伟的楼阁，那就是著名的「水烟阁」。",
       "exits": [
@@ -409,7 +414,8 @@
     {
       "id": "waterfog.stair1",
       "source_path": "mudlib/d/waterfog/stair1.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你现在正走在一条长长的白石阶梯上，这些建造阶梯的白石出产于\n东海滨的裂瓶山，距离此地有近千里之遥，而且虽然年代久远，仍然可\n以看得出所用的全部都是品质最好的「拟玉」石，可见这里的主人必定\n大有来头。",
       "exits": [
@@ -437,7 +443,8 @@
     {
       "id": "waterfog.stair2",
       "source_path": "mudlib/d/waterfog/stair2.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你现在正走在一条长长的白石阶梯上，这些建造阶梯的白石出产于\n东海滨的裂瓶山，距离此地有近千里之遥，而且虽然年代久远，仍然可\n以看得出所用的全部都是品质最好的「拟玉」石，可见这里的主人必定\n大有来头。",
       "exits": [
@@ -465,7 +472,8 @@
     {
       "id": "waterfog.stair3",
       "source_path": "mudlib/d/waterfog/stair3.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你现在正走在一条长长的白石阶梯上，这些建造阶梯的白石出产于\n东海滨的裂瓶山，距离此地有近千里之遥，而且虽然年代久远，仍然可\n以看得出所用的全部都是品质最好的「拟玉」石，可见这里的主人必定\n大有来头。",
       "exits": [
@@ -493,7 +501,8 @@
     {
       "id": "waterfog.stair4",
       "source_path": "mudlib/d/waterfog/stair4.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你现在正走在一条长长的白石阶梯上，这些建造阶梯的白石出产于\n东海滨的裂瓶山，距离此地有近千里之遥，而且虽然年代久远，仍然可\n以看得出所用的全部都是品质最好的「拟玉」石，可见这里的主人必定\n大有来头。",
       "exits": [
@@ -521,7 +530,8 @@
     {
       "id": "waterfog.stair5",
       "source_path": "mudlib/d/waterfog/stair5.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你现在正走在一条长长的白石阶梯上，阶梯随著山峰蜿蜒盘旋，宛\n如一条白龙，水烟阁就矗立在北边的山峰顶上，即使是从这么近的距离\n你仍然感觉这座楼阁飘飘渺渺，难以捉摸。",
       "exits": [
@@ -549,7 +559,7 @@
     {
       "id": "waterfog.storage",
       "source_path": "mudlib/d/waterfog/storage.c",
-      "status": "structured",
+      "status": "verified",
       "name": "柴房",
       "description": "这里是一间柴房，一捆一捆劈好的柴薪都整齐地堆放在柴房北侧，\n留下一条通道通往东边仆役的卧室。往南可以回到水烟阁的西侧厅。",
       "exits": [
@@ -584,7 +594,7 @@
     {
       "id": "waterfog.swordtomb",
       "source_path": "mudlib/d/waterfog/swordtomb.c",
-      "status": "structured",
+      "status": "verified",
       "name": "葬剑亭",
       "description": "你现在来到一个山腰靠近山顶的亭子，亭子前立著一个两丈多高的\n石碑(monolith)，从亭子里远眺北方连绵不尽的大山，使你不禁感到胸\n臆之间一股英雄情怀油然而生，葬剑亭据说每到夏日夜晚，野风吹过，\n会产生一阵阵呜呜的哭泣声，这也是水烟十景中的「孤亭剑泣」。出了\n亭子，往南便是直通虹台的石阶，一条黄土小路往西通往另一条下山的\n小路。",
       "exits": [
@@ -613,7 +623,7 @@
     {
       "id": "waterfog.west_2f",
       "source_path": "mudlib/d/waterfog/west_2f.c",
-      "status": "structured",
+      "status": "verified",
       "name": "西侧厅",
       "description": "这里是水烟阁西侧厅的二楼，由于侧厅是挑高建筑，因此这里只有\n一条约七、八尺宽的走道连接楼梯与往东的门。",
       "exits": [
@@ -648,7 +658,7 @@
     {
       "id": "waterfog.westhall",
       "source_path": "mudlib/d/waterfog/westhall.c",
-      "status": "structured",
+      "status": "verified",
       "name": "水烟阁西侧花厅",
       "description": "这里是水烟阁入口西侧的花厅，东边是水烟阁的正门，南边和西边\n围著一圈白玉栏杆，栏杆外种著许多茶花，往北是水烟阁的侧门，从这\n里可以看到通往水烟阁二楼的阶梯。",
       "exits": [
@@ -676,7 +686,7 @@
     {
       "id": "waterfog.weststair",
       "source_path": "mudlib/d/waterfog/weststair.c",
-      "status": "structured",
+      "status": "verified",
       "name": "西侧厅",
       "description": "这里是水烟阁西侧的厅院，一道白石梯从这里通往二楼，往北是仆\n役的卧房跟柴房，南边是出水烟阁的侧门，往西则是一个可以眺望山谷\n的阳台。",
       "exits": [
@@ -711,7 +721,8 @@
     {
       "id": "waterfog.wpath1",
       "source_path": "mudlib/d/waterfog/wpath1.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "山坡小径",
       "description": "你现在正走在一条山坡上的小径，往南望去只见山下一条白色石阶\n蜿蜒上山，通往东边不远处的一个平台，平台的北边就是赫赫有名的武\n者圣地「水烟阁」，小径的北边整齐地种著一排枫树，往西上了山坡通\n往位于山巅的「虹台」。",
       "exits": [
@@ -739,7 +750,8 @@
     {
       "id": "waterfog.wpath2",
       "source_path": "mudlib/d/waterfog/wpath2.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "山坡小径",
       "description": "你现在正走在一条山坡小径上，东边不远处可以望见水烟阁琉璃色\n的屋瓦，小径东北是一道白石阶梯通往山巅的虹台，往西则是「水烟十\n景」之中最有名的虹谷断崖，小径旁立著一个七、八尺高的石碑(stone\n)。",
       "exits": [
@@ -775,7 +787,8 @@
     {
       "id": "waterfog.wpath3",
       "source_path": "mudlib/d/waterfog/wpath3.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你正走在一道白石阶梯上，这道阶梯依著山壁而建，东边隔著一个\n深不见底的山谷可以望见对面傲立在山巅之上的水烟阁，每当清晨山谷\n中的晨雾慢慢飘起，从这里可以看见水烟阁彷佛飘在云间，这就是水烟\n十景中的「飞天楼阁」，石阶沿著山壁从这里转往北方。",
       "exits": [
@@ -803,7 +816,8 @@
     {
       "id": "waterfog.wpath4",
       "source_path": "mudlib/d/waterfog/wpath4.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你现在正走在一道依著山壁而建的白石阶梯上，随著阶梯越爬越高\n，从这里已经可以望见西面山顶上竖立在虹台中央的「擎天柱」，阶梯\n从这里转向西北坡度较缓的山腰，你的东边是一个深不见底的深谷，隔\n著深谷可以望见对面不远处的水烟阁。",
       "exits": [
@@ -831,7 +845,8 @@
     {
       "id": "waterfog.wpath5",
       "source_path": "mudlib/d/waterfog/wpath5.c",
-      "status": "structured",
+      "outdoors": "waterfog",
+      "status": "verified",
       "name": "白石阶梯",
       "description": "你现在走在一道依著山壁而建的白石阶梯上，通过西边不远处的葬\n剑亭，就是虹台的入口，东边和北边都是深不见底的深谷，隔著深谷，\n东北边的野羊山连著隐樵山、图云岭、破魔山、虎啸坡、沙牢山一直到\n大漠都是数百丈的高山，虹台地势虽不甚高，但是在三面深谷的环绕下\n，却自有一股群山朝拜的威严气象。",
       "exits": [

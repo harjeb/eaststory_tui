@@ -2,7 +2,7 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "scope": "m7-npcs",
-  "status": "structured",
+  "status": "verified",
   "summary": {
     "total": 85,
     "placed": 65,
@@ -39,7 +39,7 @@
     {
       "id": "death.npc.bgargoyle",
       "source_path": "mudlib/d/death/npc/bgargoyle.c",
-      "status": "structured",
+      "status": "verified",
       "area": "death",
       "name": "黑无常",
       "description": "黑无常伸著长长的舌头瞪著你，黝黑的脸上看不出任何喜怒哀乐。",
@@ -72,7 +72,7 @@
     {
       "id": "death.npc.hell_guard",
       "source_path": "mudlib/d/death/npc/hell_guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "death",
       "name": "阴鬼牙将",
       "description": "一个负责看守鬼门关的阴卒，他们是鬼卒中的精锐，负责阻挡想要\n侵入酆都城的妖魔鬼怪。",
@@ -125,7 +125,7 @@
     {
       "id": "death.npc.wgargoyle",
       "source_path": "mudlib/d/death/npc/wgargoyle.c",
-      "status": "structured",
+      "status": "verified",
       "area": "death",
       "name": "白无常",
       "description": "白无常伸著长长的舌头瞪著你，死白的脸上看不出任何喜怒哀乐。",
@@ -155,7 +155,7 @@
     {
       "id": "jail.cityguard",
       "source_path": "mudlib/d/jail/cityguard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "jail",
       "name": "守城官兵",
       "description": "这是个正在这里站岗的守城官兵，虽然和许\\多武林人物比起来，官兵\n们的武功\\实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
@@ -217,7 +217,7 @@
     {
       "id": "latemoon.npc.bird",
       "source_path": "mudlib/d/latemoon/npc/bird.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "金丝雀",
       "description": "一只翩翩起舞的小蝴蝶哦!",
@@ -244,7 +244,7 @@
     {
       "id": "latemoon.npc.butterfly",
       "source_path": "mudlib/d/latemoon/npc/butterfly.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "蝴蝶",
       "description": "一只翩翩起舞的小蝴蝶哦!",
@@ -273,7 +273,7 @@
     {
       "id": "latemoon.npc.cockroach",
       "source_path": "mudlib/d/latemoon/npc/cockroach.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "大蟑螂",
       "description": "一只非常恶心的蟑螂。",
@@ -302,7 +302,7 @@
     {
       "id": "latemoon.npc.dodo",
       "source_path": "mudlib/d/latemoon/npc/dodo.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "大蟑螂",
       "description": "一只非常恶心的蟑螂。",
@@ -330,7 +330,7 @@
     {
       "id": "latemoon.npc.funlin",
       "source_path": "mudlib/d/latemoon/npc/funlin.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "芳绫",
       "description": null,
@@ -385,7 +385,7 @@
     {
       "id": "latemoon.npc.fuyun",
       "source_path": "mudlib/d/latemoon/npc/fuyun.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "芙云",
       "description": null,
@@ -419,7 +419,7 @@
     {
       "id": "latemoon.npc.girl",
       "source_path": "mudlib/d/latemoon/npc/girl.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "昭仪",
       "description": null,
@@ -508,7 +508,7 @@
     {
       "id": "latemoon.npc.guest",
       "source_path": "mudlib/d/latemoon/npc/guest.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "芙云",
       "description": null,
@@ -535,7 +535,7 @@
     {
       "id": "latemoon.npc.sell",
       "source_path": "mudlib/d/latemoon/npc/sell.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "颜慧如",
       "description": "她是一位美女，真是红颜似玉，绿鬓如云，明丽的眼睛，\n洁白的牙齿。容色俊俏，风度飘逸，令人心动。",
@@ -585,7 +585,7 @@
     {
       "id": "latemoon.npc.sell1",
       "source_path": "mudlib/d/latemoon/npc/sell1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "颜慧如",
       "description": "她是一位美女，真是红颜似玉，绿鬓如云，明丽的眼睛，\n洁白的牙齿。容色俊俏，风度飘逸，令人心动。",
@@ -635,7 +635,7 @@
     {
       "id": "latemoon.npc.servant",
       "source_path": "mudlib/d/latemoon/npc/servant.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "婢女",
       "description": null,
@@ -668,7 +668,7 @@
     {
       "id": "latemoon.npc.servant2",
       "source_path": "mudlib/d/latemoon/npc/servant2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "婢女",
       "description": null,
@@ -706,7 +706,7 @@
     {
       "id": "latemoon.npc.shaode",
       "source_path": "mudlib/d/latemoon/npc/shaode.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "蓝小蝶",
       "description": null,
@@ -755,7 +755,7 @@
     {
       "id": "latemoon.npc.shaowei",
       "source_path": "mudlib/d/latemoon/npc/shaowei.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "蓝筱薇",
       "description": null,
@@ -829,7 +829,7 @@
     {
       "id": "latemoon.npc.shinyu",
       "source_path": "mudlib/d/latemoon/npc/shinyu.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "阮欣郁",
       "description": null,
@@ -863,7 +863,7 @@
     {
       "id": "latemoon.npc.shiren",
       "source_path": "mudlib/d/latemoon/npc/shiren.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "袭人",
       "description": null,
@@ -909,7 +909,7 @@
     {
       "id": "latemoon.npc.yumay",
       "source_path": "mudlib/d/latemoon/npc/yumay.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "蓝雨梅",
       "description": null,
@@ -995,7 +995,7 @@
     {
       "id": "latemoon.npc.zauron",
       "source_path": "mudlib/d/latemoon/npc/zauron.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "昭蓉",
       "description": null,
@@ -1063,7 +1063,7 @@
     {
       "id": "latemoon.park.npc.bird",
       "source_path": "mudlib/d/latemoon/park/npc/bird.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "金丝雀",
       "description": "一只羽毛鲜艳的小金丝雀。",
@@ -1090,7 +1090,7 @@
     {
       "id": "latemoon.park.npc.dodo1",
       "source_path": "mudlib/d/latemoon/park/npc/dodo1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "小金鼠",
       "description": "一只可爱的长尾巴的小金鼠。",
@@ -1116,7 +1116,7 @@
     {
       "id": "latemoon.park.npc.flwgirl",
       "source_path": "mudlib/d/latemoon/park/npc/flwgirl.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "采花少女",
       "description": "采花少女是绮云镇居民的小孩，从小就到晚月庄来摘桂花，蓝止\n萍很喜欢她们，也教给她们了些基本的武功，时间久了，这些少\n女的功夫还都不错。",
@@ -1189,7 +1189,7 @@
     {
       "id": "latemoon.park.npc.girl_yu",
       "source_path": "mudlib/d/latemoon/park/npc/girl_yu.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "上官钰翎",
       "description": null,
@@ -1224,7 +1224,7 @@
     {
       "id": "latemoon.park.npc.maysan",
       "source_path": "mudlib/d/latemoon/park/npc/maysan.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "美珊",
       "description": null,
@@ -1264,7 +1264,7 @@
     {
       "id": "latemoon.park.npc.rabbit",
       "source_path": "mudlib/d/latemoon/park/npc/rabbit.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "小白兔",
       "description": "一只红眼睛的小白兔。",
@@ -1291,7 +1291,7 @@
     {
       "id": "latemoon.park.npc.shiren",
       "source_path": "mudlib/d/latemoon/park/npc/shiren.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "袭人",
       "description": null,
@@ -1335,7 +1335,7 @@
     {
       "id": "latemoon.room.npc.aaa",
       "source_path": "mudlib/d/latemoon/room/npc/aaa.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "於兰天武",
       "description": "於兰天武是当今皇上的叔父，但是他毕生浸淫武学，甘愿抛弃荣华富\n以换取水烟阁传功使一职，以便阅读水烟阁中所藏的武学典籍，无论\n你有什麽武学上的疑难，他都能为你解答。",
@@ -1416,7 +1416,7 @@
     {
       "id": "latemoon.room.npc.annihi",
       "source_path": "mudlib/d/latemoon/room/npc/annihi.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "安妮儿",
       "description": null,
@@ -1472,7 +1472,7 @@
     {
       "id": "latemoon.room.npc.elon",
       "source_path": "mudlib/d/latemoon/room/npc/elon.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "瑷伦",
       "description": null,
@@ -1542,7 +1542,7 @@
     {
       "id": "latemoon.room.npc.eton",
       "source_path": "mudlib/d/latemoon/room/npc/eton.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "金仪彤",
       "description": null,
@@ -1587,7 +1587,7 @@
     {
       "id": "latemoon.room.npc.fireangel",
       "source_path": "mudlib/d/latemoon/room/npc/fireangel.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "凤凰",
       "description": null,
@@ -1626,7 +1626,7 @@
     {
       "id": "latemoon.room.npc.fochin",
       "source_path": "mudlib/d/latemoon/room/npc/fochin.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "曲馥琪",
       "description": null,
@@ -1683,7 +1683,7 @@
     {
       "id": "latemoon.room.npc.fong",
       "source_path": "mudlib/d/latemoon/room/npc/fong.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "凤姐",
       "description": null,
@@ -1724,7 +1724,7 @@
     {
       "id": "latemoon.room.npc.guest",
       "source_path": "mudlib/d/latemoon/room/npc/guest.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "芙云",
       "description": null,
@@ -1774,7 +1774,7 @@
     {
       "id": "latemoon.room.npc.jane",
       "source_path": "mudlib/d/latemoon/room/npc/jane.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "娟姐",
       "description": null,
@@ -1815,7 +1815,7 @@
     {
       "id": "latemoon.room.npc.killer",
       "source_path": "mudlib/d/latemoon/room/npc/killer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "杀手",
       "description": "这是个蒙面杀手，眉眼看起来有些面熟。",
@@ -1890,7 +1890,7 @@
     {
       "id": "latemoon.room.npc.old",
       "source_path": "mudlib/d/latemoon/room/npc/old.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "无名老妇",
       "description": "这个老妇人不知姓甚名谁, 她在晚月很久了, 一直看管\n书房, 连庄主都对她很尊敬。",
@@ -1964,7 +1964,7 @@
     {
       "id": "latemoon.room.npc.servant",
       "source_path": "mudlib/d/latemoon/room/npc/servant.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "婢女",
       "description": null,
@@ -2002,7 +2002,7 @@
     {
       "id": "latemoon.room.npc.shaoin",
       "source_path": "mudlib/d/latemoon/room/npc/shaoin.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "龙韶吟",
       "description": null,
@@ -2039,7 +2039,7 @@
     {
       "id": "latemoon.room.npc.shinyu",
       "source_path": "mudlib/d/latemoon/room/npc/shinyu.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "阮欣郁",
       "description": null,
@@ -2073,7 +2073,7 @@
     {
       "id": "latemoon.room.npc.spring1",
       "source_path": "mudlib/d/latemoon/room/npc/spring1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "惜春",
       "description": null,
@@ -2113,7 +2113,7 @@
     {
       "id": "latemoon.room.npc.spring2",
       "source_path": "mudlib/d/latemoon/room/npc/spring2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "圆春",
       "description": null,
@@ -2153,7 +2153,7 @@
     {
       "id": "latemoon.room.npc.tenlon",
       "source_path": "mudlib/d/latemoon/room/npc/tenlon.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "天龙",
       "description": null,
@@ -2187,7 +2187,7 @@
     {
       "id": "latemoon.room.npc.tguest",
       "source_path": "mudlib/d/latemoon/room/npc/tguest.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "梦玉楼",
       "description": null,
@@ -2233,7 +2233,7 @@
     {
       "id": "latemoon.room.npc.yuchoun",
       "source_path": "mudlib/d/latemoon/room/npc/yuchoun.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "虞琼衣",
       "description": null,
@@ -2276,7 +2276,7 @@
     {
       "id": "latemoon.room.npc.yushou",
       "source_path": "mudlib/d/latemoon/room/npc/yushou.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "苗郁淑",
       "description": null,
@@ -2324,7 +2324,7 @@
     {
       "id": "latemoon.upstar.npc.bird",
       "source_path": "mudlib/d/latemoon/upstar/npc/bird.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "金丝雀",
       "description": "一只羽毛鲜艳的小金丝雀。",
@@ -2351,7 +2351,7 @@
     {
       "id": "latemoon.upstar.npc.huei",
       "source_path": "mudlib/d/latemoon/upstar/npc/huei.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "邢千慧",
       "description": null,
@@ -2404,7 +2404,7 @@
     {
       "id": "latemoon.upstar.npc.shinfun",
       "source_path": "mudlib/d/latemoon/upstar/npc/shinfun.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "莫欣芳",
       "description": null,
@@ -2464,7 +2464,7 @@
     {
       "id": "latemoon.upstar.npc.statue",
       "source_path": "mudlib/d/latemoon/upstar/npc/statue.c",
-      "status": "structured",
+      "status": "verified",
       "area": "latemoon",
       "name": "人灵「区冥」",
       "description": null,
@@ -2503,7 +2503,7 @@
     {
       "id": "u.cloud.npc.b_header",
       "source_path": "mudlib/u/cloud/npc/b_header.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "陈剑秋",
       "description": null,
@@ -2588,7 +2588,7 @@
     {
       "id": "u.cloud.npc.beggar",
       "source_path": "mudlib/u/cloud/npc/beggar.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "乞丐",
       "description": "一个满脸风霜之色的老乞丐。",
@@ -2618,7 +2618,7 @@
     {
       "id": "u.cloud.npc.bfighter",
       "source_path": "mudlib/u/cloud/npc/bfighter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "趟子手",
       "description": null,
@@ -2681,7 +2681,7 @@
     {
       "id": "u.cloud.npc.boater",
       "source_path": "mudlib/u/cloud/npc/boater.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "船夫",
       "description": "船夫的皮肤晒得黝黑，脸上的沧桑是多年摆渡的痕迹。",
@@ -2727,7 +2727,7 @@
     {
       "id": "u.cloud.npc.book_seller",
       "source_path": "mudlib/u/cloud/npc/book_seller.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "潘若秋",
       "description": "潘老板长得很白净，一副读书人的老实相。",
@@ -2765,7 +2765,7 @@
     {
       "id": "u.cloud.npc.box_boss",
       "source_path": "mudlib/u/cloud/npc/box_boss.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "林三爷",
       "description": "这位面目慈善的老人经营棺材铺已经有很多年了。",
@@ -2813,7 +2813,7 @@
     {
       "id": "u.cloud.npc.box_waiter",
       "source_path": "mudlib/u/cloud/npc/box_waiter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "伙计",
       "description": "他一副垂头丧气的样子，一脸倒霉相。",
@@ -2849,7 +2849,7 @@
     {
       "id": "u.cloud.npc.butcher",
       "source_path": "mudlib/u/cloud/npc/butcher.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "郑屠夫",
       "description": "你看到一个剽悍的大块头, 正在用钢刀剔牛骨。",
@@ -2928,7 +2928,7 @@
     {
       "id": "u.cloud.npc.chess_player",
       "source_path": "mudlib/u/cloud/npc/chess_player.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "弈者",
       "description": "一位十分文气的男子，装束象个雅儒。",
@@ -2974,7 +2974,7 @@
     {
       "id": "u.cloud.npc.doctor",
       "source_path": "mudlib/u/cloud/npc/doctor.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "伙计",
       "description": "药店的小伙计，正在学着配药。",
@@ -3023,7 +3023,7 @@
     {
       "id": "u.cloud.npc.fly",
       "source_path": "mudlib/u/cloud/npc/fly.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "苍蝇",
       "description": "一只绿头金翅的大苍蝇。",
@@ -3045,7 +3045,7 @@
     {
       "id": "u.cloud.npc.gangster",
       "source_path": "mudlib/u/cloud/npc/gangster.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "卧龙岗强盗",
       "description": null,
@@ -3121,7 +3121,7 @@
     {
       "id": "u.cloud.npc.girl",
       "source_path": "mudlib/u/cloud/npc/girl.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "李师师",
       "description": null,
@@ -3183,7 +3183,7 @@
     {
       "id": "u.cloud.npc.god",
       "source_path": "mudlib/u/cloud/npc/god.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "朱鸿雪",
       "description": "朱鸿雪慈眉善目，可又有谁能想到她竟是杀手组织中人。",
@@ -3240,7 +3240,7 @@
     {
       "id": "u.cloud.npc.goddd",
       "source_path": "mudlib/u/cloud/npc/goddd.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "朱鸿雪",
       "description": "朱鸿雪慈眉善目，可又有谁能想到她竟是杀手组织中人。",
@@ -3296,7 +3296,7 @@
     {
       "id": "u.cloud.npc.jiading",
       "source_path": "mudlib/u/cloud/npc/jiading.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "家丁",
       "description": "张府的家丁的俸禄极高，当然能在张府做事武功也不弱",
@@ -3329,7 +3329,7 @@
     {
       "id": "u.cloud.npc.judge",
       "source_path": "mudlib/u/cloud/npc/judge.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "宝官",
       "description": "他脸上的表情仿佛是看到了你口袋里的钱一般。",
@@ -3375,7 +3375,7 @@
     {
       "id": "u.cloud.npc.lm_guard",
       "source_path": "mudlib/u/cloud/npc/lm_guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "彩衣少女",
       "description": null,
@@ -3456,7 +3456,7 @@
     {
       "id": "u.cloud.npc.mei_po",
       "source_path": "mudlib/u/cloud/npc/mei_po.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "媒婆",
       "description": "一位精明能干的老媒婆",
@@ -3490,7 +3490,7 @@
     {
       "id": "u.cloud.npc.millinare",
       "source_path": "mudlib/u/cloud/npc/millinare.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "张百万",
       "description": "一位精明能干的大奸商",
@@ -3514,7 +3514,7 @@
     {
       "id": "u.cloud.npc.monk",
       "source_path": "mudlib/u/cloud/npc/monk.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "化缘和尚",
       "description": null,
@@ -3590,7 +3590,7 @@
     {
       "id": "u.cloud.npc.monk_guard",
       "source_path": "mudlib/u/cloud/npc/monk_guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "护寺武僧",
       "description": null,
@@ -3655,7 +3655,7 @@
     {
       "id": "u.cloud.npc.monk_waiter",
       "source_path": "mudlib/u/cloud/npc/monk_waiter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "知客僧",
       "description": null,
@@ -3747,7 +3747,7 @@
     {
       "id": "u.cloud.npc.mother",
       "source_path": "mudlib/u/cloud/npc/mother.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "鸨母",
       "description": null,
@@ -3802,7 +3802,7 @@
     {
       "id": "u.cloud.npc.room_gua",
       "source_path": "mudlib/u/cloud/npc/room_gua.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "保镖",
       "description": "你看到一个剽悍的大块头。",
@@ -3849,7 +3849,7 @@
     {
       "id": "u.cloud.npc.seller",
       "source_path": "mudlib/u/cloud/npc/seller.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "杂货贩",
       "description": "卖杂货的是个年轻汉子，面带微笑。",
@@ -3907,7 +3907,7 @@
     {
       "id": "u.cloud.npc.tailor",
       "source_path": "mudlib/u/cloud/npc/tailor.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "裁缝",
       "description": "一位看上去很和蔼的老裁缝，正在缝制衣服。",
@@ -3965,7 +3965,7 @@
     {
       "id": "u.cloud.npc.tea_waiter",
       "source_path": "mudlib/u/cloud/npc/tea_waiter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "茶博士",
       "description": "茶博士正忙着招呼客人, 一手提着茶壶, 一手拿着抹布",
@@ -4022,7 +4022,7 @@
     {
       "id": "u.cloud.npc.teacher",
       "source_path": "mudlib/u/cloud/npc/teacher.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "郑屠夫",
       "description": "你看到一个剽悍的大块头, 正在用钢刀剔牛骨。",
@@ -4100,7 +4100,7 @@
     {
       "id": "u.cloud.npc.thief",
       "source_path": "mudlib/u/cloud/npc/thief.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "飞贼",
       "description": null,
@@ -4154,7 +4154,7 @@
     {
       "id": "u.cloud.npc.weaponor",
       "source_path": "mudlib/u/cloud/npc/weaponor.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "兵器贩子",
       "description": "卖兵器的是个中年人，满脸伤疤。",
@@ -4232,7 +4232,7 @@
     {
       "id": "u.cloud.npc.worker",
       "source_path": "mudlib/u/cloud/npc/worker.c",
-      "status": "structured",
+      "status": "verified",
       "area": "cloud",
       "name": "茶工",
       "description": "茶工正在忙碌着。",

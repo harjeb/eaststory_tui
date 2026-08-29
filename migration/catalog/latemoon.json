@@ -2,12 +2,13 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "latemoon",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "latemoon.bamboo",
       "source_path": "mudlib/d/latemoon/bamboo.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "竹林",
       "description": "这是一座茂密的竹林。当你进入后彷佛迷失了方向！",
       "exits": [
@@ -49,7 +50,8 @@
     {
       "id": "latemoon.bamboo1",
       "source_path": "mudlib/d/latemoon/bamboo1.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "竹林",
       "description": "这是一座茂密的竹林。当你进入后彷佛迷失了方向！",
       "exits": [
@@ -91,7 +93,8 @@
     {
       "id": "latemoon.bamboo2",
       "source_path": "mudlib/d/latemoon/bamboo2.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "竹林",
       "description": "这是一座茂密的竹林。当你进入后彷佛迷失了方向！",
       "exits": [
@@ -133,7 +136,8 @@
     {
       "id": "latemoon.bamboo3",
       "source_path": "mudlib/d/latemoon/bamboo3.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "竹林",
       "description": "这是一座茂密的竹林。当你进入后彷佛迷失了方向！",
       "exits": [
@@ -175,7 +179,8 @@
     {
       "id": "latemoon.bamboo4",
       "source_path": "mudlib/d/latemoon/bamboo4.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "竹林",
       "description": "这是一座茂密的竹林。当你进入后彷佛迷失了方向！",
       "exits": [
@@ -224,7 +229,8 @@
     {
       "id": "latemoon.entrance",
       "source_path": "mudlib/d/latemoon/entrance.c",
-      "status": "structured",
+      "outdoors": "cloud",
+      "status": "verified",
       "name": "碎石小径",
       "description": "这是条用鹅卵石铺成的小路，往西可以看到一座用淡青色围墙围住\n的庭院，有两个身着彩衣的女子笑盈盈的站在那里说笑着，她们身后的\n一扇拱门(door)，檐顶下面写着「晚月庄」。院墙那边飘出的阵阵曲声勾\n人魂魄，隐约还可闻到一股香气。",
       "exits": [
@@ -275,7 +281,8 @@
     {
       "id": "latemoon.front_yard",
       "source_path": "mudlib/d/latemoon/front_yard.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "晚月庄前庭",
       "description": "一走入这个庭园，扑鼻而来的便是一股若有似无，但是又沁人心\n脾的花香，庭园甚是宽敞，许多奇花异石错落其间，显是经过高手匠\n人的精心布置，西边花丛间可看到主屋的屋角，一条石板小径沿著假\n山通往主屋。",
       "exits": [
@@ -310,7 +317,8 @@
     {
       "id": "latemoon.gate",
       "source_path": "mudlib/d/latemoon/gate.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "晚月庄大门",
       "description": "你来到了这个小径的尽头，一个有著朱红漆大门大宅\n院矗立在你的面前，门口挂著两串灯笼(lantern),上面写\n得有字，像这样一间豪华的大宅院出现在这样的乡间野外\n，使你觉得有些突兀，大宅的南边、东边都是茂密的林子\n，看来也没有其他的路。",
       "exits": [
@@ -348,7 +356,7 @@
     {
       "id": "latemoon.latebook",
       "source_path": "mudlib/d/latemoon/latebook.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后院书房",
       "description": "这是一间小小的书房，窗明几净，朴素典雅，一张古意盎然的红木书桌，\n吸引了你的目光，上面摆著一座小小的香炉，几本善本书整齐的堆放在桌上\n，可见主人相当的爱惜书本。一幅「沧海龙吟」的舞曲图画挂在墙上，似乎\n有一些秘密在里头。",
       "exits": [
@@ -384,7 +392,7 @@
     {
       "id": "latemoon.latemoon1",
       "source_path": "mudlib/d/latemoon/latemoon1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "晚月庄大厅",
       "description": "走进大厅，抬头迎面看见的是一面紫红绣金挂幔，一面屏风将宽敞的\n大厅隔成两半，东西两面各设著七张紫檀雕案，案上一色白玉羊脂花瓶，\n瓶中插著粉红的处子牡丹，紫檀雕案中间又都挂著七尺来长的画轴，各式\n鸟兽虫鱼，翎毛丹青，栩栩如生，宛如要从画纸上飞出，嬉戏于大厅之中\n，这大厅中的富贵气派之中透著一股秀气，但是却也无一般富豪人家或酒\n店的庸脂俗粉之气。\n    屏风两旁的白石嵌云柱上工整地刻著一幅对联写道：\n\n    「座上珠玑照日月，却掩珠帘，难为芳心;\n      堂前飘香焕云霞，不知岁月，但晓清音。」",
       "exits": [
@@ -426,7 +434,7 @@
     {
       "id": "latemoon.latemoon2",
       "source_path": "mudlib/d/latemoon/latemoon2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "内厅",
       "description": "走入内厅，你看到袭地铺满红毯。四面相对十二张雕漆椅上，都\n是一色灰鼠椅□小褥，厅中摆了小屏风，四周挂满山水墨画。一个木\n隔架，旁边还有一碧纱橱(closet)。",
       "exits": [
@@ -471,7 +479,7 @@
     {
       "id": "latemoon.latemoon3",
       "source_path": "mudlib/d/latemoon/latemoon3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "傍厅",
       "description": "这里是晚月庄接待宾客的傍厅，厅中摆了一张桌几，上面摆著\n一块大红镶金桌巾，靠东壁面西设著半旧青缎靠背引枕，两张太师\n椅座。桌几上有一精致的茶壶，旁有盛好的上等茗茶。",
       "exits": [
@@ -501,7 +509,7 @@
     {
       "id": "latemoon.latemoon4",
       "source_path": "mudlib/d/latemoon/latemoon4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "内厅穿堂",
       "description": "你从后廊往西出了内厅进入穿堂。往北是内院，一条宽过道，西\n面立著一个粉油大影壁，后有一大半门，小小的一所庭宇。",
       "exits": [
@@ -545,7 +553,7 @@
     {
       "id": "latemoon.latemoon5",
       "source_path": "mudlib/d/latemoon/latemoon5.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后院走道",
       "description": "你走在一条长廊上，两旁都是庭台堂庑，廊上弥漫著一股\n香郁的气息，廊下是由青石砖铺成，一边接后厅内院，一边的\n尽头则是一幅大石壁画，西侧似有一铜门(door)。\n有一间书房。",
       "exits": [
@@ -582,7 +590,7 @@
     {
       "id": "latemoon.latemoon6",
       "source_path": "mudlib/d/latemoon/latemoon6.c",
-      "status": "structured",
+      "status": "verified",
       "name": "禁闭房",
       "description": "这里四面都是单调的墙壁(wall)。通常庄内弟子犯错就是\n关在这儿！反省思过。",
       "exits": [
@@ -626,7 +634,7 @@
     {
       "id": "latemoon.latemoon7",
       "source_path": "mudlib/d/latemoon/latemoon7.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后院走道",
       "description": "你走在一条长廊上，两旁都是庭台堂庑，廊上弥漫著一股\n香郁的气息，长廊向东西方延伸而去。东边是后厅院子，西边\n有一间书房。",
       "exits": [
@@ -670,7 +678,7 @@
     {
       "id": "latemoon.latemoon8",
       "source_path": "mudlib/d/latemoon/latemoon8.c",
-      "status": "structured",
+      "status": "verified",
       "name": "密室",
       "description": "这是一间密室。地上铺著可以合地打坐的大理石床。四周挂了一\n些兵器，正面墙上写了偌大的 『 舞 』字！ 地板上隐约看到一幅先\n天八卦图。中央画著两仪，八个角落分别是：乾坤兑离震巽坎艮、等\n卦相。墙上画著几幅玄天玉女翩然起舞的美妙步法。",
       "exits": [
@@ -702,7 +710,7 @@
     {
       "id": "latemoon.latemoonc",
       "source_path": "mudlib/d/latemoon/latemoonc.c",
-      "status": "structured",
+      "status": "verified",
       "name": "大厅后院",
       "description": "这是晚月庄后的小小庭院，面积似乎不大，但花木扶疏，举目四望，\n竟种满了无数梅花，婉约娟秀，别有一番滋味。清风徐来，梅花特有的\n清香弥漫在风中.....",
       "exits": [
@@ -744,7 +752,7 @@
     {
       "id": "latemoon.miroom",
       "source_path": "mudlib/d/latemoon/miroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "latemoon.miroom",
       "description": "这是一间密室。地上铺著可以合地打坐的大理石床。四周挂了一\n些兵器，正面墙上写了偌大的 『 舞 』字！ 地板上隐约看到一幅先\n天八卦图。中央画著两仪，八个角落分别是：乾坤兑离震巽坎艮、等\n卦相。墙上画著几幅玄天玉女翩然起舞的美妙步法。",
       "exits": [
@@ -783,7 +791,7 @@
     {
       "id": "latemoon.miroom2",
       "source_path": "mudlib/d/latemoon/miroom2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "内厅",
       "description": "你进了内厅，迎面挂著葱绿洒花软帘，掀帘进去，抬头一看，\n只见四面墙壁，玲珑剔透，琴剑书画，挂在墙上。锦笼纱罩，金彩\n珠光，连地上踏的砖，皆是碧绿凿花，左一架书，右一架屏。四面\n是雕空的紫檀板壁。",
       "exits": [
@@ -820,7 +828,7 @@
     {
       "id": "latemoon.park.bridge1",
       "source_path": "mudlib/d/latemoon/park/bridge1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "沁芳桥",
       "description": "你走至大桥前，见水如晶帘一般奔入，扶著藤栏过去，只见水\n上落花愈多，其水愈清，溶溶荡荡，曲折萦纡，池边两行垂柳，杂\n著桃、杏，遮天蔽日般，真无一些尘土。度过桥去则通往湖心亭。",
       "exits": [
@@ -848,7 +856,7 @@
     {
       "id": "latemoon.park.bridge2",
       "source_path": "mudlib/d/latemoon/park/bridge2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "翠嫣桥",
       "description": "这是一座最精美的桥，全长十二米，宽度恰可走两人。石拱\n是单孔结构，青石桥面，汉白玉雕石栏杆，栏板上刻有精致美丽\n的花纹。二十个望柱头上各有一小孔雀，情态各异，饶有趣味。",
       "exits": [
@@ -883,7 +891,7 @@
     {
       "id": "latemoon.park.bridge3",
       "source_path": "mudlib/d/latemoon/park/bridge3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "朱栏板桥",
       "description": "走在桥上，可以远观山坡帏脉，两边飞楼插空，雕饰□栏，隐\n于亭园树木之间；俯而视之，则清流泻雪石磴穿云。朱红玉石为栏\n，环抱池沿，柳垂金线，桃吐丹霞。",
       "exits": [
@@ -911,7 +919,7 @@
     {
       "id": "latemoon.park.flower2",
       "source_path": "mudlib/d/latemoon/park/flower2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "月洞门",
       "description": "走进月洞门，只见迎面一带翠嶂，挡在南面。只见白石岭□，\n或如鬼怪，或如猛兽，纵横拱立，上边苔藓成斑，藤萝掩映，其\n中微露羊肠小径。往南进入翠嶂，往北是小花厅。",
       "exits": [
@@ -939,7 +947,7 @@
     {
       "id": "latemoon.park.moon1",
       "source_path": "mudlib/d/latemoon/park/moon1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "长廊曲洞",
       "description": "你走入一长廊曲洞，里头略略的有几点山石，种著芭蕉，你可以\n听到潺潺的流水声，这里是园内假山开凿的通道，蜿蜒盘□，从洞口\n向外望去，是一碧清的水池。顺著曲径走去，转了两个弯子，看见一\n座石板桥。",
       "exits": [
@@ -967,7 +975,7 @@
     {
       "id": "latemoon.park.moon2",
       "source_path": "mudlib/d/latemoon/park/moon2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "湘园小径",
       "description": "湘园的桂花小径是以不同颜色的细石砌成各种图案。路面的\n图案组成，全员是一个整体。但每幅图案又有独立的内容，总计\n花石子路上约有二百幅。沿路观赏，美不胜收。",
       "exits": [
@@ -995,7 +1003,7 @@
     {
       "id": "latemoon.park.moon3",
       "source_path": "mudlib/d/latemoon/park/moon3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "甬路",
       "description": "桂花园的石子甬道是以不同颜色的细石砌成各种图案。路面\n的图案组成，全员是一个整体。但每幅图案又有独立的内容，总\n计花石子路上约有二百幅。沿路观赏，美不胜收。",
       "exits": [
@@ -1030,7 +1038,7 @@
     {
       "id": "latemoon.park.moon4",
       "source_path": "mudlib/d/latemoon/park/moon4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "暖香榭",
       "description": "暖香榭位于水池东岸，秋水山房之西，依岩为屋，结构曲折，\n极幽致，室小而精，尚朴去华，渊然静修，古香袭人。走进这里\n你有一种心源湛澈，天地虚灵，彷佛置身于仙境的感觉。往西面\n望去，水底亭台，历历可鉴。",
       "exits": [
@@ -1070,7 +1078,7 @@
     {
       "id": "latemoon.park.moon5",
       "source_path": "mudlib/d/latemoon/park/moon5.c",
-      "status": "structured",
+      "status": "verified",
       "name": "桂花园",
       "description": "这是一片桂花园，园内种植桂花树十万多株，枝干苍劲，枝叶\n茂盛，树冠完整，富有生气。放眼展望，满遍披翠盖绿，葱郁的桂\n花树斑烂绚丽，优雅大方，碧海银花，清香阵阵。薰的游人醉，衣\n发常留馀香。",
       "exits": [
@@ -1105,7 +1113,7 @@
     {
       "id": "latemoon.park.moonc",
       "source_path": "mudlib/d/latemoon/park/moonc.c",
-      "status": "structured",
+      "status": "verified",
       "name": "翠嶂",
       "description": "穿过一层竹篱、花嶂编的月洞门，在你眼前出现的是那由粉墙环\n护，绿柳周垂的翠嶂。两边分别是游廊相接通往桃花林与长廊曲洞。\n在这儿一棵西府海棠(flower)吸引你的注意，只见其势若伞，丝垂翠\n缕，葩吐丹砂，十分漂亮。",
       "exits": [
@@ -1156,7 +1164,7 @@
     {
       "id": "latemoon.park.moondoor",
       "source_path": "mudlib/d/latemoon/park/moondoor.c",
-      "status": "structured",
+      "status": "verified",
       "name": "晚月庄后门",
       "description": "这是晚月庄的后门，在美丽的湘园南侧，这有一个木制的小门。\n走出门外应是通往天山的小径。",
       "exits": [
@@ -1184,7 +1192,7 @@
     {
       "id": "latemoon.park.moroom",
       "source_path": "mudlib/d/latemoon/park/moroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "紫翎小轩",
       "description": "你一进了小轩内，只觉异香扑鼻，那些奇草仙藤，越冷越苍翠，\n都结了实，似珊瑚豆子一般，累垂可爱。房内雪洞一般，清凉舒适\n，案上一个土定瓶，中供著数枝菊花，旁边放了两本书、茶瓯茶杯\n而已，床上只吊著青纱帐幔被褥，也十分朴实。",
       "exits": [
@@ -1217,7 +1225,7 @@
     {
       "id": "latemoon.park.paroad1",
       "source_path": "mudlib/d/latemoon/park/paroad1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "甬路",
       "description": "你走在石子墁的花园甬路上，只见两边翠竹夹路，土地下苍苔\n布满，往东北你看到凤尾森森，龙吟细细，通往暖香榭。南面则是\n一个小门。西方通往园中小桥。",
       "exits": [
@@ -1252,7 +1260,7 @@
     {
       "id": "latemoon.park.paroad2",
       "source_path": "mudlib/d/latemoon/park/paroad2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "□香榭",
       "description": "转过翠嫣桥，隐隐露出一带黄泥筑就矮墙，墙头用稻茎掩护，\n有几百株杏花，如喷火蒸霞一般，里面数楹茅屋，外面却是桑、\n榆、槿、杉各色树木新条，随其曲折编就两溜青篱，篱外有一土\n井，旁有一石牌(sign)。旁边有一些佳蔬菜花。",
       "exits": [
@@ -1295,7 +1303,7 @@
     {
       "id": "latemoon.park.pavilion1",
       "source_path": "mudlib/d/latemoon/park/pavilion1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "沁芳亭",
       "description": "亭子座落在园内小水池上，亭柱周围以弧形座凳式栏板，内外\n雕刻各种不同样式的梅枝，钻尖式紫琉璃瓦顶，天花板也有雕刻非\n常精细的百花图案。上下担额枋彩画题材是海墁式点金加彩琼花。\n体形别致，色彩丰富。亭边石桥飞架，通萃赏楼，轻灵精巧，为园\n中一大奇景。",
       "exits": [
@@ -1330,7 +1338,8 @@
     {
       "id": "latemoon.park.yard1",
       "source_path": "mudlib/d/latemoon/park/yard1.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "前院",
       "description": "你走到前院，你看到几块山石，东面一处假山小池。其上植有藤\n萝、青芷，异草芬芳荔薛。池中几尾小鱼自在的游来游去。假山外隔\n著围篱，有一种山怀中的小花园的感觉。.",
       "exits": [
@@ -1358,7 +1367,7 @@
     {
       "id": "latemoon.room.bathroom",
       "source_path": "mudlib/d/latemoon/room/bathroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "小花池",
       "description": "这是一个小花池，清澈的池水含著淡淡的幽香。池周围有许多奇花\n异草，时如至芝兰之室，清香袭脑，温馨荡魄。缤纷的花瓣飘在池上，\n云幢羽葆中，簇拥著许多师姐妹，有的嘻戏玩耍，有的翩然起舞。你也\n想到小花池中沐浴休憩(take bath)。",
       "exits": [
@@ -1395,7 +1404,7 @@
     {
       "id": "latemoon.room.bathroom1",
       "source_path": "mudlib/d/latemoon/room/bathroom1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "沐浴更衣室",
       "description": "这是一间更衣室，你看到许多柜子，衣架上挂了许多的衣服饰\n品。墙上的架上挂了一些丝巾，你可以闻到淡淡的香气围绕四周。\n东侧一蓝青洒花软帘，隔帘望去，隐约可看到小花池，一团的雾气\n你有点想去冲凉沐浴，让精神好些。当然此处是禁止男性进入!",
       "exits": [
@@ -1440,7 +1449,7 @@
     {
       "id": "latemoon.room.corridor7",
       "source_path": "mudlib/d/latemoon/room/corridor7.c",
-      "status": "structured",
+      "status": "verified",
       "name": "内厅",
       "description": "你进了内厅，迎面挂著葱绿洒花软帘，掀帘进去，抬头一看，\n只见四面墙壁，玲珑剔透，琴剑书画，挂在墙上。锦笼纱罩，金彩\n珠光，连地上踏的砖，皆是碧绿凿花，左一架书，右一架屏。四面\n是雕空的紫檀板壁。",
       "exits": [
@@ -1491,7 +1500,7 @@
     {
       "id": "latemoon.room.eastroom",
       "source_path": "mudlib/d/latemoon/room/eastroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "东厢房",
       "description": "你进入东厢房来，临窗的地上铺著猩红毛毯，正面设著大红金钱\n蟒靠背，石青金钱蟒引枕，秋香色金钱蟒大条褥。两边设一对梅花式\n红漆小几，几上茗琬瓶花俱备。这是一间上等厢房。",
       "exits": [
@@ -1533,7 +1542,7 @@
     {
       "id": "latemoon.room.eat1",
       "source_path": "mudlib/d/latemoon/room/eat1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "大饭厅",
       "description": "你走进一间装饰华丽的大饭厅，有一种说不出的气派，一张杉木\n雕饰的大圆桌子在厅子中央，铺著丝绸彩桌巾，上等南湖紫玉盘，湘\n陵的瓷玉碗，银匙金筷。十分奢华。这是晚月庄宴请宾客的地方，平\n常也是庄主及庄内辈份高的前辈用膳的地方。",
       "exits": [
@@ -1573,7 +1582,7 @@
     {
       "id": "latemoon.room.eat2",
       "source_path": "mudlib/d/latemoon/room/eat2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "膳房",
       "description": "这是一间膳房，中央摆了二张大圆桌。周围三十二张雕饰木藤椅。\n平常庄内上下用膳的地方，东边是厨房，西边则是大饭厅，这虽然不\n及饭厅华丽，但所有锅盘匙碗，也都是上等珍品。有大户人家的气派\n与富贵。",
       "exits": [
@@ -1613,7 +1622,7 @@
     {
       "id": "latemoon.room.eroad1",
       "source_path": "mudlib/d/latemoon/room/eroad1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "东厢房走道",
       "description": "通过后厅走道，接著你走进东厢房走道。除了长长的走道中，\n一排饰丽的宫灯! 走道两旁摆设了许多奇花异草，各有各的特色与\n形态，空气中弥漫一种淡淡的香气。东面你看到一扇厢门。",
       "exits": [
@@ -1657,7 +1666,7 @@
     {
       "id": "latemoon.room.eroad2",
       "source_path": "mudlib/d/latemoon/room/eroad2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "东厢房走道",
       "description": "通过后厅走道，接著你走进东厢房走道。除了长长的走道中，\n一排饰丽的宫灯! 走道两旁摆设了许多奇花异草，各有各的特色与\n形态，空气中弥漫一种淡淡的香气。往南通往东厢房。",
       "exits": [
@@ -1685,7 +1694,7 @@
     {
       "id": "latemoon.room.flower1",
       "source_path": "mudlib/d/latemoon/room/flower1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "内厅穿堂",
       "description": "通过『 垂花门 』便是往后院。垂花门为男女之门限，古来女\n人就有「大门不出，二门不迈」的谚语，于是二门堪称为男女门限\n。后院为庄内女弟子厢房，与湘园。东面一扇小门，为庄内更衣沐\n浴的小花池。更是严禁外人胡乱闯入。",
       "exits": [
@@ -1742,7 +1751,7 @@
     {
       "id": "latemoon.room.guest1",
       "source_path": "mudlib/d/latemoon/room/guest1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "客房",
       "description": "这是一间客房，两边摆了一对小茶几。上面的彩绘瓶中插了一束\n琼花，茶几旁两张雕漆椅。整个房间简朴幽静，为晚月庄供外客留宿\n的一间厢房。",
       "exits": [
@@ -1770,7 +1779,7 @@
     {
       "id": "latemoon.room.guest2",
       "source_path": "mudlib/d/latemoon/room/guest2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "上等厢房",
       "description": "这是一间上等厢房，光线适中。近窗边有一张桌子，旁有书橱!\n还有一个古琴放在平台上! 墙上除了美丽的饰物外，还挂了一些书画\n有一浓郁清新的书香气息! 通常是给远道而来的贵客休憩夜宿的一间\n上等厢房。",
       "exits": [
@@ -1798,7 +1807,7 @@
     {
       "id": "latemoon.room.kitchen",
       "source_path": "mudlib/d/latemoon/room/kitchen.c",
-      "status": "structured",
+      "status": "verified",
       "name": "厨房",
       "description": "你走进厨房，看到有好多的烹饪用品与设备，小蒸笼、大锅、平\n炊灶、烧饭炉等，五花八门，式样齐全。旁边的大仓储中，更放满各\n式各样山珍美味，各种材料，调味物品应有尽有。里头的掌厨师姐们\n忙里忙外，在为准备一道道佳肴辛苦著! 闻到那阵阵美味的菜香，你\n的肚子咕噜咕噜叫了起来!",
       "exits": [
@@ -1831,7 +1840,7 @@
     {
       "id": "latemoon.room.lcenter",
       "source_path": "mudlib/d/latemoon/room/lcenter.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后厅",
       "description": "你进了后厅，这是后院上房五间中，最大的一间厅房。四面墙\n壁，玲珑剔透，琴剑书画，挂在墙上。锦笼纱罩，金彩珠光，连地上\n踏的砖，皆是碧绿凿花，是雕空的紫檀板壁。厅上摆了二十六张桧木\n交椅，庄内对外展示舞步表演，都是在这举行。",
       "exits": [
@@ -1894,7 +1903,7 @@
     {
       "id": "latemoon.room.lroad1",
       "source_path": "mudlib/d/latemoon/room/lroad1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后厅走道",
       "description": "你走在后厅内院的夹道上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -1922,7 +1931,7 @@
     {
       "id": "latemoon.room.lroad3",
       "source_path": "mudlib/d/latemoon/room/lroad3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后厅走道",
       "description": "你走在后厅内院的夹道上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -1964,7 +1973,7 @@
     {
       "id": "latemoon.room.lstudio",
       "source_path": "mudlib/d/latemoon/room/lstudio.c",
-      "status": "structured",
+      "status": "verified",
       "name": "内书房",
       "description": "这是一间安静的书房, 光线适中, 近窗边有一张桌子, 旁有书橱\n还有一个古琴放在平台上! 墙上除了美丽的饰物外, 还挂了一些书画\n有一股浓郁清新的书香气息!",
       "exits": [
@@ -1997,7 +2006,7 @@
     {
       "id": "latemoon.room.room4",
       "source_path": "mudlib/d/latemoon/room/room4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "内书房",
       "description": "这是一间安静的书房, 光线适中。近窗边有一张桌子，旁有书橱!\n还有一个古琴放在平台上! 墙上除了美丽的饰物外，还挂了一些书画\n有一股浓郁清新的书香气息!",
       "exits": [
@@ -2030,7 +2039,7 @@
     {
       "id": "latemoon.room.two1",
       "source_path": "mudlib/d/latemoon/room/two1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "夹道",
       "description": "你走在后厅内院的夹道上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -2065,7 +2074,7 @@
     {
       "id": "latemoon.room.two2",
       "source_path": "mudlib/d/latemoon/room/two2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "夹道",
       "description": "你走在后厅内院的夹道上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -2093,7 +2102,7 @@
     {
       "id": "latemoon.room.twoc",
       "source_path": "mudlib/d/latemoon/room/twoc.c",
-      "status": "structured",
+      "status": "verified",
       "name": "仪门",
       "description": "你走在后厅内院的仪门，是晚月庄后厅内院长廊走道的相接路\n口。东北方是往膳房的夹道，西面是长廊夹道，南面是到后厅，往北\n则可走出大门前往前院。",
       "exits": [
@@ -2144,7 +2153,7 @@
     {
       "id": "latemoon.room.westroom",
       "source_path": "mudlib/d/latemoon/room/westroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "西厢房",
       "description": "你进入西厢房来，地下面西放著四张椅子，都搭著银红撒花椅被\n椅子两边有一对高几，右边几上文王鼎，匙筋香盒；左边几上汝窑美\n人瓶内插著花卉茗琬棰壶等物。隔窗望去，隐约可看见花园景色。.",
       "exits": [
@@ -2186,7 +2195,7 @@
     {
       "id": "latemoon.room.wroad1",
       "source_path": "mudlib/d/latemoon/room/wroad1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "西厢房走道",
       "description": "通过后厅走道，接著你走进西厢房走道。长长的走道中，纯金\n成的长灯架上挂了一排饰丽的宫灯! 走道两旁摆设了许多奇花异草，\n空气中弥漫一种淡淡的香气。在一柱柱雕饰华丽的长柱，刻画许多\n彩绘的图形，美不胜收。",
       "exits": [
@@ -2214,7 +2223,7 @@
     {
       "id": "latemoon.room.wroad2",
       "source_path": "mudlib/d/latemoon/room/wroad2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "西厢房走道",
       "description": "你走在西厢房走道上。长长的走道中，纯金成的长灯架上挂了一排\n饰丽的宫灯! 走道两旁摆设了许多奇花异草，空气中弥漫一种淡淡的香\n气。在一柱柱雕饰华丽的长柱，刻画许多彩绘的图形，美不胜收。西面\n你看到一扇门。",
       "exits": [
@@ -2265,7 +2274,8 @@
     {
       "id": "latemoon.sroad1",
       "source_path": "mudlib/d/latemoon/sroad1.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "山路",
       "description": "你走在一条蜿蜒的小径, 小径的两旁是半个人高的杂草, 你可以感受\n到清凉的微风从两侧吹来。",
       "exits": [
@@ -2293,7 +2303,8 @@
     {
       "id": "latemoon.sroad2",
       "source_path": "mudlib/d/latemoon/sroad2.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "蜿蜒小径",
       "description": "你走在这条蜿蜒的小径上, 本来向北走的小径被一道峭壁挡住了,\n因此小径从这弯向东边去, 在你的西边是一片杂草和几棵小树。",
       "exits": [
@@ -2321,7 +2332,8 @@
     {
       "id": "latemoon.sroad3",
       "source_path": "mudlib/d/latemoon/sroad3.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "小径",
       "description": "条蜿蜒的小径通往东南方, 在你的东面是一道峭壁, 而在你的\n南边是一片浓密的竹林。",
       "exits": [
@@ -2349,7 +2361,8 @@
     {
       "id": "latemoon.sroad4",
       "source_path": "mudlib/d/latemoon/sroad4.c",
-      "status": "structured",
+      "outdoors": "lateroom",
+      "status": "verified",
       "name": "蜿蜒小径",
       "description": "这条蜿蜒的小径通往西南方, 西边是一片茂密的竹林, 小\n径两旁是绿油油的草地，凉风从草地上吹拂而过，像嬉戏的儿\n童般溜过你的足畔，使你不知不觉间脚步轻快了起来。",
       "exits": [
@@ -2384,7 +2397,8 @@
     {
       "id": "latemoon.sroad5",
       "source_path": "mudlib/d/latemoon/sroad5.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "小径",
       "description": "这条蜿蜒的小径通往东南方, 在你的东面是一处陡坡, 而在你的\n西边是一座茂密的竹林。",
       "exits": [
@@ -2426,7 +2440,7 @@
     {
       "id": "latemoon.upstar.upcenter",
       "source_path": "mudlib/d/latemoon/upstar/upcenter.c",
-      "status": "structured",
+      "status": "verified",
       "name": "佛堂门前",
       "description": "这里是庄院二楼的佛堂门前，你可以闻到一股浓郁的檀香气息。\n走在这里你有一种庄严肃静的感觉，在闲暇之馀你觉得来到这可以\n暂时忘去周遭的烦人琐事，彷佛可以放开一切� 所有时空都静止般\n的虚空幽静。西面你看到一扇檀香木门。",
       "exits": [
@@ -2470,7 +2484,8 @@
     {
       "id": "latemoon.upstar.uplook",
       "source_path": "mudlib/d/latemoon/upstar/uplook.c",
-      "status": "structured",
+      "outdoors": "latemoon",
+      "status": "verified",
       "name": "观景台",
       "description": "这是晚月庄的前堂楼观景台，站在台前你可以看到整个庄院的\n布局，瀚烟山美丽景色尽收眼里。微微的山风轻拂你的脸庞，有种\n说不出的轻爽。远处山寺的钟声，飞鸟的鸣啼，与眼前的景色构成\n一幅山林风光的风景画。正下方是前院。",
       "exits": [
@@ -2514,7 +2529,7 @@
     {
       "id": "latemoon.upstar.uproom",
       "source_path": "mudlib/d/latemoon/upstar/uproom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "佛堂",
       "description": "这是专供庄内祭祀的佛堂，是一座精构楼阁，屋顶覆以琉璃瓦，四\n角钻尖覆以鎏金铜瓦。堂内供奉  人灵「区冥」，旁有雨神「天龙」、\n火神「凤凰」。两翼有琉璃鹤照壁，姿态生动。四周置陈神□佛像，□\n盘塔磬，及一股檀香的气息。",
       "exits": [
@@ -2551,7 +2566,7 @@
     {
       "id": "latemoon.upstar.uproom2",
       "source_path": "mudlib/d/latemoon/upstar/uproom2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "翠湘阁",
       "description": "这是晚月庄的舞曲步法研究室, 名曰「翠湘」。墙上刻画著各种\n基本步法与一些诗词曲赋。在每一位美女图的姿态形体之中，那种翩\n然起舞的曼妙舞姿，含蕴许多珍贵奇妙的舞步。你可以看到几位师姐\n一起走著奇特的步法，正在试著模拟这些舞步，一边低头沉思要如何\n运用，十分的投入。",
       "exits": [
@@ -2588,7 +2603,7 @@
     {
       "id": "latemoon.upstar.uproom3",
       "source_path": "mudlib/d/latemoon/upstar/uproom3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "缀芳阁",
       "description": "这是晚月庄让弟子们静修的地方, 名曰「缀芳」。简单的布置加上\n一座檀香炉, 你觉得这绝对是一个静修(ponder)的好场所。空气中弥漫\n著一股肃穆的气息, 使人很容易进入忘我的境界。",
       "exits": [
@@ -2633,7 +2648,7 @@
     {
       "id": "latemoon.upstar.upstar1",
       "source_path": "mudlib/d/latemoon/upstar/upstar1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "二楼走廊",
       "description": "你走在后厅二楼的走廊上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -2668,7 +2683,7 @@
     {
       "id": "latemoon.upstar.upstar2",
       "source_path": "mudlib/d/latemoon/upstar/upstar2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "二楼走廊",
       "description": "你走在后厅二楼的走廊上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -2703,7 +2718,7 @@
     {
       "id": "latemoon.upstar.upstar3",
       "source_path": "mudlib/d/latemoon/upstar/upstar3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "二楼走廊",
       "description": "你走在后厅二楼的走廊上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -2747,7 +2762,7 @@
     {
       "id": "latemoon.upstar.upstar4",
       "source_path": "mudlib/d/latemoon/upstar/upstar4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "二楼走廊",
       "description": "你走在后厅二楼的走廊上，庄内像这样的走廊很多，你若没有地\n理概念很容易迷路。长长的走道中, 纯金铸成的长灯架上挂了一排饰\n丽的宫灯! 入夜之后灯火辉煌! 十分美丽!",
       "exits": [
@@ -2791,7 +2806,7 @@
     {
       "id": "latemoon.upstar.upstarc",
       "source_path": "mudlib/d/latemoon/upstar/upstarc.c",
-      "status": "structured",
+      "status": "verified",
       "name": "前堂楼",
       "description": "这里是庄院二楼的前堂楼，有著传统的古式建筑风格。由上好的\n桧木搭建而成, 东面一阵耀眼的的白光由两扇敞开的落地窗口射进来\n，泛映出一种清新幽静的格局。开了楼门出去可以一览庄院内外的山\n川景色，欣赏其美丽景观。",
       "exits": [

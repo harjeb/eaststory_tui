@@ -2,12 +2,12 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "oldpine",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "oldpine.cave1",
       "source_path": "mudlib/d/oldpine/cave1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山洞",
       "description": "你现在已经到达山洞的深处了, 四面八方都是些黑漆漆的小石洞,\n简直不知道该往那里走, 要不是北面还有一点光线, 你都要彻底绝望了。",
       "exits": [
@@ -51,7 +51,7 @@
     {
       "id": "oldpine.cave2",
       "source_path": "mudlib/d/oldpine/cave2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山洞",
       "description": "你现在已经到达山洞的深处了, 四面八方都是些黑漆漆的小石洞,\n简直不知道该往那里走, 要不是北面还有一点光线, 你都要彻底绝望了。",
       "exits": [
@@ -95,7 +95,7 @@
     {
       "id": "oldpine.cave3",
       "source_path": "mudlib/d/oldpine/cave3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山洞",
       "description": "你现在已经到达山洞的深处了, 四面八方都是些黑漆漆的小石洞,\n简直不知道该往那里走, 要不是北面还有一点光线, 你都要彻底绝望了。",
       "exits": [
@@ -139,7 +139,7 @@
     {
       "id": "oldpine.cave4",
       "source_path": "mudlib/d/oldpine/cave4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山洞",
       "description": "你现在已经到达山洞的深处了, 四面八方都是些黑漆漆的小石洞,\n简直不知道该往那里走, 要不是北面还有一点光线, 你都要彻底绝望了。",
       "exits": [
@@ -183,7 +183,7 @@
     {
       "id": "oldpine.cave5",
       "source_path": "mudlib/d/oldpine/cave5.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山洞",
       "description": "你现在已经到达山洞的深处了, 耶...东面就是洞口了, 还可以听\n见外面瀑布的水声, 仔细的观察石壁(wall), 可以发现上面有一些用利\n剑雕刻的字....",
       "exits": [
@@ -221,7 +221,7 @@
     {
       "id": "oldpine.clearing",
       "source_path": "mudlib/d/oldpine/clearing.c",
-      "status": "structured",
+      "status": "verified",
       "name": "林间空地",
       "description": "这是一块林间空地，四周的树木花草像是被人修剪过一般，环绕著\n空地围成一个整齐的圆形，空地中央一株巨大的松树(pine)像平地上撑\n起一把大伞，树上针叶茂密得遮去了大半的阳光，空地四周有三条小路\n分别通往东、西、南三个方向，往南的小路旁竖著一个牌子(sign)。",
       "exits": [
@@ -271,7 +271,8 @@
     {
       "id": "oldpine.cliff1",
       "source_path": "mudlib/d/oldpine/cliff1.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "山壁上的窄穴",
       "description": "你现在正栖身在一个山壁上勉强足以容纳一个人休息的岩穴中，从\n这里无论是要往上爬或往下爬都有一段不算短的距离，最好先歇一歇，\n喘口气再走。",
       "exits": [],
@@ -286,7 +287,8 @@
     {
       "id": "oldpine.cliff2",
       "source_path": "mudlib/d/oldpine/cliff2.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "山壁上的窄穴",
       "description": "你现在正栖身在一个山壁上勉强足以容纳一个人休息的岩穴中，从\n这里无论是要往上爬或往下爬都有一段不算短的距离，最好先歇一歇，\n喘口气再走。",
       "exits": [],
@@ -301,7 +303,8 @@
     {
       "id": "oldpine.cliffdown",
       "source_path": "mudlib/d/oldpine/cliffdown.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间....不....悬崖边",
       "description": "你现在正站在一个松树林间的小空地上，你的北边、东边、南边都\n是茂密的松树，唯独西边是个悬崖(cliff)，当你探头一看，立刻不由\n自主地倒抽一口凉气，在这里可得千万小心，一不小心跌了下去肯定是\n粉身碎骨。",
       "exits": [
@@ -360,7 +363,8 @@
     {
       "id": "oldpine.cliffside",
       "source_path": "mudlib/d/oldpine/cliffside.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间....不....悬崖边",
       "description": "你现在正站在一个松树林间的小空地上，你的北边、东边、南边都\n是茂密的松树，唯独西边是个悬崖(cliff)，当你探头一看，立刻不由\n自主地倒抽一口凉气，在这里可得千万小心，一不小心跌了下去肯定是\n粉身碎骨。",
       "exits": [
@@ -389,7 +393,8 @@
     {
       "id": "oldpine.epath1",
       "source_path": "mudlib/d/oldpine/epath1.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间小路",
       "description": "你现在正走在一条松树林中的小路，这里的松树树干上都有著一些\n奇怪的记号，像是被人用刀子划过，小路的西边是一块空地，往东不远\n可以看到一条山涧，上面横跨著一座小石桥。",
       "exits": [
@@ -417,7 +422,8 @@
     {
       "id": "oldpine.epath2",
       "source_path": "mudlib/d/oldpine/epath2.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "小石桥",
       "description": "你现在正站在一座长满青苔的古桥上，桥下是一条山涧，几股清泉\n在乱石之中向山下奔流，桥北边不远处有一个瀑布(waterfall) ，从山\n壁上犹如一条白练般垂了下来，瀑布两旁的石壁十分陡峭，高度和山涧\n旁的松林相差了近三、四十丈。",
       "exits": [
@@ -460,7 +466,8 @@
     {
       "id": "oldpine.epath3",
       "source_path": "mudlib/d/oldpine/epath3.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间小路",
       "description": "你现在正走在一条松树林间的小路，西边有一座小石桥横跨在一条\n山涧上，往东不远处似乎是林子的出口，一条破旧的栈道沿著山壁通往\n山上，你发现地上有一些湿漉漉的脚印(footprints)，但是因为脚印太\n多，分不出是往哪里去。",
       "exits": [
@@ -501,7 +508,7 @@
     {
       "id": "oldpine.keep1",
       "source_path": "mudlib/d/oldpine/keep1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "老松寨秘密入口",
       "description": "这里只见一个木头搭成的大门，门框上挂著四、五的不知道是什么\n动物的头骨跟一些铁链，外面再铺上一层乾枯的松枝，在这样一个森林\n里还真不容易发觉。",
       "exits": [
@@ -536,7 +543,7 @@
     {
       "id": "oldpine.keep2",
       "source_path": "mudlib/d/oldpine/keep2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "老松寨",
       "description": "这里应该是老松寨了，虽然围绕著你的墙都是木头搭成的，但是仔\n细一看，在许多险要的位置都放了不少沙包石堆，后面显然是埋伏人手\n的好地方，如果有人贸然从大门口攻进来，肯定会吃大亏的，大寨的门\n在你的西边，东边越过一排木桩之后就是大厅。",
       "exits": [
@@ -579,7 +586,7 @@
     {
       "id": "oldpine.keep3",
       "source_path": "mudlib/d/oldpine/keep3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "老松寨",
       "description": "这里就是老松寨的大厅了，靠北边的地面上铺了一张巨大的熊皮，\n上面摆了三张椅子，大厅四周散落著几个取暖用的火盆，几个上了锁的\n木箱子，比较奇特的是中央掘了一个大坑(pool)，坑里是许多头骨浸在\n一种发著恶臭的黄水之中。",
       "exits": [
@@ -612,7 +619,7 @@
     {
       "id": "oldpine.lake",
       "source_path": "mudlib/d/oldpine/lake.c",
-      "status": "structured",
+      "status": "verified",
       "name": "水潭",
       "description": "你现在正站在一个深不见底的水潭边上，从潭底不时有气泡冒上来\n，散发著一股诡异的香味，水潭边长满了黄色叶子的怪草，四周陡峭的\n山壁近乎直立，抬头只见一个半圆形的天空，唯一的出路大概只有往北\n山泉流入水潭的缺口。",
       "exits": [
@@ -640,7 +647,8 @@
     {
       "id": "oldpine.npath1",
       "source_path": "mudlib/d/oldpine/npath1.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间小路",
       "description": "你现在正走在一条林间的小路，往北不远处走出这座林子就是雪亭\n镇，小路两旁长满了许多高耸的松树，雪亭镇的居民都把这里叫做「老\n松林」，据说林子里有株树龄上千的老松树，颇有灵验。",
       "exits": [
@@ -668,7 +676,8 @@
     {
       "id": "oldpine.npath2",
       "source_path": "mudlib/d/oldpine/npath2.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间小路",
       "description": "你现在正走在一条林间的小路上，小路两旁长满了高耸的松树，从\n林间传来阵阵鸟叫声，小路往南北两个方向延伸出去。",
       "exits": [
@@ -696,7 +705,8 @@
     {
       "id": "oldpine.npath3",
       "source_path": "mudlib/d/oldpine/npath3.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间小路",
       "description": "你现在正走在一条林间的小路上，小路往东似乎通往一处空地，林\n子到了这里变得静悄悄的，小路两旁的松树也比西边的矮小，看起来有\n点营养不良的样子。",
       "exits": [
@@ -724,7 +734,7 @@
     {
       "id": "oldpine.passage",
       "source_path": "mudlib/d/oldpine/passage.c",
-      "status": "structured",
+      "status": "verified",
       "name": "秘密通道入口",
       "description": "你现在正站在一个岩石的通道之中，在你南边有一片亮晶晶的帘幕\n(curtain)，从帘幕后面传来阵阵轰隆隆的水声，通道两边的石壁上安置\n著许多铜铸的烛台，照亮了这个岩穴，往北似乎有亮光。",
       "exits": [
@@ -767,7 +777,7 @@
     {
       "id": "oldpine.path3",
       "source_path": "mudlib/d/oldpine/path3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "秘密通道",
       "description": "你现在正站在一个阴森森的山洞之中, 一条昂首吐信的金银花蛇,\n爬伏在一块突出的大青石(stone)上, 令人望而生畏, 也许你该回头逃跑了。",
       "exits": [
@@ -797,7 +807,8 @@
     {
       "id": "oldpine.pine1",
       "source_path": "mudlib/d/oldpine/pine1.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "松树林",
       "description": "你现在正站在一个松树林里，嗯....这是一个松树林....你所知就\n这么多，茂密的松树遮蔽了整个天空，使你连方向都弄不清楚，最好在\n天黑之前赶紧找道路径出去吧。",
       "exits": [
@@ -854,7 +865,8 @@
     {
       "id": "oldpine.pine2",
       "source_path": "mudlib/d/oldpine/pine2.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "松树林",
       "description": "你现在正站在一个松树林里，嗯....这是一个松树林....你所知就\n这么多，茂密的松树遮蔽了整个天空，使你连方向都弄不清楚，最好在\n天黑之前赶紧找道路径出去吧。",
       "exits": [
@@ -899,7 +911,8 @@
     {
       "id": "oldpine.pine3",
       "source_path": "mudlib/d/oldpine/pine3.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "松树林",
       "description": "你现在正站在一个松树林里，嗯....这是一个松树林....你所知就\n这么多，茂密的松树遮蔽了整个天空，使你连方向都弄不清楚，最好在\n天黑之前赶紧找道路径出去吧。",
       "exits": [
@@ -944,7 +957,8 @@
     {
       "id": "oldpine.pine4",
       "source_path": "mudlib/d/oldpine/pine4.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "松树林",
       "description": "你现在正站在一个松树林里，嗯....这是一个松树林....你所知就\n这么多，茂密的松树遮蔽了整个天空，使你连方向都弄不清楚，最好在\n天黑之前赶紧找道路径出去吧。",
       "exits": [
@@ -989,7 +1003,8 @@
     {
       "id": "oldpine.pine5",
       "source_path": "mudlib/d/oldpine/pine5.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "松树林",
       "description": "你现在正站在一个松树林里，嗯....这是一个松树林....你所知就\n这么多，茂密的松树遮蔽了整个天空，使你连方向都弄不清楚，最好在\n天黑之前赶紧找道路径出去吧。",
       "exits": [
@@ -1034,7 +1049,8 @@
     {
       "id": "oldpine.pine6",
       "source_path": "mudlib/d/oldpine/pine6.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "松树林",
       "description": "你现在正站在一个松树林里，嗯....这是一个松树林....你所知就\n这么多，茂密的松树遮蔽了整个天空，使你连方向都弄不清楚，最好在\n天黑之前赶紧找道路径出去吧。",
       "exits": [
@@ -1079,7 +1095,8 @@
     {
       "id": "oldpine.pine7",
       "source_path": "mudlib/d/oldpine/pine7.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "松树林",
       "description": "你现在正站在一个松树林里，嗯....这是一个松树林....你所知就\n这么多，茂密的松树遮蔽了整个天空，使你连方向都弄不清楚，最好在\n天黑之前赶紧找道路径出去吧。",
       "exits": [
@@ -1138,7 +1155,8 @@
     {
       "id": "oldpine.riverbank1",
       "source_path": "mudlib/d/oldpine/riverbank1.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "山涧之中",
       "description": "你现在正站在一条山涧中的岩石上，几股泉水正从你脚边流过，水\n花溅得四处飞散，南边是一个深不见底的水潭(lake)，两边的山壁看起\n来又高又陡，看来要爬上岸边实在很不容易，你的北方有一座小石桥高\n高地跨过两边的山壁，可是桥的高度太高，即使是轻功绝顶的高手也跃\n不上去。",
       "exits": [
@@ -1175,7 +1193,8 @@
     {
       "id": "oldpine.riverbank2",
       "source_path": "mudlib/d/oldpine/riverbank2.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "山涧之中",
       "description": "你现在正站在一条山涧中的岩石上，一座小石桥正高高地从你的头\n顶横跨过山涧两边的石壁(cliff)，一个瀑布就在你的北方不远处，从一\n处更高的悬崖上垂了下来。",
       "exits": [
@@ -1211,7 +1230,7 @@
     {
       "id": "oldpine.secrectpath1",
       "source_path": "mudlib/d/oldpine/secrectpath1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "秘密通道",
       "description": "你现在正站在一个岩石通道之中，从南边隐隐传来哗哗的水声，岩\n壁上生著厚厚的青苔，一股恶臭从北边传来，像是什么野兽，也许你该\n回头出去了。",
       "exits": [
@@ -1239,7 +1258,8 @@
     {
       "id": "oldpine.spath1",
       "source_path": "mudlib/d/oldpine/spath1.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "林间小路",
       "description": "你现在正走在一片松树林中的小路上，小路往北通往一处空地，一\n株巨大无朋的松树矗立在空地中央，小路往南是一条长长的下坡道，这\n条路上足迹很多，显然常有人经过。",
       "exits": [
@@ -1284,7 +1304,8 @@
     {
       "id": "oldpine.spath2",
       "source_path": "mudlib/d/oldpine/spath2.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "下坡道",
       "description": "这是一条笔直的坡道，北高南低，道路两旁长满了许多松树，从松\n林间隐约可以听到东边传来流水的声音。",
       "exits": [
@@ -1312,7 +1333,8 @@
     {
       "id": "oldpine.spath3",
       "source_path": "mudlib/d/oldpine/spath3.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "下坡道",
       "description": "这是一条笔直的坡道，北高南低，道路两旁长满了许多松树，从松\n林间隐约可以听到东边传来流水的声音。",
       "exits": [
@@ -1340,7 +1362,8 @@
     {
       "id": "oldpine.spath4",
       "source_path": "mudlib/d/oldpine/spath4.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "下坡道",
       "description": "这是一条笔直的坡道，北高南低，道路两旁长满了许多松树，从松\n林间隐约可以听到东边传来流水的声音。",
       "exits": [
@@ -1361,7 +1384,7 @@
     {
       "id": "oldpine.stone",
       "source_path": "mudlib/d/oldpine/stone.c",
-      "status": "structured",
+      "status": "verified",
       "name": "大青石上",
       "description": "你现在正站在一块突出的大青石上, 虽然有点滑, 你还是能站稳,\n往四周看, 除了长满了青苔的石壁, 好象无路可走了。",
       "exits": [],
@@ -1383,7 +1406,7 @@
     {
       "id": "oldpine.tree1",
       "source_path": "mudlib/d/oldpine/tree1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "大松树上",
       "description": "你现在正攀附在一株大松树的树干上，从这里可以很清楚地望见树\n下的一切动静，而不被人发觉，似乎是个干偷鸡摸狗勾当的好地方。",
       "exits": [
@@ -1418,7 +1441,7 @@
     {
       "id": "oldpine.tree2",
       "source_path": "mudlib/d/oldpine/tree2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "大松树上",
       "description": "你现在正攀附在一株大松树的树干上，这里离地面已经有七、八丈\n高，如果不小心跌了下去，不断条腿也得去半条命，松树上结了许多球\n果，不过大部分都离树干很远，你构不到。",
       "exits": [
@@ -1453,7 +1476,8 @@
     {
       "id": "oldpine.tree3",
       "source_path": "mudlib/d/oldpine/tree3.c",
-      "status": "structured",
+      "outdoors": "oldpine",
+      "status": "verified",
       "name": "大松树顶",
       "description": "哇....你终于爬上这株松树的树顶了，一阵阵凉风从四面八方吹来\n，使你觉得心旷神怡，虽然你的经验告诉你在这种地方往下看是十分不\n智的，但是你还是忍不住看了一眼，这里离地面至少也有十五、六丈高\n，一阵晕眩警告你最好在跌下去以前离开这个地方。",
       "exits": [
@@ -1474,7 +1498,7 @@
     {
       "id": "oldpine.waterfall",
       "source_path": "mudlib/d/oldpine/waterfall.c",
-      "status": "structured",
+      "status": "verified",
       "name": "瀑布前",
       "description": "你现在正站在瀑布前的一个小水潭里，水潭大约深可及胸，淹不死\n人，一条白练般的瀑布(waterfall)从数百丈高的悬崖上冲激而下，溅\n得你全身湿透，水潭三面都被高耸的山壁(cliff)所包围，只有南面沿\n著一条山涧可以出去。",
       "exits": [

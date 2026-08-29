@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M8",
+  "status": "complete",
+  "issuer": {
+    "source_path": "mudlib/u/cloud/npc/god.c",
+    "runtime_npc_id": "u.cloud.npc.god",
+    "runtime_location": "u.cloud.god2",
+    "tui_surface": "Action::RequestDynamicQuest"
+  },
+  "completion_hook": {
+    "source_path": "mudlib/adm/daemons/combatd.c",
+    "runtime_surface": "Game::win_combat"
+  },
+  "catalog": {
+    "source_tables": 15,
+    "source_rows_before_comment_filter": 253,
+    "commented_out_rows": 33,
+    "active_source_rows": 220,
+    "active_unique_targets": 84,
+    "initially_statically_available_rows": 206,
+    "conditionally_available_rows": 3,
+    "excluded_rows": 11,
+    "disposed": 220,
+    "remaining": 0
+  },
+  "tables": [
+    { "source_path": "mudlib/quest/qlist1000.c", "tier": 1000, "active_rows": 23, "initially_statically_available_rows": 21 },
+    { "source_path": "mudlib/quest/qlist1500.c", "tier": 1500, "active_rows": 23, "initially_statically_available_rows": 21 },
+    { "source_path": "mudlib/quest/qlist2000.c", "tier": 2000, "active_rows": 22, "initially_statically_available_rows": 21 },
+    { "source_path": "mudlib/quest/qlist3000.c", "tier": 3000, "active_rows": 23, "initially_statically_available_rows": 22 },
+    { "source_path": "mudlib/quest/qlist5000.c", "tier": 5000, "active_rows": 17, "initially_statically_available_rows": 16 },
+    { "source_path": "mudlib/quest/qlist8000.c", "tier": 8000, "active_rows": 19, "initially_statically_available_rows": 18 },
+    { "source_path": "mudlib/quest/qlist10000.c", "tier": 10000, "active_rows": 11, "initially_statically_available_rows": 11 },
+    { "source_path": "mudlib/quest/qlist13000.c", "tier": 13000, "active_rows": 11, "initially_statically_available_rows": 11 },
+    { "source_path": "mudlib/quest/qlist17000.c", "tier": 17000, "active_rows": 10, "initially_statically_available_rows": 10 },
+    { "source_path": "mudlib/quest/qlist22000.c", "tier": 22000, "active_rows": 9, "initially_statically_available_rows": 9 },
+    { "source_path": "mudlib/quest/qlist40000.c", "tier": 40000, "active_rows": 11, "initially_statically_available_rows": 9 },
+    { "source_path": "mudlib/quest/qlist50000.c", "tier": 50000, "active_rows": 9, "initially_statically_available_rows": 7 },
+    { "source_path": "mudlib/quest/qlist60000.c", "tier": 60000, "active_rows": 7, "initially_statically_available_rows": 5 },
+    { "source_path": "mudlib/quest/qlist80000.c", "tier": 80000, "active_rows": 8, "initially_statically_available_rows": 8 },
+    { "source_path": "mudlib/quest/qlist100000.c", "tier": 100000, "active_rows": 17, "initially_statically_available_rows": 17 }
+  ],
+  "runtime_adaptation": {
+    "task_data": "src/quests.rs 以内嵌 LPC 表、剔除 /* ... */ 注释块并解析 quest、quest_type、time、exp_bonus、pot_bonus、score。所有当前活动来源条目均为杀敌任务。",
+    "selection": "实战经验必须大于 1000；按来源阈值选阶位，连续成功每三次上调一阶、负连续值每三次下调一阶，范围限制在 1000 至 100000。只从当前仍有活体来源 NPC 实例的同名目标中随机选择，避免单人版发出不可完成任务。",
+    "deadline": "来源秒数映射为 elapsed_minutes + time * GAME_MINUTES_PER_TICK。在线每 tick 等于原始一秒任务时限；受限离线世界推进同样推进该截止时间，因此读档不能规避时限。逾期任务保留到再次向朱鸿雪领取任务时，按来源将当前气减半加一并重置连续完成数。",
+    "completion": "仅死斗击杀同名 NPC 且未逾期时完成。奖励按 exp/pot/score 的 half + random(half) 范围、固定 factor=10 结算；可用潜能封顶 100 后加回已消耗潜能；当前综合评价为负时奖励评价也为负。",
+    "persistence": "DynamicQuest、连续完成数与世界时钟进入 schema v30；v29 存档迁移时清空未存在的动态任务状态。"
+  },
+  "conditional_rows": [
+    { "source_path": "mudlib/quest/qlist1000.c", "tier": 1000, "target": "蜘蛛", "decision": "青石村蛛网检查动态生成活体来源蜘蛛后才可被选中。" },
+    { "source_path": "mudlib/quest/qlist1500.c", "tier": 1500, "target": "蜘蛛", "decision": "青石村蛛网检查动态生成活体来源蜘蛛后才可被选中。" },
+    { "source_path": "mudlib/quest/qlist2000.c", "tier": 2000, "target": "蜘蛛", "decision": "青石村蛛网检查动态生成活体来源蜘蛛后才可被选中。" }
+  ],
+  "excluded_rows": [
+    { "source_path": "mudlib/quest/qlist1000.c", "tier": 1000, "target": "乞丐", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist1500.c", "tier": 1500, "target": "乞丐", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist3000.c", "tier": 3000, "target": "护寺武僧", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist5000.c", "tier": 5000, "target": "护寺武僧", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist8000.c", "tier": 8000, "target": "护寺武僧", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist40000.c", "tier": 40000, "target": "清云", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist40000.c", "tier": 40000, "target": "清玄", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist50000.c", "tier": 50000, "target": "清云", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist50000.c", "tier": 50000, "target": "清玄", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist60000.c", "tier": 60000, "target": "清云", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" },
+    { "source_path": "mudlib/quest/qlist60000.c", "tier": 60000, "target": "清玄", "decision": "当前单人世界没有活体静态或生成实例；领取时过滤。" }
+  ],
+  "tests": [
+    "quests::source_task_tables_are_complete",
+    "quests::source_tier_selection_applies_three_task_streaks",
+    "game::m8_dynamic_quest_is_source_backed_persistent_and_world_timed",
+    "game::m8_dynamic_quest_kill_rewards_match_source_ranges_and_cap_potential",
+    "save::version_twenty_nine_clears_dynamic_quest_state"
+  ]
+}

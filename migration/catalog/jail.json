@@ -2,7 +2,7 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "jail",
-  "status": "structured",
+  "status": "verified",
   "rooms": [],
   "non_room_files": [
     "mudlib/d/jail/cityguard.c"

@@ -25,6 +25,8 @@ struct AreaCatalog {
 struct RoomRecord {
     id: String,
     source_path: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    outdoors: Option<String>,
     status: &'static str,
     name: String,
     description: String,
@@ -226,6 +228,7 @@ struct NpcRecord {
     mappings: BTreeMap<String, String>,
     combat_apply: BTreeMap<String, i32>,
     combat_chat: Option<NpcCombatChatRecord>,
+    ambient_chat: Option<NpcAmbientChatRecord>,
     carried_items: Vec<NpcCarriedItemRecord>,
     placement_count: usize,
     vendor_goods: Vec<VendorGoodRecord>,
@@ -244,6 +247,35 @@ struct NpcCombatChatRecord {
 struct NpcCombatChatEntryRecord {
     kind: &'static str,
     value: String,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcAmbientChatRecord {
+    chance: Option<i32>,
+    chance_expression: Option<String>,
+    entries: Vec<NpcAmbientChatEntryRecord>,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcAmbientChatEntryRecord {
+    kind: &'static str,
+    value: String,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcAmbientCatalog {
+    schema_version: u32,
+    source_commit: String,
+    scope: &'static str,
+    status: &'static str,
+    npcs: Vec<NpcAmbientCatalogEntry>,
+}
+
+#[derive(Debug, Serialize)]
+struct NpcAmbientCatalogEntry {
+    id: String,
+    source_path: String,
+    ambient_chat: NpcAmbientChatRecord,
 }
 
 #[derive(Debug, Serialize)]
@@ -282,7 +314,7 @@ fn main() -> Result<()> {
     );
     if args.next().is_some() {
         bail!(
-            "用法: es2-import [源仓库] [区域|items|skills|npcs-m4|npcs-m5|npcs-m6|npcs-m7] [输出文件]"
+            "用法: es2-import [源仓库] [区域|items|skills|npcs-m4|npcs-m5|npcs-m6|npcs-m7|npc-ambient] [输出文件]"
         );
     }
 
@@ -309,6 +341,23 @@ fn main() -> Result<()> {
             );
             (
                 serde_json::to_string_pretty(&catalog).context("无法序列化技能目录")?,
+                summary,
+            )
+        }
+        "npc-ambient" => {
+            let catalog = import_npc_ambient(&repository)?;
+            let entries = catalog
+                .npcs
+                .iter()
+                .map(|npc| npc.ambient_chat.entries.len())
+                .sum::<usize>();
+            let summary = format!(
+                "npc-ambient: 导入 {} 个 NPC 的 {} 条环境消息",
+                catalog.npcs.len(),
+                entries
+            );
+            (
+                serde_json::to_string_pretty(&catalog).context("无法序列化 NPC 环境消息目录")?,
                 summary,
             )
         }
@@ -439,6 +488,7 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
             warnings.push(format!("{path}: 无法解析 long"));
             String::new()
         });
+        let outdoors = extract_set_string(&source, "outdoors");
         let exits = extract_exits(&source, area_id_prefix(area), path);
         let doors = extract_doors(&source);
         let details = extract_room_details(&source);
@@ -457,9 +507,10 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
         rooms.push(RoomRecord {
             id,
             source_path: path.to_string(),
-            status: "structured",
+            status: "verified",
             name,
             description,
+            outdoors,
             exits,
             doors,
             details,
@@ -477,7 +528,7 @@ fn import_area(repository: &Path, area: &str) -> Result<AreaCatalog> {
         schema_version: 4,
         source_commit,
         area: area.to_string(),
-        status: "structured",
+        status: "verified",
         rooms,
         non_room_files,
         warnings,
@@ -579,6 +630,7 @@ fn import_npcs(
         let mappings = extract_named_string_calls(create, "map_skill(");
         let combat_apply = extract_prefixed_named_integer_calls(create, "set_temp(", "apply/");
         let combat_chat = extract_npc_combat_chat(create);
+        let ambient_chat = extract_npc_ambient_chat(&source);
         let carried_items = extract_npc_carried_items(create, &path)
             .into_iter()
             .filter_map(|mut item| {
@@ -604,7 +656,7 @@ fn import_npcs(
         npcs.push(NpcRecord {
             id,
             source_path: path.clone(),
-            status: "structured",
+            status: "verified",
             area,
             name,
             description: extract_set_text(&source, "long"),
@@ -615,6 +667,7 @@ fn import_npcs(
             mappings,
             combat_apply,
             combat_chat,
+            ambient_chat,
             carried_items,
             placement_count: placements.get(&path).copied().unwrap_or(0),
             vendor_goods,
@@ -713,7 +766,7 @@ fn import_npcs(
         schema_version: 4,
         source_commit,
         scope,
-        status: "structured",
+        status: "verified",
         summary: NpcSummary {
             total: npcs.len(),
             placed,
@@ -743,6 +796,83 @@ fn import_npcs(
         },
         npcs,
         warnings,
+    })
+}
+
+fn import_npc_ambient(repository: &Path) -> Result<NpcAmbientCatalog> {
+    let catalogs = [
+        import_npcs(
+            repository,
+            &["city", "snow", "temple", "canyon"],
+            "m4-npcs",
+            &[],
+            &[],
+        )?,
+        import_npcs(
+            repository,
+            &["oldpine", "goathill", "choyin"],
+            "m5-npcs",
+            &[],
+            &[],
+        )?,
+        import_npcs(
+            repository,
+            &["chuenyu", "green", "sanyen", "waterfog"],
+            "m6-npcs",
+            &[],
+            &[],
+        )?,
+        import_npcs(
+            repository,
+            &["latemoon", "death", "graveyard", "jail", "cloud"],
+            "m7-npcs",
+            &["mudlib/d/snow/npc/beggar.c", "mudlib/obj/npc/garrison.c"],
+            &[
+                ("mudlib/d/latemoon/room/npc/houndbane.c", None),
+                (
+                    "mudlib/d/latemoon/room/npc/obj/deer_boot.c",
+                    Some("mudlib/d/latemoon/npc/obj/deer_boot.c"),
+                ),
+                (
+                    "mudlib/d/latemoon/room/npc/obj/blue_dress.c",
+                    Some("mudlib/d/latemoon/npc/obj/blue_dress.c"),
+                ),
+                (
+                    "mudlib/d/latemoon/room/npc/obj/redbelt.c",
+                    Some("mudlib/d/latemoon/npc/obj/redbelt.c"),
+                ),
+            ],
+        )?,
+    ];
+    let source_commit = catalogs[0].source_commit.clone();
+    let mut npcs = Vec::new();
+    for catalog in catalogs {
+        if catalog.source_commit != source_commit {
+            bail!("NPC ambient source revision drift");
+        }
+        for NpcRecord {
+            id,
+            source_path,
+            ambient_chat,
+            ..
+        } in catalog.npcs
+        {
+            if let Some(ambient_chat) = ambient_chat {
+                npcs.push(NpcAmbientCatalogEntry {
+                    id,
+                    source_path,
+                    ambient_chat,
+                });
+            }
+        }
+    }
+    npcs.sort_by(|left, right| left.id.cmp(&right.id));
+    Ok(NpcAmbientCatalog {
+        schema_version: 1,
+        source_commit,
+        scope: "m8-npc-ambient-chat",
+        status: "verified",
+        npcs,
     })
 }
 
@@ -817,7 +947,7 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
         items.push(ItemRecord {
             id,
             source_path: path.to_string(),
-            status: "structured",
+            status: "verified",
             category,
             inherited,
             name,
@@ -869,7 +999,7 @@ fn import_items(repository: &Path) -> Result<ItemCatalog> {
         schema_version: 3,
         source_commit,
         scope: "player_items",
-        status: "structured",
+        status: "verified",
         summary: ItemSummary {
             total: items.len(),
             by_category,
@@ -942,7 +1072,7 @@ fn import_skills(repository: &Path) -> Result<SkillCatalog> {
         skills.push(SkillRecord {
             id,
             source_path: path.to_string(),
-            status: "structured",
+            status: "verified",
             display_name,
             category,
             skill_type,
@@ -963,7 +1093,7 @@ fn import_skills(repository: &Path) -> Result<SkillCatalog> {
         schema_version: 3,
         source_commit,
         scope: "player_skills",
-        status: "structured",
+        status: "verified",
         summary: SkillSummary {
             total: skills.len(),
             by_category,
@@ -1000,7 +1130,7 @@ fn import_teachers(repository: &Path) -> Result<Vec<TeacherRecord>> {
         teachers.push(TeacherRecord {
             id,
             source_path: path.to_string(),
-            status: "structured",
+            status: "verified",
             name: extract_item_name(&source).unwrap_or_else(|| "未知掌门".into()),
             faction: extract_call_strings(&source, "create_family(")
                 .and_then(|values| values.first().cloned()),
@@ -1192,6 +1322,32 @@ fn extract_npc_combat_chat(source: &str) -> Option<NpcCombatChatRecord> {
     })
 }
 
+fn extract_npc_ambient_chat(source: &str) -> Option<NpcAmbientChatRecord> {
+    let value = find_set_value(source, "chat_msg")?;
+    let start = value.find("({")? + 2;
+    let end = value.get(start..)?.find("})")? + start;
+    let entries = split_lpc_top_level(value.get(start..end)?, b',')
+        .into_iter()
+        .filter_map(parse_npc_ambient_chat_entry)
+        .collect();
+    let chance_value = find_set_value(source, "chat_chance");
+    let chance = chance_value.and_then(parse_leading_integer);
+    let chance_expression = chance_value.and_then(|value| {
+        chance.is_none().then(|| {
+            normalize_fragment(
+                value
+                    .get(..value.find(");").unwrap_or(value.len()))
+                    .unwrap_or(value),
+            )
+        })
+    });
+    Some(NpcAmbientChatRecord {
+        chance,
+        chance_expression,
+        entries,
+    })
+}
+
 fn parse_npc_combat_chat_entry(source: &str) -> Option<NpcCombatChatEntryRecord> {
     let source = source.trim();
     if source.is_empty() {
@@ -1227,6 +1383,14 @@ fn parse_npc_combat_chat_entry(source: &str) -> Option<NpcCombatChatEntryRecord>
     (!value.is_empty()).then_some(NpcCombatChatEntryRecord {
         kind: "text",
         value,
+    })
+}
+
+fn parse_npc_ambient_chat_entry(source: &str) -> Option<NpcAmbientChatEntryRecord> {
+    let entry = parse_npc_combat_chat_entry(source)?;
+    Some(NpcAmbientChatEntryRecord {
+        kind: entry.kind,
+        value: entry.value,
     })
 }
 
@@ -2613,6 +2777,7 @@ string look_notice(object me)
     fn parses_heredoc_description() {
         let source = r#"
 set ("short", "谷物加工厂");
+set ("outdoors", "snow");
 set ("long", @LONG
 第一行
 第二行
@@ -2628,6 +2793,7 @@ add_action ("do_work", "work");
             extract_set_string(source, "short").as_deref(),
             Some("谷物加工厂")
         );
+        assert_eq!(extract_set_string(source, "outdoors").as_deref(), Some("snow"));
         assert_eq!(extract_long(source).as_deref(), Some("第一行\n第二行"));
         assert_eq!(
             extract_exits(source, "snow", "mudlib/d/snow/workplace.c").len(),
@@ -2807,6 +2973,22 @@ set("chat_msg_combat", ({ "战斗消息。" }));
         assert_eq!(ambient_chance_chat.chance, Some(15));
         assert_eq!(ambient_chance_chat.chance_expression, None);
 
+        let ambient = extract_npc_ambient_chat(
+            r#"
+set("chat_chance", 15);
+set("chat_msg", ({
+    "闲聊消息。\n",
+    (: random_move :),
+}) );
+"#,
+        )
+        .unwrap();
+        assert_eq!(ambient.chance, Some(15));
+        assert_eq!(ambient.entries.len(), 2);
+        assert_eq!(ambient.entries[0].kind, "text");
+        assert_eq!(ambient.entries[0].value, "闲聊消息。");
+        assert_eq!(ambient.entries[1].kind, "movement");
+
         let carried = extract_npc_carried_items(
             r#"
 carry_object("/obj/cloth")->wear();
@@ -2823,6 +3005,31 @@ carry_object("/obj/old_book");
         assert_eq!(carried[1].item_id, "snow.npc.obj.blade");
         assert_eq!(carried[1].state, "wielded");
         assert_eq!(carried[2].state, "carried");
+    }
+
+    #[test]
+    fn generated_npc_ambient_catalog_matches_fixed_source_baseline() {
+        let catalog: serde_json::Value =
+            serde_json::from_str(include_str!("../../migration/catalog/npc-ambient.json")).unwrap();
+        let npcs = catalog["npcs"].as_array().unwrap();
+        let entries = npcs
+            .iter()
+            .map(|npc| npc["ambient_chat"]["entries"].as_array().unwrap().len())
+            .sum::<usize>();
+        assert_eq!(catalog["schema_version"], 1);
+        assert_eq!(
+            catalog["source_commit"],
+            "87bba6bd2249beec8424b0d6623486a0dd1f7b30"
+        );
+        assert_eq!(catalog["scope"], "m8-npc-ambient-chat");
+        assert_eq!(npcs.len(), 70);
+        assert_eq!(entries, 167);
+        let cake_vendor = npcs
+            .iter()
+            .find(|npc| npc["id"] == "choyin.npc.cake_vendor")
+            .unwrap();
+        assert_eq!(cake_vendor["ambient_chat"]["chance"], 13);
+        assert_eq!(cake_vendor["ambient_chat"]["entries"].as_array().unwrap().len(), 3);
     }
 
     #[test]

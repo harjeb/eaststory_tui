@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M9",
+  "status": "complete",
+  "coverage_contract": {
+    "source_areas": 17,
+    "source_rooms": 552,
+    "non_hidden_source_rooms": 549,
+    "hidden_source_rooms": 3,
+    "runtime_locations": 556,
+    "source_item_definitions": 451,
+    "runtime_item_definitions": 453,
+    "source_npc_definitions": 264,
+    "skill_definitions": 70,
+    "task_rows": 220,
+    "task_unique_targets": 84,
+    "save_schema": 31
+  },
+  "migration_status_gate": {
+    "forbidden": ["discovered", "structured", "implemented", "blocked"],
+    "decision": "es2-audit recursively parses every migration JSON document and fails the release if any forbidden terminal state is present."
+  },
+  "reachability": {
+    "non_hidden_source_rooms": 549,
+    "hidden_source_rooms": [
+      {
+        "location": "snow.herbshop1",
+        "reason": "No inbound source reference or interaction exists in the fixed commit; it remains cataloged for provenance but is not exposed as a playable room."
+      },
+      {
+        "location": "temple.broom1",
+        "reason": "An unreachable duplicate of book_room1; the reachable source room is retained instead."
+      },
+      {
+        "location": "temple.broom2",
+        "reason": "An unreachable duplicate of book_room2; the reachable source room is retained instead."
+      }
+    ],
+    "regional_acceptance": [
+      "M1 village",
+      "M4 city/snow/temple/canyon",
+      "M5 oldpine/goathill/choyin",
+      "M6 chuenyu/green/sanyen/waterfog",
+      "M7 latemoon/death/graveyard/jail/cloud"
+    ],
+    "decision": "The release audit exposes three explicitly excluded source rooms as hidden and counts all remaining 549 source rooms as non-hidden regional content. Existing M4-M7 route and regional gameplay regressions remain the executable acceptance evidence for conditional and scripted paths."
+  },
+  "runtime_topology": {
+    "decision": "Every runtime exit must resolve to a registered location or an explicit random-target candidate. Source-only defects are retained in their historical ledgers but removed from the actionable world graph.",
+    "dynamic_target_resolvers": [
+      {
+        "source_target": "oldpine.cave",
+        "runtime_candidates": ["oldpine.cave1", "oldpine.cave2", "oldpine.cave3", "oldpine.cave4"],
+        "status": "verified"
+      },
+      {
+        "source_target": "oldpine.pine",
+        "runtime_candidates": ["oldpine.pine1", "oldpine.pine2", "oldpine.pine3", "oldpine.pine4", "oldpine.pine5", "oldpine.pine6"],
+        "status": "verified"
+      }
+    ],
+    "source_exits_excluded_from_runtime": [
+      {
+        "source_location": "city.nroad1",
+        "target": "city.room",
+        "reason": "The fixed source commit has no room.c; the source yell action names an invalid destination.",
+        "status": "excluded"
+      },
+      {
+        "source_location": "snow.inn",
+        "target": "wiz.entrance",
+        "reason": "This is an external wizard-only destination with no paired room in the shipped single-player world.",
+        "status": "excluded"
+      },
+      {
+        "source_location": "waterfog.entrance",
+        "target": "waterfog.guildhall",
+        "reason": "The fixed source commit has no guildhall room definition; the historical M6 ledger records the missing reference.",
+        "status": "excluded"
+      }
+    ]
+  },
+  "task_acceptance": {
+    "active_source_rows": 220,
+    "initially_available_rows": 206,
+    "conditional_rows": 3,
+    "explicitly_filtered_rows": 11,
+    "decision": "The M8 task tests cover issuance, expiration, completion, reward settlement and v29-to-v30 save migration; unavailable source targets are filtered before issuance and listed in m8-quests.json."
+  },
+  "release_artifacts": {
+    "coverage_report": "content-coverage.json",
+    "exclusion_report": "migration-exclusions.json",
+    "generator": "cargo run --locked --bin es2-audit -- --output <directory>"
+  },
+  "platform_acceptance": {
+    "linux": "CI runs formatting, Clippy, all-target tests, catalog regeneration, the M9 audit and a release build.",
+    "windows": "CI runs all-target tests and a release build on windows-latest before packaging."
+  },
+  "deferred_history": {
+    "decision": "Older ledgers retain deferred as historical provenance. M8 resolved their lifecycle and command dependencies; the release exclusion artifact lists every deferred, excluded and source_noop entry with its original ledger location."
+  }
+}

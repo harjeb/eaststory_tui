@@ -39,15 +39,27 @@ jobs:
       - name: Run tests
         run: cargo test --all-targets --locked
 
-      - name: Verify generated catalogs
+      - name: Verify generated catalogs and M9 release gate
         shell: bash
         run: |
-          cargo run --quiet --locked --bin es2-import -- es2-utf8 village /tmp/village.json
-          cargo run --quiet --locked --bin es2-import -- es2-utf8 items /tmp/items.json
-          cargo run --quiet --locked --bin es2-import -- es2-utf8 skills /tmp/skills.json
-          cmp migration/catalog/village.json /tmp/village.json
-          cmp migration/catalog/items.json /tmp/items.json
-          cmp migration/catalog/skills.json /tmp/skills.json
+          catalogs=(
+            village city snow temple canyon oldpine goathill choyin chuenyu green sanyen waterfog
+            latemoon death graveyard jail cloud
+            npcs-m4 npcs-m5 npcs-m6 npcs-m7 npc-ambient items skills
+          )
+          for catalog in "${catalogs[@]}"; do
+            cargo run --quiet --locked --bin es2-import -- es2-utf8 "$catalog" "/tmp/$catalog.json"
+            cmp "migration/catalog/$catalog.json" "/tmp/$catalog.json"
+          done
+          cargo run --quiet --locked --bin es2-audit -- --output /tmp/m9-release-metadata
+
+      - name: Upload M9 acceptance metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: m9-acceptance-metadata
+          path: /tmp/m9-release-metadata/*
+          if-no-files-found: error
+          retention-days: 14
 
   build:
     name: Build ${{ matrix.name }}
@@ -68,12 +80,17 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache Rust build
         uses: Swatinem/rust-cache@v2
+
+      - name: Run platform test suite
+        run: cargo test --all-targets --locked
 
       - name: Build release binary
         run: cargo build --release --locked

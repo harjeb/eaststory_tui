@@ -2,12 +2,12 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "green",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "green.cave0",
       "source_path": "mudlib/d/green/cave0.c",
-      "status": "structured",
+      "status": "verified",
       "name": "洞口",
       "description": "这里是山洞的入口, 往南看去是一条小小的碎石路, 两旁长满\n杂草, 看来很不明显. 往北是一道厚厚的木门, 上面用一条手臂粗\n的铁链拴著. 虽然如此, 你仍可以感到一股寒气从里面透出来.",
       "exits": [
@@ -51,7 +51,7 @@
     {
       "id": "green.cave1",
       "source_path": "mudlib/d/green/cave1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黑暗山洞",
       "description": "山洞很矮，几乎站不直身子，脚下偶尔踩到石头或是些莫名其妙的东西，\n洞内奇寒澈骨，南面是一扇木门，北面隐隐地有些亮光。",
       "exits": [
@@ -88,7 +88,7 @@
     {
       "id": "green.cave2",
       "source_path": "mudlib/d/green/cave2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黑暗山洞",
       "description": "山洞很矮，几乎站不直身子，脚下偶尔踩到石头或是些莫名其妙的东西，\n洞内奇寒澈骨，南面似乎可以前行，北面是一出口。",
       "exits": [
@@ -116,7 +116,7 @@
     {
       "id": "green.cavehall",
       "source_path": "mudlib/d/green/cavehall.c",
-      "status": "structured",
+      "status": "verified",
       "name": "石室大厅",
       "description": "这就是传说中的绝尘子的修行之所，北面是一座佛像，佛像顶部\n有一颗夜明珠发出莹莹的光芒。室内设施古朴，但却一尘不染。",
       "exits": [
@@ -137,7 +137,8 @@
     {
       "id": "green.closed",
       "source_path": "mudlib/d/green/closed.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "绝地",
       "description": "这是一块绝地,四周没有任何出口,你不禁急得要哭了出来,忽然,你发现\n远方有一块大石(stone)动了一下,走近一看,似乎可以推(push)一下。",
       "exits": [],
@@ -154,7 +155,8 @@
     {
       "id": "green.eight0",
       "source_path": "mudlib/d/green/eight0.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见一片无垠的绿野，然而地面上似乎\n罩着一层神密的薄雾，渐渐地远处的景色模糊起来，你觉得\n自己正深处一个飘忽的所在。你一回身，看见有一个路牌(sign)\n树在那里。",
       "exits": [
@@ -204,7 +206,8 @@
     {
       "id": "green.eight1",
       "source_path": "mudlib/d/green/eight1.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见群山环绕，不知所处，地面上似乎\n罩着一层神密的薄雾，渐渐地远处的景色模糊起来，你觉得\n自己正深处一个飘忽的所在。你一回身，看见有一个路牌(sign)树\n在那里。",
       "exits": [
@@ -254,7 +257,8 @@
     {
       "id": "green.eight2",
       "source_path": "mudlib/d/green/eight2.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见四面环水，只有脚下一点陆地，水面上\n似乎罩着一层神密的薄雾，渐渐地远处的景色模糊起来，你觉得\n自己正深处一个飘忽的所在。你一回身，看见有一个路牌(sign)树\n在那里。",
       "exits": [
@@ -304,7 +308,8 @@
     {
       "id": "green.eight3",
       "source_path": "mudlib/d/green/eight3.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见寒风阵阵，奇寒澈骨，如入北极风洞，四周\n似乎罩着一层神密的薄雾，风吹不散，渐渐地远处的景色模糊起来，你\n觉得自己正深处一个飘忽的所在。你一回身，看见有一个路牌(sign)树\n在那里。",
       "exits": [
@@ -354,7 +359,8 @@
     {
       "id": "green.eight4",
       "source_path": "mudlib/d/green/eight4.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见铅云低沉，忽然一道闪电，跟着一阵巨雷，\n远山为之回响，身旁似乎罩着一层神密的薄雾，渐渐地远处的景色\n模糊起来，你觉得自己正深处一个飘忽的所在。你一回身，看见有\n一个路牌(sign)树在那里。",
       "exits": [
@@ -404,7 +410,8 @@
     {
       "id": "green.eight5",
       "source_path": "mudlib/d/green/eight5.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见火光冲天，炽热难当，身旁似乎罩着一层\n神密的薄雾，渐渐地远处的景色模糊起来，你觉得自己正深处一个\n飘忽的所在。你一回身，看见有一个路牌(sign)树在那里。",
       "exits": [
@@ -454,7 +461,8 @@
     {
       "id": "green.eight6",
       "source_path": "mudlib/d/green/eight6.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见身处一个大湖泊之中，脚下只有四尺见方的\n一块陆地，湖上似乎罩着一层神密的薄雾，渐渐地远处的景色模糊起来，\n你觉得自己正深处一个飘忽的所在。你一回身，看见有一个路牌(sign)\n树在那里。",
       "exits": [
@@ -504,7 +512,8 @@
     {
       "id": "green.eight7",
       "source_path": "mudlib/d/green/eight7.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "迷阵",
       "description": "从这里向四周望去，只见长天一碧，沃野千里，正自心旷神怡，\n那层神密的薄雾又起，渐渐地远处的景色模糊起来，你觉得自\n己正深处一个飘忽的所在。你一回身，看见有一个路牌(sign)\n树在那里。",
       "exits": [
@@ -555,7 +564,7 @@
     {
       "id": "green.entrance",
       "source_path": "mudlib/d/green/entrance.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山路尽头",
       "description": "你走到了山路的尽头，发现三面都是石壁，东面石壁上有一个洞口，洞内隐隐\n发出风雷之声，洞口上方似乎刻着一副图(painting)，北面是一扇大石门，\n门上苔迹斑斑，显然已经很久没人打开过了。",
       "exits": [
@@ -607,7 +616,7 @@
     {
       "id": "green.field0",
       "source_path": "mudlib/d/green/field0.c",
-      "status": "structured",
+      "status": "verified",
       "name": "小广场",
       "description": "这是一个小小的广场，地上铺著切割整齐的大石块。广场周围有几间\n屋子，其中以正南边那栋木屋最为特别。往西是一条窄窄的小巷子，往东\n则是连接著采石场的空地。中央有一棵大榕树，像一座凉亭般地立在广场\n上。",
       "exits": [
@@ -649,7 +658,8 @@
     {
       "id": "green.field1",
       "source_path": "mudlib/d/green/field1.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "采石场的空地",
       "description": "这是一片黄土空地，四周堆著一些切割整齐的大石块和碎石。往东看\n去就是采石场，高耸的石璧经过多年的采挖已经看不出原来的模样了。往\n南看去是一些矮小的房舍和储存工具的地方，往西是村内的广场，往北靠\n近广场的地方有一栋简陋的民宅。",
       "exits": [
@@ -691,7 +701,7 @@
     {
       "id": "green.house0",
       "source_path": "mudlib/d/green/house0.c",
-      "status": "structured",
+      "status": "verified",
       "name": "民宅",
       "description": "这是一间简陋的民宅，阴暗窄小的屋内散著一地的柴火和各式工具。\n屋角的石炉上闪著微弱的火光，一锅不知是什么的东西正冒出阵阵香味。\n另一角放著一张简陋的木床和几张椅子。",
       "exits": [
@@ -724,7 +734,7 @@
     {
       "id": "green.house1",
       "source_path": "mudlib/d/green/house1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "工匠的家",
       "description": "这是一间普通的民宅，矮小的屋内整齐地堆著一排排的石板，墙上则\n挂著各式各样的雕刻，切割的工具。屋角放著各式的成品及半成品如石桌\n、石椅、墓碑等。",
       "exits": [
@@ -752,7 +762,7 @@
     {
       "id": "green.house2",
       "source_path": "mudlib/d/green/house2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "民宅",
       "description": "这是一间简陋的民宅, 屋顶隐约还可以看到一些破洞. 墙角堆\n著些柴火, 墙壁上还可以看到烟熏的痕迹. 除了一些简陋的家具外\n屋内空空荡荡的.",
       "exits": [
@@ -785,7 +795,7 @@
     {
       "id": "green.house3",
       "source_path": "mudlib/d/green/house3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "民宅",
       "description": "这是一间民宅, 屋内除了一张石床外其他一无所有. 昏暗的屋\n内看来死气沉沉的, 似乎这屋子的主人很久没回来了. 屋角有一个\n形状很奇怪的蜘蛛网(web).",
       "exits": [
@@ -814,7 +824,7 @@
     {
       "id": "green.house4",
       "source_path": "mudlib/d/green/house4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "村长的家",
       "description": "这是一间看起来有点不一样的民宅，屋子的中央有一个石制的炉子，\n上面生著一堆火，熊熊的火光把屋内照得像白天似的光亮。墙上挂著几幅\n字画，一边还放了一个木制的书架，上面整齐地排著一些旧得不能再旧的\n书。炉子的旁边摆了一张手工精美的石椅，看来像个很重要的位置。",
       "exits": [
@@ -842,7 +852,7 @@
     {
       "id": "green.mpath0",
       "source_path": "mudlib/d/green/mpath0.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山路",
       "description": "这是一段荒芜的山路，显然很少有人走过，东面是陡峭的\n山壁，山壁上零星的长着几棵小树，西面是深不见底的悬崖，\n仔细一听，仿佛下面有潺潺的流水声。山路的南边有一个山洞\n黑乎乎的看不清里面的景色，山路一直向北蜿蜒。",
       "exits": [
@@ -870,7 +880,7 @@
     {
       "id": "green.mpath1",
       "source_path": "mudlib/d/green/mpath1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山路",
       "description": "这是一段荒芜的山路，显然很少有人走过，东面是陡峭的\n山壁，山壁上零星的长着几棵小树，西面是深不见底的悬崖，\n仔细一听，仿佛下面有潺潺的流水声。山路一直向北蜿蜒。",
       "exits": [
@@ -898,7 +908,7 @@
     {
       "id": "green.mpath2",
       "source_path": "mudlib/d/green/mpath2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "山路",
       "description": "这是一段荒芜的山路，显然很少有人走过，东面是陡峭的\n山壁，山壁上零星的长着几棵小树，西面是深不见底的悬崖，\n仔细一听，仿佛下面有潺潺的流水声。山路的北边似乎到了\n尽头。",
       "exits": [
@@ -926,7 +936,7 @@
     {
       "id": "green.outdoor",
       "source_path": "mudlib/d/green/outdoor.c",
-      "status": "structured",
+      "status": "verified",
       "name": "石室",
       "description": "这是一间石室，室内透着一种说不清的神秘力量，西边有两张石椅\n东首墙上挂这一把木剑。北边通往大厅，但墙上写了两行字，走近仔细\n辨认，是：非我弟子，莫入此门。",
       "exits": [
@@ -964,7 +974,8 @@
     {
       "id": "green.path0",
       "source_path": "mudlib/d/green/path0.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "小路的尽头",
       "description": "小路到了这里以后往北变得很不明显, 往南还可以依稀看到村子的\n入口, 路的四周长满了杂草和小树之类的, 看来相当的荒凉.",
       "exits": [
@@ -992,7 +1003,8 @@
     {
       "id": "green.path1",
       "source_path": "mudlib/d/green/path1.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "小路",
       "description": "一条看来相当荒凉的小路, 两旁杂草丛生, 好像很久都没有人来过\n的样子. 往南很远的地方可以看到村子的入口, 往北的路似乎不是很明\n显.",
       "exits": [
@@ -1020,7 +1032,8 @@
     {
       "id": "green.path2",
       "source_path": "mudlib/d/green/path2.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "三叉路口",
       "description": "小路到了这里往北就算是出了村子. 西边有一间小小的土地庙, 东\n边是一栋民宅似的建筑, 不过入口不在这边. 往南是一个交叉路口.",
       "exits": [
@@ -1062,7 +1075,8 @@
     {
       "id": "green.path3",
       "source_path": "mudlib/d/green/path3.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "三叉路口",
       "description": "你来到一条三叉路口, 往东看去是另一条更小更窄的黄土路, 主要\n道路是南北向的, 西边有一栋民宅.",
       "exits": [
@@ -1104,7 +1118,8 @@
     {
       "id": "green.path4",
       "source_path": "mudlib/d/green/path4.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "小路",
       "description": "你走在一条不算宽的碎石路上, 往北是一个交叉路口. 东边有一栋\n木造建筑, 看来相当的破旧, 一片快要散掉似的木牌悬挂在门口, 上面\n的字迹已经不是很清楚了. 往南过去是一条铺著石板的大路.",
       "exits": [
@@ -1139,7 +1154,8 @@
     {
       "id": "green.path5",
       "source_path": "mudlib/d/green/path5.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "石板路",
       "description": "这是一条平整的石板路, 上面隐约可以看见两道很深的车轮, 看来\n是用来作运输用途的道路. 往北是一条较小的碎石路通往村内. 东边有\n一栋石屋, 旁边的空地堆了一些石料. 南边看去是一片矮树丛. 石板路\n往西边延伸.",
       "exits": [
@@ -1174,7 +1190,8 @@
     {
       "id": "green.path6",
       "source_path": "mudlib/d/green/path6.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "石板路",
       "description": "这是一条平整的石板路, 上面隐约可以看见两道很深的车轮, 看来\n是用来作运输用途的道路. 往西是通往山下的路, 往东你可以看到一些\n建筑物, 像是村庄之类的. 南边看去是一片矮树丛.",
       "exits": [
@@ -1202,7 +1219,8 @@
     {
       "id": "green.path8",
       "source_path": "mudlib/d/green/path8.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "小巷子",
       "description": "这是一条小小的巷子，地上铺著碎石和黄土。南北各有一栋建筑，不\n过南方的屋子出口不在这边。往东可以看到一个小小的广场，往西则是一\n个三岔路口。",
       "exits": [
@@ -1244,7 +1262,7 @@
     {
       "id": "green.shop0",
       "source_path": "mudlib/d/green/shop0.c",
-      "status": "structured",
+      "status": "verified",
       "name": "沈记商行",
       "description": "这里是青石村唯一的商店 -- 沈记商行, 在这里村民可以购买\n日常生活用品, 工具, 甚至于棺材. 真可以说是一间「杂」货店.\n屋内相当的拥挤, 到处都是箱子和杂物.",
       "exits": [
@@ -1277,7 +1295,8 @@
     {
       "id": "green.station0",
       "source_path": "mudlib/d/green/station0.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "工作站",
       "description": "这里是采石场在村口的工作站，一栋小小的木屋立在东边，旁边是一\n条上山的斜坡。路旁有一口井。空地上停著几辆载满石料的车。往西是一\n条铺著大石板的路，一路往山下延伸过去。",
       "exits": [
@@ -1314,7 +1333,8 @@
     {
       "id": "green.station1",
       "source_path": "mudlib/d/green/station1.c",
-      "status": "structured",
+      "outdoors": "green",
+      "status": "verified",
       "name": "工作站",
       "description": "这里是采石场的工作站，几间矮小的房舍延著山壁建造。靠南的山边\n有一间马房，旁边还堆著山一般的乾草饲料，几辆运输用的车子停在旁边\n。往北看去是采石场的空地往南是一条由石板铺成的小斜坡，通往村前的\n工作站。西边不远处有一栋看来相当特别的房舍。",
       "exits": [
@@ -1349,7 +1369,7 @@
     {
       "id": "green.stoneroom",
       "source_path": "mudlib/d/green/stoneroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "石室",
       "description": "这是一间石室，西边有一个大厅，大厅中有光线透出来，因此可以看清\n石室中的东西，南边有两个蒲团，似是用来打坐的，此外别无他物。",
       "exits": [
@@ -1386,7 +1406,7 @@
     {
       "id": "green.temple0",
       "source_path": "mudlib/d/green/temple0.c",
-      "status": "structured",
+      "status": "verified",
       "name": "土地庙",
       "description": "这是一间小小的土地庙, 庙内相当的暗, 一股湿气混上焚烧冥\n纸的味道使得屋内的的气味显得很奇特. 供桌上零星地放个一些水\n果, 一尊木刻的土地公像孤独地立在前面. 庙外的小空地边有一个\n简陋的金纸亭.",
       "exits": [
@@ -1407,7 +1427,7 @@
     {
       "id": "green.water",
       "source_path": "mudlib/d/green/water.c",
-      "status": "structured",
+      "status": "verified",
       "name": "溪水边",
       "description": "你来到了一条小溪的旁边，溪水很清澈，缓缓地向南流去，西面\n灌木丛中隐隐的有条小路。\n忽然水(water)中有一道亮光闪过，不过看不清是什么，你是否要下去\n找一找(search)?",
       "exits": [

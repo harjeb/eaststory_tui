@@ -1,11 +1,25 @@
-use std::{fs, io, path::PathBuf};
+use std::{
+    fs, io,
+    path::PathBuf,
+    time::{SystemTime, UNIX_EPOCH},
+};
 
 use anyhow::{Context, Result, bail};
 use directories::ProjectDirs;
 
 use crate::{content::world, game::Game};
 
-pub const CURRENT_SAVE_VERSION: u32 = 25;
+pub const CURRENT_SAVE_VERSION: u32 = 31;
+
+fn unix_seconds(time: SystemTime) -> Option<u64> {
+    time.duration_since(UNIX_EPOCH)
+        .ok()
+        .map(|duration| duration.as_secs())
+}
+
+fn now_unix_seconds() -> Option<u64> {
+    unix_seconds(SystemTime::now())
+}
 
 pub fn default_save_path() -> PathBuf {
     if let Some(dirs) = ProjectDirs::from("org", "mudchina", "dongfang-tui") {
@@ -22,10 +36,15 @@ pub fn load_game(path: &std::path::Path) -> Result<Option<Game>> {
             return Err(error).with_context(|| format!("无法读取存档 {}", path.display()));
         }
     };
+    let file_modified_unix_seconds = fs::metadata(path)
+        .ok()
+        .and_then(|metadata| metadata.modified().ok())
+        .and_then(unix_seconds);
 
     let mut game: Game = serde_json::from_str(&contents)
         .with_context(|| format!("存档格式损坏 {}", path.display()))?;
-    match game.version {
+    let loaded_version = game.version;
+    match loaded_version {
         1 => {
             game.migrate_v1_location_ids();
             game.migrate_legacy_items();
@@ -61,7 +80,7 @@ pub fn load_game(path: &std::path::Path) -> Result<Option<Game>> {
         22 => game.migrate_v22_m7_source_room_items(),
         23 => game.migrate_v23_m7_room_and_item_events(),
         24 => game.migrate_v24_m7_npc_events(),
-        CURRENT_SAVE_VERSION => {}
+        25 | 26 | 27 | 28 | 29 | 30 | CURRENT_SAVE_VERSION => {}
         version => {
             bail!(
                 "存档版本 {} 与程序版本 {} 不兼容",
@@ -70,12 +89,33 @@ pub fn load_game(path: &std::path::Path) -> Result<Option<Game>> {
             );
         }
     }
+    if loaded_version <= 25 {
+        game.migrate_v25_m8_world_time();
+    }
+    if loaded_version <= 26 {
+        game.migrate_v26_m8_corpse_lifecycle();
+    }
+    if loaded_version <= 27 {
+        game.migrate_v27_m8_npc_positions();
+    }
+    if loaded_version <= 28 {
+        game.migrate_v28_m8_choyin_justice();
+    }
+    if loaded_version <= 29 {
+        game.migrate_v29_m8_dynamic_quest();
+    }
+    if loaded_version <= 30 {
+        game.migrate_v30_m8_finalization();
+    }
     game.migrate_v13_source_room_items();
     game.migrate_v14_m5_source_room_items();
     game.migrate_v19_m6_source_room_items();
     game.migrate_v22_m7_source_room_items();
     if !world().contains(&game.location) {
         bail!("存档位置 {} 不存在于当前内容中", game.location.as_str());
+    }
+    if let Some(now) = now_unix_seconds() {
+        game.advance_offline_progress(now, file_modified_unix_seconds);
     }
     Ok(Some(game))
 }
@@ -85,7 +125,17 @@ pub fn save_game(path: &std::path::Path, game: &Game) -> Result<()> {
         fs::create_dir_all(parent)
             .with_context(|| format!("无法创建存档目录 {}", parent.display()))?;
     }
-    let contents = serde_json::to_string_pretty(game).context("无法序列化存档")?;
+    let mut value = serde_json::to_value(game).context("无法序列化存档")?;
+    if let Some(now) = now_unix_seconds() {
+        value
+            .as_object_mut()
+            .expect("Game must serialize to a JSON object")
+            .insert(
+                "last_saved_at_unix_seconds".into(),
+                serde_json::json!(now),
+            );
+    }
+    let contents = serde_json::to_string_pretty(&value).context("无法序列化存档")?;
     fs::write(path, contents).with_context(|| format!("无法写入存档 {}", path.display()))
 }
 
@@ -1095,6 +1145,161 @@ mod tests {
     }
 
     #[test]
+    fn version_twenty_five_adds_m8_world_clock_and_new_saves_stamp_it() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v25-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(25);
+        value
+            .as_object_mut()
+            .unwrap()
+            .remove("last_saved_at_unix_seconds");
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert_eq!(
+            serde_json::to_value(&restored).unwrap()["last_saved_at_unix_seconds"],
+            serde_json::Value::Null
+        );
+
+        save_game(&path, &restored).unwrap();
+        let saved: serde_json::Value =
+            serde_json::from_str(&fs::read_to_string(&path).unwrap()).unwrap();
+        fs::remove_file(path).unwrap();
+        assert!(saved["last_saved_at_unix_seconds"].as_u64().is_some());
+    }
+
+    #[test]
+    fn version_twenty_six_initializes_m8_corpse_lifecycle() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v26-{nonce}.json"));
+        let mut game = Game::new();
+        game.elapsed_minutes = 720;
+        let location = game.location.clone();
+        game.ground_items.insert(
+            location.clone(),
+            vec![ItemInstance::new(99, ItemId::from("obj.corpse"), 1)],
+        );
+        let mut value = serde_json::to_value(game).unwrap();
+        value["version"] = serde_json::json!(26);
+        let corpse = value["ground_items"][location.as_str()]
+            .as_array_mut()
+            .unwrap()
+            .first_mut()
+            .unwrap()
+            .as_object_mut()
+            .unwrap();
+        corpse.remove("expires_at_elapsed_minutes");
+        corpse.remove("lifecycle_stage");
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        let corpse = restored.ground_items[&location]
+            .iter()
+            .find(|item| item.item_id.as_str() == "obj.corpse")
+            .unwrap();
+        assert_eq!(corpse.lifecycle_stage, 0);
+        assert_eq!(
+            corpse.expires_at_elapsed_minutes,
+            Some(restored.elapsed_minutes + 120 * 10)
+        );
+    }
+
+    #[test]
+    fn version_twenty_seven_initializes_m8_npc_positions() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v27-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(27);
+        value
+            .as_object_mut()
+            .unwrap()
+            .remove("npc_location_overrides");
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert_eq!(
+            serde_json::to_value(&restored).unwrap()["npc_location_overrides"],
+            serde_json::json!([])
+        );
+    }
+
+    #[test]
+    fn version_twenty_eight_initializes_m8_choyin_justice() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v28-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(28);
+        value
+            .as_object_mut()
+            .unwrap()
+            .remove("choyin_justice");
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert_eq!(
+            serde_json::to_value(&restored).unwrap()["choyin_justice"],
+            serde_json::json!("Free")
+        );
+    }
+
+    #[test]
+    fn version_twenty_nine_clears_dynamic_quest_state() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v29-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(29);
+        let root = value.as_object_mut().unwrap();
+        root.insert(
+            "dynamic_quest".into(),
+            serde_json::json!({
+                "target": "卖饼大叔",
+                "tier": 5_000,
+                "deadline_elapsed_minutes": 9_999,
+                "exp_bonus": 30,
+                "potential_bonus": 20,
+                "score_bonus": 6,
+                "factor": 10
+            }),
+        );
+        root.insert("dynamic_quest_finished".into(), serde_json::json!(7));
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        let restored_value = serde_json::to_value(&restored).unwrap();
+        assert_eq!(restored_value["dynamic_quest"], serde_json::Value::Null);
+        assert_eq!(restored_value["dynamic_quest_finished"], serde_json::json!(0));
+    }
+
+    #[test]
     fn version_two_item_enums_are_migrated_to_instances() {
         let nonce = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -1225,5 +1430,49 @@ mod tests {
             restored.location,
             LocationId::from(crate::content::TEMPLE_YARD)
         );
+    }
+
+    #[test]
+    fn version_thirty_saves_gain_m8_finalization_defaults() {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!("dongfang-tui-v30-{nonce}.json"));
+        let mut value = serde_json::to_value(Game::new()).unwrap();
+        value["version"] = serde_json::json!(30);
+        let root = value.as_object_mut().unwrap();
+        root.remove("stolen_npc_items");
+        root.remove("zombie_haunts");
+        root.remove("npc_respawns");
+        let player = root.get_mut("player").unwrap().as_object_mut().unwrap();
+        for key in [
+            "name",
+            "title",
+            "description",
+            "force_factor",
+            "mana_factor",
+            "wimpy_percent",
+            "theft_heat",
+        ] {
+            player.remove(key);
+        }
+        for item in player.get_mut("inventory").unwrap().as_array_mut().unwrap() {
+            let item = item.as_object_mut().unwrap();
+            item.remove("contents");
+            item.remove("container_capacity");
+            item.remove("talisman");
+        }
+        fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
+
+        let restored = load_game(&path).unwrap().unwrap();
+        fs::remove_file(path).unwrap();
+
+        assert_eq!(restored.version, CURRENT_SAVE_VERSION);
+        assert_eq!(restored.player.name, "无名客");
+        assert_eq!(restored.player.force_factor, 0);
+        assert_eq!(restored.player.mana_factor, 0);
+        assert_eq!(restored.player.wimpy_percent, 0);
+        assert!(restored.player.inventory.iter().all(|item| item.contents.is_empty()));
     }
 }

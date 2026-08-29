@@ -2,12 +2,12 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "temple",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "temple.book_room1",
       "source_path": "mudlib/d/temple/book_room1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "经楼",
       "description": "这里是灵心观中收藏书籍的地方, 四周的书架上堆了满满的书。\n有些书已经旧的纸张都泛黄了, 摸一摸可能就会散掉甚至变成飞灰。\n你再仔细的看了看, 发现这里都只是些寻常的修道的书籍, 似乎没有\n什么特别的。角落里有一座小小的木梯通往二楼。",
       "exits": [
@@ -37,7 +37,7 @@
     {
       "id": "temple.book_room2",
       "source_path": "mudlib/d/temple/book_room2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "经楼",
       "description": "上了楼来, 首先你看到一幅张天师的画像挂在对面的墙上, 画像\n的下方摆著一张覆著红布的桌子, 桌上整齐地放著茅山的镇教秘籍。",
       "exits": [
@@ -58,7 +58,7 @@
     {
       "id": "temple.broom1",
       "source_path": "mudlib/d/temple/broom1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "经楼",
       "description": "这里是灵心观中收藏书籍的地方, 四周的书架上堆了满满的书。\n有些书已经旧的纸张都泛黄了, 摸一摸可能就会散掉甚至变成飞灰。\n你再仔细的看了看, 发现这里都只是些寻常的修道的书籍, 似乎没有\n什么特别的。角落里有一座小小的木梯通往二楼。",
       "exits": [
@@ -86,7 +86,7 @@
     {
       "id": "temple.broom2",
       "source_path": "mudlib/d/temple/broom2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "书库",
       "description": "这是一间什么也没有的空房间。",
       "exits": [
@@ -107,7 +107,7 @@
     {
       "id": "temple.corridor1",
       "source_path": "mudlib/d/temple/corridor1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "回廊",
       "description": "你现在正走在一条回廊上, 西北方是一座花木扶苏的天井, 穿过\n西边的圆形拱门就可以回到大殿。",
       "exits": [
@@ -135,7 +135,7 @@
     {
       "id": "temple.corridor2",
       "source_path": "mudlib/d/temple/corridor2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "回廊",
       "description": "你现在正走在一条回廊上, 东北方是一座花木扶苏的天井, 穿过\n东边的圆形拱门就可以回到大殿。",
       "exits": [
@@ -163,7 +163,7 @@
     {
       "id": "temple.corridor3",
       "source_path": "mudlib/d/temple/corridor3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "回廊",
       "description": "你正站在回廊转角的地方, 回廊从这往西及南边而去。在走廊\n的东侧是一排厢房。北方是一条铺著青石板的小径。",
       "exits": [
@@ -214,7 +214,7 @@
     {
       "id": "temple.corridor4",
       "source_path": "mudlib/d/temple/corridor4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "回廊",
       "description": "你正站在回廊转角的地方, 回廊从这往东边及南边而去。在北边\n是一间大房子, 里面传来阵阵叱喝的声音。",
       "exits": [
@@ -258,7 +258,7 @@
     {
       "id": "temple.corridor5",
       "source_path": "mudlib/d/temple/corridor5.c",
-      "status": "structured",
+      "status": "verified",
       "name": "回廊",
       "description": "你现在走在围绕著天井的回廊上, 回廊往东西两侧延伸, 南边就\n是天井, 你也许可以走过去赏赏花, 散散心。在你的北方, 走过那扇\n红漆木门就是后殿, 也是茅山派供奉历代掌门人灵位的地方。",
       "exits": [
@@ -316,7 +316,7 @@
     {
       "id": "temple.corridor6",
       "source_path": "mudlib/d/temple/corridor6.c",
-      "status": "structured",
+      "status": "verified",
       "name": "回廊",
       "description": "你正走在一条回廊之上, 回廊往南北延伸, 两端分别连接著大殿\n及后殿。东边是一座花草扶苏的天井, 西边是一间上了锁的房间。",
       "exits": [
@@ -351,7 +351,7 @@
     {
       "id": "temple.corridor7",
       "source_path": "mudlib/d/temple/corridor7.c",
-      "status": "structured",
+      "status": "verified",
       "name": "回廊",
       "description": "你正走在一条回廊之上, 回廊往南北延伸, 两端分别连接著大殿\n及后殿。西边是一座花草扶苏的天井, 东边则是一排厢房。",
       "exits": [
@@ -402,7 +402,8 @@
     {
       "id": "temple.entrance",
       "source_path": "mudlib/d/temple/entrance.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "灵心观前",
       "description": "在你眼前是一座古色古香的山门, 上面以龙飞凤舞的笔迹书写著\n「灵心观」三字, 据说是当年太阳神君「杞庸」亲笔所题。往北方看\n过去是一个颇大的广场。门前则是一条石英岩铺设的阶梯沿著山腰往\n东而下。",
       "exits": [
@@ -430,7 +431,8 @@
     {
       "id": "temple.inneryard",
       "source_path": "mudlib/d/temple/inneryard.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "天井",
       "description": "你正站在灵心观的天井里, 这里种植著一些花草树木, 在西北角\n落里有著一口水井。北边就是供俸茅山派历代掌门人的地方, 南边则\n是一面墙, 墙的另一侧就是大殿。",
       "exits": [
@@ -472,7 +474,8 @@
     {
       "id": "temple.ladder1",
       "source_path": "mudlib/d/temple/ladder1.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "石英岩石阶",
       "description": "长长的阶梯也终将到了尽头, 阶梯的尽头矗立著一座山门, 山门\n上龙飞凤舞地写了三个字, 笔力苍劲有力显得气势非凡。山风吹来带\n著丝丝的寒意, 令你有股高处不胜寒的感觉。",
       "exits": [
@@ -507,7 +510,8 @@
     {
       "id": "temple.ladder2",
       "source_path": "mudlib/d/temple/ladder2.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "石英岩石阶",
       "description": "你正走在一道长长的石英岩阶梯上, 阶梯的两侧种植著一排高耸\n的松树。抬头望望东北边那座高耸挺拔的山峰, 在云雾飘渺的山顶上\n, 矗立著一座雄伟的白色楼阁。",
       "exits": [
@@ -542,7 +546,8 @@
     {
       "id": "temple.ladder3",
       "source_path": "mudlib/d/temple/ladder3.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "石英岩石阶",
       "description": "你正走在一道长长的石英岩阶梯上, 阶梯的两侧种植著一排高耸\n的松树。雪亭镇就在西边不远的山下, 你隐约还能听到从镇上传来的\n话语声。阶梯从这里弯向北边。",
       "exits": [
@@ -570,7 +575,8 @@
     {
       "id": "temple.ladder4",
       "source_path": "mudlib/d/temple/ladder4.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "石英岩石阶",
       "description": "你正走在一道长长的石英岩阶梯上, 阶梯的两侧种植著一排高耸\n的松树。雪亭镇就在西边不远的山下, 你隐约还能听到从镇上传来的\n话语声。",
       "exits": [
@@ -598,7 +604,8 @@
     {
       "id": "temple.ladder5",
       "source_path": "mudlib/d/temple/ladder5.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "石英岩石阶",
       "description": "你正站在这阶梯的起点, 纯白色宽敞的石英岩阶梯蜿蜒而上, 在青\n翠的山色中形成一条纯白色的巨龙。抬头仰望石阶尽头的那座庙宇, 虽\n然无情的岁月已经在它身上留下痕迹, 但仍不失其庄严神圣的气息。",
       "exits": [
@@ -626,7 +633,7 @@
     {
       "id": "temple.restroom1",
       "source_path": "mudlib/d/temple/restroom1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "厢房",
       "description": "这是一间供香客或其他江湖同道休息挂单的客房, 屋子里只是简\n单地摆放著几件家俱。从西边的天井中, 传来了阵阵的花香。",
       "exits": [
@@ -663,7 +670,7 @@
     {
       "id": "temple.restroom2",
       "source_path": "mudlib/d/temple/restroom2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "厢房",
       "description": "这是一间供香客或其他江湖同道休息挂单的客房, 屋子里只是简\n单地摆放著几件家俱。你闻到天井中传来淡淡的花香。",
       "exits": [
@@ -693,7 +700,7 @@
     {
       "id": "temple.road1",
       "source_path": "mudlib/d/temple/road1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "青石小径",
       "description": "一条铺著青石板的小径, 两侧高大的松树, 偶有松针缓缓飘落。\n树干上布满了青苔, 甚至还有些蔓延到石板上。南边通往回廊, 西侧\n则是后殿。",
       "exits": [
@@ -724,7 +731,7 @@
     {
       "id": "temple.road2",
       "source_path": "mudlib/d/temple/road2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "青石小径",
       "description": "绕过了后殿, 出现在眼前的是一栋木造两层高的屋子。屋子四周\n的门窗都紧紧的关著, 门口上方挂著一方蓝色琉璃匾额, 上书『藏经\n楼』三个金字。门旁立著一个石碑(slab)。",
       "exits": [
@@ -774,7 +781,8 @@
     {
       "id": "temple.square",
       "source_path": "mudlib/d/temple/square.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "灵心观广场",
       "description": "你正站在灵心观前的广场前, 一片用石英岩铺成的广场。一对雄\n伟的石狮子站在庙门的两侧, 狮子的两侧立著两根雕著龙纹的石柱。\n广场的中央还有一个大香炉, 香炉里正冒著袅袅的香烟。",
       "exits": [
@@ -818,7 +826,8 @@
     {
       "id": "temple.sroad",
       "source_path": "mudlib/d/temple/sroad.c",
-      "status": "structured",
+      "outdoors": "temple",
+      "status": "verified",
       "name": "青石官道",
       "description": "这是一条宽敞坚实的青石大道, 大道沿著山腰往南向山下延伸, 东\n边是一条石英岩石阶蜿蜒往山上而去。在石阶的尽头, 是一座颇为雄伟\n的道观, 在江湖跑过的人都知道, 那是茅山派的所在地。",
       "exits": [
@@ -846,7 +855,7 @@
     {
       "id": "temple.temple1",
       "source_path": "mudlib/d/temple/temple1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "灵心观大殿",
       "description": "你现在来到灵心观的大殿, 在你的眼前是一尊真武大帝的金身。\n在金身的下方是一张朱红色的大供桌, 上面排满了鲜花素果。在桌子\n的前方则摆放著三四个蒲团。东西两侧的圆形拱门通往连接后殿的回\n廊。走过南边的红漆木门就是广场。",
       "exits": [
@@ -909,7 +918,7 @@
     {
       "id": "temple.temple2",
       "source_path": "mudlib/d/temple/temple2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后殿",
       "description": "你正站在灵心观的后殿, 正中央供奉著茅山派开山祖师张天师的\n画像, 在画像的下方摆放著当年张天师收妖伏魔时所用的宝剑。剑的\n两旁陪祀著历代掌门人的牌位。走出南边的红漆木门可以看到天井。",
       "exits": [
@@ -946,7 +955,7 @@
     {
       "id": "temple.trainroom",
       "source_path": "mudlib/d/temple/trainroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "练功\\房",
       "description": "你正站在一间宽阔的大房间里, 这里是茅山派弟子打坐练功的地\n方, 空气中弥漫著一股股汗臭味。四周的墙壁上画著一幅幅经脉穴道\n图。靠近墙壁的地上则摆著一个个练功用的木人。",
       "exits": [

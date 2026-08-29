@@ -2,7 +2,7 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "scope": "m4-npcs",
-  "status": "structured",
+  "status": "verified",
   "summary": {
     "total": 73,
     "placed": 59,
@@ -39,7 +39,7 @@
     {
       "id": "canyon.npc.adviser",
       "source_path": "mudlib/d/canyon/npc/adviser.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "赫造基",
       "description": "道光满面，□智不言而现，气象万千，显然是茅山术高手中的高\n手，经纶羽扇，和大将军正是绝配。",
@@ -133,7 +133,7 @@
     {
       "id": "canyon.npc.captain",
       "source_path": "mudlib/d/canyon/npc/captain.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "大队长",
       "description": "他不苟言笑的样子，带领著小兵驻守隘口的队长。",
@@ -198,7 +198,7 @@
     {
       "id": "canyon.npc.door_guard",
       "source_path": "mudlib/d/canyon/npc/door_guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "小兵",
       "description": "他看起来有点精悍，手中紧握著刀，惊惊颤颤的样子。",
@@ -236,7 +236,7 @@
     {
       "id": "canyon.npc.general",
       "source_path": "mudlib/d/canyon/npc/general.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "严廷殷",
       "description": "容光焕发，左佩刀，右佩剑，威风□□，其高七尺六寸，虎背\n熊腰，年轻时同和大天邪于兰天武同拜一师，武功\\造诣不在大\n天邪之下，但志向不同，后成了京师武功\\第一、人人称羡的镇\n国大将军。",
@@ -335,7 +335,7 @@
     {
       "id": "canyon.npc.guard1",
       "source_path": "mudlib/d/canyon/npc/guard1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "小兵",
       "description": "风沙满面，无精打采，毫无生气的样子，真难以想像是这\n□的守军。",
@@ -366,7 +366,7 @@
     {
       "id": "canyon.npc.guard2",
       "source_path": "mudlib/d/canyon/npc/guard2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "老兵",
       "description": "风沙满面，无精打采，毫无生气的样子，真难以想像是这\n□的守军。",
@@ -416,7 +416,7 @@
     {
       "id": "canyon.npc.leader1",
       "source_path": "mudlib/d/canyon/npc/leader1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "小队长",
       "description": "不苟言笑的样子，带领著小兵驻守隘口的小队长。",
@@ -455,7 +455,7 @@
     {
       "id": "canyon.npc.leader2",
       "source_path": "mudlib/d/canyon/npc/leader2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "老队长",
       "description": "不苟言笑的样子，带领著小兵驻守隘口的小队长。",
@@ -508,7 +508,7 @@
     {
       "id": "canyon.npc.seller",
       "source_path": "mudlib/d/canyon/npc/seller.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "后备兵",
       "description": "环顾四方，眼神锐利，看来想杀价是不可能的事了。",
@@ -536,7 +536,7 @@
     {
       "id": "canyon.npc.vice_general",
       "source_path": "mudlib/d/canyon/npc/vice_general.c",
-      "status": "structured",
+      "status": "verified",
       "area": "canyon",
       "name": "李信",
       "description": "原是禁卫军的队长，也因其强大的声望和实力，被先帝调离京师\n和镇国大将军共同镇守黄石隘口。",
@@ -612,7 +612,7 @@
     {
       "id": "city.npc.boss",
       "source_path": "mudlib/d/city/npc/boss.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "钱掌柜",
       "description": "钱掌柜长得如一个大面团般，白白胖胖的，虽说早已步入知天命\n的年龄，可保养得很好。一双小眼睛如俩枣核嵌在脸上，不时滴\n溜溜地乱转。他开的「太白酒楼」可是京城最大的。",
@@ -662,7 +662,7 @@
     {
       "id": "city.npc.caker",
       "source_path": "mudlib/d/city/npc/caker.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "卖饼大叔",
       "description": "一个相貌朴实的卖饼大叔，憨厚的脸上挂著和蔼的笑容。",
@@ -697,7 +697,7 @@
     {
       "id": "city.npc.chen",
       "source_path": "mudlib/d/city/npc/chen.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "陈天星",
       "description": null,
@@ -778,7 +778,7 @@
     {
       "id": "city.npc.clother",
       "source_path": "mudlib/d/city/npc/clother.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "老板娘",
       "description": "李掌柜是不难看的女人，一直经营着祖传鞋店生意。",
@@ -863,7 +863,7 @@
     {
       "id": "city.npc.dumpling_seller",
       "source_path": "mudlib/d/city/npc/dumpling_seller.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "卖包子的",
       "description": "这个卖包子的小贩对你微微一笑，说道：热腾腾的包子，来一笼吧？",
@@ -898,7 +898,7 @@
     {
       "id": "city.npc.guard",
       "source_path": "mudlib/d/city/npc/guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "京师守城兵",
       "description": "这是个正在这里站岗的京师官兵，虽然和许多武林人物比起来，官兵\n们的武功实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
@@ -974,7 +974,7 @@
     {
       "id": "city.npc.guardbak",
       "source_path": "mudlib/d/city/npc/guardbak.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "京师守城兵",
       "description": "这是个正在这里站岗的京师官兵，虽然和许多武林人物比起来，官兵\n们的武功实在稀松平常，但是他们是有组织、有纪律的战士，谁也不\n轻易地招惹他们。",
@@ -1050,7 +1050,7 @@
     {
       "id": "city.npc.microsof",
       "source_path": "mudlib/d/city/npc/microsof.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "黑你没商量",
       "description": "黑你没商量是个看起来相当精明的中年人，他的本名叫做“魏阮”。\n不知作了什么黑心的生意，一夜之间暴富起来，开了钱庄后，逐渐地\n把其它钱庄全挤倒闭了，京师的居民对他的很多做法都非常不满，于\n是有了这个绰号。大家都知道他小肚鸡肠，所以谁也不去惹他。",
@@ -1164,7 +1164,7 @@
     {
       "id": "city.npc.shoer",
       "source_path": "mudlib/d/city/npc/shoer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "李掌柜",
       "description": "李掌柜是不难看的女人，一直经营着祖传鞋店生意。",
@@ -1222,7 +1222,7 @@
     {
       "id": "city.npc.trader",
       "source_path": "mudlib/d/city/npc/trader.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "商人",
       "description": "这是一位从关外来的商人。",
@@ -1271,7 +1271,7 @@
     {
       "id": "city.npc.trader2",
       "source_path": "mudlib/d/city/npc/trader2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "商人",
       "description": "这是一位从关外来的商人。",
@@ -1320,7 +1320,7 @@
     {
       "id": "city.npc.trader3",
       "source_path": "mudlib/d/city/npc/trader3.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "商人",
       "description": "这是一位从关外来的商人。",
@@ -1364,7 +1364,7 @@
     {
       "id": "city.npc.vendor",
       "source_path": "mudlib/d/city/npc/vendor.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "卖艺壮汉",
       "description": "一个满脸横肉的壮汉，口水四溅，正说着什么。",
@@ -1399,7 +1399,7 @@
     {
       "id": "city.npc.waiter",
       "source_path": "mudlib/d/city/npc/waiter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "店小二",
       "description": "这位店小二正笑咪咪地忙著，还不时拿起挂在脖子上的抹布擦脸。",
@@ -1435,7 +1435,7 @@
     {
       "id": "city.npc.walker",
       "source_path": "mudlib/d/city/npc/walker.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "行人",
       "description": null,
@@ -1471,7 +1471,7 @@
     {
       "id": "city.npc.weaponor",
       "source_path": "mudlib/d/city/npc/weaponor.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "万晓生",
       "description": "万晓生是个须发皆白的老人，闯荡江湖已近五十年。",
@@ -1553,7 +1553,7 @@
     {
       "id": "city.shangshu.npc.gardener",
       "source_path": "mudlib/d/city/shangshu/npc/gardener.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "花匠",
       "description": "一个老老实实、本本分分的庄园花匠，多年的风霜刻满\n了他的额头。多年以来从来没有人认真注意过他，他也\n总是默默地在花园里工作。",
@@ -1652,7 +1652,7 @@
     {
       "id": "city.shangshu.npc.guard",
       "source_path": "mudlib/d/city/shangshu/npc/guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "门房",
       "description": "尚书府的门房虽然没什么官衔，但所有想晋见\n尚书的白衣无不对他毕恭毕敬的n",
@@ -1689,7 +1689,7 @@
     {
       "id": "city.shangshu.npc.huyuan",
       "source_path": "mudlib/d/city/shangshu/npc/huyuan.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "尚书府护院",
       "description": null,
@@ -1741,7 +1741,7 @@
     {
       "id": "city.shangshu.npc.huyuan1",
       "source_path": "mudlib/d/city/shangshu/npc/huyuan1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "尚书府护院",
       "description": null,
@@ -1808,7 +1808,7 @@
     {
       "id": "city.shangshu.npc.maid",
       "source_path": "mudlib/d/city/shangshu/npc/maid.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "丫鬟",
       "description": "她是尚书府的司职厨务的丫鬟，一年四季呆在厨房中。但粗重的\n杂活也掩不住其天生丽质。",
@@ -1836,7 +1836,7 @@
     {
       "id": "city.shangshu.npc.qing_chen",
       "source_path": "mudlib/d/city/shangshu/npc/qing_chen.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "庾清尘",
       "description": "她是尚书府的千金。平时一直呆在自己的绣房里，所以虽然外界\n如何盛传她是如何如何的文雅、娴淑，却极少有能见过她的人。\n不知从何时起，她竺信起道教来，所以一切讲究素雅。",
@@ -1920,7 +1920,7 @@
     {
       "id": "city.shangshu.npc.shangshu",
       "source_path": "mudlib/d/city/shangshu/npc/shangshu.c",
-      "status": "structured",
+      "status": "verified",
       "area": "city",
       "name": "庾子建",
       "description": "他是当今皇上身边的红人，与宫中的关系也很熟络，手中掌管着\n兵马大权。不过能爬上这个位置，绝不是仅仅因为溜须拍马的缘\n故，当年战功赫赫，才有今天的地位。",
@@ -1972,7 +1972,7 @@
     {
       "id": "snow.npc.annihir",
       "source_path": "mudlib/d/snow/npc/annihir.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "安惜迩",
       "description": "安惜迩是个看起来相当斯文的年轻人，不过有时候会有些心不在焉的\n样子，雪亭镇的居民对安惜迩都觉得有点神秘莫测的感觉，为什么他\n年纪轻轻就身为一家大钱庄的老板，还有他一身稀奇古怪的武功，所\n幸安惜迩似乎天性恬淡，甚至有些隐者的风骨，只要旁人不去惹他，\n他也绝不会去招惹旁人。",
@@ -2086,7 +2086,7 @@
     {
       "id": "snow.npc.beggar",
       "source_path": "mudlib/d/snow/npc/beggar.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "乞丐",
       "description": "一个满脸风霜之色的老乞丐。",
@@ -2123,7 +2123,7 @@
     {
       "id": "snow.npc.crazy_dog",
       "source_path": "mudlib/d/snow/npc/crazy_dog.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "疯狗",
       "description": "一只浑身脏兮兮的野狗，一双眼睛正恶狠狠地瞪著你。",
@@ -2171,7 +2171,7 @@
     {
       "id": "snow.npc.dog",
       "source_path": "mudlib/d/snow/npc/dog.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "野狗",
       "description": "一只浑身脏兮兮的野狗。",
@@ -2201,7 +2201,7 @@
     {
       "id": "snow.npc.drunk",
       "source_path": "mudlib/d/snow/npc/drunk.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "醉汉",
       "description": null,
@@ -2238,7 +2238,7 @@
     {
       "id": "snow.npc.farmer",
       "source_path": "mudlib/d/snow/npc/farmer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "农夫",
       "description": "你看到一位面色黝黑的农夫。",
@@ -2288,7 +2288,7 @@
     {
       "id": "snow.npc.fist_trainer",
       "source_path": "mudlib/d/snow/npc/fist_trainer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "李火狮",
       "description": "李火狮是个孔武有力的大块头，他正在训练他的弟子们习练「柳家拳\n法」。",
@@ -2341,7 +2341,7 @@
     {
       "id": "snow.npc.girl",
       "source_path": "mudlib/d/snow/npc/girl.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "柳绘心",
       "description": "柳绘心是淳风武馆馆主柳淳风的独生女。",
@@ -2424,7 +2424,7 @@
     {
       "id": "snow.npc.guard",
       "source_path": "mudlib/d/snow/npc/guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "刘安禄",
       "description": "刘安禄是淳风武馆的门房，除了馆主柳淳风没有人知道他的出身来历，只知\n到他的武艺不弱，一手快刀在这一带罕有敌手。",
@@ -2500,7 +2500,7 @@
     {
       "id": "snow.npc.herbalist",
       "source_path": "mudlib/d/snow/npc/herbalist.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "杨掌柜",
       "description": "杨掌柜是这附近相当有名的大善人，常常施舍草药给付不起药钱的穷人\n。此外他的医术也不错，年轻时曾经跟著山烟寺的玄智和尚学医，一般\n的伤寒小病直接问他开药吃比医生还灵。",
@@ -2555,7 +2555,7 @@
     {
       "id": "snow.npc.keeper",
       "source_path": "mudlib/d/snow/npc/keeper.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "庙祝",
       "description": "这个老人看起来七十多岁了，看著他□偻的身影，你忽然觉得心情沈重了下来。",
@@ -2578,7 +2578,7 @@
     {
       "id": "snow.npc.mercenary",
       "source_path": "mudlib/d/snow/npc/mercenary.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "逄义",
       "description": "逄义是封山派中和柳淳风同辈的弟子，但是生性好赌的他并不受师父\n及同门师兄弟的喜爱，因此辈分虽高，却未曾担任门中任何重要职务\n。逄义经常外出，美其名曰：旅行，实则避债，碍于门规又不敢做那\n打家劫舍的勾当，因此经常四处寻找赚钱发财的机会。",
@@ -2659,7 +2659,7 @@
     {
       "id": "snow.npc.old_farmer",
       "source_path": "mudlib/d/snow/npc/old_farmer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "老农夫",
       "description": "你看到一位面色黝黑的农夫。",
@@ -2709,7 +2709,7 @@
     {
       "id": "snow.npc.post_officer",
       "source_path": "mudlib/d/snow/npc/post_officer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "杜宽",
       "description": "杜宽担任雪亭驿的驿长已经有十几年了，虽然期间有几次升迁的\n机会，但是他都因为舍不得离开这个小山村而放弃了，雪亭镇的\n居民对杜宽的风评相当不错，常常会来到驿站跟他聊天。",
@@ -2751,7 +2751,7 @@
     {
       "id": "snow.npc.proposer",
       "source_path": "mudlib/d/snow/npc/proposer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "媒婆",
       "description": "一个打扮得花枝招展的中年妇人，如果你对哪家姑娘有意思，可以请她\n帮你去提亲。",
@@ -2791,7 +2791,7 @@
     {
       "id": "snow.npc.rat",
       "source_path": "mudlib/d/snow/npc/rat.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "老鼠",
       "description": "一只贼头贼脑的大老鼠。",
@@ -2813,7 +2813,7 @@
     {
       "id": "snow.npc.scavenger",
       "source_path": "mudlib/d/snow/npc/scavenger.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "收破烂的",
       "description": "这个人不但自己收破烂，身上也穿得破烂不堪。",
@@ -2850,7 +2850,7 @@
     {
       "id": "snow.npc.smith",
       "source_path": "mudlib/d/snow/npc/smith.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "王铁匠",
       "description": "王铁匠正用铁钳夹住一块红热的铁块放进炉中。",
@@ -2904,7 +2904,7 @@
     {
       "id": "snow.npc.teacher",
       "source_path": "mudlib/d/snow/npc/teacher.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "魏无极",
       "description": "魏无极是个博学多闻的教书先生，他年轻时曾经中过举人，但是\n因为生性喜爱自由而不愿做官，魏无极以教书为业，如果你付他\n一笔学费，就可以成为他的弟子学习读书识字。",
@@ -2948,7 +2948,7 @@
     {
       "id": "snow.npc.teacher1",
       "source_path": "mudlib/d/snow/npc/teacher1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "魏无极",
       "description": "魏无极是个博学多闻的教书先生，他年轻时曾经中过举人，但是\n因为生性喜爱自由而不愿做官，魏无极以教书为业，如果你付他\n一笔学费，就可以成为他的弟子学习读书识字。",
@@ -2992,7 +2992,7 @@
     {
       "id": "snow.npc.trainee",
       "source_path": "mudlib/d/snow/npc/trainee.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "武馆弟子",
       "description": "你看到一位身材高大的汉子，正在辛苦地操练著。",
@@ -3018,7 +3018,7 @@
     {
       "id": "snow.npc.trav_blade",
       "source_path": "mudlib/d/snow/npc/trav_blade.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "旅客",
       "description": "这是一位来雪亭镇的外地旅客.",
@@ -3056,7 +3056,7 @@
     {
       "id": "snow.npc.traveller",
       "source_path": "mudlib/d/snow/npc/traveller.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "旅客",
       "description": "这是一位来雪亭镇的外地旅客.",
@@ -3088,7 +3088,7 @@
     {
       "id": "snow.npc.waiter",
       "source_path": "mudlib/d/snow/npc/waiter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "店小二",
       "description": "这位店小二正笑咪咪地忙著，还不时拿起挂在脖子上的抹布擦脸。",
@@ -3130,7 +3130,7 @@
     {
       "id": "snow.npc.woodcutter",
       "source_path": "mudlib/d/snow/npc/woodcutter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "樵夫",
       "description": "你看到一个粗壮的大汉，身上穿著普通樵夫的衣服。",
@@ -3166,7 +3166,7 @@
     {
       "id": "snow.npc.worker",
       "source_path": "mudlib/d/snow/npc/worker.c",
-      "status": "structured",
+      "status": "verified",
       "area": "snow",
       "name": "苦力",
       "description": "一个苦力打扮的汉子在这里等人来雇用(employment)。",
@@ -3214,7 +3214,7 @@
     {
       "id": "temple.npc.guard_taoist1",
       "source_path": "mudlib/d/temple/npc/guard_taoist1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "清灵",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
@@ -3290,7 +3290,7 @@
     {
       "id": "temple.npc.guard_taoist2",
       "source_path": "mudlib/d/temple/npc/guard_taoist2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "清平",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
@@ -3366,7 +3366,7 @@
     {
       "id": "temple.npc.guard_taoist3",
       "source_path": "mudlib/d/temple/npc/guard_taoist3.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "清玄",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
@@ -3442,7 +3442,7 @@
     {
       "id": "temple.npc.guest",
       "source_path": "mudlib/d/temple/npc/guest.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "进香客",
       "description": "一个福福泰泰的中年人, 他正气喘嘘嘘地走著石梯道",
@@ -3462,7 +3462,7 @@
     {
       "id": "temple.npc.little_taoist1",
       "source_path": "mudlib/d/temple/npc/little_taoist1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "玄真",
       "description": "一个长得眉清目秀的小男孩, 正努力地在打扫石阶",
@@ -3514,7 +3514,7 @@
     {
       "id": "temple.npc.little_taoist2",
       "source_path": "mudlib/d/temple/npc/little_taoist2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "玄和",
       "description": "一个长得眉清目秀的小男孩, 正忙著浇花除草",
@@ -3561,7 +3561,7 @@
     {
       "id": "temple.npc.old_taoist",
       "source_path": "mudlib/d/temple/npc/old_taoist.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "老道士",
       "description": "一位四处云游的老道士, 他正在观心观挂单中。\n看他饱经沧桑的脸孔, 似乎他也是经历过无数的大风大浪。",
@@ -3598,7 +3598,7 @@
     {
       "id": "temple.npc.taoist",
       "source_path": "mudlib/d/temple/npc/taoist.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "清虚",
       "description": "一位神色和平的中年道士, 他正在教授他的徒弟如何运功\\导气",
@@ -3659,7 +3659,7 @@
     {
       "id": "temple.npc.taoist2",
       "source_path": "mudlib/d/temple/npc/taoist2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "明心",
       "description": "一位身材魁武的年轻道士, 他正在练拳, 你看他舞得虎虎生风",
@@ -3720,7 +3720,7 @@
     {
       "id": "temple.npc.taoist_guard1",
       "source_path": "mudlib/d/temple/npc/taoist_guard1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "清风",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
@@ -3796,7 +3796,7 @@
     {
       "id": "temple.npc.taoist_guard2",
       "source_path": "mudlib/d/temple/npc/taoist_guard2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "清音",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
@@ -3872,7 +3872,7 @@
     {
       "id": "temple.npc.taoist_guard3",
       "source_path": "mudlib/d/temple/npc/taoist_guard3.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "清云",
       "description": "一位神情专注的道士, 他正轮值到看守藏经楼。",
@@ -3948,7 +3948,7 @@
     {
       "id": "temple.npc.tfighter",
       "source_path": "mudlib/d/temple/npc/tfighter.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "僵尸护法",
       "description": "僵尸护法是茅山派的护法，着一身黑色的道袍",
@@ -4042,7 +4042,7 @@
     {
       "id": "temple.npc.trainer",
       "source_path": "mudlib/d/temple/npc/trainer.c",
-      "status": "structured",
+      "status": "verified",
       "area": "temple",
       "name": "僵尸侍者",
       "description": "僵尸侍者是林忌的弟子，着一身黑色的道袍",

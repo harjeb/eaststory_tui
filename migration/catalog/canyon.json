@@ -2,12 +2,12 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "canyon",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "canyon.bamboo.bamboo1",
       "source_path": "mudlib/d/canyon/bamboo/bamboo1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "竹林道入口",
       "description": "修长的竹子映满眼廉，穹空无边，风拂无形，芬芳的气味随著清\n风而漂流著，真有如如沐春风，生机充满的竹林道，让站立其中的人\n皆受其境界而霍然开朗，忘却了江湖的险恶，行止于此，一直气凝字\n之迹，显出居此主人之内力雄厚，亦使你想找点看到居此八泰之地的\n主人是何等的人物。",
       "exits": [
@@ -35,7 +35,7 @@
     {
       "id": "canyon.bamboo.bamboo2",
       "source_path": "mudlib/d/canyon/bamboo/bamboo2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "竹林道",
       "description": "此处的竹林比起入口的竹子更为高大耸直，也有些小动物在这四\n周跳来跳去，跑来跑去的，更是生气盎然，不时有也黄莺唱吟著美妙\n的诗句，清新宛然，人间仙境，只是偶尔有那怪异的强风袭卷而致，\n另人难以忍受，在往入探头，有一似人大的黄石挺立于内，而其四周\n隐隐约约有些许正气溢散而出。",
       "exits": [
@@ -63,7 +63,7 @@
     {
       "id": "canyon.bamboo.bamboo3",
       "source_path": "mudlib/d/canyon/bamboo/bamboo3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "竹林道",
       "description": "北方有一个大黄石堵住去路，洋洋洒洒的蓝光从大黄石的四周漫\n漫而出，竹林参天，在此成一半凹型，团团围住了北方的去路，若想\n一窥究竟，看来非得推开这巨大的黄石才行，风势愈来愈强，四周的\n竹子发出了嗡嗡的鸣声，彷佛叫人不要靠近，此地之主人看似不欢迎\n别人来参观。",
       "exits": [
@@ -95,7 +95,7 @@
     {
       "id": "canyon.bamboo.train",
       "source_path": "mudlib/d/canyon/bamboo/train.c",
-      "status": "structured",
+      "status": "verified",
       "name": "洞内石室",
       "description": "飕飕的风不停地向你身上袭卷而来，石室的四周竟有四个大洞各\n分布东南西北四方，向洞外望去亦是一遍遍的竹林，和之前的竹林只\n差在于风势的大小，强风无情的猛击挺立的竹子，竹子左右摇晃的抵\n抗著，正是一幅柔以破刚之图，壁上有一石制书柜(bookcase)，正散\n出阵阵的蓝光，和之前所遇之正气一脉相连，匣中似有一物，看来才\n是正气的来源。",
       "exits": [
@@ -125,7 +125,7 @@
     {
       "id": "canyon.blackmarket",
       "source_path": "mudlib/d/canyon/blackmarket.c",
-      "status": "structured",
+      "status": "verified",
       "name": "兵器库",
       "description": "在这里你可以看到墙上挂满了各式各样的武器，不难明了这里是存放\n武器的地方，而墙上写了个诺大的「武」字。",
       "exits": [
@@ -153,7 +153,7 @@
     {
       "id": "canyon.camp1",
       "source_path": "mudlib/d/canyon/camp1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "军营入口",
       "description": "此处为黄石隘口驻军的入口，东方为军队饮食的地方，在门口的两侧\n有两位小兵正在值勤。南、北两侧为小兵的营帐。",
       "exits": [
@@ -202,7 +202,7 @@
     {
       "id": "canyon.camp2",
       "source_path": "mudlib/d/canyon/camp2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "营火区",
       "description": "地上有些食物的残渣，而中央地带则有一营火，在边边则有一个水\n井，想必是官兵们用来汲水用的，南北两侧为小队长的营帐，东方则是\n副将军的营帐，如果没有事情冒然进入是会被斥责。",
       "exits": [
@@ -244,7 +244,7 @@
     {
       "id": "canyon.camp3",
       "source_path": "mudlib/d/canyon/camp3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "小兵营帐",
       "description": "这是个由粗略的布料所搭成的小营帐，□面只有三二个小兵，其他的\n小兵，大概在另一个小兵营帐□赌博聊天吧，而东边则是小队长的营帐。",
       "exits": [
@@ -272,7 +272,7 @@
     {
       "id": "canyon.camp4",
       "source_path": "mudlib/d/canyon/camp4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "小兵营帐",
       "description": "这□有一大群的小兵，不知道是在做什么，营帐中央有一张桌子，上\n面堆满了各式各样的赌具，小板凳，和茶水。",
       "exits": [
@@ -305,7 +305,7 @@
     {
       "id": "canyon.camp5",
       "source_path": "mudlib/d/canyon/camp5.c",
-      "status": "structured",
+      "status": "verified",
       "name": "小队长营帐",
       "description": "这□是小队长的营帐，四周仍旧和小兵营帐一样的空旷，但营帐的布\n料倒是比小兵营帐好多了，北侧有两把凉椅，看来定是小队长偷懒时休息\n的地方。",
       "exits": [
@@ -333,7 +333,7 @@
     {
       "id": "canyon.camp6",
       "source_path": "mudlib/d/canyon/camp6.c",
-      "status": "structured",
+      "status": "verified",
       "name": "小队长营帐",
       "description": "类似北边的营帐，空空荡荡的，看起来一点也不像是军营，一点威武\n的感觉也没有，在这也有两把简易的凉椅，两位队长，平常小兵没有尢许\n是不能擅自进入这□的，向东北是副将营帐，但没有经过「允许」是不得\n进入的。",
       "exits": [
@@ -366,7 +366,7 @@
     {
       "id": "canyon.camp7",
       "source_path": "mudlib/d/canyon/camp7.c",
-      "status": "structured",
+      "status": "verified",
       "name": "副将营帐",
       "description": "来到这□，看了四周的景像真会令人不敢相信，和前面的军营竟大不\n相同，虎皮披于军椅，银器列于黑刚曜石桌上，爵为金缘双虎抱图，北侧\n挂著刀、剑、杖，地面上有羊毛软皮铺陈著，确实有副将营帐的味道。",
       "exits": [
@@ -403,7 +403,7 @@
     {
       "id": "canyon.camp8",
       "source_path": "mudlib/d/canyon/camp8.c",
-      "status": "structured",
+      "status": "verified",
       "name": "将军营帐",
       "description": "虎头挂于营顶，虎皮披于帐上，威武无比，帐中龙柱顶天，双龙吐珠\n图挂于前，严然有天子之势，金椅银桌，□、簋、爵、角、鉴，样样俱全\n，一磬、一鼓、一笙、一笛、一萧，文墨章笔擎于旁，将军在上，参谋在\n右，由不得令人生畏。",
       "exits": [
@@ -436,7 +436,7 @@
     {
       "id": "canyon.canyon1",
       "source_path": "mudlib/d/canyon/canyon1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黄石隘口尾",
       "description": "脚下为碎石黄土路，两侧是高耸入云的荒山，向上仰望乃似无边无际\n穹空，北缘为一山壁，壁上有一长达十七、八丈的铁索(chain) ，上面大\n概就是人家所谓的「关外绿洲－雪亭镇」。",
       "exits": [
@@ -467,7 +467,7 @@
     {
       "id": "canyon.canyon2",
       "source_path": "mudlib/d/canyon/canyon2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "隘口小路",
       "description": "来到这□，脚下的黄土仍是厚厚的一层，可见得来往这条道路的人必\n不多，向北即是隘口尾，往南一直通达天驼关口，两侧依旧是荒冷的山壁\n，但似乎更为严峻。",
       "exits": [
@@ -495,7 +495,7 @@
     {
       "id": "canyon.canyon3",
       "source_path": "mudlib/d/canyon/canyon3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "隘口小路",
       "description": "黄土、黄石还是平铺于小路上，崎岖的道路来到这□是比北方平缓多\n了，向南二十里就是天驼关口了，东侧为军营，但军营四周为铁栅所包围\n，想从这□进入军营内似乎是不太可能。",
       "exits": [
@@ -523,7 +523,7 @@
     {
       "id": "canyon.canyon4",
       "source_path": "mudlib/d/canyon/canyon4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "隘口中道",
       "description": "来到这□，风势比其他地方大了许多，或许是因为东边为军营入口通\n风较为良好的原因，南方一十里路的地方就是京城关口－天驼关的入口，\n在西边的山壁似乎过于平滑，不太自然，或许这□有什么秘密也说不定。",
       "exits": [
@@ -560,7 +560,7 @@
     {
       "id": "canyon.canyon5",
       "source_path": "mudlib/d/canyon/canyon5.c",
-      "status": "structured",
+      "status": "verified",
       "name": "关外小路",
       "description": "南边即为天驼关的关口，两片诺大的铁门(door)，若非由关内打开恐\n怕难以进入，往东侧看去，铁栅的映满你整双眼眸，转向西侧，看到的还\n是一片光秃秃的山壁，不由得使你想早点离开这个地方。",
       "exits": [
@@ -596,7 +596,7 @@
     {
       "id": "canyon.canyon6",
       "source_path": "mudlib/d/canyon/canyon6.c",
-      "status": "structured",
+      "status": "verified",
       "name": "天驼关谷地",
       "description": "高耸的悬崖立在天驼关两侧，中间是并不开阔的谷地，真是易守难\n攻的好地方，这么多年来与异族的关系一直非常缓和，因此大门又重新\n打开。铁门的后面有个很大的机械装置(machine)，向南是通往京城的\n路，往北就出了天驼关。",
       "exits": [
@@ -632,7 +632,7 @@
     {
       "id": "canyon.canyon7",
       "source_path": "mudlib/d/canyon/canyon7.c",
-      "status": "structured",
+      "status": "verified",
       "name": "天驼关谷地",
       "description": "天驼关两边是悬崖，中间是谷地，形状很象骆驼的双峰，由此得名。\n这里地势险峻，南下通往京师，北上除了“关外绿洲”雪亭镇外就是异族\n的领地了，历来是兵家必争之地。",
       "exits": [
@@ -660,7 +660,7 @@
     {
       "id": "canyon.dream.tmp",
       "source_path": "mudlib/d/canyon/dream/tmp.c",
-      "status": "structured",
+      "status": "verified",
       "name": "幻影道入口",
       "description": "整修中，请往回走:P",
       "exits": [
@@ -681,7 +681,7 @@
     {
       "id": "canyon.evil.tmp",
       "source_path": "mudlib/d/canyon/evil/tmp.c",
-      "status": "structured",
+      "status": "verified",
       "name": "妖魔道入口",
       "description": "整修中，请往回走:P",
       "exits": [
@@ -702,7 +702,7 @@
     {
       "id": "canyon.fantasy1",
       "source_path": "mudlib/d/canyon/fantasy1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "梦幻迷境通道",
       "description": "来到镜内，前面呈现三面通道，各个通道皆有其不同的气氛传出\n，中道有浓厚的竹之气息，上道迷香之味不止，下道呕味不停，不定\n的上空，不停蠢地之幻地，空气被抽丝剥茧，呼吸也愈来愈困难，不\n停变动的景象，快决定吧!!暗中之招唤，心中为之一震，快步踏离此\n一不祥的空间。",
       "exits": [
@@ -744,7 +744,7 @@
     {
       "id": "canyon.road",
       "source_path": "mudlib/d/canyon/road.c",
-      "status": "structured",
+      "status": "verified",
       "name": "碎石小路",
       "description": "你正走在碎石小路上，荒凉的景色，不难想像，这□人烟稀少，很少\n人会走到这□来，在路尾是一半圆形的土堆，其下有一铁索，爬下铁索(\nchain)就可以通达黄石隘口，而东北方是衔接至雪亭镇的青石官道。",
       "exits": [
@@ -775,7 +775,7 @@
     {
       "id": "canyon.stone_forest1",
       "source_path": "mudlib/d/canyon/stone_forest1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黄石穿林路路口",
       "description": "四周是一大遍的林地，草高于三四十尺，再加上雾盲盲的景象，\n使你不得不沿著黄石铺成的小路快步行走，深恐林草压顶，界时将不\n知所措，向东深入似乎有一奇特的光亮，但距离太远，你看不清楚到\n底是怎么著一回事。",
       "exits": [
@@ -803,7 +803,7 @@
     {
       "id": "canyon.stone_forest2",
       "source_path": "mudlib/d/canyon/stone_forest2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黄石穿林路",
       "description": "草压天顶的情况依旧，唯西侧亮光逐渐显明，看来西侧的不远处\n有一出口，黄石斑斑，挟杂著白色的圆点，像是白色光束长期照射的\n结果，蒙胧的景色在此总算完全的清淅了，向东侧仍是回到路口的路\n，而西侧的亮光直直吸引你往深处探索。",
       "exits": [
@@ -831,7 +831,7 @@
     {
       "id": "canyon.stone_forest3",
       "source_path": "mudlib/d/canyon/stone_forest3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "梦幻迷境入口",
       "description": "天光点著，华光亮，大概就是这样的一个情形吧，穿过了黄石穿\n林路，一束极大的光注猛然照射到你的身上，犹如沐于春风，心情爽\n朗极了，但面对北侧奇特的镜子居然有种令人不可抗拒的压力，在这\n尺尺地方，镜面反射日光，强照黄石穿林路，想到这让你有种莫名的\n恐惧，在莫名中被吸引而来的恐惧，进入或离开，生死一瞬间。",
       "exits": [

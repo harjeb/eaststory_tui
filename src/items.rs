@@ -17,6 +17,17 @@ pub const SLUMBER_DRUG_ID: &str = "obj.slumber_drug";
 pub const POISON_DUST_ID: &str = "obj.toy.poison_dust";
 pub const CHUENYU_PIGMEAT_IDS: [&str; 2] = ["chuenyu.npc.obj.pigmeat", "chuenyu.obj.pigmeat"];
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum TalismanKind {
+    Haunt,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct TalismanInscription {
+    pub kind: TalismanKind,
+    pub target: String,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
 #[serde(transparent)]
 pub struct ItemId(String);
@@ -363,6 +374,14 @@ pub struct ItemInstance {
     pub transformed_value: Option<i32>,
     pub slumber_effect: u32,
     pub filled_with_water: bool,
+    pub expires_at_elapsed_minutes: Option<u64>,
+    pub lifecycle_stage: u8,
+    #[serde(default)]
+    pub contents: Vec<ItemInstance>,
+    #[serde(default)]
+    pub container_capacity: Option<u32>,
+    #[serde(default)]
+    pub talisman: Option<TalismanInscription>,
 }
 impl ItemInstance {
     pub fn new(instance_id: u64, item_id: ItemId, quantity: u32) -> Self {
@@ -381,6 +400,11 @@ impl ItemInstance {
             transformed_value: None,
             slumber_effect: 0,
             filled_with_water: false,
+            expires_at_elapsed_minutes: None,
+            lifecycle_stage: 0,
+            contents: Vec::new(),
+            container_capacity: None,
+            talisman: None,
         }
     }
     pub fn definition(&self) -> &'static ItemDefinition {
@@ -394,9 +418,72 @@ impl ItemInstance {
             .unwrap_or_else(|| self.definition().display_name())
     }
     pub fn total_weight(&self) -> u32 {
-        self.transformed_weight
+        let own_weight = self
+            .transformed_weight
             .unwrap_or_else(|| self.definition().unit_weight())
-            .saturating_mul(self.quantity)
+            .saturating_mul(self.quantity);
+        own_weight.saturating_add(self.contents_weight())
+    }
+    pub fn contents_weight(&self) -> u32 {
+        self.contents.iter().map(ItemInstance::total_weight).sum()
+    }
+    pub fn container_capacity(&self) -> Option<u32> {
+        self.container_capacity.or_else(|| match self.item_id.as_str() {
+            "canyon.bamboo.obj.slipcase" => Some(5_000),
+            "choyin.npc.obj.silk_bag" | "choyin.obj.silk_bag" => Some(3_000),
+            "latemoon.room.npc.obj.token" => Some(3_000),
+            "choyin.npc.obj.denotation"
+            | "choyin.obj.denotation"
+            | "snow.npc.obj.denotation"
+            | "snow.obj.denotation" => Some(10_000),
+            _ => None,
+        })
+    }
+    pub fn is_container(&self) -> bool {
+        self.container_capacity().is_some()
+    }
+    pub fn contains_instance_id(&self, instance_id: u64) -> bool {
+        self.instance_id == instance_id
+            || self
+                .contents
+                .iter()
+                .any(|item| item.contains_instance_id(instance_id))
+    }
+    pub fn max_nested_instance_id(&self) -> u64 {
+        self.contents
+            .iter()
+            .map(ItemInstance::max_nested_instance_id)
+            .fold(self.instance_id, u64::max)
+    }
+    pub fn find_nested(&self, instance_id: u64) -> Option<&ItemInstance> {
+        if self.instance_id == instance_id {
+            return Some(self);
+        }
+        self.contents
+            .iter()
+            .find_map(|item| item.find_nested(instance_id))
+    }
+    pub fn find_nested_mut(&mut self, instance_id: u64) -> Option<&mut ItemInstance> {
+        if self.instance_id == instance_id {
+            return Some(self);
+        }
+        self.contents
+            .iter_mut()
+            .find_map(|item| item.find_nested_mut(instance_id))
+    }
+    pub fn split_off(&mut self, instance_id: u64, quantity: u32) -> Option<ItemInstance> {
+        if quantity == 0
+            || quantity >= self.quantity
+            || !self.contents.is_empty()
+            || self.talisman.is_some()
+        {
+            return None;
+        }
+        self.quantity -= quantity;
+        let mut split = self.clone();
+        split.instance_id = instance_id;
+        split.quantity = quantity;
+        Some(split)
     }
     pub fn unit_value(&self) -> i32 {
         self.transformed_value
@@ -453,6 +540,16 @@ impl<'de> Deserialize<'de> for ItemInstance {
             slumber_effect: u32,
             #[serde(default)]
             filled_with_water: bool,
+            #[serde(default)]
+            expires_at_elapsed_minutes: Option<u64>,
+            #[serde(default)]
+            lifecycle_stage: u8,
+            #[serde(default)]
+            contents: Vec<ItemInstance>,
+            #[serde(default)]
+            container_capacity: Option<u32>,
+            #[serde(default)]
+            talisman: Option<TalismanInscription>,
         }
         #[derive(Deserialize)]
         #[serde(untagged)]
@@ -476,6 +573,11 @@ impl<'de> Deserialize<'de> for ItemInstance {
                     transformed_value: v.transformed_value,
                     slumber_effect: v.slumber_effect,
                     filled_with_water: v.filled_with_water,
+                    expires_at_elapsed_minutes: v.expires_at_elapsed_minutes,
+                    lifecycle_stage: v.lifecycle_stage,
+                    contents: v.contents,
+                    container_capacity: v.container_capacity,
+                    talisman: v.talisman,
                 })
             }
             Input::Legacy(v) => Ok(Self::new(0, v.item_id(), 1)),
@@ -559,6 +661,8 @@ mod tests {
         assert_eq!(x.total_weight(), 1500);
         assert_eq!(x.durability, None);
         assert_eq!(x.remaining_uses, None);
+        assert_eq!(x.expires_at_elapsed_minutes, None);
+        assert_eq!(x.lifecycle_stage, 0);
         let melon = ItemInstance::new(5, ItemId::from(WATER_MELON_ID), 1);
         assert_eq!(melon.remaining_uses, Some(8));
         let wineskin = ItemInstance::new(6, ItemId::from("obj.example.wineskin"), 1);
@@ -566,5 +670,21 @@ mod tests {
         let y: ItemInstance = serde_json::from_str("\"Cloth\"").unwrap();
         assert_eq!(y.item_id.as_str(), CLOTH_ID);
         assert_eq!(y.instance_id, 0);
+    }
+
+    #[test]
+    fn nested_container_contents_round_trip_and_contribute_weight() {
+        let mut container = ItemInstance::new(40, ItemId::from(CLOTH_ID), 1);
+        container.container_capacity = Some(10_000);
+        let rations = ItemInstance::new(41, ItemId::from(DRY_RATIONS_ID), 2);
+        let expected_weight = container.definition().unit_weight() + rations.total_weight();
+        container.contents.push(rations);
+
+        let encoded = serde_json::to_string(&container).unwrap();
+        let restored: ItemInstance = serde_json::from_str(&encoded).unwrap();
+        assert_eq!(restored.total_weight(), expected_weight);
+        assert_eq!(restored.contents.len(), 1);
+        assert_eq!(restored.contents[0].quantity, 2);
+        assert_eq!(restored.max_nested_instance_id(), 41);
     }
 }

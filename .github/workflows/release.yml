@@ -33,12 +33,17 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache Rust build
         uses: Swatinem/rust-cache@v2
+
+      - name: Run platform test suite
+        run: cargo test --all-targets --locked
 
       - name: Build release binary
         run: cargo build --release --locked
@@ -65,10 +70,38 @@ jobs:
           path: dist/*
           if-no-files-found: error
 
+  acceptance:
+    name: Generate M9 release metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source and ES2 baseline
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run M9 release audit
+        shell: bash
+        run: |
+          mkdir -p dist
+          cargo run --quiet --locked --bin es2-audit -- --output dist
+
+      - name: Upload release metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-metadata
+          path: dist/*
+          if-no-files-found: error
+
   publish:
     name: Publish GitHub release
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
+    needs: [build, acceptance]
     runs-on: ubuntu-latest
     steps:
       - name: Download packaged binaries

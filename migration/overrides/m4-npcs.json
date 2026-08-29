@@ -111,12 +111,12 @@
     {
       "feature": "source_npc_carried_items",
       "status": "adapted",
-      "decision": "schema v4 从 create() 提取 55 个 NPC 的 93 件初始携带物，保留 5 件 carried、56 件 worn 与 32 件 wielded 状态，全部命中现有物品目录；排除注释代码和刘安禄身份揭露时动态取得的刀谱。加入两名确定化藏经楼守卫后，44 个已放置定义形成 86 个房间实例和 136 件可结算战利品；首次死斗胜利按地点实例直接落地，M7 尸体系统接入后再改为尸体承载。"
+      "decision": "schema v4 从 create() 提取 55 个 NPC 的 93 件初始携带物，保留 5 件 carried、56 件 worn 与 32 件 wielded 状态，全部命中现有物品目录；排除注释代码和刘安禄身份揭露时动态取得的刀谱。加入两名确定化藏经楼守卫后，44 个已放置定义形成 86 个房间实例和 136 件可结算战利品；M8 死斗会同时生成通用地面尸体，单角色适配继续将携带物直接落地，避免化尸粉吞没战利品。"
     },
     {
       "feature": "source_npc_combat_chat",
       "status": "adapted",
-      "decision": "25 个源定义的 87 条 combat-chat 全部按 text/spell/force/perform/command/movement 类型保留；16 个静态放置定义与 2 个确定化藏经楼守卫形成 36 个运行时实例，按原概率执行文本、三项资源伤害、招魂强化、内功强化/恢复、反击、投降与无尸体反馈。随机移动仍由 M8 调度，尸体动画等待 M7 尸体系统。"
+      "decision": "25 个源定义的 87 条 combat-chat 全部按 text/spell/force/perform/command/movement 类型保留；16 个静态放置定义与 2 个确定化藏经楼守卫形成 36 个运行时实例，按原概率执行文本、三项资源伤害、招魂强化、内功强化/恢复、反击、投降与无尸体反馈。随机移动仍由 M8 调度，通用尸体生命周期已接入 M8，尸体动画仍待后续适配。"
     },
     {
       "feature": "source_custom_commands",
@@ -433,7 +433,7 @@
       "flag": "combat_chat",
       "candidates": 25,
       "status": "adapted",
-      "decision": "25/25 个定义的 87 条战斗消息已结构化，16 个已放置 NPC 可运行；文本、法术、内功、反击、投降和尸体缺失反馈已适配，随机移动与尸体动画分别保留 M8/M7 依赖。"
+      "decision": "25/25 个定义的 87 条战斗消息已结构化，16 个已放置 NPC 可运行；文本、法术、内功、反击、投降和尸体缺失反馈已适配，随机移动与尸体动画均保留 M8 后续批次。"
     },
     {
       "flag": "custom_command",
@@ -473,7 +473,7 @@
       "candidates": 15,
       "status": "deferred",
       "target": "M8",
-      "decision": "等待 NPC 日程与刷新模型，避免角色随机离开任务地点后破坏单人流程。"
+      "decision": "M8 v28 已让 city.npc.trader、snow.npc.crazy_dog/trav_blade/traveller/woodcutter 等无关键依赖者安全移动；其余候选继续等待日程与刷新模型，避免角色随机离开任务地点后破坏单人流程。"
     },
     {
       "flag": "timed_behavior",
@@ -487,14 +487,14 @@
     {
       "source_path": "mudlib/d/temple/road2.c",
       "target": "mudlib/d/temple/npc/guard_taoist.c",
-      "status": "blocked",
-      "decision": "固定源提交只有 guard_taoist1-3.c，不存在房间引用的无编号文件；不猜测替代角色。"
+      "status": "excluded",
+      "decision": "固定源提交只有 guard_taoist1-3.c，不存在房间引用的无编号文件；缺失引用明确排除，不猜测替代角色。"
     },
     {
       "source_path": "mudlib/d/temple/road2.c",
       "target": "mudlib/d/temple/npc/taoist_guard.c",
-      "status": "blocked",
-      "decision": "固定源提交只有 taoist_guard1-3.c，不存在房间引用的无编号文件；不猜测替代角色。"
+      "status": "excluded",
+      "decision": "固定源提交只有 taoist_guard1-3.c，不存在房间引用的无编号文件；缺失引用明确排除，不猜测替代角色。"
     }
   ]
 }

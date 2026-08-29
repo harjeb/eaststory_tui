@@ -2,7 +2,7 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "scope": "m6-npcs",
-  "status": "structured",
+  "status": "verified",
   "summary": {
     "total": 57,
     "placed": 48,
@@ -39,7 +39,7 @@
     {
       "id": "chuenyu.npc.ant",
       "source_path": "mudlib/d/chuenyu/npc/ant.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "蚂蚁",
       "description": "一只小小的小蚂蚁",
@@ -61,7 +61,7 @@
     {
       "id": "chuenyu.npc.bee",
       "source_path": "mudlib/d/chuenyu/npc/bee.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "蜜蜂",
       "description": "一只疯狂的杀人蜂",
@@ -83,7 +83,7 @@
     {
       "id": "chuenyu.npc.chuenyu",
       "source_path": "mudlib/d/chuenyu/npc/chuenyu.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "淳于怀太",
       "description": null,
@@ -127,7 +127,7 @@
     {
       "id": "chuenyu.npc.cleangirl",
       "source_path": "mudlib/d/chuenyu/npc/cleangirl.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "女佣人",
       "description": "满脸风霜的女佣人",
@@ -186,7 +186,7 @@
     {
       "id": "chuenyu.npc.cook",
       "source_path": "mudlib/d/chuenyu/npc/cook.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "厨子",
       "description": "你看到一个小厨子， 正在用碧玉刀剔猪骨。",
@@ -258,7 +258,7 @@
     {
       "id": "chuenyu.npc.flower_seller",
       "source_path": "mudlib/d/chuenyu/npc/flower_seller.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "卖花姑娘",
       "description": "美丽的卖花姑娘正在向行人售花儿",
@@ -338,7 +338,7 @@
     {
       "id": "chuenyu.npc.flowergirl",
       "source_path": "mudlib/d/chuenyu/npc/flowergirl.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "采花妞",
       "description": "天真的小女孩正在玩耍着",
@@ -382,7 +382,7 @@
     {
       "id": "chuenyu.npc.fly",
       "source_path": "mudlib/d/chuenyu/npc/fly.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "蝴蝶",
       "description": "一只美丽的小蝴蝶",
@@ -404,7 +404,7 @@
     {
       "id": "chuenyu.npc.frog",
       "source_path": "mudlib/d/chuenyu/npc/frog.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "蛐蛐",
       "description": "一只方头方脑的大蛐蛐",
@@ -426,7 +426,7 @@
     {
       "id": "chuenyu.npc.gardener",
       "source_path": "mudlib/d/chuenyu/npc/gardener.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "园工",
       "description": "黑松一剪是方园几十里有名的园工。一把大剪使的出神如化。",
@@ -515,7 +515,7 @@
     {
       "id": "chuenyu.npc.guard",
       "source_path": "mudlib/d/chuenyu/npc/guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "护院",
       "description": "这是黑松堡的护院",
@@ -569,7 +569,7 @@
     {
       "id": "chuenyu.npc.guard2",
       "source_path": "mudlib/d/chuenyu/npc/guard2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "狱卒",
       "description": "这是黑松堡的狱卒",
@@ -623,7 +623,7 @@
     {
       "id": "chuenyu.npc.highrat",
       "source_path": "mudlib/d/chuenyu/npc/highrat.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "大老鼠",
       "description": "一只疯狂的大老鼠",
@@ -648,7 +648,7 @@
     {
       "id": "chuenyu.npc.jiading",
       "source_path": "mudlib/d/chuenyu/npc/jiading.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "青衣家丁",
       "description": "这是一位黑松堡的家丁，专负责盘察去黑松堡的行人。",
@@ -694,7 +694,7 @@
     {
       "id": "chuenyu.npc.jiading2",
       "source_path": "mudlib/d/chuenyu/npc/jiading2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "蓝衣家丁",
       "description": null,
@@ -740,7 +740,7 @@
     {
       "id": "chuenyu.npc.jiading3",
       "source_path": "mudlib/d/chuenyu/npc/jiading3.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "紫衣家丁",
       "description": null,
@@ -786,7 +786,7 @@
     {
       "id": "chuenyu.npc.oldliu",
       "source_path": "mudlib/d/chuenyu/npc/oldliu.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "刘老农",
       "description": null,
@@ -839,7 +839,7 @@
     {
       "id": "chuenyu.npc.pigeon",
       "source_path": "mudlib/d/chuenyu/npc/pigeon.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "信鸽",
       "description": "一只乖巧的小信鸽",
@@ -861,7 +861,7 @@
     {
       "id": "chuenyu.npc.rat",
       "source_path": "mudlib/d/chuenyu/npc/rat.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "大老鼠",
       "description": "一只鼠头鼠脑的大老鼠",
@@ -883,7 +883,7 @@
     {
       "id": "chuenyu.npc.smallgardener",
       "source_path": "mudlib/d/chuenyu/npc/smallgardener.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "小园工",
       "description": "一位年轻的小园工",
@@ -921,7 +921,7 @@
     {
       "id": "chuenyu.npc.wolfdog",
       "source_path": "mudlib/d/chuenyu/npc/wolfdog.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "巨型犬",
       "description": "这是一只凶猛无比，半人多高的巨型狼犬",
@@ -963,7 +963,7 @@
     {
       "id": "chuenyu.npc.xiaojuan",
       "source_path": "mudlib/d/chuenyu/npc/xiaojuan.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "小娟",
       "description": null,
@@ -1013,7 +1013,7 @@
     {
       "id": "chuenyu.xiaojuan2",
       "source_path": "mudlib/d/chuenyu/xiaojuan2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "chuenyu",
       "name": "小娟",
       "description": null,
@@ -1063,7 +1063,7 @@
     {
       "id": "green.npc.kid1",
       "source_path": "mudlib/d/green/npc/kid1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "工匠的小孩",
       "description": null,
@@ -1094,7 +1094,7 @@
     {
       "id": "green.npc.kid2",
       "source_path": "mudlib/d/green/npc/kid2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "小孩",
       "description": null,
@@ -1123,7 +1123,7 @@
     {
       "id": "green.npc.kid3",
       "source_path": "mudlib/d/green/npc/kid3.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "小孩",
       "description": null,
@@ -1152,7 +1152,7 @@
     {
       "id": "green.npc.kid4",
       "source_path": "mudlib/d/green/npc/kid4.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "小孩",
       "description": null,
@@ -1180,7 +1180,7 @@
     {
       "id": "green.npc.kid5",
       "source_path": "mudlib/d/green/npc/kid5.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "测试用的小孩 - 不准杀!!!!",
       "description": null,
@@ -1214,7 +1214,7 @@
     {
       "id": "green.npc.master",
       "source_path": "mudlib/d/green/npc/master.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "龙若法王",
       "description": "龙若法王本是释家中人，后得奇人点化，佛道双修，齐入化境，\n于二十九年前创下绝尘一派。",
@@ -1280,7 +1280,7 @@
     {
       "id": "green.npc.oldman",
       "source_path": "mudlib/d/green/npc/oldman.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "老公公",
       "description": null,
@@ -1329,7 +1329,7 @@
     {
       "id": "green.npc.oldman2",
       "source_path": "mudlib/d/green/npc/oldman2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "村长",
       "description": null,
@@ -1367,7 +1367,7 @@
     {
       "id": "green.npc.oldwoman",
       "source_path": "mudlib/d/green/npc/oldwoman.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "老婆婆",
       "description": null,
@@ -1407,7 +1407,7 @@
     {
       "id": "green.npc.s",
       "source_path": "mudlib/d/green/npc/s.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "沈万年",
       "description": null,
@@ -1452,7 +1452,7 @@
     {
       "id": "green.npc.shen",
       "source_path": "mudlib/d/green/npc/shen.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "沈万年",
       "description": null,
@@ -1496,7 +1496,7 @@
     {
       "id": "green.npc.shen1",
       "source_path": "mudlib/d/green/npc/shen1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "沈万年",
       "description": null,
@@ -1540,7 +1540,7 @@
     {
       "id": "green.npc.spider",
       "source_path": "mudlib/d/green/npc/spider.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "蜘蛛",
       "description": null,
@@ -1566,7 +1566,7 @@
     {
       "id": "green.npc.woman1",
       "source_path": "mudlib/d/green/npc/woman1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "妇人",
       "description": null,
@@ -1617,7 +1617,7 @@
     {
       "id": "green.npc.woman2",
       "source_path": "mudlib/d/green/npc/woman2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "妇人",
       "description": null,
@@ -1647,7 +1647,7 @@
     {
       "id": "green.npc.worker1",
       "source_path": "mudlib/d/green/npc/worker1.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "工匠",
       "description": null,
@@ -1683,7 +1683,7 @@
     {
       "id": "green.npc.worker2",
       "source_path": "mudlib/d/green/npc/worker2.c",
-      "status": "structured",
+      "status": "verified",
       "area": "green",
       "name": "采石工",
       "description": null,
@@ -1722,7 +1722,7 @@
     {
       "id": "sanyen.npc.bonze",
       "source_path": "mudlib/d/sanyen/npc/bonze.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "僧人",
       "description": "一个笑咪咪的僧人对著你微微颔首。",
@@ -1768,7 +1768,7 @@
     {
       "id": "sanyen.npc.cook_bonze",
       "source_path": "mudlib/d/sanyen/npc/cook_bonze.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "烧饭僧",
       "description": "一位长得肥肥胖胖, 福福泰泰的中年僧人。",
@@ -1819,7 +1819,7 @@
     {
       "id": "sanyen.npc.cripple",
       "source_path": "mudlib/d/sanyen/npc/cripple.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "跛僧人",
       "description": "这个僧人跛了右腿，脸上没有什么表情，一副若有所思的样子。",
@@ -1884,7 +1884,7 @@
     {
       "id": "sanyen.npc.drug_bonze",
       "source_path": "mudlib/d/sanyen/npc/drug_bonze.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "药僧",
       "description": "一位长得相当精壮的年轻僧人, 他正在整理药材。",
@@ -1930,7 +1930,7 @@
     {
       "id": "sanyen.npc.greeting",
       "source_path": "mudlib/d/sanyen/npc/greeting.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "知客僧",
       "description": "这个知客僧脸色和蔼，虽然在寺中的地位不高，但是他总是让人有一种\n值得信赖的感觉。",
@@ -1965,7 +1965,7 @@
     {
       "id": "sanyen.npc.little_bonze",
       "source_path": "mudlib/d/sanyen/npc/little_bonze.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "小沙弥",
       "description": "一个天真无邪的小和尚, 一颗圆滚滚光溜溜可爱的小光头, 让人看了\n就十分的喜欢他。他正在为油灯添上香油。",
@@ -2010,7 +2010,7 @@
     {
       "id": "sanyen.npc.monk",
       "source_path": "mudlib/d/sanyen/npc/monk.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "独眼头陀",
       "description": "瞧这个头陀的模样与服色，似乎不是山烟寺的僧人，但是他大喇喇地站在\n这里，一副不可一世的样子。",
@@ -2088,7 +2088,7 @@
     {
       "id": "sanyen.npc.work_bonze",
       "source_path": "mudlib/d/sanyen/npc/work_bonze.c",
-      "status": "structured",
+      "status": "verified",
       "area": "sanyen",
       "name": "扫地僧",
       "description": "一个肥肥胖胖的僧人, 看他拿著扫把有一下没一下的扫著, 就知道他\n平常也是摸鱼大王。",
@@ -2144,7 +2144,7 @@
     {
       "id": "waterfog.npc.celes_tiger",
       "source_path": "mudlib/d/waterfog/npc/celes_tiger.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "天邪虎",
       "description": "这是一只天邪派的灵兽「天邪虎」，火红的毛皮上有著如白银般的\n白纹，湛蓝色的眼珠中散发出妖异的光芒。",
@@ -2176,7 +2176,7 @@
     {
       "id": "waterfog.npc.elder5",
       "source_path": "mudlib/d/waterfog/npc/elder5.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "南危水",
       "description": "南危水是当世使剑的名家，也是槐阳王的弟弟，一身武学集天邪、封山\n两派之所长，在水烟阁七长老中武功\\仅次于二长老莫谦容。南危水手中\n的焦殇剑也是一把罕见的利器，传说这把剑是名铸剑师黄炎炎生平六把\n名剑中排名第一的杰作。",
@@ -2249,7 +2249,7 @@
     {
       "id": "waterfog.npc.elder6",
       "source_path": "mudlib/d/waterfog/npc/elder6.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "陈坚石",
       "description": "陈长老本来的名字已经没有人知道了，但是他的横练功\\夫「石猿功\\」成名\n数十年，加上个性有点....那个....顽固，因此水烟阁执法使潘军禅给他\n起了个绰号叫「坚石」，久而久之陈长老倒也挺喜欢这个名字，索性舍弃\n了原来的名字改名叫陈坚石。",
@@ -2312,7 +2312,7 @@
     {
       "id": "waterfog.npc.elder7",
       "source_path": "mudlib/d/waterfog/npc/elder7.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "颜违",
       "description": "颜违是水烟阁七位长老中最年轻的，虽然他的武功\\跟其他六位长老\n相比仍略逊一筹，但是他办事十分精明干练，因此七长老每年都派\n他出外办理武林大会事宜。",
@@ -2366,7 +2366,7 @@
     {
       "id": "waterfog.npc.elite_guard",
       "source_path": "mudlib/d/waterfog/npc/elite_guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "水烟阁红衣武士",
       "description": "这个人身著红色水烟阁武士服色，眼神十分锐利。",
@@ -2453,7 +2453,7 @@
     {
       "id": "waterfog.npc.guard",
       "source_path": "mudlib/d/waterfog/npc/guard.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "水烟阁武士",
       "description": "这个人相貌十分魁梧。",
@@ -2518,7 +2518,7 @@
     {
       "id": "waterfog.npc.little_tiger",
       "source_path": "mudlib/d/waterfog/npc/little_tiger.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "小天邪虎",
       "description": "这是一只天邪派的灵兽「天邪虎」，火红的毛皮上有著如白银般的\n白纹，然而这只天邪虎的年纪显然还很小，说不定还不到两岁。",
@@ -2554,7 +2554,7 @@
     {
       "id": "waterfog.npc.servant",
       "source_path": "mudlib/d/waterfog/npc/servant.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "仆役",
       "description": "这个人看起来十分和蔼可亲，看起来不像是会武功\\的人。",
@@ -2579,7 +2579,7 @@
     {
       "id": "waterfog.npc.watcher",
       "source_path": "mudlib/d/waterfog/npc/watcher.c",
-      "status": "structured",
+      "status": "verified",
       "area": "waterfog",
       "name": "水烟阁司事",
       "description": "这个人看起来十分和蔼可亲，一双眼睛炯炯有神。",

@@ -2,7 +2,7 @@
   "schema_version": 3,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "scope": "player_skills",
-  "status": "structured",
+  "status": "verified",
   "summary": {
     "total": 70,
     "by_category": {
@@ -23,7 +23,7 @@
     {
       "id": "axe",
       "source_path": "mudlib/daemon/skill/axe.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "axe",
       "category": "basic",
       "skill_type": "martial",
@@ -38,7 +38,7 @@
     {
       "id": "blade",
       "source_path": "mudlib/daemon/skill/blade.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "blade",
       "category": "basic",
       "skill_type": "martial",
@@ -53,7 +53,7 @@
     {
       "id": "bloodystrike",
       "source_path": "mudlib/daemon/skill/bloodystrike.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "bloodystrike",
       "category": "unarmed",
       "skill_type": "martial",
@@ -137,7 +137,7 @@
     {
       "id": "bolomiduo",
       "source_path": "mudlib/daemon/skill/bolomiduo.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "bolomiduo",
       "category": "internal",
       "skill_type": "martial",
@@ -161,7 +161,7 @@
     {
       "id": "buddhism",
       "source_path": "mudlib/daemon/skill/buddhism.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "buddhism",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -178,7 +178,7 @@
     {
       "id": "celestial",
       "source_path": "mudlib/daemon/skill/celestial.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "天邪神功",
       "category": "internal",
       "skill_type": "martial",
@@ -202,7 +202,7 @@
     {
       "id": "celestrike",
       "source_path": "mudlib/daemon/skill/celestrike.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "celestrike",
       "category": "unarmed",
       "skill_type": "martial",
@@ -295,7 +295,7 @@
     {
       "id": "chanting",
       "source_path": "mudlib/daemon/skill/chanting.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "chanting",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -310,7 +310,7 @@
     {
       "id": "chaos-steps",
       "source_path": "mudlib/daemon/skill/chaos-steps.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "倒乱七星步法",
       "category": "movement",
       "skill_type": "martial",
@@ -332,7 +332,7 @@
     {
       "id": "cloudstaff",
       "source_path": "mudlib/daemon/skill/cloudstaff.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "cloudstaff",
       "category": "weapon",
       "skill_type": "martial",
@@ -394,7 +394,7 @@
     {
       "id": "dagger",
       "source_path": "mudlib/daemon/skill/dagger.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "dagger",
       "category": "basic",
       "skill_type": "martial",
@@ -409,7 +409,7 @@
     {
       "id": "deisword",
       "source_path": "mudlib/daemon/skill/deisword.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "deisword",
       "category": "weapon",
       "skill_type": "martial",
@@ -497,7 +497,7 @@
     {
       "id": "dodge",
       "source_path": "mudlib/daemon/skill/dodge.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "dodge",
       "category": "basic",
       "skill_type": "martial",
@@ -514,7 +514,7 @@
     {
       "id": "essencemagic",
       "source_path": "mudlib/daemon/skill/essencemagic.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "八识神通",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -538,7 +538,7 @@
     {
       "id": "fall-steps",
       "source_path": "mudlib/daemon/skill/fall-steps.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "fall-steps",
       "category": "movement",
       "skill_type": "martial",
@@ -562,7 +562,7 @@
     {
       "id": "fonxanforce",
       "source_path": "mudlib/daemon/skill/fonxanforce.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "fonxanforce",
       "category": "internal",
       "skill_type": "martial",
@@ -584,7 +584,7 @@
     {
       "id": "fonxansword",
       "source_path": "mudlib/daemon/skill/fonxansword.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "封山剑法",
       "category": "weapon",
       "skill_type": "martial",
@@ -691,7 +691,7 @@
     {
       "id": "force",
       "source_path": "mudlib/daemon/skill/force.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "force",
       "category": "basic",
       "skill_type": "martial",
@@ -711,7 +711,7 @@
     {
       "id": "fork",
       "source_path": "mudlib/daemon/skill/fork.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "fork",
       "category": "basic",
       "skill_type": "martial",
@@ -726,7 +726,7 @@
     {
       "id": "gouyee",
       "source_path": "mudlib/daemon/skill/gouyee.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "谷衣心法",
       "category": "internal",
       "skill_type": "martial",
@@ -749,7 +749,7 @@
     {
       "id": "hammer",
       "source_path": "mudlib/daemon/skill/hammer.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "hammer",
       "category": "basic",
       "skill_type": "martial",
@@ -764,7 +764,7 @@
     {
       "id": "iceforce",
       "source_path": "mudlib/daemon/skill/iceforce.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "意寒神功",
       "category": "internal",
       "skill_type": "martial",
@@ -787,7 +787,7 @@
     {
       "id": "instruments",
       "source_path": "mudlib/daemon/skill/instruments.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "instruments",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -802,7 +802,7 @@
     {
       "id": "iron-cloth",
       "source_path": "mudlib/daemon/skill/iron-cloth.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "iron-cloth",
       "category": "basic",
       "skill_type": "martial",
@@ -820,7 +820,7 @@
     {
       "id": "jin-gang",
       "source_path": "mudlib/daemon/skill/jin-gang.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "jin-gang",
       "category": "utility",
       "skill_type": "martial",
@@ -841,7 +841,7 @@
     {
       "id": "jingang-staff",
       "source_path": "mudlib/daemon/skill/jingang-staff.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "jingang-staff",
       "category": "weapon",
       "skill_type": "martial",
@@ -903,7 +903,7 @@
     {
       "id": "juechen-force",
       "source_path": "mudlib/daemon/skill/juechen-force.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "juechen-force",
       "category": "internal",
       "skill_type": "martial",
@@ -922,7 +922,7 @@
     {
       "id": "linbo-steps",
       "source_path": "mudlib/daemon/skill/linbo-steps.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "linbo-steps",
       "category": "movement",
       "skill_type": "martial",
@@ -946,7 +946,7 @@
     {
       "id": "literate",
       "source_path": "mudlib/daemon/skill/literate.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "literate",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -963,7 +963,7 @@
     {
       "id": "liuh-ken",
       "source_path": "mudlib/daemon/skill/liuh-ken.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "柳家拳法",
       "category": "unarmed",
       "skill_type": "martial",
@@ -1024,7 +1024,7 @@
     {
       "id": "lotusforce",
       "source_path": "mudlib/daemon/skill/lotusforce.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "莲华心法",
       "category": "internal",
       "skill_type": "martial",
@@ -1049,7 +1049,7 @@
     {
       "id": "magic",
       "source_path": "mudlib/daemon/skill/magic.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "magic",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -1064,7 +1064,7 @@
     {
       "id": "magic-array",
       "source_path": "mudlib/daemon/skill/magic-array.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "magic-array",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -1089,7 +1089,7 @@
     {
       "id": "meihua-shou",
       "source_path": "mudlib/daemon/skill/meihua-shou.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "meihua-shou",
       "category": "unarmed",
       "skill_type": "martial",
@@ -1193,7 +1193,7 @@
     {
       "id": "move",
       "source_path": "mudlib/daemon/skill/move.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "move",
       "category": "basic",
       "skill_type": "martial",
@@ -1208,7 +1208,7 @@
     {
       "id": "music",
       "source_path": "mudlib/daemon/skill/music.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "music",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -1225,7 +1225,7 @@
     {
       "id": "mysterrier",
       "source_path": "mudlib/daemon/skill/mysterrier.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "步玄七诀",
       "category": "movement",
       "skill_type": "martial",
@@ -1253,7 +1253,7 @@
     {
       "id": "mystforce",
       "source_path": "mudlib/daemon/skill/mystforce.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "mystforce",
       "category": "internal",
       "skill_type": "martial",
@@ -1275,7 +1275,7 @@
     {
       "id": "mystsword",
       "source_path": "mudlib/daemon/skill/mystsword.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "mystsword",
       "category": "weapon",
       "skill_type": "martial",
@@ -1339,7 +1339,7 @@
     {
       "id": "necromancy",
       "source_path": "mudlib/daemon/skill/necromancy.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "茅山道术",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -1367,7 +1367,7 @@
     {
       "id": "nine-moon",
       "source_path": "mudlib/daemon/skill/nine-moon.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "nine-moon",
       "category": "weapon",
       "skill_type": "martial",
@@ -1457,7 +1457,7 @@
     {
       "id": "notraces",
       "source_path": "mudlib/daemon/skill/notraces.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "notraces",
       "category": "movement",
       "skill_type": "martial",
@@ -1481,7 +1481,7 @@
     {
       "id": "parry",
       "source_path": "mudlib/daemon/skill/parry.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "parry",
       "category": "basic",
       "skill_type": "martial",
@@ -1498,7 +1498,7 @@
     {
       "id": "perception",
       "source_path": "mudlib/daemon/skill/perception.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "听风辨器之术",
       "category": "utility",
       "skill_type": "martial",
@@ -1513,7 +1513,7 @@
     {
       "id": "pyrobat-steps",
       "source_path": "mudlib/daemon/skill/pyrobat-steps.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "pyrobat-steps",
       "category": "movement",
       "skill_type": "martial",
@@ -1534,7 +1534,7 @@
     {
       "id": "qidaoforce",
       "source_path": "mudlib/daemon/skill/qidaoforce.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "qidaoforce",
       "category": "internal",
       "skill_type": "martial",
@@ -1558,7 +1558,7 @@
     {
       "id": "scratching",
       "source_path": "mudlib/daemon/skill/scratching.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "scratching",
       "category": "weapon",
       "skill_type": "martial",
@@ -1641,7 +1641,7 @@
     {
       "id": "serpentforce",
       "source_path": "mudlib/daemon/skill/serpentforce.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "serpentforce",
       "category": "internal",
       "skill_type": "martial",
@@ -1663,7 +1663,7 @@
     {
       "id": "shortsong-blade",
       "source_path": "mudlib/daemon/skill/shortsong-blade.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "shortsong-blade",
       "category": "weapon",
       "skill_type": "martial",
@@ -1757,7 +1757,7 @@
     {
       "id": "six-chaos-sword",
       "source_path": "mudlib/daemon/skill/six-chaos-sword.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "六阴追魂剑法",
       "category": "weapon",
       "skill_type": "martial",
@@ -1841,7 +1841,7 @@
     {
       "id": "snowshade-force",
       "source_path": "mudlib/daemon/skill/snowshade-force.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "snowshade-force",
       "category": "internal",
       "skill_type": "martial",
@@ -1860,7 +1860,7 @@
     {
       "id": "snowshade-sword",
       "source_path": "mudlib/daemon/skill/snowshade-sword.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "snowshade-sword",
       "category": "weapon",
       "skill_type": "martial",
@@ -1944,7 +1944,7 @@
     {
       "id": "snowwhip",
       "source_path": "mudlib/daemon/skill/snowwhip.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "snowwhip",
       "category": "weapon",
       "skill_type": "martial",
@@ -2026,7 +2026,7 @@
     {
       "id": "spells",
       "source_path": "mudlib/daemon/skill/spells.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "spells",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -2041,7 +2041,7 @@
     {
       "id": "spicyclaw",
       "source_path": "mudlib/daemon/skill/spicyclaw.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "spicyclaw",
       "category": "unarmed",
       "skill_type": "martial",
@@ -2133,7 +2133,7 @@
     {
       "id": "spider-array",
       "source_path": "mudlib/daemon/skill/spider-array.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "spider-array",
       "category": "formation",
       "skill_type": "martial",
@@ -2150,7 +2150,7 @@
     {
       "id": "spring-blade",
       "source_path": "mudlib/daemon/skill/spring-blade.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "spring-blade",
       "category": "weapon",
       "skill_type": "martial",
@@ -2241,7 +2241,7 @@
     {
       "id": "staff",
       "source_path": "mudlib/daemon/skill/staff.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "staff",
       "category": "basic",
       "skill_type": "martial",
@@ -2256,7 +2256,7 @@
     {
       "id": "stealing",
       "source_path": "mudlib/daemon/skill/stealing.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "stealing",
       "category": "utility",
       "skill_type": "martial",
@@ -2271,7 +2271,7 @@
     {
       "id": "stormdance",
       "source_path": "mudlib/daemon/skill/stormdance.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "stormdance",
       "category": "movement",
       "skill_type": "martial",
@@ -2295,7 +2295,7 @@
     {
       "id": "sword",
       "source_path": "mudlib/daemon/skill/sword.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "sword",
       "category": "basic",
       "skill_type": "martial",
@@ -2310,7 +2310,7 @@
     {
       "id": "tao-mystery",
       "source_path": "mudlib/daemon/skill/tao-mystery.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "tao-mystery",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -2328,7 +2328,7 @@
     {
       "id": "taoism",
       "source_path": "mudlib/daemon/skill/taoism.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "天师正道",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -2346,7 +2346,7 @@
     {
       "id": "tenderzhi",
       "source_path": "mudlib/daemon/skill/tenderzhi.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "tenderzhi",
       "category": "unarmed",
       "skill_type": "martial",
@@ -2407,7 +2407,7 @@
     {
       "id": "throwing",
       "source_path": "mudlib/daemon/skill/throwing.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "throwing",
       "category": "basic",
       "skill_type": "martial",
@@ -2422,7 +2422,7 @@
     {
       "id": "ts-fist",
       "source_path": "mudlib/daemon/skill/ts-fist.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "ts-fist",
       "category": "unarmed",
       "skill_type": "martial",
@@ -2524,7 +2524,7 @@
     {
       "id": "unarmed",
       "source_path": "mudlib/daemon/skill/unarmed.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "unarmed",
       "category": "basic",
       "skill_type": "martial",
@@ -2541,7 +2541,7 @@
     {
       "id": "whip",
       "source_path": "mudlib/daemon/skill/whip.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "whip",
       "category": "basic",
       "skill_type": "martial",
@@ -2556,7 +2556,7 @@
     {
       "id": "wu-shun",
       "source_path": "mudlib/daemon/skill/wu-shun.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "wu-shun",
       "category": "internal",
       "skill_type": "martial",
@@ -2581,7 +2581,7 @@
     {
       "id": "yirong",
       "source_path": "mudlib/daemon/skill/yirong.c",
-      "status": "structured",
+      "status": "verified",
       "display_name": "yirong",
       "category": "knowledge",
       "skill_type": "knowledge",
@@ -2600,7 +2600,7 @@
     {
       "id": "assassin",
       "source_path": "mudlib/daemon/class/assassin/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "金□",
       "faction": "月牙神教",
       "intelligence": 24,
@@ -2626,7 +2626,7 @@
     {
       "id": "beggar",
       "source_path": "mudlib/daemon/class/beggar/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "陆得财",
       "faction": "花紫会",
       "intelligence": 24,
@@ -2652,7 +2652,7 @@
     {
       "id": "bonze",
       "source_path": "mudlib/daemon/class/bonze/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "玄智和尚",
       "faction": "山烟寺",
       "intelligence": 30,
@@ -2681,7 +2681,7 @@
     {
       "id": "dancer",
       "source_path": "mudlib/daemon/class/dancer/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "蓝止萍",
       "faction": "晚月庄",
       "intelligence": 28,
@@ -2711,7 +2711,7 @@
     {
       "id": "fighter",
       "source_path": "mudlib/daemon/class/fighter/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "萧辟尘",
       "faction": "天邪派",
       "intelligence": 24,
@@ -2744,7 +2744,7 @@
     {
       "id": "juechen",
       "source_path": "mudlib/daemon/class/juechen/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "绝尘子",
       "faction": "绝尘派",
       "intelligence": 30,
@@ -2774,7 +2774,7 @@
     {
       "id": "lama",
       "source_path": "mudlib/daemon/class/lama/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "龙若法王",
       "faction": "日陀罗寺",
       "intelligence": 30,
@@ -2803,7 +2803,7 @@
     {
       "id": "ninja",
       "source_path": "mudlib/daemon/class/ninja/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "逍遥子",
       "faction": "逍遥派",
       "intelligence": 30,
@@ -2828,7 +2828,7 @@
     {
       "id": "ronin",
       "source_path": "mudlib/daemon/class/ronin/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "早川直义",
       "faction": "鬼笠馆浪人",
       "intelligence": 24,
@@ -2852,7 +2852,7 @@
     {
       "id": "scholar",
       "source_path": "mudlib/daemon/class/scholar/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "骆云舟",
       "faction": "步玄派",
       "intelligence": 28,
@@ -2883,7 +2883,7 @@
     {
       "id": "swordsman",
       "source_path": "mudlib/daemon/class/swordsman/master.c",
-      "status": "structured",
+      "status": "verified",
       "name": "柳淳风",
       "faction": "封山剑派",
       "intelligence": 24,

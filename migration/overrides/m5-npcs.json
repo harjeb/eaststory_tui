@@ -78,7 +78,7 @@
     {
       "feature": "source_carried_items",
       "status": "adapted",
-      "decision": "29 个定义的 53 件初始携带物结构化；28 个静态放置定义形成 79 个实例和 136 件潜在掉落，两个动态土匪老大使可达上限增至 81 个携带物实例与 140 件掉落。M7 尸体系统接入前直接落地。"
+      "decision": "29 个定义的 53 件初始携带物结构化；28 个静态放置定义形成 79 个实例和 136 件潜在掉落，两个动态土匪老大使可达上限增至 81 个携带物实例与 140 件掉落。M8 同时生成通用地面尸体，单角色适配仍直接落地，避免化尸粉吞没战利品。"
     },
     {
       "feature": "source_fight_gates",
@@ -108,7 +108,7 @@
     {
       "feature": "behavior_flag_audit",
       "status": "audited",
-      "decision": "59 项标记逐源覆盖为 14 verified、21 adapted、23 deferred、1 excluded；调度与环境行为绑定 M8，尸体定时溶解绑定 M7。"
+      "decision": "59 项标记逐源覆盖为 14 verified、38 adapted、6 deferred、1 excluded；M8 v28 已接入静态文本环境消息与三类非关键 NPC 的安全随机移动，v29 已接入乔阴县单人追捕、拘押、审判与赎放；余下调度、玩家尸体和 NPC 延时化尸仍绑定 M8，通用尸体腐败已接入世界时钟。"
     }
   ],
   "behavior_flags": {
@@ -131,8 +131,8 @@
     },
     "by_status": {
       "verified": 14,
-      "adapted": 21,
-      "deferred": 23,
+      "adapted": 38,
+      "deferred": 6,
       "excluded": 1
     },
     "dispositions": [
@@ -175,9 +175,8 @@
       {
         "source_path": "mudlib/d/choyin/npc/cake_vendor.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "三条随机叫卖与蒸笼动作归入 NPC 环境消息调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=13 在在线 tick 从固定实例播出三条叫卖、掀蒸笼原文；离线不发。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/cityguard.c",
@@ -200,9 +199,8 @@
       {
         "source_path": "mudlib/d/choyin/npc/cucurbit_seller.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "随机叫卖归入 NPC 环境消息调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=15 在在线 tick 从固定实例播出糖葫芦叫卖原文；离线不发。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/dumpling_seller.c",
@@ -213,16 +211,14 @@
       {
         "source_path": "mudlib/d/choyin/npc/dumpling_seller.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "随机叫卖归入 NPC 环境消息调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=15 在在线 tick 从两个固定实例播出包子叫卖原文；离线不发。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/ghost.c",
         "flags": ["ambient_chat", "random_movement"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "鬼魂哀号和随机游走需要世界 tick 下的 NPC 调度与位置持久化。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance 在在线 tick 执行鬼魂的环境条目；random_move 将其静态实例位置持久化，并只沿同区域公开出口游走。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/girl.c",
@@ -239,9 +235,8 @@
       {
         "source_path": "mudlib/d/choyin/npc/judgeman.c",
         "flags": ["ambient_chat", "timed_behavior"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "周期扫描在线罪犯并生成巡捕改写为本地通缉追捕与司法调度。"
+        "status": "adapted",
+        "decision": "M8 v29 将来源全局 crime_lv/强盗/窃贼扫描收敛为单人累计通缉的在线司法状态机：依次发出缉拿、拘押、押回大堂与打板判决；离线推进不触发。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/judgeman.c",
@@ -264,9 +259,8 @@
       {
         "source_path": "mudlib/d/choyin/npc/lboy.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "童子随机行礼与对白归入 NPC 环境消息调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=2 在在线 tick 从两个固定童子实例播出行礼与山中仙人原文；离线不发。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/lion.c",
@@ -297,9 +291,8 @@
       {
         "source_path": "mudlib/d/choyin/npc/scholar.c",
         "flags": ["ambient_chat", "random_movement"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "书生吟诗与随机游走需要 NPC 环境消息及位置调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance 执行书生环境条目，并以来源房间、NPC 与同房序号保存随机游走位置。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/sergeant.c",
@@ -334,9 +327,8 @@
       {
         "source_path": "mudlib/d/choyin/npc/yamen_po.c",
         "flags": ["ambient_chat", "custom_command"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "巡街、抓捕、限制移动/退出和十万文赎放需要本地追捕、带路及司法状态机。"
+        "status": "adapted",
+        "decision": "M8 v29 以持久本地状态表示来源巡捕：在线 tick 铁链拘押后禁用移动等行动、下一 tick 押往县衙；只暴露来源十万文赎放，成功减三级罪名。TUI 没有 quit 命令，退出重载会保留拘押状态，不能借此逃脱。"
       },
       {
         "source_path": "mudlib/d/choyin/npc/youngman.c",
@@ -353,9 +345,8 @@
       {
         "source_path": "mudlib/obj/npc/garrison.c",
         "flags": ["ambient_chat", "random_movement"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "县城官兵随机巡逻需要 NPC 位置调度和刷新。"
+        "status": "adapted",
+        "decision": "M8 v28 在在线 tick 执行来源环境条目，并让四个固定官兵实例在各自区域的公开出口中持久化巡逻；刷新仍留后续日程层。"
       },
       {
         "source_path": "mudlib/d/oldpine/npc/bandit_chief.c",
@@ -372,9 +363,8 @@
       {
         "source_path": "mudlib/d/oldpine/npc/butterfly.c",
         "flags": ["ambient_chat", "random_movement"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "蝴蝶动作与随机飞行需要 NPC 环境消息和位置调度。"
+        "status": "adapted",
+        "decision": "M8 环境消息可按来源概率执行；源码中的 `// (: random_move :)` 为注释，运行时明确不把它当作随机飞行。"
       },
       {
         "source_path": "mudlib/d/oldpine/npc/fat_bandit.c",
@@ -392,8 +382,8 @@
         "source_path": "mudlib/d/oldpine/npc/spy.c",
         "flags": ["timed_behavior"],
         "status": "deferred",
-        "milestone": "M7",
-        "decision": "击杀玩家后延时 dissolve corpse 依赖尸体对象及其定时生命周期。"
+        "milestone": "M8",
+        "decision": "击杀玩家后延时 dissolve corpse 仍依赖玩家尸体与 NPC 自动执行；通用尸体的定时生命周期已由 M8 世界时钟提供。"
       },
       {
         "source_path": "mudlib/d/oldpine/npc/wolf_dog.c",
@@ -404,11 +394,10 @@
       {
         "source_path": "mudlib/d/oldpine/npc/wolf_dog.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "milestone": "M8",
-        "decision": "狼狗随机吠叫与动作归入 NPC 环境消息调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=15 在在线 tick 从固定狼狗实例播出独眼瞪视原文；离线不发。"
       }
     ],
-    "decision": "59 项标记均有可机检处置；当前批次运行 3 项比试门槛、1 项死斗门槛、12 项问答、10 项战斗消息、2 项交换与2项死亡钩子。矮胖土匪回调的动态援军已接入；23 项调度依赖和1项多人排除均绑定替代里程碑。"
+    "decision": "59 项标记均有可机检处置；当前批次运行 3 项比试门槛、1 项死斗门槛、12 项问答、10 项战斗消息、2 项交换与2项死亡钩子。矮胖土匪回调的动态援军、静态文本环境消息、四项安全环境移动与乔阴县单人司法状态机已接入；6 项剩余延期依赖和1项多人排除仍绑定替代里程碑。"
   }
 }

@@ -54,6 +54,37 @@ pub const CHOYIN_NORTH_GATE: &str = "choyin.n_gate";
 pub const OLD_PINE_CAVE_PREFIX: &str = "oldpine.cave";
 pub const OLD_PINE_FOREST_PREFIX: &str = "oldpine.pine";
 pub const CHUENYU_SOUTH_ROAD: &str = "chuenyu.croad1";
+pub const M9_HIDDEN_SOURCE_LOCATIONS: [&str; 3] = [
+    "snow.herbshop1",
+    "temple.broom1",
+    "temple.broom2",
+];
+
+const RUNTIME_EXCLUDED_SOURCE_EXITS: [(&str, &str); 3] = [
+    ("city.nroad1", "city.room"),
+    ("snow.inn", "wiz.entrance"),
+    ("waterfog.entrance", "waterfog.guildhall"),
+];
+const OLD_PINE_CAVE_TARGETS: [&str; 4] = [
+    "oldpine.cave1",
+    "oldpine.cave2",
+    "oldpine.cave3",
+    "oldpine.cave4",
+];
+const OLD_PINE_FOREST_CLIFF_TARGETS: [&str; 6] = [
+    "oldpine.pine1",
+    "oldpine.pine2",
+    "oldpine.pine3",
+    "oldpine.pine4",
+    "oldpine.pine5",
+    "oldpine.pine6",
+];
+const OLD_PINE_FOREST_TARGETS: [&str; 4] = [
+    "oldpine.pine2",
+    "oldpine.pine3",
+    "oldpine.pine4",
+    "oldpine.pine5",
+];
 
 const SOURCE_COMMIT: &str = "87bba6bd2249beec8424b0d6623486a0dd1f7b30";
 const SOURCE_AREAS: [(&str, &str, &str); 17] = [
@@ -150,6 +181,26 @@ pub fn world() -> &'static World {
     &WORLD
 }
 
+pub fn dynamic_exit_target_candidates(
+    current: &LocationId,
+    target: &LocationId,
+) -> Option<&'static [&'static str]> {
+    match (current.as_str(), target.as_str()) {
+        (source, OLD_PINE_CAVE_PREFIX) if source.starts_with(OLD_PINE_CAVE_PREFIX) => {
+            Some(&OLD_PINE_CAVE_TARGETS)
+        }
+        ("oldpine.cliffdown", OLD_PINE_FOREST_PREFIX) => Some(&OLD_PINE_FOREST_CLIFF_TARGETS),
+        (source, OLD_PINE_FOREST_PREFIX) if source.starts_with(OLD_PINE_FOREST_PREFIX) => {
+            Some(&OLD_PINE_FOREST_TARGETS)
+        }
+        _ => None,
+    }
+}
+
+fn is_runtime_excluded_source_exit(location: &str, target: &str) -> bool {
+    RUNTIME_EXCLUDED_SOURCE_EXITS.contains(&(location, target))
+}
+
 pub struct World {
     locations: HashMap<LocationId, Location>,
     source_room_counts: HashMap<String, usize>,
@@ -177,6 +228,7 @@ impl World {
                 let exits = room
                     .exits
                     .into_iter()
+                    .filter(|exit| !is_runtime_excluded_source_exit(id.as_str(), &exit.target))
                     .map(|exit| Exit {
                         direction: exit.direction,
                         target: LocationId::new(exit.target),
@@ -234,6 +286,7 @@ impl World {
                     zone: zone.into(),
                     description: room.description,
                     arrival: format!("你进入{zone}地界。"),
+                    outdoors: room.outdoors,
                     exits,
                     doors,
                     details,
@@ -299,7 +352,10 @@ impl World {
                 location
                     .exits
                     .iter()
-                    .filter(|exit| !self.contains(&exit.target))
+                    .filter(|exit| {
+                        !self.contains(&exit.target)
+                            && dynamic_exit_target_candidates(&location.id, &exit.target).is_none()
+                    })
                     .map(move |exit| (location, exit))
             })
             .collect()
@@ -482,6 +538,8 @@ struct RoomRecord {
     source_path: String,
     name: String,
     description: String,
+    #[serde(default)]
+    outdoors: Option<String>,
     exits: Vec<ExitRecord>,
     doors: Vec<DoorRecord>,
     details: Vec<RoomDetailRecord>,
@@ -548,6 +606,43 @@ mod tests {
         assert_eq!(world().area_room_count("jail"), 0);
         assert_eq!(world().area_room_count("cloud"), 51);
         assert!(world().contains(&LocationId::from(LIU_HOME)));
+    }
+
+    #[test]
+    fn source_outdoors_are_preserved_for_every_imported_room() {
+        let source_rooms: Vec<_> = world()
+            .locations()
+            .filter(|location| location.source_path.is_some())
+            .collect();
+        assert_eq!(source_rooms.len(), 552);
+        assert_eq!(
+            source_rooms
+                .iter()
+                .filter(|location| location.outdoors.is_some())
+                .count(),
+            225
+        );
+        assert_eq!(
+            world()
+                .location(&LocationId::from("choyin.bridge2"))
+                .unwrap()
+                .outdoors
+                .as_deref(),
+            Some("choyin")
+        );
+        assert_eq!(
+            world()
+                .location(&LocationId::from("latemoon.entrance"))
+                .unwrap()
+                .outdoors
+                .as_deref(),
+            Some("cloud")
+        );
+        assert!(world()
+            .location(&LocationId::from(LIU_HOME))
+            .unwrap()
+            .outdoors
+            .is_none());
     }
 
     #[test]
@@ -1195,41 +1290,60 @@ mod tests {
     }
 
     #[test]
-    fn internal_source_exits_only_keep_the_registered_dangling_target() {
-        let unresolved_internal: HashSet<_> = world()
-            .unresolved_exits()
-            .into_iter()
-            .filter(|(_, exit)| exit.internal)
-            .map(|(_, exit)| exit.target.as_str())
+    fn m9_runtime_exits_and_dynamic_targets_are_resolved() {
+        assert!(world().unresolved_exits().is_empty());
+
+        let dynamic_targets: HashSet<_> = world()
+            .locations()
+            .flat_map(|location| {
+                location.exits.iter().filter_map(move |exit| {
+                    dynamic_exit_target_candidates(&location.id, &exit.target)
+                        .map(|targets| (location.id.as_str(), exit.target.as_str(), targets))
+                })
+            })
             .collect();
         assert_eq!(
-            unresolved_internal,
-            HashSet::from([
-                "city.room",
-                "oldpine.cave",
-                "oldpine.pine",
-                "waterfog.guildhall",
-            ])
+            dynamic_targets
+                .iter()
+                .map(|(_, target, _)| *target)
+                .collect::<HashSet<_>>(),
+            HashSet::from([OLD_PINE_CAVE_PREFIX, OLD_PINE_FOREST_PREFIX])
         );
+        for (_, _, targets) in dynamic_targets {
+            assert!(targets
+                .iter()
+                .all(|target| world().contains(&LocationId::from(*target))));
+        }
     }
 
     #[test]
-    fn unresolved_future_area_exits_remain_tracked() {
-        let targets: HashSet<_> = world()
-            .unresolved_exits()
-            .into_iter()
-            .map(|(_, exit)| exit.target.as_str())
-            .collect();
-        assert_eq!(
-            targets,
-            HashSet::from([
-                "waterfog.guildhall",
-                "wiz.entrance",
-                "city.room",
-                "oldpine.cave",
-                "oldpine.pine",
-            ])
-        );
+    fn m9_every_runtime_reference_has_a_registered_definition() {
+        for location in world().locations() {
+            assert!(
+                location
+                    .npcs
+                    .iter()
+                    .all(|npc| crate::npcs::npcs().definition(npc).is_some()),
+                "{} contains an unknown NPC",
+                location.id.as_str()
+            );
+            assert!(
+                location
+                    .room_items
+                    .iter()
+                    .all(|item| crate::items::items().definition(&item.item_id).is_some()),
+                "{} contains an unknown item",
+                location.id.as_str()
+            );
+            assert!(
+                location
+                    .training
+                    .as_ref()
+                    .is_none_or(|skill| crate::skills::skills().definition(skill).is_some()),
+                "{} has an unknown training skill",
+                location.id.as_str()
+            );
+        }
     }
 
     #[test]
@@ -1272,7 +1386,7 @@ mod tests {
             .collect();
         assert_eq!(
             unreachable,
-            HashSet::from(["snow.herbshop1", "temple.broom1", "temple.broom2"])
+            HashSet::from(M9_HIDDEN_SOURCE_LOCATIONS)
         );
     }
 

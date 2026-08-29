@@ -30,7 +30,7 @@
     "fixed_room_item_instances": 10
   },
   "static_runtime": {
-    "status": "structured",
+    "status": "verified",
     "source_rooms_loaded": 119,
     "world_source_rooms": 292,
     "world_locations_with_adaptations": 296,

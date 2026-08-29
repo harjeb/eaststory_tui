@@ -41,7 +41,7 @@
     {
       "feature": "goathill_dead_leech_tonic",
       "status": "adapted",
-      "decision": "两个来源路径的死岩蛭均保留三口与每口 70 点食物供给；每次食用增加 1 点内力和 60 点最大法力。240 秒腐败继续绑定 M7 尸体/衰减时钟。"
+      "decision": "两个来源路径的死岩蛭均保留三口与每口 70 点食物供给；每次食用增加 1 点内力和 60 点最大法力。M8 以持久实例到期时间保留来源的 240 秒腐败。"
     },
     {
       "feature": "behavior_flag_audit",
@@ -111,13 +111,13 @@
         "source_path": "mudlib/d/goathill/npc/obj/dead_leech.c",
         "flags": ["consume_hook"],
         "status": "adapted",
-        "decision": "岩蛭敌人尸体直接掉落该路径物品；三次食用均应用 force +1、max_mana +60，定时腐败留 M7。"
+        "decision": "岩蛭敌人尸体直接掉落该路径物品；三次食用均应用 force +1、max_mana +60，M8 按持久世界时钟在 240 tick 后腐败。"
       },
       {
         "source_path": "mudlib/d/goathill/obj/dead_leech.c",
         "flags": ["consume_hook"],
         "status": "adapted",
-        "decision": "重复来源路径共享相同三口补品运行规则；固定源无房间或 NPC 引用，不伪造放置。"
+        "decision": "重复来源路径共享相同三口补品与 240 秒腐败规则；固定源无房间或 NPC 引用，不伪造放置。"
       },
       {
         "source_path": "mudlib/d/oldpine/npc/obj/bamboo_pipe.c",
@@ -132,17 +132,18 @@
         "decision": "携带该路径竹哨时，keep2 提供同一吹响行动并重新开放寨门。"
       }
     ],
-    "decision": "13 项标记与 items.json 中 M5 三地所有动态物品标记构成精确集合；M7 只承接死岩蛭 240 秒腐败，不影响 M5 当前掉落与食用链验收。"
+    "decision": "13 项标记与 items.json 中 M5 三地所有动态物品标记构成精确集合；M8 已承接死岩蛭 240 秒腐败，不影响 M5 当前掉落与食用链验收。"
   },
   "dependencies": [
     {
-      "milestone": "M7",
+      "milestone": "M8",
       "source_paths": [
         "mudlib/d/goathill/npc/obj/dead_leech.c",
         "mudlib/d/goathill/obj/dead_leech.c"
       ],
       "feature": "240 秒尸体/食物腐败生命周期",
-      "status": "deferred"
+      "status": "adapted",
+      "decision": "按持久世界时钟在 240 tick 后腐败；离线按 M8 受限世界时钟推进，不允许借离线获得药效。"
     }
   ]
 }

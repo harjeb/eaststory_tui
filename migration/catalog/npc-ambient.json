@@ -1,0 +1,1376 @@
+{
+   "npcs" : [
+      {
+         "ambient_chat" : {
+            "chance" : 8,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "大队长说道：有没有问题要问我啊？"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "大队长说道：我对这□很熟的喔。"
+               }
+            ]
+         },
+         "id" : "canyon.npc.captain",
+         "source_path" : "mudlib/d/canyon/npc/captain.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "老兵说道：军师真是神算啊，把那狗贼都吓的不敢再来了。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "老兵说道：听说那个后备兵捡到了一个黄澄澄的宝物。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "老兵说道：嘿！有没有钱啊？挡点□来花花吧！"
+               }
+            ]
+         },
+         "id" : "canyon.npc.guard2",
+         "source_path" : "mudlib/d/canyon/npc/guard2.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 8,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "老队长说道：大队长对这个地方好熟，还常常说些这□的故事给我们听。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "老队长说道：你有没有搞错啊！来这□不给我们大队长过路费，你找死啊！"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "老队长说道：兵器库入口处的阵法真是厉害，一般人绝对找不到的。"
+               }
+            ]
+         },
+         "id" : "canyon.npc.leader2",
+         "source_path" : "mudlib/d/canyon/npc/leader2.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 13,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "卖饼大叔吆喝道：卖饼哟！又香又脆的大饼哟！"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "卖饼大叔掀开蒸笼，伸手探了探温度。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "卖饼大叔吆喝道：刚出炉的大饼哟！热呼呼的大饼哟！"
+               }
+            ]
+         },
+         "id" : "choyin.npc.cake_vendor",
+         "source_path" : "mudlib/d/choyin/npc/cake_vendor.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "卖糖葫芦的吆喝道：糖葫芦！好甜好香的糖葫芦！"
+               }
+            ]
+         },
+         "id" : "choyin.npc.cucurbit_seller",
+         "source_path" : "mudlib/d/choyin/npc/cucurbit_seller.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "卖包子的吆喝道：包子！热腾腾的包子！"
+               }
+            ]
+         },
+         "id" : "choyin.npc.dumpling_seller",
+         "source_path" : "mudlib/d/choyin/npc/dumpling_seller.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "choyin.npc.ghost",
+         "source_path" : "mudlib/d/choyin/npc/ghost.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 90,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "callback",
+                  "value" : "(: test_crime :)"
+               }
+            ]
+         },
+         "id" : "choyin.npc.judgeman",
+         "source_path" : "mudlib/d/choyin/npc/judgeman.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 2,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "紫衣童子躬身一揖。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "童子说道：仙人 ，只在此山中，云深不知处。"
+               }
+            ]
+         },
+         "id" : "choyin.npc.lboy",
+         "source_path" : "mudlib/d/choyin/npc/lboy.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 70,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "老者说道：哎。。。你这可怜的孩子，饿得面黄肌瘦的。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "老者抚摸着你的头，老泪纵横。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "老者拈起衣角擦了擦眼角的浊泪。"
+               }
+            ]
+         },
+         "id" : "choyin.npc.oldman",
+         "source_path" : "mudlib/d/choyin/npc/oldman.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "choyin.npc.scholar",
+         "source_path" : "mudlib/d/choyin/npc/scholar.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 50,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "淳于怀太喝道：呔！你竟敢坏大爷的好事！"
+               }
+            ]
+         },
+         "id" : "chuenyu.npc.chuenyu",
+         "source_path" : "mudlib/d/chuenyu/npc/chuenyu.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 5,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(:random_move :)"
+               }
+            ]
+         },
+         "id" : "chuenyu.npc.flower_seller",
+         "source_path" : "mudlib/d/chuenyu/npc/flower_seller.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 30,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "护院喝道：大胆刁民，私闯民宅，该当何罪？"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "chuenyu.npc.guard",
+         "source_path" : "mudlib/d/chuenyu/npc/guard.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 30,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "chuenyu.npc.guard2",
+         "source_path" : "mudlib/d/chuenyu/npc/guard2.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 35,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "chuenyu.npc.highrat",
+         "source_path" : "mudlib/d/chuenyu/npc/highrat.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "刘老农悲愤欲绝的骂道：你．．你．．你们居然杀了我女儿，纳命来！"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "chuenyu.npc.oldliu",
+         "source_path" : "mudlib/d/chuenyu/npc/oldliu.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "狼犬向你疯狂的哮道：呜汪！呜汪！呜汪！呜汪！"
+               }
+            ]
+         },
+         "id" : "chuenyu.npc.wolfdog",
+         "source_path" : "mudlib/d/chuenyu/npc/wolfdog.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 13,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "卖饼大叔吆喝道：卖饼哟！又香又脆的大饼哟！"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "卖饼大叔掀开蒸笼，伸手探了探温度。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "卖饼大叔吆喝道：刚出炉的大饼哟！热呼呼的大饼哟！"
+               }
+            ]
+         },
+         "id" : "city.npc.caker",
+         "source_path" : "mudlib/d/city/npc/caker.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "卖包子的吆喝道：包子！热腾腾的包子！"
+               }
+            ]
+         },
+         "id" : "city.npc.dumpling_seller",
+         "source_path" : "mudlib/d/city/npc/dumpling_seller.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "黑你没商量压低嗓音对你说道：“我在上面可有人，你知道我每年给上面多少金子吗？”"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "黑你没商量恨恨地说：“哼，我要把NT也汉化，看你之星怎么办！”"
+               },
+               {
+                  "kind" : "force",
+                  "value" : "(: exert_function, \"powerfade\" :)"
+               }
+            ]
+         },
+         "id" : "city.npc.microsof",
+         "source_path" : "mudlib/d/city/npc/microsof.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 30,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "什么世道，几个臭钱就可以买官作。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "这年头，生意不好做啊！"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "city.npc.trader",
+         "source_path" : "mudlib/d/city/npc/trader.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 30,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "什么世道，几个臭钱就可以买官作。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "这年头，生意不好做啊！"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "city.npc.trader2",
+         "source_path" : "mudlib/d/city/npc/trader2.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 20,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "什么世道，几个臭钱就可以买官作。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "这年头，生意不好做啊！"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "city.npc.trader3",
+         "source_path" : "mudlib/d/city/npc/trader3.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 20,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "卖艺壮汉吆喝道：出外靠朋友，诸位请捧个钱场！"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "卖艺壮汉练了一套六阴剑，还象模象样。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "卖艺壮汉低声对你说道：在下刚路过八舍！"
+               }
+            ]
+         },
+         "id" : "city.npc.vendor",
+         "source_path" : "mudlib/d/city/npc/vendor.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : null,
+            "chance_expression" : "random (20)",
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "行人摇了摇头，说：世事无常，只苦了我们这些老百姓。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "行人愤愤地说：这年头，几个臭钱就能买到官。哼！"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "行人叹了口气：皇上太年幼了，朝廷就让那个老不死的把持着。咳！"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "city.npc.walker",
+         "source_path" : "mudlib/d/city/npc/walker.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 5,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "门房慢吞吞地说：是。。想见尚书大人的吗？。。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "门房嘿嘿地笑了笑，手里比划着一个数字."
+               }
+            ]
+         },
+         "id" : "city.shangshu.npc.guard",
+         "source_path" : "mudlib/d/city/shangshu/npc/guard.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : null,
+            "chance_expression" : "random(40)",
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "city.shangshu.npc.huyuan",
+         "source_path" : "mudlib/d/city/shangshu/npc/huyuan.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "黑无常发出一阵像呻吟的声音，当他发现你正注视著他的时候，瞪了你一眼。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "黑无常把长长的舌头伸出来，缓缓地舔了舔自己又黑又长的手指。"
+               }
+            ]
+         },
+         "id" : "death.npc.bgargoyle",
+         "source_path" : "mudlib/d/death/npc/bgargoyle.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "白无常发出一阵像呻吟的声音，当他发现你正注视著他的时候，瞪了你一眼。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "白无常把长长的舌头伸出来，缓缓地舔了舔自己又白又长的手指。"
+               }
+            ]
+         },
+         "id" : "death.npc.wgargoyle",
+         "source_path" : "mudlib/d/death/npc/wgargoyle.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               }
+            ]
+         },
+         "id" : "green.npc.kid2",
+         "source_path" : "mudlib/d/green/npc/kid2.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 5,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               }
+            ]
+         },
+         "id" : "green.npc.kid3",
+         "source_path" : "mudlib/d/green/npc/kid3.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "小孩很好奇地往门缝里看去。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小孩说道：村长说这道门绝对不可以打开喔!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小孩说道：不知道里面是什么..."
+               }
+            ]
+         },
+         "id" : "green.npc.kid4",
+         "source_path" : "mudlib/d/green/npc/kid4.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 40,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               }
+            ]
+         },
+         "id" : "green.npc.kid5",
+         "source_path" : "mudlib/d/green/npc/kid5.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "callback",
+                  "value" : "(: cancel_give :)"
+               },
+               {
+                  "kind" : "callback",
+                  "value" : "(: start_give :)"
+               }
+            ]
+         },
+         "id" : "green.npc.oldman2",
+         "source_path" : "mudlib/d/green/npc/oldman2.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "妇人说道：我说啊, 管管你们家那小鬼啊."
+               },
+               {
+                  "kind" : "text",
+                  "value" : "妇人说道：明知山洞那边闹鬼, 没事带著我们家那两个跑过去."
+               },
+               {
+                  "kind" : "text",
+                  "value" : "妇人打开锅盖\\闻了一下."
+               },
+               {
+                  "kind" : "text",
+                  "value" : "妇人朝门外看了看."
+               }
+            ]
+         },
+         "id" : "green.npc.woman2",
+         "source_path" : "mudlib/d/green/npc/woman2.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金丝雀叽叽的叫!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "金丝雀用嘴整理羽毛。"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.bird",
+         "source_path" : "mudlib/d/latemoon/npc/bird.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "蝴蝶拍动著翅膀!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "蝴蝶停在花上吸花蜜。"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.butterfly",
+         "source_path" : "mudlib/d/latemoon/npc/butterfly.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 25,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               },
+               {
+                  "kind" : "callback",
+                  "value" : "(: this_object(), \"hide\" :)"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.cockroach",
+         "source_path" : "mudlib/d/latemoon/npc/cockroach.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.dodo",
+         "source_path" : "mudlib/d/latemoon/npc/dodo.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "顽皮的芳绫向你扮个鬼脸。  *^G^*"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "芳绫走到中央，一个姿势(Pose)。哇!你没想到她跳舞时竟有此深造诣。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "芳绫说：好不好看！这可是我花好久练成的哦!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "芳绫缓缓的移动著，手上的动作变化万千，有一种说不出的美妙。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "芳绫说：你好烦哦! 快走开!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "芳绫说：你想学可以去问昭仪姐，她会的比我多。嘻!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "芳绫说：丑八怪! 不要烦我。走开啦!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "她嘟著嘴。有点生气的翻过头去，不理你！"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.funlin",
+         "source_path" : "mudlib/d/latemoon/npc/funlin.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 8,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "昭仪以轻妙的舞步，在房内跳了起来!你看的入神。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "昭仪抬头望著那幅图画，略有所思..."
+               }
+            ]
+         },
+         "id" : "latemoon.npc.girl",
+         "source_path" : "mudlib/d/latemoon/npc/girl.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "颜慧如说道：小本生意！  物美价廉，欢迎订购(order)。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "颜慧如梳了梳头发。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "颜慧如眼睛眨呀眨看著你。"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.sell",
+         "source_path" : "mudlib/d/latemoon/npc/sell.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "颜慧如说道：小本生意！  物美价廉，欢迎订购(order)。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "颜慧如梳了梳头发。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "颜慧如眼睛眨呀眨看著你。"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.sell1",
+         "source_path" : "mudlib/d/latemoon/npc/sell1.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "蓝雨梅微笑著说道：我们晚月庄是『 以舞会友，以神换技 』"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "蓝雨梅看你一脸疑惑！笑著说：我教你跳一曲『西出阳关』好吗?"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "蓝雨梅微笑著说道：我跳支舞给您看好不好？"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "蓝雨梅微笑著说道：我的舞跳得不好，待会儿我请芳绫跳舞给您看，别走远喔。"
+               }
+            ]
+         },
+         "id" : "latemoon.npc.yumay",
+         "source_path" : "mudlib/d/latemoon/npc/yumay.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金丝雀叽叽的叫!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "金丝雀用嘴整理羽毛。"
+               }
+            ]
+         },
+         "id" : "latemoon.park.npc.bird",
+         "source_path" : "mudlib/d/latemoon/park/npc/bird.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: this_object(), \"random_move\" :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金鼠摇摇尾巴!全身晃呀晃!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金鼠眼睛眨呀眨!好像快睡著了!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "嘟嘟玩太累了!睡著了!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金鼠「嘟嘟」它跳啊跳的!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金鼠「嘟嘟」眼睛眨呀眨看著你"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金鼠发出「  叽! 叽!」」的叫声!"
+               }
+            ]
+         },
+         "id" : "latemoon.park.npc.dodo1",
+         "source_path" : "mudlib/d/latemoon/park/npc/dodo1.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 4,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "顽皮的采花少女向你扮个鬼脸。  *^G^*"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "采花少女说道：华中理工大学的桂花树比晚月庄多多了，你知道吗？"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "采花少女望着天边的晚霞，双手托着香腮，说道：我好想去华工大摘桂花。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "采花少女嘀咕着：听说华工的桂花有好几种呢。"
+               }
+            ]
+         },
+         "id" : "latemoon.park.npc.flwgirl",
+         "source_path" : "mudlib/d/latemoon/park/npc/flwgirl.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小白兔蹦蹦跳跳的。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小白兔用嘴舔前肢。"
+               }
+            ]
+         },
+         "id" : "latemoon.park.npc.rabbit",
+         "source_path" : "mudlib/d/latemoon/park/npc/rabbit.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "latemoon.room.npc.killer",
+         "source_path" : "mudlib/d/latemoon/room/npc/killer.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 7,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "小金丝雀叽叽的叫!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "金丝雀用嘴整理羽毛。"
+               }
+            ]
+         },
+         "id" : "latemoon.upstar.npc.bird",
+         "source_path" : "mudlib/d/latemoon/upstar/npc/bird.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "obj.npc.garrison",
+         "source_path" : "mudlib/obj/npc/garrison.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "// (: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "蝴蝶拍动著翅膀!"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "蝴蝶停在花上吸花蜜。"
+               }
+            ]
+         },
+         "id" : "oldpine.npc.butterfly",
+         "source_path" : "mudlib/d/oldpine/npc/butterfly.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "狼狗用一只独眼恶狠狠地瞪著你。"
+               }
+            ]
+         },
+         "id" : "oldpine.npc.wolf_dog",
+         "source_path" : "mudlib/d/oldpine/npc/wolf_dog.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "// (: random_move :)"
+               },
+               {
+                  "kind" : "force",
+                  "value" : "(: exert_function, \"powerfade\" :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.annihir",
+         "source_path" : "mudlib/d/snow/npc/annihir.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "乞丐说道：好心的大爷哪～ 赏我要饭的几文钱吧～"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "乞丐懒洋洋地打了个哈欠。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "乞丐伸手捉住了身上的虱子，骂道：老子身上没几两肉，全叫你们给咬糜了。"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.beggar",
+         "source_path" : "mudlib/d/snow/npc/beggar.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.crazy_dog",
+         "source_path" : "mudlib/d/snow/npc/crazy_dog.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 6,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "野狗用鼻子闻了闻你的脚。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "野狗在你的脚边挨挨擦擦的，想讨东西吃。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "野狗对著你摇了摇尾巴。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "野狗用后腿抓了抓自己的耳朵。"
+               }
+            ]
+         },
+         "id" : "snow.npc.dog",
+         "source_path" : "mudlib/d/snow/npc/dog.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "callback",
+                  "value" : "(: do_drink :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.drunk",
+         "source_path" : "mudlib/d/snow/npc/drunk.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.guard",
+         "source_path" : "mudlib/d/snow/npc/guard.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 20,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "收破烂的吆喝道：收～破～烂～哪～"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "收破烂的嘴里嘟哝著，不知道说些什么。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "收破烂的伸手捉住了身上的虱子，一脚踩得扁扁的。"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.scavenger",
+         "source_path" : "mudlib/d/snow/npc/scavenger.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 40,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.trav_blade",
+         "source_path" : "mudlib/d/snow/npc/trav_blade.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 40,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.traveller",
+         "source_path" : "mudlib/d/snow/npc/traveller.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "樵夫说道：野羊山那群臭道士真是该千刀万剐...."
+               },
+               {
+                  "kind" : "text",
+                  "value" : "樵夫说道：不知道那些牛鼻子施了什么妖法，前天回家差点迷了路。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "樵夫说道：唉....日子越来越不好过罗。"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "snow.npc.woodcutter",
+         "source_path" : "mudlib/d/snow/npc/woodcutter.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 25,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "僵尸侍者说道：我们茅山派实力最强！谁敢欺负我们？"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "僵尸侍者说道：大家快加入茅山派吧!"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(:random_move :)"
+               }
+            ]
+         },
+         "id" : "temple.npc.trainer",
+         "source_path" : "mudlib/d/temple/npc/trainer.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 15,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "乞丐说道：好心的大爷哪～ 赏我要饭的几文钱吧～"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "乞丐懒洋洋地打了个哈欠。"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "乞丐伸手捉住了身上的□子，骂道：老子身上没几两肉，全叫你们给咬糜了。"
+               }
+            ]
+         },
+         "id" : "u.cloud.npc.beggar",
+         "source_path" : "mudlib/u/cloud/npc/beggar.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 20,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "趟子手喊道：振远镖局..., 盛名远扬..."
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(:random_move :)"
+               }
+            ]
+         },
+         "id" : "u.cloud.npc.bfighter",
+         "source_path" : "mudlib/u/cloud/npc/bfighter.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 1,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "强盗喝道：呔！此山是我开，\n//此树乃我栽。要想从此过，留下买路财！"
+               },
+               {
+                  "kind" : "text",
+                  "value" : "强盗将你上上下下打量了一番，\n//说道：识相的放下十两买路钱走你的路。"
+               }
+            ]
+         },
+         "id" : "u.cloud.npc.gangster",
+         "source_path" : "mudlib/u/cloud/npc/gangster.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 40,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "text",
+                  "value" : "飞贼说道: 小心我把你变成穷光蛋! 吓得你不禁把钱攥紧了"
+               },
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "u.cloud.npc.thief",
+         "source_path" : "mudlib/u/cloud/npc/thief.c"
+      },
+      {
+         "ambient_chat" : {
+            "chance" : 10,
+            "chance_expression" : null,
+            "entries" : [
+               {
+                  "kind" : "movement",
+                  "value" : "(: random_move :)"
+               }
+            ]
+         },
+         "id" : "u.cloud.npc.worker",
+         "source_path" : "mudlib/u/cloud/npc/worker.c"
+      }
+   ],
+   "schema_version" : 1,
+   "scope" : "m8-npc-ambient-chat",
+   "source_commit" : "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+   "status": "verified"
+}

@@ -2,12 +2,13 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "chuenyu",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "chuenyu.base_b_m",
       "source_path": "mudlib/d/chuenyu/base_b_m.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "黑松山脚",
       "description": "一座高而险的山峰耸立在你面前。北面是一条上山的羊肠小路，盘旋曲折。\n黑湮湮的松林给你不祥的感觉。",
       "exits": [
@@ -35,7 +36,7 @@
     {
       "id": "chuenyu.bedroom",
       "source_path": "mudlib/d/chuenyu/bedroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "卧室",
       "description": "这是淳于堡主起居的地方。东面的楼梯向下通向黑松阁东厅，\n西面的楼梯向下通向黑松阁西厅。北面是一个小小的阳台。西面则\n是堡主的膳房。",
       "exits": [
@@ -86,7 +87,7 @@
     {
       "id": "chuenyu.center",
       "source_path": "mudlib/d/chuenyu/center.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黑松阁正厅",
       "description": "黑松阁正厅完全是用檀香木打造的。一阵阵的檀香飘过来，\n使你心旷神夷。厅口悬着一幅字画，写道：“是非成败转头空，\n青山依旧在，几度夕阳红。”整幅字画是用一条很粗的绳子挂起\n来的。",
       "exits": [
@@ -122,7 +123,8 @@
     {
       "id": "chuenyu.croad1",
       "source_path": "mudlib/d/chuenyu/croad1.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "黄土大道",
       "description": "你正走在一条黄土大道上。路上尘土飞扬，路旁稀疏几棵矮树。\n往南通往京师，东北是通往天驼关的大道。",
       "exits": [
@@ -150,7 +152,8 @@
     {
       "id": "chuenyu.croad2",
       "source_path": "mudlib/d/chuenyu/croad2.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "路口",
       "description": "这里是个交叉路口，过往行人很多。路边有一个茶馆，是供行\n人歇息的地方。向南是通往京师的北驿道，北方可见阴森的黑松山。",
       "exits": [
@@ -178,7 +181,7 @@
     {
       "id": "chuenyu.dungeon",
       "source_path": "mudlib/d/chuenyu/dungeon.c",
-      "status": "structured",
+      "status": "verified",
       "name": "刑房",
       "description": "你处在一个阴湿的地牢里。地牢的角落里堆着一些干草，干草上沾满了\n暗红色的血迹。许多骷髅被生锈的铁链绑在墙上。偶尔之间，你还可以听到\n老鼠“吱吱”的尖叫声。",
       "exits": [
@@ -218,7 +221,8 @@
     {
       "id": "chuenyu.dustyroad3",
       "source_path": "mudlib/d/chuenyu/dustyroad3.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "青石小路",
       "description": "这是一条通向一所民宅的青石小路。小屋就在你的东北方向。一个\n整洁的小草坪在你的东边。西南方向是一个三叉路口，你似乎可以听到\n卖花姑娘清脆的叫卖声。",
       "exits": [
@@ -262,7 +266,7 @@
     {
       "id": "chuenyu.east_blackge",
       "source_path": "mudlib/d/chuenyu/east_blackge.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黑松阁东厅",
       "description": "这是黑松堡主淳于怀太迎宾的东厅。整个大厅布置的雍荣典雅。\n向东和向西都是精心修剪过的花园。楼上则是淳于巨大的睡房。\n偶尔有几声狗叫从东花园里传来。",
       "exits": [
@@ -304,7 +308,8 @@
     {
       "id": "chuenyu.east_castle",
       "source_path": "mudlib/d/chuenyu/east_castle.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "黑松城堡的东侧",
       "description": "你站在黑松山顶，黑松城堡的东侧。高耸的城墙上长满了青色的\n蔓藤。蔓藤从墙顶一直垂到你的脚下。再往东是刀削般的万丈悬崖。\n往西则是城堡的正门。你脚下是一块青石板。",
       "exits": [
@@ -355,7 +360,8 @@
     {
       "id": "chuenyu.east_garden",
       "source_path": "mudlib/d/chuenyu/east_garden.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "东花园",
       "description": "你站在黑松城堡的东花园里。花园里长满了各式各样奇花异草。\n东侧高耸的城墙上长满了青色的蔓藤。蔓藤从墙顶一直垂到你的脚下。\n再往西则是雄伟的黑松阁。",
       "exits": [
@@ -403,7 +409,8 @@
     {
       "id": "chuenyu.foot_b_mtn",
       "source_path": "mudlib/d/chuenyu/foot_b_mtn.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "黑松山腰",
       "description": "你正在艰难的走在唯一通往山顶的小路上。路边堆着很多面目\n狰狞的巨石。几棵幼松顽强的从石缝中挤了出来。你在这\n里可以看到山顶城堡的大致伦廓。",
       "exits": [
@@ -431,7 +438,8 @@
     {
       "id": "chuenyu.gate_castle",
       "source_path": "mudlib/d/chuenyu/gate_castle.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "黑松淳于",
       "description": "你站立在一座宏伟的城堡之前，城门(door)之上挂着一块金匾。金匾上\n龙飞凤舞的写着四个大字“黑松淳于”，金匾左下角刚劲草书落款：\n“淳于怀太”，“壬子年一月十八日”。",
       "exits": [
@@ -482,7 +490,8 @@
     {
       "id": "chuenyu.high_b_mtn",
       "source_path": "mudlib/d/chuenyu/high_b_mtn.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "花岗石街",
       "description": "这是通往城堡的石街，整条石街全是用巨大的花岗岩砌成的。\n单这条石路就足已表明城堡主人的富有和气势。",
       "exits": [
@@ -510,7 +519,8 @@
     {
       "id": "chuenyu.high_b_mtn2",
       "source_path": "mudlib/d/chuenyu/high_b_mtn2.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "花岗石街",
       "description": "这是通往城堡的石街，整条石街全是用巨大的花岗岩砌成的。\n单这条石路就足已表明城堡主人的富有和气势。",
       "exits": [
@@ -545,7 +555,7 @@
     {
       "id": "chuenyu.home",
       "source_path": "mudlib/d/chuenyu/home.c",
-      "status": "structured",
+      "status": "verified",
       "name": "刘家小房",
       "description": "这是一所很破旧的木屋。每当山风吹来，都会发出“吱吱呀呀”\n的声音。南侧是一个小小的厨房。木屋的后面是一个精巧的花园，花\n园里穿来阵阵打闹之声。一个翠绿的小草坪就在西面。",
       "exits": [
@@ -603,7 +613,7 @@
     {
       "id": "chuenyu.kitchen",
       "source_path": "mudlib/d/chuenyu/kitchen.c",
-      "status": "structured",
+      "status": "verified",
       "name": "膳房",
       "description": "这是淳于堡主的用膳房。整个房间飘荡着上等竹叶青的酒香和\n令人垂滟欲滴的烤山猪的香气。你似乎听到你的肚子在“咕咕咕”\n的叫了起来。",
       "exits": [
@@ -650,7 +660,8 @@
     {
       "id": "chuenyu.littlegarden",
       "source_path": "mudlib/d/chuenyu/littlegarden.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "花园",
       "description": "这是刘老汉的小花园。花园里有很多美丽的花朵。刘老汉\n就是靠卖花来维持生计的。现在正是花开的大好季节，有很多\n人在剪花。",
       "exits": [
@@ -678,7 +689,8 @@
     {
       "id": "chuenyu.north_garden",
       "source_path": "mudlib/d/chuenyu/north_garden.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "北花园",
       "description": "你站在黑松城堡的东花园里。花园里长满了各式各样奇花异草。\n再通向北面的路被一块巨石(rock)堵死。再往南则是雄伟的黑松阁。",
       "exits": [
@@ -714,7 +726,8 @@
     {
       "id": "chuenyu.rope_bridge",
       "source_path": "mudlib/d/chuenyu/rope_bridge.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "铁索桥",
       "description": "山顶强劲的风吹得铁索桥左右晃动，脚下的万丈深渊使你头晕目旋。\n你竭尽全力的维持身体平衡。",
       "exits": [
@@ -751,7 +764,7 @@
     {
       "id": "chuenyu.smallstorage",
       "source_path": "mudlib/d/chuenyu/smallstorage.c",
-      "status": "structured",
+      "status": "verified",
       "name": "厨房",
       "description": "这是一个简陋的小厨房。四壁已被油烟薰的分不出原来的颜色。\n墙上挂满了风干了的卤肉，可是上面显然有着被老鼠咬过的痕迹。",
       "exits": [
@@ -779,7 +792,8 @@
     {
       "id": "chuenyu.smallyard",
       "source_path": "mudlib/d/chuenyu/smallyard.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "翠绿的小草坪",
       "description": "小草坪修剪的很整齐。上面还留着小童玩耍过的痕迹。各种\n昆虫都在这里建立了它们的乐园。",
       "exits": [
@@ -824,7 +838,7 @@
     {
       "id": "chuenyu.south_garden",
       "source_path": "mudlib/d/chuenyu/south_garden.c",
-      "status": "structured",
+      "status": "verified",
       "name": "南花园",
       "description": "你站在黑松城堡的南花园里。花园里长满了各式各样奇花异草。\n再往北则是雄伟的黑松阁。",
       "exits": [
@@ -852,7 +866,7 @@
     {
       "id": "chuenyu.storage",
       "source_path": "mudlib/d/chuenyu/storage.c",
-      "status": "structured",
+      "status": "verified",
       "name": "储藏室",
       "description": "一个小小的储藏室。四壁上布满了灰尘。",
       "exits": [
@@ -889,7 +903,8 @@
     {
       "id": "chuenyu.sunnyroad",
       "source_path": "mudlib/d/chuenyu/sunnyroad.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "山脚乡田",
       "description": "你的两侧是茂盛的稻田，还有一条清澈见底的小溪。许多乡民在田里\n辛苦的忙碌着。再北面是黑松山。眺望山顶，你似乎可以看到一个颇具规\n模的城堡。城堡的最顶端插着一面大旗，大旗上绣着两个斗大的金字：淳于。",
       "exits": [
@@ -924,7 +939,7 @@
     {
       "id": "chuenyu.tortureroom",
       "source_path": "mudlib/d/chuenyu/tortureroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "刑房",
       "description": "整间刑房已被乾曷的血迹然成暗红色。散发着扑鼻的腥臭。墙上挂满了\n各式各样的邢具。刑房的地上散落着生锈的铁链和破碎的骷髅。偶尔之间，\n你还可以听到老鼠“吱吱”的尖叫声。",
       "exits": [
@@ -964,7 +979,7 @@
     {
       "id": "chuenyu.tortureroom2",
       "source_path": "mudlib/d/chuenyu/tortureroom2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "刑房",
       "description": "整间刑房已被乾曷的血迹然成暗红色。散发着扑鼻的腥臭。墙上挂满了\n各式各样的邢具。刑房的地上散落着生锈的铁链和破碎的骷髅。偶尔之间，\n你还可以听到老鼠“吱吱”的尖叫声。",
       "exits": [
@@ -1004,7 +1019,8 @@
     {
       "id": "chuenyu.trap_castle",
       "source_path": "mudlib/d/chuenyu/trap_castle.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "夹道",
       "description": "你现在处于一个窄窄的夹道里，通向北面的路被一块巨石(rock)堵死。\n夹道的两侧是三丈高的石墙(wall)。出乎你的意料，石墙上布满了\n碗大的圆孔(hole)。石墙的后面传出“吱吱嘎嘎”的声音(noise)。",
       "exits": [
@@ -1058,7 +1074,7 @@
     {
       "id": "chuenyu.tunnel1",
       "source_path": "mudlib/d/chuenyu/tunnel1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "地牢",
       "description": "这里黑黑暗暗，几乎伸手不见五指。唯一的光亮来自墙上忽明忽暗的\n松油灯。地上和墙上布满了暗红色的血痕，散发出阵阵腥气。不断传来的\n哀嚎声在死沉的地牢里回荡，令人毛骨耸然。",
       "exits": [
@@ -1093,7 +1109,7 @@
     {
       "id": "chuenyu.tunnel2",
       "source_path": "mudlib/d/chuenyu/tunnel2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "地牢",
       "description": "这里黑黑暗暗，几乎伸手不见五指。唯一的光亮来自墙上忽明忽暗的\n松油灯。地上和墙上布满了暗红色的血痕，散发出阵阵腥气。不断传来的\n哀嚎声在死沉的地牢里回荡，令人毛骨耸然。",
       "exits": [
@@ -1128,7 +1144,7 @@
     {
       "id": "chuenyu.tunnel3",
       "source_path": "mudlib/d/chuenyu/tunnel3.c",
-      "status": "structured",
+      "status": "verified",
       "name": "地牢",
       "description": "这里黑黑暗暗，几乎伸手不见五指。唯一的光亮来自墙上忽明忽暗的\n松油灯。地上和墙上布满了暗红色的血痕，散发出阵阵腥气。不断传来的\n哀嚎声在死沉的地牢里回荡，令人毛骨耸然。",
       "exits": [
@@ -1163,7 +1179,7 @@
     {
       "id": "chuenyu.tunnel4",
       "source_path": "mudlib/d/chuenyu/tunnel4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "地牢",
       "description": "这里黑黑暗暗，几乎伸手不见五指。唯一的光亮来自墙上忽明忽暗的\n松油灯。地上和墙上布满了暗红色的血痕，散发出阵阵腥气。不断传来的\n哀嚎声在死沉的地牢里回荡，令人毛骨耸然。地牢的天花板上镶着一块石\n板，从石板的缝隙间射进几束阳光。",
       "exits": [
@@ -1228,7 +1244,7 @@
     {
       "id": "chuenyu.tunnel5",
       "source_path": "mudlib/d/chuenyu/tunnel5.c",
-      "status": "structured",
+      "status": "verified",
       "name": "地牢",
       "description": "这里黑黑暗暗，几乎伸手不见五指。唯一的光亮来自墙上忽明忽暗的\n松油灯。地上和墙上布满了暗红色的血痕，散发出阵阵腥气。不断传来的\n哀嚎声在死沉的地牢里回荡，令人毛骨耸然。",
       "exits": [
@@ -1263,7 +1279,7 @@
     {
       "id": "chuenyu.tunnel6",
       "source_path": "mudlib/d/chuenyu/tunnel6.c",
-      "status": "structured",
+      "status": "verified",
       "name": "地牢",
       "description": "这里黑黑暗暗，几乎伸手不见五指。唯一的光亮来自墙上忽明忽暗的\n松油灯。地上和墙上布满了暗红色的血痕，散发出阵阵腥气。不断传来的\n哀嚎声在死沉的地牢里回荡，令人毛骨耸然。",
       "exits": [
@@ -1291,7 +1307,7 @@
     {
       "id": "chuenyu.west_blackge",
       "source_path": "mudlib/d/chuenyu/west_blackge.c",
-      "status": "structured",
+      "status": "verified",
       "name": "黑松阁西厅",
       "description": "这是黑松堡主淳于怀太迎宾的西厅。整个大厅布置的雍荣典雅。\n向东是黑松阁的正厅，向西和向北都是精心修剪过的花园。楼上则是\n淳于巨大的睡房。南面是一个小小的储藏室。",
       "exits": [
@@ -1356,7 +1372,8 @@
     {
       "id": "chuenyu.west_castle",
       "source_path": "mudlib/d/chuenyu/west_castle.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "黑松城堡的西侧",
       "description": "你站在黑松山顶，黑松城堡的西侧。高耸的城墙上长满了青色的\n蔓藤。蔓藤从墙顶一直垂到你的脚下。再往西是刀削般的万丈悬崖。\n往东则是城堡的正门。",
       "exits": [
@@ -1397,7 +1414,8 @@
     {
       "id": "chuenyu.west_garden",
       "source_path": "mudlib/d/chuenyu/west_garden.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "西花园",
       "description": "你站在黑松城堡的西花园里。花园里长满了各式各样奇花异草。\n西侧高耸的城墙上长满了青色的蔓藤。蔓藤从墙顶一直垂到你的脚下。\n再往东则是雄伟的黑松阁。",
       "exits": [
@@ -1450,7 +1468,8 @@
     {
       "id": "chuenyu.yiantai",
       "source_path": "mudlib/d/chuenyu/yiantai.c",
-      "status": "structured",
+      "outdoors": "chuenyu",
+      "status": "verified",
       "name": "阳台",
       "description": "这是一个小小的阳台。从这里你可以一直望到山脚。强劲\n的山风吹在你身上，让你感到份外的凉爽。真是一个好去处。",
       "exits": [

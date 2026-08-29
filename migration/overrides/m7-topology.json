@@ -35,7 +35,7 @@
     "unresolved_object_instances": 0
   },
   "static_runtime": {
-    "status": "implemented",
+    "status": "verified",
     "embedded_rooms": 139,
     "embedded_npc_instances": 105,
     "embedded_m7_npc_instances": 101,

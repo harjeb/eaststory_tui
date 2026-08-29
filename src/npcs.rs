@@ -8,6 +8,7 @@ const M4_CATALOG_JSON: &str = include_str!("../migration/catalog/npcs-m4.json");
 const M5_CATALOG_JSON: &str = include_str!("../migration/catalog/npcs-m5.json");
 const M6_CATALOG_JSON: &str = include_str!("../migration/catalog/npcs-m6.json");
 const M7_CATALOG_JSON: &str = include_str!("../migration/catalog/npcs-m7.json");
+const NPC_AMBIENT_CATALOG_JSON: &str = include_str!("../migration/catalog/npc-ambient.json");
 const SOURCE_COMMIT: &str = "87bba6bd2249beec8424b0d6623486a0dd1f7b30";
 
 pub const OLD_LIU_ID: &str = "adapted.old_liu";
@@ -292,6 +293,12 @@ pub struct NpcCombatChatEntry {
 }
 
 #[derive(Debug, Clone, Deserialize)]
+pub struct NpcAmbientChatEntry {
+    pub kind: String,
+    pub value: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
 pub struct NpcCombatChat {
     pub chance: Option<i32>,
     pub chance_expression: Option<String>,
@@ -299,6 +306,27 @@ pub struct NpcCombatChat {
 }
 
 impl NpcCombatChat {
+    pub fn runtime_chance(&self) -> u32 {
+        if let Some(chance) = self.chance {
+            return chance.clamp(0, 100) as u32;
+        }
+        self.chance_expression
+            .as_deref()
+            .and_then(|expression| expression.strip_prefix("random("))
+            .and_then(|value| value.strip_suffix(')'))
+            .and_then(|value| value.parse::<u32>().ok())
+            .map_or(0, |upper| (upper / 2).min(100))
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct NpcAmbientChat {
+    pub chance: Option<i32>,
+    pub chance_expression: Option<String>,
+    pub entries: Vec<NpcAmbientChatEntry>,
+}
+
+impl NpcAmbientChat {
     pub fn runtime_chance(&self) -> u32 {
         if let Some(chance) = self.chance {
             return chance.clamp(0, 100) as u32;
@@ -379,6 +407,8 @@ pub struct NpcDefinition {
     pub mappings: HashMap<String, String>,
     pub combat_apply: HashMap<String, i32>,
     pub combat_chat: Option<NpcCombatChat>,
+    #[serde(default)]
+    pub ambient_chat: Option<NpcAmbientChat>,
     pub carried_items: Vec<NpcCarriedItem>,
     pub placement_count: usize,
     pub vendor_goods: Vec<VendorGood>,
@@ -561,9 +591,24 @@ struct Catalog {
     npcs: Vec<NpcDefinition>,
 }
 
+#[derive(Deserialize)]
+struct AmbientChatCatalog {
+    schema_version: u32,
+    source_commit: String,
+    npcs: Vec<AmbientChatCatalogEntry>,
+}
+
+#[derive(Deserialize)]
+struct AmbientChatCatalogEntry {
+    id: NpcId,
+    source_path: String,
+    ambient_chat: NpcAmbientChat,
+}
+
 pub struct NpcRepository {
     definitions: HashMap<NpcId, NpcDefinition>,
     source_ids: HashMap<String, NpcId>,
+    ambient_chats: HashMap<NpcId, NpcAmbientChat>,
     source_count: usize,
     source_commit: String,
 }
@@ -629,6 +674,45 @@ impl NpcRepository {
             }
         }
 
+        let ambient_catalog: AmbientChatCatalog = serde_json::from_str(NPC_AMBIENT_CATALOG_JSON)
+            .unwrap_or_else(|error| panic!("invalid M8 NPC ambient catalog: {error}"));
+        assert_eq!(
+            ambient_catalog.schema_version, 1,
+            "unsupported M8 NPC ambient catalog schema"
+        );
+        assert_eq!(
+            ambient_catalog.source_commit, SOURCE_COMMIT,
+            "M8 NPC ambient source drift"
+        );
+        let mut ambient_chats = HashMap::new();
+        for entry in ambient_catalog.npcs {
+            let definition = definitions
+                .get(&entry.id)
+                .unwrap_or_else(|| panic!("ambient catalog references unknown NPC {}", entry.id.as_str()));
+            assert_eq!(
+                definition.source_path, entry.source_path,
+                "ambient catalog source mismatch for {}",
+                entry.id.as_str()
+            );
+            assert!(
+                definition
+                    .behavior_flags
+                    .iter()
+                    .any(|flag| flag == "ambient_chat"),
+                "ambient catalog NPC {} lacks ambient_chat flag",
+                entry.id.as_str()
+            );
+            assert!(
+                !entry.ambient_chat.entries.is_empty(),
+                "ambient catalog NPC {} has no entries",
+                entry.id.as_str()
+            );
+            assert!(
+                ambient_chats.insert(entry.id, entry.ambient_chat).is_none(),
+                "duplicate ambient catalog NPC"
+            );
+        }
+
         for npc in adapted_npcs() {
             assert!(definitions.insert(npc.id.clone(), npc).is_none());
         }
@@ -636,6 +720,7 @@ impl NpcRepository {
         Self {
             definitions,
             source_ids,
+            ambient_chats,
             source_count,
             source_commit: SOURCE_COMMIT.to_string(),
         }
@@ -647,6 +732,14 @@ impl NpcRepository {
 
     pub fn id_for_source(&self, source_path: &str) -> Option<&NpcId> {
         self.source_ids.get(source_path)
+    }
+
+    pub fn ambient_chat(&self, id: &NpcId) -> Option<&NpcAmbientChat> {
+        self.ambient_chats.get(id).or_else(|| {
+            self.definitions
+                .get(id)
+                .and_then(|definition| definition.ambient_chat.as_ref())
+        })
     }
 
     pub fn source_npc_count(&self) -> usize {
@@ -716,6 +809,7 @@ fn adapted(
         mappings: HashMap::new(),
         combat_apply: HashMap::new(),
         combat_chat: None,
+        ambient_chat: None,
         carried_items: Vec::new(),
         placement_count: 0,
         vendor_goods: goods
@@ -773,6 +867,50 @@ mod tests {
         assert_eq!(catalog["summary"]["placed_combat_npcs"], 59);
         assert_eq!(catalog["summary"]["placed_combat_chat_npcs"], 16);
         assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 42);
+    }
+
+    #[test]
+    fn m8_ambient_chat_catalog_is_source_matched_and_runtime_ready() {
+        assert_eq!(npcs().ambient_chats.len(), 70);
+        let cake_vendor = npcs()
+            .ambient_chat(&NpcId::from(CHOYIN_CAKE_VENDOR_ID))
+            .unwrap();
+        assert_eq!(cake_vendor.runtime_chance(), 13);
+        assert_eq!(cake_vendor.entries.len(), 3);
+        assert!(cake_vendor.entries.iter().all(|entry| entry.kind == "text"));
+
+        for (npc_id, expected_chance, expected_entries) in [
+            ("choyin.npc.cucurbit_seller", 15, 1),
+            ("choyin.npc.dumpling_seller", 15, 1),
+            ("choyin.npc.lboy", 2, 2),
+            ("oldpine.npc.wolf_dog", 15, 1),
+            ("chuenyu.npc.chuenyu", 50, 1),
+            ("chuenyu.npc.wolfdog", 15, 1),
+            ("green.npc.kid4", 10, 3),
+            ("green.npc.woman2", 7, 4),
+        ] {
+            let npc_id = NpcId::from(npc_id);
+            let chat = npcs().ambient_chat(&npc_id).unwrap();
+            assert_eq!(chat.runtime_chance(), expected_chance, "{}", npc_id.as_str());
+            assert_eq!(chat.entries.len(), expected_entries, "{}", npc_id.as_str());
+            assert!(
+                chat.entries.iter().all(|entry| entry.kind == "text"),
+                "{}",
+                npc_id.as_str()
+            );
+            assert!(
+                npcs().definition(&npc_id).unwrap().placement_count > 0,
+                "{}",
+                npc_id.as_str()
+            );
+        }
+
+        let cloud_worker = npcs()
+            .ambient_chat(&NpcId::from("u.cloud.npc.worker"))
+            .unwrap();
+        assert_eq!(cloud_worker.runtime_chance(), 10);
+        assert_eq!(cloud_worker.entries.len(), 1);
+        assert_eq!(cloud_worker.entries[0].kind, "movement");
     }
 
     #[test]

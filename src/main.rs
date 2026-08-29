@@ -40,7 +40,15 @@ fn main() -> Result<()> {
 
     let mut terminal = TerminalSession::start().context("无法初始化终端界面")?;
     let run_result = run(&mut terminal.terminal, &mut app, &save_path);
-    save_game(&save_path, &app.game).context("退出时保存失败")?;
+    if app.take_delete_save_request() {
+        if let Err(error) = std::fs::remove_file(&save_path)
+            && error.kind() != io::ErrorKind::NotFound
+        {
+            return Err(error).with_context(|| format!("无法删除存档 {}", save_path.display()));
+        }
+    } else {
+        save_game(&save_path, &app.game).context("退出时保存失败")?;
+    }
     run_result
 }
 
@@ -60,6 +68,9 @@ fn run(
             && key.kind == KeyEventKind::Press
         {
             app.handle_key(key);
+        }
+        if app.should_quit {
+            break;
         }
 
         if last_game_tick.elapsed() >= GAME_TICK {

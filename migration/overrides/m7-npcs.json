@@ -98,7 +98,7 @@
     {
       "feature": "behavior_flag_audit",
       "status": "audited",
-      "decision": "183 项 M7 NPC 行为标记逐源处置为 33 verified、50 adapted、51 deferred、38 excluded、10 alias、1 source_noop，无未处置项。"
+      "decision": "183 项 M7 NPC 行为标记逐源处置为 33 verified、51 adapted、50 deferred、38 excluded、10 alias、1 source_noop，无未处置项。"
     }
   ],
   "behavior_flags": {
@@ -121,8 +121,8 @@
     },
     "by_status": {
       "verified": 33,
-      "adapted": 50,
-      "deferred": 51,
+      "adapted": 51,
+      "deferred": 50,
       "excluded": 38,
       "alias": 10,
       "source_noop": 1
@@ -144,7 +144,7 @@
         "source_paths": [
           "mudlib/d/death/npc/bgargoyle.c", "mudlib/d/death/npc/wgargoyle.c", "mudlib/d/latemoon/npc/butterfly.c", "mudlib/d/latemoon/park/npc/bird.c", "mudlib/d/latemoon/park/npc/dodo1.c", "mudlib/d/latemoon/park/npc/rabbit.c", "mudlib/d/latemoon/room/npc/killer.c", "mudlib/d/latemoon/upstar/npc/bird.c", "mudlib/u/cloud/npc/bfighter.c", "mudlib/u/cloud/npc/thief.c", "mudlib/u/cloud/npc/worker.c"
         ],
-        "decision": "随机移动统一绑定 M8 日程/刷新系统。"
+        "decision": "M8 v28 已让已放置的晚月蝴蝶、园中鸟/渡渡鸟/兔子、画室杀手与观景鸟在在线 tick 中安全移动；幽冥雕像、青云人物及刷新/日程依赖仍留后续 M8。"
       },
       {
         "flags": ["timed_behavior"],
@@ -164,10 +164,9 @@
       },
       {
         "flags": ["custom_command"],
-        "status": "deferred",
-        "target": "M8",
+        "status": "adapted",
         "source_paths": ["mudlib/u/cloud/npc/god.c"],
-        "decision": "动态任务分配依赖 M8 任务列表与时间系统。"
+        "decision": "朱鸿雪的 quest 命令在 M8 schema v30 适配为同房行动：按来源实战门槛、三次连续完成调阶、限时击杀与奖励结算运行。"
       },
       {
         "flags": ["random_identity"],
@@ -328,7 +327,7 @@
     },
     {
       "target": "M8",
-      "scope": "51 项环境对白、随机移动、定时行为、棋局和动态任务调度",
+      "scope": "50 项环境对白、随机移动、定时行为与棋局",
       "status": "deferred"
     }
   ]

@@ -4,7 +4,8 @@
   "scope": "shared_player_items",
   "summary": {
     "verified": 6,
-    "deferred": 3,
+    "adapted": 1,
+    "deferred": 2,
     "excluded": 4
   },
   "entries": [
@@ -46,9 +47,9 @@
     },
     {
       "id": "obj.dust",
-      "status": "deferred",
-      "milestone": "M7",
-      "decision": "化尸粉依赖尸体、死亡和腐化系统；物品定义保留，M7 随尸体系统验收。"
+      "status": "adapted",
+      "milestone": "M8",
+      "decision": "化尸粉可清除死斗留下的普通尸体，限于新鲜或腐烂阶段；骸骨不再带 corpse 标识。单角色适配不引入嵌套尸体容器，NPC 携带物仍直接落地，化尸不会吞掉其他战利品。"
     },
     {
       "id": "obj.glass",

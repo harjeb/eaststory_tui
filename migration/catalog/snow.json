@@ -2,12 +2,12 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "snow",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "snow.bank",
       "source_path": "mudlib/d/snow/bank.c",
-      "status": "structured",
+      "status": "verified",
       "name": "安记钱庄",
       "description": "这是一间素来以公平信用著称的钱庄，钱庄的老板还是个曾经中过\n举人的读书人，你可以看到钱庄里里外外都打扫得乾乾净净，一个胖胖\n的中年人坐在柜台后面，柜台上放著一块牌子(sign)，往东是通往雪亭\n镇大街的大门。",
       "exits": [
@@ -43,7 +43,8 @@
     {
       "id": "snow.crossroad",
       "source_path": "mudlib/d/snow/crossroad.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "山坳",
       "description": "这里是一处山坳，往南就是雪亭镇，一条蜿蜒的小径往东通往另一\n个邻近的小山村，一块官府立的告示牌立在路旁，上面写著有关野羊山\n土匪出没的警告标志。",
       "exits": [
@@ -78,7 +79,7 @@
     {
       "id": "snow.e_room",
       "source_path": "mudlib/d/snow/e_room.c",
-      "status": "structured",
+      "status": "verified",
       "name": "客房",
       "description": "这是一间打扫得相当乾净的客房，虽然所有的家俱看起来都相当朴\n素，比不上县城里几家著名的大酒馆，但是自有一种敦厚亲切的感觉，\n你在这里相信可以安心的休息。",
       "exits": [
@@ -108,7 +109,8 @@
     {
       "id": "snow.eroad1",
       "source_path": "mudlib/d/snow/eroad1.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "黄土小径",
       "description": "这是一条普通的黄土小径，弯弯曲曲往东一路盘旋上山，北边有\n一间城隍庙，往西则是雪亭镇的街道。",
       "exits": [
@@ -143,7 +145,8 @@
     {
       "id": "snow.eroad2",
       "source_path": "mudlib/d/snow/eroad2.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "黄土小径",
       "description": "这是一条普通的黄土小径，小径往西南通往一处山间的平地，从这\n里可以望见不少房屋错落在平地上，往北则一路上山。",
       "exits": [
@@ -178,7 +181,8 @@
     {
       "id": "snow.eroad3",
       "source_path": "mudlib/d/snow/eroad3.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "山路",
       "description": "这是一条说宽不宽，说窄倒也不窄的山路，路面用几块生满青苔的\n大石铺成，西面是一段坡地，从这里可以望见西边有几间房屋错落在林\n木间，东面则是山壁，山路往西衔接一条黄土小径，往北则是通往山\n上的石阶。",
       "exits": [
@@ -213,7 +217,7 @@
     {
       "id": "snow.guestroom",
       "source_path": "mudlib/d/snow/guestroom.c",
-      "status": "structured",
+      "status": "verified",
       "name": "客房",
       "description": "这里是一间布置得相当雅致的厢房，从窗子可以看到北边的天井跟\n南边的庭园中各式各样的奇花异草，以及他们所带来的淡淡香气，厢房\n的东面墙上还挂著一幅仕女图(painting)，画中是一位宫装美妇，往西\n是通往天井的出口。",
       "exits": [
@@ -234,7 +238,7 @@
     {
       "id": "snow.herbshop",
       "source_path": "mudlib/d/snow/herbshop.c",
-      "status": "structured",
+      "status": "verified",
       "name": "桑邻药铺",
       "description": "这里是一间规模不小的药铺，奇怪的是，在这里你闻不到一丝药铺\n应有的药味，有的只是一股淡淡的檀香，令人觉得心旷神怡，药铺的柜\n台就在店铺靠北的一面，柜台后是一个巨大的药柜(cabinet)， 上面的\n小抽屉只怕有七、八百个之多，但是全部没有贴标签，药铺的出口在东\n边，柜台上贴著一张发黄的纸片(sign)。",
       "exits": [
@@ -280,7 +284,7 @@
     {
       "id": "snow.herbshop1",
       "source_path": "mudlib/d/snow/herbshop1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "药铺密室",
       "description": "这是一间光线阴暗的密室，从地上厚厚的灰尘看得出来这里很少有\n人出入，靠西边的地上放著一副脚镣，连著一条铁链镶在墙上，不知道\n是用来锁什么人，南面的墙(wall)是用红杉木做的，跟另外三面的灰土\n墙比起来显得有些不寻常。",
       "exits": [],
@@ -293,7 +297,7 @@
     {
       "id": "snow.hockshop",
       "source_path": "mudlib/d/snow/hockshop.c",
-      "status": "structured",
+      "status": "verified",
       "name": "丰登当铺",
       "description": "这是一家中等规模的当铺，老旧的柜台上放著一张木牌(sign)，屋\n里的光线不是很亮，往东的出口被一块蓝色布帘遮著，上面有「非请莫\n入」的字样，西边有一扇木雕门(door)通往大街。",
       "exits": [
@@ -337,7 +341,7 @@
     {
       "id": "snow.hockshop2",
       "source_path": "mudlib/d/snow/hockshop2.c",
-      "status": "structured",
+      "status": "verified",
       "name": "储藏室",
       "description": "这里是丰登当铺的储藏室，有时候当铺里的大朝奉会把铺里存不下\n的死当货物拿出来拍卖，不过你现在只能看见一个个锁著的箱子。往西\n边穿过一道布帘可以回到当铺店面。",
       "exits": [
@@ -358,7 +362,7 @@
     {
       "id": "snow.inn",
       "source_path": "mudlib/d/snow/inn.c",
-      "status": "structured",
+      "status": "verified",
       "name": "饮风客栈",
       "description": "你现在正站在雪亭镇南边的一家小客栈里，这家客栈虽小，却是方圆\n五百里内最负盛名的一家，客栈的主人据说是一位云游四海的仙人，如果\n你的福缘深厚的话，也许可以在这里遇到他。除此之外，来自各地的旅人\n都喜欢聚集在这里交换旅途上的见闻，你也可以在这里打听到许多有趣的\n消息。靠近门口的地方有一块乌木雕成的招牌(sign)。\n西北边有一个红木门(door)，门上泛著一层白色的光晕，一种令人感觉\n很有力量，又很柔和的光芒。",
       "exits": [
@@ -426,7 +430,7 @@
     {
       "id": "snow.inn_2f",
       "source_path": "mudlib/d/snow/inn_2f.c",
-      "status": "structured",
+      "status": "verified",
       "name": "饮风客栈二楼",
       "description": "你现在来到了饮风客栈的二楼，这家客栈有个很奇怪的规矩，就是只留宿\n名头够大的客人，如果你只是一个无名小卒，不论出再多银两都租不到一间空\n房，墙边有一道楼梯通往一楼的茶座。",
       "exits": [
@@ -496,7 +500,7 @@
     {
       "id": "snow.innerhall",
       "source_path": "mudlib/d/snow/innerhall.c",
-      "status": "structured",
+      "status": "verified",
       "name": "武馆内院",
       "description": "这里是淳风武馆的内院，平常武馆弟子没有馆主的允许是不敢到这\n里来的，往东是柳家的祠堂，馆主和家眷的卧房分别位于往北一条走道\n的两旁，厨房以及柴房、仆役的卧房都在往南的走道两旁，往西则是天\n井。",
       "exits": [
@@ -517,7 +521,8 @@
     {
       "id": "snow.inneryard",
       "source_path": "mudlib/d/snow/inneryard.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "天井",
       "description": "这里是淳风武馆中的天井，往西走可以回到正厅，往北边是书房，\n南边是招待客人的厢房，往东一条长廊通往武馆内院，天井中种满了许\n多奇花异草，中央立著一根石柱(pillar)，上面似乎刻著字。",
       "exits": [
@@ -567,7 +572,8 @@
     {
       "id": "snow.mstreet1",
       "source_path": "mudlib/d/snow/mstreet1.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "雪亭镇街道",
       "description": "你现在正走在雪亭镇的街道上，东边不远处有一间高大的院子，门\n口立著一根粗大的旗杆，旗子上写著「淳风武馆」，往南只听得人声鼎\n沸，是个五十尺见方的广场，人来人往相当热闹。往北可望见一座牌坊\n，年代久远，上面的字迹早已看不出是什么字，出了牌坊就是镇外。",
       "exits": [
@@ -609,7 +615,8 @@
     {
       "id": "snow.mstreet2",
       "source_path": "mudlib/d/snow/mstreet2.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "雪亭镇街道",
       "description": "你现在正走在雪亭镇的大街，往南直走不远处是镇上的广场，在你\n的东边是一间大宅院，不过正门不在这个方向，往西是一家打铁铺子，\n叮叮当当的声音大老远可以听得到，街道往北边一直通往镇外。",
       "exits": [
@@ -663,7 +670,8 @@
     {
       "id": "snow.mstreet3",
       "source_path": "mudlib/d/snow/mstreet3.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "雪亭镇街道",
       "description": "这里是雪亭镇的大街，东边有一栋陈旧的建筑，看起来像是什么店\n铺，但是并没有任何招牌，只有一扇门(door)上面写著一个大大的「当\n」字，往西是一间药铺，大街往南北两个方向延伸。",
       "exits": [
@@ -714,7 +722,7 @@
     {
       "id": "snow.mstreet4",
       "source_path": "mudlib/d/snow/mstreet4.c",
-      "status": "structured",
+      "status": "verified",
       "name": "雪亭镇街道",
       "description": "这里是雪亭镇的大街，一条小巷子通往东边，西边则是一间驿站，\n由于雪亭镇来往的商旅、官员并不很多，因此虽然是官府的驿站，也接\n受百姓的信件，大街往北是一处山坳，从这里远远地可以望见北方的野\n羊山，出了山坳就是一条碎石路通往山上。",
       "exits": [
@@ -749,7 +757,7 @@
     {
       "id": "snow.n_room",
       "source_path": "mudlib/d/snow/n_room.c",
-      "status": "structured",
+      "status": "verified",
       "name": "客房",
       "description": "这是一间打扫得相当乾净的客房，虽然所有的家俱看起来都相当朴\n素，比不上县城里几家著名的大酒馆，但是自有一种敦厚亲切的感觉，\n你在这里相信可以安心的休息。",
       "exits": [
@@ -779,7 +787,7 @@
     {
       "id": "snow.nyard",
       "source_path": "mudlib/d/snow/nyard.c",
-      "status": "structured",
+      "status": "verified",
       "name": "书房",
       "description": "这里是一间整理得相当乾净的书房，红木桌椅上铺著蓝绸巾，显得\n十分考究，西面的立著一个书架，上面放著一排排的古书，往南走出房\n门可以看到天井。",
       "exits": [
@@ -807,7 +815,7 @@
     {
       "id": "snow.postoffice",
       "source_path": "mudlib/d/snow/postoffice.c",
-      "status": "structured",
+      "status": "verified",
       "name": "雪亭驿",
       "description": "这里是负责雪亭镇官府文书跟军令往来的雪亭驿，但是因为出了雪\n亭镇往北的野羊山近年来有盗匪盘据，官府的信差最近都改走东边的飞\n鸢栈道，所以雪亭驿来往的人就少了，驿站的官员索性就开始接一些百\n姓的信件，一方面打发时间，一方面也有点事做以免被上级裁撤。驿站\n大门口上悬著一块木牌(sign)，上面写了些字。",
       "exits": [
@@ -844,7 +852,7 @@
     {
       "id": "snow.school",
       "source_path": "mudlib/d/snow/school.c",
-      "status": "structured",
+      "status": "verified",
       "name": "书院",
       "description": "这里是一间宽敞的书院，虽然房子看起来很老旧了，但是打扫得很\n整洁。墙壁上挂著一幅山水画，意境颇为不俗。书院的大门开在北边，\n西边有一扇木门通往边厢。",
       "exits": [
@@ -872,7 +880,8 @@
     {
       "id": "snow.school1",
       "source_path": "mudlib/d/snow/school1.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "淳风武馆大门",
       "description": "你现在正站在一间大宅院的入口，两只巨大的石狮镇守在大门的两\n侧，一阵阵吆喝与刀剑碰撞的声音从院子中传来。通过红漆大门(door)\n往东可以望见许多身穿灰衣的汉子正在操练。",
       "exits": [
@@ -923,7 +932,8 @@
     {
       "id": "snow.school2",
       "source_path": "mudlib/d/snow/school2.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "淳风武馆教练场",
       "description": "你现在正站在一个宽敞的教练场中，地上铺著黄色的细砂，许多人\n正在这里努力地操练著，北边是一间高大的兵器厅，往东则是武馆师父\n们休息的大厅。",
       "exits": [
@@ -979,7 +989,7 @@
     {
       "id": "snow.schoolhall",
       "source_path": "mudlib/d/snow/schoolhall.c",
-      "status": "structured",
+      "status": "verified",
       "name": "淳风武馆大厅",
       "description": "这里是淳风武馆的正厅，五张太师椅一字排开面对著门口，这是武\n馆中四位大师傅与馆主柳淳风的座位，和一般武馆不同的是，墙上竟然\n挂著几幅风骨颇为不俗的书画，显示这里的主人并非大字不识的粗汉，\n而是文武双全的高人。",
       "exits": [
@@ -1007,7 +1017,7 @@
     {
       "id": "snow.secret_storage",
       "source_path": "mudlib/d/snow/secret_storage.c",
-      "status": "structured",
+      "status": "verified",
       "name": "地下密室",
       "description": "这里是一间窄小的密室，你的面前只有一个破旧的小床(bed)跟一\n些乾草。",
       "exits": [],
@@ -1027,7 +1037,7 @@
     {
       "id": "snow.smithy",
       "source_path": "mudlib/d/snow/smithy.c",
-      "status": "structured",
+      "status": "verified",
       "name": "打铁铺子",
       "description": "这里是一间打铁铺子，从火炉中冒出的火光将墙壁映得通红，屋子\n的角落里堆满了各式铁器的完成品或未完成品，像是锄头、铁锤、铲子\n等，叮叮当当的声音敲得满屋子响。",
       "exits": [
@@ -1055,7 +1065,8 @@
     {
       "id": "snow.square",
       "source_path": "mudlib/d/snow/square.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "广场",
       "description": "这里是雪亭镇镇前广场的空地，地上整齐地铺著大石板。广场中央有\n一个木头搭的架子，经过多年的风吹日晒雨淋，看来非常破旧。四周建筑\n林立。往西你可以看到一间客栈，看来生意似乎很好。",
       "exits": [
@@ -1109,7 +1120,8 @@
     {
       "id": "snow.sroad1",
       "source_path": "mudlib/d/snow/sroad1.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "雪亭镇街道",
       "description": "这里是雪亭镇的街道，往北是一个热闹的广场，南边是条小路通往\n一座林子，东边则有一条小径沿著山腰通往山上，往西是一条比较窄的\n街道，参差不齐的瓦屋之间传来几声犬吠。",
       "exits": [
@@ -1151,7 +1163,8 @@
     {
       "id": "snow.sroad2",
       "source_path": "mudlib/d/snow/sroad2.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "雪亭镇街道",
       "description": "这里是雪亭镇的街道，你的北边有一家客栈，从这里就可以听到客\n栈里人们饮酒谈笑的声音，街道往东不远处有个转角往北，如果你往东\n直走就是上山的小径了，往西则可以走到车马来往络绎不绝的官道。",
       "exits": [
@@ -1193,7 +1206,8 @@
     {
       "id": "snow.sroad3",
       "source_path": "mudlib/d/snow/sroad3.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "青石官道",
       "description": "这是一条宽敞坚实的青石板铺成的大道，路上车马的痕迹已经在路\n面上留下一条条明显的凹痕，往东是一条较小的街道通往雪亭镇，大路\n从这里往北可达水烟阁，往西南穿过黄石隘口则通往戍守京畿重地的天\n驼关。",
       "exits": [
@@ -1221,7 +1235,8 @@
     {
       "id": "snow.sroad4",
       "source_path": "mudlib/d/snow/sroad4.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "青石官道",
       "description": "这是一条宽敞坚实的青石板大道，大道两旁种著整齐的花木，从这\n里往北通往水烟阁，往东则是衔接雪亭镇街道的路口。",
       "exits": [
@@ -1263,7 +1278,8 @@
     {
       "id": "snow.sroad5",
       "source_path": "mudlib/d/snow/sroad5.c",
-      "status": "structured",
+      "outdoors": "snow",
+      "status": "verified",
       "name": "青石官道",
       "description": "这是一条宽敞坚实的青石板大道，大道两旁种著整齐的花木，从这\n里往西通往水烟阁，往南则是衔接雪亭镇街道的路口。",
       "exits": [
@@ -1291,7 +1307,7 @@
     {
       "id": "snow.temple",
       "source_path": "mudlib/d/snow/temple.c",
-      "status": "structured",
+      "status": "verified",
       "name": "城隍庙",
       "description": "这是一间十分老旧的城隍庙，在你面前的神桌上供奉著一尊红脸的城\n隍，庙虽老旧，但是神案四周已被香火薰成乌黑的颜色，显示这里必定相\n当受到信徒的敬仰。",
       "exits": [
@@ -1336,7 +1352,7 @@
     {
       "id": "snow.w_room",
       "source_path": "mudlib/d/snow/w_room.c",
-      "status": "structured",
+      "status": "verified",
       "name": "客房",
       "description": "这是一间打扫得相当乾净的客房，虽然所有的家俱看起来都相当朴\n素，比不上县城里几家著名的大酒馆，但是自有一种敦厚亲切的感觉，\n你在这里相信可以安心的休息。",
       "exits": [
@@ -1366,7 +1382,7 @@
     {
       "id": "snow.weapon_storage",
       "source_path": "mudlib/d/snow/weapon_storage.c",
-      "status": "structured",
+      "status": "verified",
       "name": "兵器储藏室",
       "description": "这是一间堆满各式兵器、刀械的储藏室，各式武器都依照种类、长\n短、依次放在一起，并且擦拭得一尘不染，储藏室的出口在你的南边，\n面对出口的左手边有一个架子(shelf)。",
       "exits": [
@@ -1412,7 +1428,7 @@
     {
       "id": "snow.workplace",
       "source_path": "mudlib/d/snow/workplace.c",
-      "status": "structured",
+      "status": "verified",
       "name": "谷物加工厂",
       "description": "这是一间谷物加工厂，这里是谷子脱壳成米的地方。米厂老板是一个一\n看就知道是十分精明的干瘦的中年人，老是带着一脸奸笑。你可以看到\n许多人正在忙忙碌碌的工作着，门口挂著一块牌子(sign)，往西是通往\n雪亭镇大街的大门。",
       "exits": [

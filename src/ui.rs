@@ -8,7 +8,8 @@ use ratatui::{
 
 use crate::{
     app::App,
-    game::{Activity, CombatMode, Game},
+    game::{Activity, CombatMode, Game, SuicideKind},
+    skills::skills,
 };
 
 const BORDER: Color = Color::Rgb(74, 89, 80);
@@ -39,6 +40,21 @@ pub fn render(frame: &mut Frame<'_>, app: &App) {
 
     if app.show_help {
         render_help(frame, area);
+    }
+    if app.showing_skills() {
+        render_skill_overview(frame, area, app);
+    }
+    if let Some(skill) = app.pending_skill_abandonment() {
+        render_abandon_skill_confirmation(frame, area, skill.name());
+    }
+    if app.showing_identity() {
+        render_identity(frame, area, app);
+    }
+    if app.showing_combat_settings() {
+        render_combat_settings(frame, area, app);
+    }
+    if let Some(kind) = app.pending_suicide() {
+        render_suicide_confirmation(frame, area, app, kind);
     }
 }
 
@@ -112,7 +128,10 @@ fn render_header(frame: &mut Frame<'_>, area: Rect, game: &Game) {
             Style::default().fg(PAPER),
         ),
         Span::styled("  ·  ", Style::default().fg(MUTED)),
-        Span::styled(game.time_text(), Style::default().fg(WATER)),
+        Span::styled(
+            format!("{}·{}", game.time_text(), game.time_period_text()),
+            Style::default().fg(WATER),
+        ),
     ]);
     frame.render_widget(Paragraph::new(title).alignment(Alignment::Left), area);
 }
@@ -283,6 +302,7 @@ fn bar_line(label: &str, value: i32, max: i32, color: Color) -> Line<'static> {
 
 fn render_location(frame: &mut Frame<'_>, area: Rect, app: &App, compact: bool) {
     let place = app.game.current_location();
+    let description = app.game.location_description();
     let block = panel(&place.name);
     let inner = block.inner(area);
     frame.render_widget(block, area);
@@ -293,7 +313,7 @@ fn render_location(frame: &mut Frame<'_>, area: Rect, app: &App, compact: bool) 
             .constraints([Constraint::Percentage(43), Constraint::Percentage(57)])
             .split(inner);
         frame.render_widget(
-            Paragraph::new(place.description.as_str())
+            Paragraph::new(description.as_str())
                 .style(Style::default().fg(PAPER))
                 .wrap(Wrap { trim: true }),
             columns[0],
@@ -317,7 +337,7 @@ fn render_location(frame: &mut Frame<'_>, area: Rect, app: &App, compact: bool) 
         ])
         .split(inner);
     frame.render_widget(
-        Paragraph::new(place.description.as_str())
+        Paragraph::new(description.as_str())
             .style(Style::default().fg(PAPER))
             .wrap(Wrap { trim: true }),
         rows[0],
@@ -456,10 +476,14 @@ fn render_footer(frame: &mut Frame<'_>, area: Rect) {
         Span::raw(" 选择  "),
         Span::styled(" Enter ", Style::default().fg(Color::Black).bg(JADE)),
         Span::raw(" 执行  "),
+        Span::styled(" c ", Style::default().fg(Color::Black).bg(GOLD)),
+        Span::raw(" 战斗设定  "),
+        Span::styled(" i ", Style::default().fg(Color::Black).bg(WATER)),
+        Span::raw(" 身份  "),
+        Span::styled(" v ", Style::default().fg(Color::Black).bg(JADE)),
+        Span::raw(" 武学  "),
         Span::styled(" s ", Style::default().fg(Color::Black).bg(GOLD)),
         Span::raw(" 保存  "),
-        Span::styled(" ? ", Style::default().fg(Color::Black).bg(WATER)),
-        Span::raw(" 帮助  "),
         Span::styled(" q ", Style::default().fg(Color::Black).bg(DANGER)),
         Span::raw(" 退出"),
     ]);
@@ -473,7 +497,7 @@ fn render_help(frame: &mut Frame<'_>, area: Rect) {
     let popup = centered_rect(
         area,
         64.min(area.width.saturating_sub(4)),
-        16.min(area.height.saturating_sub(2)),
+        19.min(area.height.saturating_sub(2)),
     );
     frame.render_widget(Clear, popup);
     let lines = vec![
@@ -489,6 +513,9 @@ fn render_help(frame: &mut Frame<'_>, area: Rect) {
             "系统",
             Style::default().fg(GOLD).add_modifier(Modifier::BOLD),
         ),
+        Line::raw("  c            设置内力、灵力与自动逃跑"),
+        Line::raw("  i            查看本地人物身份档案"),
+        Line::raw("  v            查看所学武功、熟练进度与致能"),
         Line::raw("  s            立即保存"),
         Line::raw("  q / Ctrl+C   保存并退出"),
         Line::raw("  ? / Esc      关闭帮助"),
@@ -501,6 +528,283 @@ fn render_help(frame: &mut Frame<'_>, area: Rect) {
     frame.render_widget(
         Paragraph::new(lines)
             .block(panel("帮助"))
+            .style(Style::default().fg(PAPER))
+            .wrap(Wrap { trim: false }),
+        popup,
+    );
+}
+
+fn render_skill_overview(frame: &mut Frame<'_>, area: Rect, app: &App) {
+    let popup = centered_rect(
+        area,
+        74.min(area.width.saturating_sub(4)),
+        24.min(area.height.saturating_sub(2)),
+    );
+    frame.render_widget(Clear, popup);
+
+    let game = &app.game;
+    let mut learned: Vec<_> = game.player.skills.iter().collect();
+    learned.sort_by(|left, right| left.kind.cmp(&right.kind));
+    let lines = if learned.is_empty() {
+        vec![Line::styled(
+            "你目前并没有学会任何技能。",
+            Style::default().fg(MUTED),
+        )]
+    } else {
+        let mut lines = Vec::with_capacity(learned.len().saturating_mul(2));
+        for skill in learned {
+            let mapped = game
+                .player
+                .skill_mappings
+                .iter()
+                .any(|mapping| mapping.skill.as_str() == skill.kind.as_str());
+            let is_knowledge = skills()
+                .definition(&skill.kind)
+                .is_some_and(|definition| definition.skill_type.as_str() == "knowledge");
+            let marker_style = if mapped {
+                Style::default().fg(JADE).add_modifier(Modifier::BOLD)
+            } else {
+                Style::default().fg(MUTED)
+            };
+            lines.push(Line::from(vec![
+                Span::styled(if mapped { "□" } else { "  " }, marker_style),
+                Span::styled(
+                    format!("{} ({})", skill.kind.name(), skill.kind.as_str()),
+                    Style::default().fg(PAPER),
+                ),
+            ]));
+            lines.push(Line::from(vec![
+                Span::raw("   "),
+                Span::styled(
+                    source_skill_level_description(is_knowledge, skill.level),
+                    Style::default().fg(GOLD),
+                ),
+                Span::styled(
+                    format!(
+                        "  {}层  熟练 {}/{}",
+                        skill.level,
+                        skill.progress,
+                        skill.required_progress()
+                    ),
+                    Style::default().fg(MUTED),
+                ),
+            ]));
+        }
+        lines
+    };
+
+    frame.render_widget(
+        Paragraph::new(lines)
+            .block(panel("武学总览 · □ 已致能 · ↑↓/jk 滚动 · Esc/v 关闭"))
+            .style(Style::default().fg(PAPER))
+            .scroll((app.skill_scroll().min(u16::MAX as usize) as u16, 0))
+            .wrap(Wrap { trim: false }),
+        popup,
+    );
+}
+
+fn source_skill_level_description(is_knowledge: bool, level: u32) -> &'static str {
+    const MARTIAL: [&str; 11] = [
+        "初学乍练",
+        "粗通皮毛",
+        "半生不熟",
+        "马马虎虎",
+        "驾轻就熟",
+        "出类拔萃",
+        "神乎其技",
+        "出神入化",
+        "登峰造极",
+        "一代宗师",
+        "深不可测",
+    ];
+    const KNOWLEDGE: [&str; 11] = [
+        "新学乍用",
+        "初窥门径",
+        "略知一二",
+        "马马虎虎",
+        "已有小成",
+        "心领神会",
+        "了然於胸",
+        "豁然贯通",
+        "举世无双",
+        "震古铄今",
+        "深不可测",
+    ];
+
+    let grade = (level / 10).min(10) as usize;
+    if is_knowledge {
+        KNOWLEDGE[grade]
+    } else {
+        MARTIAL[grade]
+    }
+}
+
+fn render_abandon_skill_confirmation(frame: &mut Frame<'_>, area: Rect, skill_name: &str) {
+    let popup = centered_rect(
+        area,
+        62.min(area.width.saturating_sub(4)),
+        10.min(area.height.saturating_sub(2)),
+    );
+    frame.render_widget(Clear, popup);
+    let lines = vec![
+        Line::styled(
+            format!("确定要放弃继续学习{skill_name}吗？"),
+            Style::default().fg(DANGER).add_modifier(Modifier::BOLD),
+        ),
+        Line::raw(""),
+        Line::raw("这会永久删除该技能和当前熟练进度。"),
+        Line::styled(
+            "已消耗的潜能不会返还；日后重新学习须从零开始。",
+            Style::default().fg(MUTED),
+        ),
+        Line::styled(
+            "Enter / Y 确认    Esc / N 取消",
+            Style::default().fg(GOLD),
+        ),
+    ];
+    frame.render_widget(
+        Paragraph::new(lines)
+            .block(panel("确认放弃技能"))
+            .style(Style::default().fg(PAPER))
+            .wrap(Wrap { trim: false }),
+        popup,
+    );
+}
+
+fn render_identity(frame: &mut Frame<'_>, area: Rect, app: &App) {
+    let popup = centered_rect(
+        area,
+        66.min(area.width.saturating_sub(4)),
+        15.min(area.height.saturating_sub(2)),
+    );
+    frame.render_widget(Clear, popup);
+    let lines = app
+        .game
+        .identity_lines()
+        .into_iter()
+        .map(|line| Line::styled(line, Style::default().fg(PAPER)))
+        .collect::<Vec<_>>();
+    frame.render_widget(
+        Paragraph::new(lines)
+            .block(panel("身份档案 · i/Esc 关闭"))
+            .wrap(Wrap { trim: false }),
+        popup,
+    );
+}
+
+fn render_combat_settings(frame: &mut Frame<'_>, area: Rect, app: &App) {
+    let game = &app.game;
+    let selected = usize::from(app.combat_setting_index());
+    let entries = [
+        (
+            "内力输出",
+            format!(
+                "每次命中消耗 {} 点内力（上限 {}）",
+                game.player.force_factor,
+                game.force_factor_limit()
+            ),
+        ),
+        (
+            "武器灵力",
+            format!(
+                "每次武器命中消耗 {} 点灵力（上限 {}）",
+                game.player.mana_factor,
+                game.mana_factor_limit()
+            ),
+        ),
+        (
+            "自动逃跑",
+            format!("气低于 {}% 时寻找出口逃离", game.wimpy_percent()),
+        ),
+    ];
+    let mut lines = Vec::new();
+    for (index, (name, value)) in entries.into_iter().enumerate() {
+        let active = index == selected;
+        let marker = if active { "› " } else { "  " };
+        let color = if active { JADE } else { PAPER };
+        lines.push(Line::from(vec![
+            Span::styled(marker, Style::default().fg(color).add_modifier(Modifier::BOLD)),
+            Span::styled(format!("{name:<8}"), Style::default().fg(color)),
+            Span::styled(value, Style::default().fg(PAPER)),
+        ]));
+    }
+    lines.push(Line::raw(""));
+    lines.push(Line::styled(
+        "←→/hl 选择    ↑↓/jk ±1    PgUp/PgDn ±5",
+        Style::default().fg(MUTED),
+    ));
+    lines.push(Line::styled(
+        "Enter / c / Esc 关闭",
+        Style::default().fg(GOLD),
+    ));
+    let popup = centered_rect(
+        area,
+        72.min(area.width.saturating_sub(4)),
+        13.min(area.height.saturating_sub(2)),
+    );
+    frame.render_widget(Clear, popup);
+    frame.render_widget(
+        Paragraph::new(lines)
+            .block(panel("战斗设置"))
+            .wrap(Wrap { trim: false }),
+        popup,
+    );
+}
+
+fn render_suicide_confirmation(
+    frame: &mut Frame<'_>,
+    area: Rect,
+    app: &App,
+    kind: SuicideKind,
+) {
+    let (title, lines) = match kind {
+        SuicideKind::Reincarnate => (
+            "确认投胎",
+            vec![
+                Line::styled(
+                    "确定要结束当前旅程并投胎重来吗？",
+                    Style::default().fg(DANGER).add_modifier(Modifier::BOLD),
+                ),
+                Line::raw(""),
+                Line::raw("当前行囊会留在一具可搜取的遗体中。"),
+                Line::raw("姓名、名号和自述会保留，其余人物进度重置。"),
+                Line::styled("Enter / Y 确认    Esc / N 取消", Style::default().fg(GOLD)),
+            ],
+        ),
+        SuicideKind::EraseSave if app.delete_save_confirmation_armed() => (
+            "最终确认删档",
+            vec![
+                Line::styled(
+                    "最后确认：这将永久删除本机存档文件。",
+                    Style::default().fg(DANGER).add_modifier(Modifier::BOLD),
+                ),
+                Line::raw(""),
+                Line::raw("删除后会立即退出，游戏内无法恢复该档案。"),
+                Line::styled("再按 Enter / Y 删除    Esc / N 取消", Style::default().fg(GOLD)),
+            ],
+        ),
+        SuicideKind::EraseSave => (
+            "确认删除存档",
+            vec![
+                Line::styled(
+                    "确定要永久删除本地存档吗？",
+                    Style::default().fg(DANGER).add_modifier(Modifier::BOLD),
+                ),
+                Line::raw(""),
+                Line::raw("此操作不会创建备份，下一步还会再次确认。"),
+                Line::styled("Enter / Y 继续    Esc / N 取消", Style::default().fg(GOLD)),
+            ],
+        ),
+    };
+    let popup = centered_rect(
+        area,
+        66.min(area.width.saturating_sub(4)),
+        11.min(area.height.saturating_sub(2)),
+    );
+    frame.render_widget(Clear, popup);
+    frame.render_widget(
+        Paragraph::new(lines)
+            .block(panel(title))
             .style(Style::default().fg(PAPER))
             .wrap(Wrap { trim: false }),
         popup,
@@ -562,6 +866,46 @@ mod tests {
         draw(&app, 120, 30);
 
         app.show_help = true;
+        draw(&app, 80, 24);
+    }
+
+    #[test]
+    fn renders_abandon_skill_confirmation() {
+        let mut app = App::new(Game::new());
+        let action = Action::AbandonSkill(crate::skills::SkillId::from(
+            crate::skills::LIUH_KEN_ID,
+        ));
+        app.selected_action = app
+            .game
+            .available_actions()
+            .iter()
+            .position(|candidate| candidate == &action)
+            .unwrap();
+        app.handle_key(crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Enter,
+            crossterm::event::KeyModifiers::NONE,
+        ));
+        draw(&app, 120, 30);
+        draw(&app, 80, 24);
+    }
+
+    #[test]
+    fn source_skill_descriptions_match_skills_command() {
+        assert_eq!(source_skill_level_description(false, 0), "初学乍练");
+        assert_eq!(source_skill_level_description(false, 59), "出类拔萃");
+        assert_eq!(source_skill_level_description(true, 0), "新学乍用");
+        assert_eq!(source_skill_level_description(true, 90), "震古铄今");
+        assert_eq!(source_skill_level_description(true, 1_000), "深不可测");
+    }
+
+    #[test]
+    fn renders_skill_overview() {
+        let mut app = App::new(Game::new());
+        app.handle_key(crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('v'),
+            crossterm::event::KeyModifiers::NONE,
+        ));
+        draw(&app, 120, 30);
         draw(&app, 80, 24);
     }
 }

@@ -1,0 +1,1083 @@
+{
+  "schema_version": 1,
+  "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
+  "milestone": "M8",
+  "status": "complete",
+  "source_root": "mudlib/cmds",
+  "catalog": {
+    "source_commands": 130,
+    "disposed": 130,
+    "remaining": 0,
+    "by_scope": {
+      "adm": 3,
+      "arch": 11,
+      "debug": 2,
+      "imm": 9,
+      "std": 51,
+      "usr": 24,
+      "wiz": 30
+    }
+  },
+  "classification_notes": {
+    "verified": "当前单人运行时直接执行来源的核心玩家语义。",
+    "adapted": "以可选行动、常驻面板或本地存档替代原始文字命令、网络协商或账户流程。",
+    "deferred": "单人游戏仍有意义，但需要尚未建立的系统、面板或生命周期。",
+    "excluded": "管理员/服务器权限、在线多人通信或单人范围外的账户功能。",
+    "source_noop": "固定来源命令入口本身不改变游戏状态，不伪造功能。"
+  },
+  "command_audit": {
+    "total": 130,
+    "disposed": 130,
+    "remaining": 0,
+    "status": "audited",
+    "by_status": {
+      "verified": 18,
+      "adapted": 30,
+      "deferred": 0,
+      "excluded": 80,
+      "source_noop": 2
+    },
+    "dispositions": [
+      {
+        "source_path": "mudlib/cmds/adm/dump.c",
+        "scope": "adm",
+        "command": "dump",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "管理员运行时转储；单人游戏不暴露服务器控制台。"
+      },
+      {
+        "source_path": "mudlib/cmds/adm/profile.c",
+        "scope": "adm",
+        "command": "profile",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "管理员性能分析；不属于玩家运行时。"
+      },
+      {
+        "source_path": "mudlib/cmds/adm/shutdown.c",
+        "scope": "adm",
+        "command": "shutdown",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "服务器停机权限；单进程退出由宿主程序处理。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/callouts.c",
+        "scope": "arch",
+        "command": "callouts",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "架构师的定时回调检查；不属于玩家功能。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/chinese.c",
+        "scope": "arch",
+        "command": "chinese",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "架构师文字/编码辅助；TUI 不提供巫师工具。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/cleanup.c",
+        "scope": "arch",
+        "command": "cleanup",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "服务器对象回收控制；由进程生命周期管理。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/poss.c",
+        "scope": "arch",
+        "command": "poss",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "管理员附身别的在线角色；单人范围外。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/possess.c",
+        "scope": "arch",
+        "command": "possess",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "管理员附身别的在线角色；单人范围外。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/promote.c",
+        "scope": "arch",
+        "command": "promote",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师权限晋升；不导入玩家存档。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/purge.c",
+        "scope": "arch",
+        "command": "purge",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "管理员批量对象清理；不提供可破坏世界状态的控制台。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/reboot.c",
+        "scope": "arch",
+        "command": "reboot",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "服务器重启权限；不属于玩家会话。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/reclaim.c",
+        "scope": "arch",
+        "command": "reclaim",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "服务器内存回收；由运行时管理。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/rehash.c",
+        "scope": "arch",
+        "command": "rehash",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "驱动命令缓存维护；单人运行时无对应权限。"
+      },
+      {
+        "source_path": "mudlib/cmds/arch/wizlock.c",
+        "scope": "arch",
+        "command": "wizlock",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "限制巫师登录的服务器策略；没有多人登录层。"
+      },
+      {
+        "source_path": "mudlib/cmds/debug/dbxframe.c",
+        "scope": "debug",
+        "command": "dbxframe",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "驱动调试栈辅助文件；不进入游戏玩法。"
+      },
+      {
+        "source_path": "mudlib/cmds/debug/dbxwhere.c",
+        "scope": "debug",
+        "command": "dbxwhere",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "驱动调试栈定位；不进入玩家界面。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/cd.c",
+        "scope": "imm",
+        "command": "cd",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师文件系统目录切换；单人游戏无文件控制台。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/edemote.c",
+        "scope": "imm",
+        "command": "edemote",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师编辑全局动作词；不属于单人玩法。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/goto.c",
+        "scope": "imm",
+        "command": "goto",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师任意传送；不绕过世界出口与剧情门槛。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/ls.c",
+        "scope": "imm",
+        "command": "ls",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师文件系统浏览；不进入玩家功能。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/mem.c",
+        "scope": "imm",
+        "command": "mem",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师内存检查；由开发工具处理。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/more.c",
+        "scope": "imm",
+        "command": "more",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师文件分页读取；TUI 不公开源文件。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/pwd.c",
+        "scope": "imm",
+        "command": "pwd",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师文件系统路径检查；不属于玩家功能。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/status.c",
+        "scope": "imm",
+        "command": "status",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师对象状态诊断；玩家状态由常驻人物面板提供。"
+      },
+      {
+        "source_path": "mudlib/cmds/imm/where.c",
+        "scope": "imm",
+        "command": "where",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师定位在线对象；单人游戏没有在线对象查询。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/abandon.c",
+        "scope": "std",
+        "command": "abandon",
+        "status": "adapted",
+        "tui_surface": "Action::AbandonSkill + 二次确认",
+        "decision": "删除已学技能及当前熟练进度，不返还已消耗潜能；TUI 在执行前以确认弹层防止误触。来源不会自动解除致能映射，运行时同样保留映射但不再提供已删除技能的加成。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/apprentice.c",
+        "scope": "std",
+        "command": "apprentice",
+        "status": "adapted",
+        "tui_surface": "Action::BecomeApprentice",
+        "decision": "当前由同房 NPC 的显式拜师行动完成；省略玩家之间的等待收徒协商。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/ask.c",
+        "scope": "std",
+        "command": "ask",
+        "status": "verified",
+        "tui_surface": "Action::AskNpc",
+        "decision": "当前房间 NPC 的来源询问主题逐项列为可选行动。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/attach.c",
+        "scope": "std",
+        "command": "attach",
+        "status": "adapted",
+        "tui_surface": "Action::AttachTalisman + 追魂符状态",
+        "decision": "来源附符语义适配为向当前来源僵尸贴上已书写的追魂符；消耗符纸和灵力，在限时内协助追击指定 NPC。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/biwu.c",
+        "scope": "std",
+        "command": "biwu",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "来源只允许两名玩家互相同意后比试；单人 TUI 没有玩家对战。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/buy.c",
+        "scope": "std",
+        "command": "buy",
+        "status": "verified",
+        "tui_surface": "Action::BuyItem",
+        "decision": "来源商人货品、价格与购买限制已进入当前行动列表。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/cast.c",
+        "scope": "std",
+        "command": "cast",
+        "status": "adapted",
+        "tui_surface": "Action::UseTechnique",
+        "decision": "已表达当前目录支持的咒文/招式效果；通用字符串法术名与任意目标解析未伪造。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/chant.c",
+        "scope": "std",
+        "command": "chant",
+        "status": "source_noop",
+        "tui_surface": "无",
+        "decision": "固定来源 main 直接成功返回且不改变状态。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/close.c",
+        "scope": "std",
+        "command": "close",
+        "status": "verified",
+        "tui_surface": "Action::CloseSourceDoor",
+        "decision": "来源门状态由共享双向门状态直接执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/conjure.c",
+        "scope": "std",
+        "command": "conjure",
+        "status": "adapted",
+        "tui_surface": "Action::UseTechnique",
+        "decision": "已表达当前目录支持的神通效果；完整原版魔法调度与文字目标解析留后续。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/drop.c",
+        "scope": "std",
+        "command": "drop",
+        "status": "verified",
+        "tui_surface": "Action::DropItem",
+        "decision": "行囊物品可直接放至当前位置地面，受来源 no_drop 转移限制保护。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/emote.c",
+        "scope": "std",
+        "command": "emote",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "向同房其他在线角色广播的自由文本；单人本地没有通信对象。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/enable.c",
+        "scope": "std",
+        "command": "enable",
+        "status": "verified",
+        "tui_surface": "Action::MapSkill",
+        "decision": "技能用途映射、有效性检查及更换 force/magic/spells 后资源归零均直接执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/enchant.c",
+        "scope": "std",
+        "command": "enchant",
+        "status": "adapted",
+        "tui_surface": "战斗设置 · 武器灵力",
+        "decision": "来源魔法武器因子适配为对当前装备武器的灵力灌注；受致能 magic、灵力与来源上限约束，每次命中消耗灵力并增伤。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/enforce.c",
+        "scope": "std",
+        "command": "enforce",
+        "status": "adapted",
+        "tui_surface": "战斗设置 · 内力输出",
+        "decision": "来源每击内力因子由战斗设置面板调整；受已致能内功、内力与基础 force 一半上限约束，命中时消耗内力并增伤。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/exercise.c",
+        "scope": "std",
+        "command": "exercise",
+        "status": "verified",
+        "tui_surface": "Action::Cultivate(Exercise)",
+        "decision": "固定 30 点气成本、状态门槛、内力增长与上限提升均按来源公式执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/exert.c",
+        "scope": "std",
+        "command": "exert",
+        "status": "adapted",
+        "tui_surface": "Action::UseTechnique",
+        "decision": "已将目录中可表达的内功功能列为动作；不接受原版任意字符串函数分派。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/expell.c",
+        "scope": "std",
+        "command": "expell",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "开革另一名玩家弟子并削减其技能，属于多人师徒关系。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/fight.c",
+        "scope": "std",
+        "command": "fight",
+        "status": "adapted",
+        "tui_surface": "Action::Fight",
+        "decision": "NPC 比试、来源接受/拒绝和强制死斗策略进入单战斗槽；玩家互相确认不导入。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/follow.c",
+        "scope": "std",
+        "command": "follow",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "跟随另一在线生物自动移动；单人玩家没有队友实体。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/get.c",
+        "scope": "std",
+        "command": "get",
+        "status": "adapted",
+        "tui_surface": "Action::PickUpItem",
+        "decision": "地面战利品可逐件拾取；来源容器、搜身和批量取物依赖嵌套容器/多人权限模型。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/give.c",
+        "scope": "std",
+        "command": "give",
+        "status": "adapted",
+        "tui_surface": "Action::GiveItem",
+        "decision": "NPC 的来源受礼/交换链可逐件给物；玩家间转移与数量拆分不进入单人存档。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/go.c",
+        "scope": "std",
+        "command": "go",
+        "status": "verified",
+        "tui_surface": "Action::Move / Action::Flee",
+        "decision": "可用出口、房间 valid_leave、门状态与战斗逃跑均由显式方向行动执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/kill.c",
+        "scope": "std",
+        "command": "kill",
+        "status": "verified",
+        "tui_surface": "Action::Kill",
+        "decision": "同房可战 NPC 的死斗、死亡和来源战利品均进入当前战斗层。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/learn.c",
+        "scope": "std",
+        "command": "learn",
+        "status": "adapted",
+        "tui_surface": "Action::LearnSkill / Action::LearnFromNpc",
+        "decision": "师父和 NPC 课程按来源上限、资源与潜能约束执行，省略在线玩家授课。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/look.c",
+        "scope": "std",
+        "command": "look",
+        "status": "verified",
+        "tui_surface": "地点面板 / Action::InspectRoomDetail",
+        "decision": "地点描述、户外天色、公开出口、在场 NPC/物品和来源细节常驻或可显式查看。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/meditate.c",
+        "scope": "std",
+        "command": "meditate",
+        "status": "verified",
+        "tui_surface": "Action::Cultivate(Meditate)",
+        "decision": "固定 30 点神成本、状态门槛、法力增长与上限提升均按来源公式执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/open.c",
+        "scope": "std",
+        "command": "open",
+        "status": "verified",
+        "tui_surface": "Action::OpenSourceDoor",
+        "decision": "来源门状态由共享双向门状态直接执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/perform.c",
+        "scope": "std",
+        "command": "perform",
+        "status": "adapted",
+        "tui_surface": "Action::UseTechnique",
+        "decision": "当前可表达的外功招式以选择动作呈现；不伪造任意字符串招式分派。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/practice.c",
+        "scope": "std",
+        "command": "practice",
+        "status": "adapted",
+        "tui_surface": "Action::PracticeSkill",
+        "decision": "已映射技能按来源需求、消耗和基础技能上限练习；TUI 直接列出技能而非输入用途名。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/put.c",
+        "scope": "std",
+        "command": "put",
+        "status": "adapted",
+        "tui_surface": "Action::PutItem / Action::TakeFromContainer",
+        "decision": "当前可见的来源容器支持嵌套、容量校验、整叠或单件分装及取回；容器内容进入本地存档。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/recruit.c",
+        "scope": "std",
+        "command": "recruit",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "玩家收另一名玩家为徒及双方等待确认，属于多人师徒关系。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/remove.c",
+        "scope": "std",
+        "command": "remove",
+        "status": "verified",
+        "tui_surface": "Action::UnequipItem",
+        "decision": "已装备防具按装备槽直接卸下。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/reply.c",
+        "scope": "std",
+        "command": "reply",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "回复上一名在线玩家或跨服 tell；单人本地没有私聊会话。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/respirate.c",
+        "scope": "std",
+        "command": "respirate",
+        "status": "verified",
+        "tui_surface": "Action::Cultivate(Respirate)",
+        "decision": "固定 30 点精成本、状态门槛、灵力增长与上限提升均按来源公式执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/say.c",
+        "scope": "std",
+        "command": "say",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "同房自由文本广播；NPC 剧情问答采用来源询问和对话行动，不模拟玩家聊天。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/scribe.c",
+        "scope": "std",
+        "command": "scribe",
+        "status": "adapted",
+        "tui_surface": "Action::ScribeHaunt",
+        "decision": "已致能茅山咒文时可消耗桃符纸、法力、气和神，在当前 NPC 名字上书写可持久化的僵尸追魂符。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/selflearn.c",
+        "scope": "std",
+        "command": "selflearn",
+        "status": "adapted",
+        "tui_surface": "Action::SelfLearn",
+        "decision": "基础武学四十层后按来源精力、潜能与实战经验门槛自学；TUI 直接列出可自学的基础用途。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/shout.c",
+        "scope": "std",
+        "command": "shout",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "来源已限制为巫师的全服广播；单人游戏没有频道。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/steal.c",
+        "scope": "std",
+        "command": "steal",
+        "status": "adapted",
+        "tui_surface": "Action::Steal + Activity::Stealing",
+        "decision": "按来源三拍延时和能力对抗检定转移当前 NPC 携带物；失败会隐蔽撤回或进入死斗并增加通缉，偷取状态持久化。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/study.c",
+        "scope": "std",
+        "command": "study",
+        "status": "adapted",
+        "tui_surface": "Action::StudyItem",
+        "decision": "带来源 study 元数据的书物按识字、经验、精神、难度和上限进行研读。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/suicide.c",
+        "scope": "std",
+        "command": "suicide",
+        "status": "adapted",
+        "tui_surface": "Action::Suicide + 二次/双重确认",
+        "decision": "投胎会把旧行囊留在可搜取遗体中并重置旅程；永久删档需要两次明确确认，随后只删除本机存档文件并退出。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/surrender.c",
+        "scope": "std",
+        "command": "surrender",
+        "status": "adapted",
+        "tui_surface": "Action::Surrender / Esc",
+        "decision": "比试可投降并按当前评价扣减；来源死斗中拒绝投降的语义保留。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/team.c",
+        "scope": "std",
+        "command": "team",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "在线队伍邀请、队聊和阵法编组；单人 TUI 不伪造队友。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/tell.c",
+        "scope": "std",
+        "command": "tell",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "在线玩家或跨服私聊；单人本地没有通信层。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/to.c",
+        "scope": "std",
+        "command": "to",
+        "status": "source_noop",
+        "tui_surface": "无",
+        "decision": "固定来源的编辑器调用已注释，main 直接成功返回。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/u_emote.c",
+        "scope": "std",
+        "command": "u_emote",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "向全服闲聊频道发送动作文本；单人游戏没有频道。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/unwield.c",
+        "scope": "std",
+        "command": "unwield",
+        "status": "verified",
+        "tui_surface": "Action::UnequipItem",
+        "decision": "已装备武器可按武器槽直接放下。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/wear.c",
+        "scope": "std",
+        "command": "wear",
+        "status": "adapted",
+        "tui_surface": "Action::EquipItem",
+        "decision": "防具按来源装备槽和限制穿戴；TUI 逐件选择，不提供原版 wear all 文本批量命令。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/whisper.c",
+        "scope": "std",
+        "command": "whisper",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "对同房在线角色私语；NPC 剧情不以自由私聊推进。"
+      },
+      {
+        "source_path": "mudlib/cmds/std/wield.c",
+        "scope": "std",
+        "command": "wield",
+        "status": "adapted",
+        "tui_surface": "Action::EquipItem",
+        "decision": "武器按来源装备槽和限制装备；TUI 逐件选择，不提供原版 wield all 文本批量命令。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/alias.c",
+        "scope": "usr",
+        "command": "alias",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "原版为文本命令解析器设置替代词；当前以按键和行动列表操作。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/describe.c",
+        "scope": "usr",
+        "command": "describe",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "供其他在线玩家 look 的个人长描述；单人游戏没有角色展示对象。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/finger.c",
+        "scope": "usr",
+        "command": "finger",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "查询在线玩家连接/权限资料；没有在线用户目录。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/help.c",
+        "scope": "usr",
+        "command": "help",
+        "status": "adapted",
+        "tui_surface": "? 帮助弹层",
+        "decision": "TUI 以固定按键帮助替代原版文件主题检索和分页器。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/hp.c",
+        "scope": "usr",
+        "command": "hp",
+        "status": "verified",
+        "tui_surface": "人物面板",
+        "decision": "精、气、神、灵力、内力、法力、饱食和饮水状态常驻显示；他人检查仍为巫师范围外。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/id.c",
+        "scope": "usr",
+        "command": "id",
+        "status": "adapted",
+        "tui_surface": "行动列表 / 行囊",
+        "decision": "TUI 以明确中文行动和物品标签取代需手输的英文别名；内部稳定 ID 保持在目录中。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/inventory.c",
+        "scope": "usr",
+        "command": "inventory",
+        "status": "verified",
+        "tui_surface": "行囊面板",
+        "decision": "当前行囊常驻显示来源物品、数量、负重、耐久和装备槽。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/nick.c",
+        "scope": "usr",
+        "command": "nick",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "在线展示给他人的彩色绰号；单人本地没有社交显示目标。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/passwd.c",
+        "scope": "usr",
+        "command": "passwd",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "MUD 登录密码管理；本地文件存档没有账户认证层。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/quest.c",
+        "scope": "usr",
+        "command": "quest",
+        "status": "verified",
+        "tui_surface": "当前见闻面板",
+        "decision": "当前任务标题、状态和目标常驻显示。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/quit.c",
+        "scope": "usr",
+        "command": "quit",
+        "status": "adapted",
+        "tui_surface": "q / Ctrl-C",
+        "decision": "退出时保存本地 JSON；不照搬原版丢弃非 autoload 物品的网络会话语义。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/save.c",
+        "scope": "usr",
+        "command": "save",
+        "status": "adapted",
+        "tui_surface": "s / 每 30 秒自动保存",
+        "decision": "显式和自动保存均写本地 JSON；没有原版 valid_startroom 的下次登录出生点概念。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/score.c",
+        "scope": "usr",
+        "command": "score",
+        "status": "adapted",
+        "tui_surface": "人物面板",
+        "decision": "核心资源、潜能、经验、杀气、通缉、金钱与门派状态持续可见；原版在线头衔展示不单独复刻。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/semote.c",
+        "scope": "usr",
+        "command": "semote",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "列出可对其他玩家广播的动作词；单人游戏没有聊天动作系统。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/set.c",
+        "scope": "usr",
+        "command": "set",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "MUD 文本客户端环境变量，含巫师专用可见性设置；不混入游戏存档。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/skills.c",
+        "scope": "usr",
+        "command": "skills",
+        "status": "adapted",
+        "tui_surface": "v / 武学总览",
+        "decision": "可滚动面板按来源稳定 ID 排序展示已学技能、□ 致能标记、来源等级评语、层级及当前熟练进度；单人版只查看自身，不提供原版师徒、伴侣或巫师的跨角色查询。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/time.c",
+        "scope": "usr",
+        "command": "time",
+        "status": "verified",
+        "tui_surface": "顶部时间栏",
+        "decision": "当前世界日、时分和来源八段时辰常驻显示。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/title.c",
+        "scope": "usr",
+        "command": "title",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "仅显示在线角色的阶级和头衔；没有多人身份展示需求。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/tune.c",
+        "scope": "usr",
+        "command": "tune",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "开关多人聊天频道；单人本地没有频道。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/unset.c",
+        "scope": "usr",
+        "command": "unset",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "删除 MUD 文本客户端环境变量；不混入游戏存档。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/uptime.c",
+        "scope": "usr",
+        "command": "uptime",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "查询服务器连续运行时间；本地进程生命周期不是游戏机制。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/version.c",
+        "scope": "usr",
+        "command": "version",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "显示 MudOS driver 版本；与游戏玩法无关。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/who.c",
+        "scope": "usr",
+        "command": "who",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "列出当前在线玩家及跨服查询；单人游戏没有在线用户。"
+      },
+      {
+        "source_path": "mudlib/cmds/usr/wimpy.c",
+        "scope": "usr",
+        "command": "wimpy",
+        "status": "adapted",
+        "tui_surface": "战斗设置 · 自动逃跑",
+        "decision": "可设定 0–80% 的气阈值；战斗中低于阈值会优先选择不含当前 NPC 对手的可用出口逃离。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/call.c",
+        "scope": "wiz",
+        "command": "call",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师直接调用对象函数；不暴露任意运行时代码执行。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/cat.c",
+        "scope": "wiz",
+        "command": "cat",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师读取服务器文件；不进入玩家界面。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/clone.c",
+        "scope": "wiz",
+        "command": "clone",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师任意克隆对象；不允许绕过内容生成规则。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/config.c",
+        "scope": "wiz",
+        "command": "config",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "驱动/服务器配置检查；不属于玩家功能。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/cost.c",
+        "scope": "wiz",
+        "command": "cost",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师对象成本诊断；不进入玩家界面。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/cp.c",
+        "scope": "wiz",
+        "command": "cp",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师复制服务器文件；不提供文件系统写入。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/dest.c",
+        "scope": "wiz",
+        "command": "dest",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师销毁任意对象；不绕过来源生命周期。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/edit.c",
+        "scope": "wiz",
+        "command": "edit",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师编辑服务器文件；不进入玩家功能。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/ff.c",
+        "scope": "wiz",
+        "command": "ff",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师文件检索；不进入玩家界面。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/halt.c",
+        "scope": "wiz",
+        "command": "halt",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "停止服务器；单进程退出由宿主程序处理。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/home.c",
+        "scope": "wiz",
+        "command": "home",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师回到个人工作目录/工作室；不属于玩家地图移动。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/ilist.c",
+        "scope": "wiz",
+        "command": "ilist",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师对象索引检查；不进入玩家界面。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/info.c",
+        "scope": "wiz",
+        "command": "info",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师对象/驱动信息；不属于玩家功能。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/localcmds.c",
+        "scope": "wiz",
+        "command": "localcmds",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "列出巫师本地命令路径；TUI 无命令路径系统。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/mkdir.c",
+        "scope": "wiz",
+        "command": "mkdir",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师创建服务器目录；不提供文件系统写入。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/mudlist.c",
+        "scope": "wiz",
+        "command": "mudlist",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师查询互联 MUD；单人游戏没有联网层。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/mv.c",
+        "scope": "wiz",
+        "command": "mv",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师移动服务器文件；不提供文件系统写入。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/qload.c",
+        "scope": "wiz",
+        "command": "qload",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师快速加载对象；不绕过来源生成规则。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/relive.c",
+        "scope": "wiz",
+        "command": "relive",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师复活在线对象；玩家复活留待 M8 生命周期系统。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/rm.c",
+        "scope": "wiz",
+        "command": "rm",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师删除服务器文件；不提供破坏性文件操作。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/rmdir.c",
+        "scope": "wiz",
+        "command": "rmdir",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师删除服务器目录；不提供破坏性文件操作。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/smash.c",
+        "scope": "wiz",
+        "command": "smash",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师破坏对象；不绕过来源战斗和物品规则。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/snoop.c",
+        "scope": "wiz",
+        "command": "snoop",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "监听另一在线会话；单人游戏不存在会话间通信。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/summon.c",
+        "scope": "wiz",
+        "command": "summon",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "召唤其他在线角色；不绕过世界地图。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/tail.c",
+        "scope": "wiz",
+        "command": "tail",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师读取服务器文件尾部；不进入玩家界面。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/test.c",
+        "scope": "wiz",
+        "command": "test",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师测试入口；不属于玩家运行时。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/ulist.c",
+        "scope": "wiz",
+        "command": "ulist",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师用户档案列表；单人本地没有用户目录。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/update.c",
+        "scope": "wiz",
+        "command": "update",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师热更新对象；内容在构建时嵌入，不允许运行时热改。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/whoami.c",
+        "scope": "wiz",
+        "command": "whoami",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师账户/权限诊断；本地单角色没有权限层。"
+      },
+      {
+        "source_path": "mudlib/cmds/wiz/wizlist.c",
+        "scope": "wiz",
+        "command": "wizlist",
+        "status": "excluded",
+        "tui_surface": "无",
+        "decision": "巫师名单查询；单人游戏没有巫师在线列表。"
+      }
+    ]
+  }
+}

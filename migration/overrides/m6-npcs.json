@@ -79,7 +79,7 @@
     {
       "feature": "behavior_flag_audit",
       "status": "audited",
-      "decision": "M6 四区 81 项 NPC 行为标记与固定源逐项对应：17 verified、23 adapted、23 deferred、13 excluded、4 alias、1 source_noop，无未处置项。"
+      "decision": "M6 四区 81 项 NPC 行为标记与固定源逐项对应：17 verified、25 adapted、21 deferred、13 excluded、4 alias、1 source_noop，无未处置项；M8 v28 已覆盖两类非关键儿童的环境移动。"
     }
   ],
   "behavior_flags": {
@@ -102,8 +102,8 @@
     },
     "by_status": {
       "verified": 17,
-      "adapted": 23,
-      "deferred": 23,
+      "adapted": 31,
+      "deferred": 15,
       "excluded": 13,
       "alias": 4,
       "source_noop": 1
@@ -112,9 +112,8 @@
       {
         "source_path": "mudlib/d/chuenyu/npc/chuenyu.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "target": "M8",
-        "decision": "非战斗环境对白依赖统一 NPC 调度；地牢进场攻击已作为来源关键行为进入当前运行层。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=50 在在线 tick 从固定庄主实例播出环境对白原文；离线不发，地牢进场攻击保持现有适配。"
       },
       {
         "source_path": "mudlib/d/chuenyu/npc/cleangirl.c",
@@ -239,9 +238,8 @@
       {
         "source_path": "mudlib/d/chuenyu/npc/wolfdog.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "target": "M8",
-        "decision": "非战斗犬吠归入环境调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=15 在在线 tick 从三个固定狼狗实例播出犬吠原文；离线不发。"
       },
       {
         "source_path": "mudlib/d/chuenyu/npc/xiaojuan.c",
@@ -264,23 +262,20 @@
       {
         "source_path": "mudlib/d/green/npc/kid2.c",
         "flags": ["ambient_chat", "random_movement"],
-        "status": "deferred",
-        "target": "M8",
-        "decision": "儿童环境对白与随机移动统一留给 NPC 调度。"
+        "status": "adapted",
+        "decision": "M8 v28 让两名来源儿童实例在在线 tick 中按随机移动条目沿同区域公开出口游走，位置进入存档。"
       },
       {
         "source_path": "mudlib/d/green/npc/kid3.c",
         "flags": ["ambient_chat", "random_movement"],
-        "status": "deferred",
-        "target": "M8",
-        "decision": "儿童环境对白与随机移动统一留给 NPC 调度。"
+        "status": "adapted",
+        "decision": "M8 v28 让两名来源儿童实例在在线 tick 中按随机移动条目沿同区域公开出口游走，位置进入存档。"
       },
       {
         "source_path": "mudlib/d/green/npc/kid4.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "target": "M8",
-        "decision": "儿童环境对白统一留给 NPC 调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=10 在在线 tick 从两个固定儿童实例播出三条环境对白原文；离线不发。"
       },
       {
         "source_path": "mudlib/d/green/npc/kid5.c",
@@ -352,9 +347,8 @@
       {
         "source_path": "mudlib/d/green/npc/woman2.c",
         "flags": ["ambient_chat"],
-        "status": "deferred",
-        "target": "M8",
-        "decision": "环境闲聊归入统一 NPC 调度。"
+        "status": "adapted",
+        "decision": "M8 v28 按来源 chat_chance=7 在在线 tick 从固定老妇实例播出四条环境闲聊原文；离线不发。"
       },
       {
         "source_path": "mudlib/d/sanyen/npc/bonze.c",
@@ -461,7 +455,7 @@
         "decision": "powerup 与 recover 由通用内力战斗换算执行。"
       }
     ],
-    "decision": "81 项标记与 npcs-m6.json 全部 behavior_flags 构成精确集合；M7/M8 只承接已绑定的尸体与环境调度，不阻塞 M6 当前剧情、战斗和掉落验收。"
+    "decision": "81 项标记与 npcs-m6.json 全部 behavior_flags 构成精确集合；M8 v28 已接入固定实例的静态文本环境消息及 kid2/kid3 的安全环境移动，其余已绑定的尸体与环境调度仍不阻塞 M6 当前剧情、战斗和掉落验收。"
   },
   "dependencies": [
     {

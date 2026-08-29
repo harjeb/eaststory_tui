@@ -2,12 +2,12 @@
   "schema_version": 4,
   "source_commit": "87bba6bd2249beec8424b0d6623486a0dd1f7b30",
   "area": "sanyen",
-  "status": "structured",
+  "status": "verified",
   "rooms": [
     {
       "id": "sanyen.back_temple",
       "source_path": "mudlib/d/sanyen/back_temple.c",
-      "status": "structured",
+      "status": "verified",
       "name": "后殿",
       "description": "一间宽大的后殿, 正中有一尊药师如来的金身塑像。四周的墙上\n唯妙唯肖地彩绘著十八罗汉, 每个罗汉的旁边并写著他得道升天的过\n程。",
       "exits": [
@@ -42,7 +42,7 @@
     {
       "id": "sanyen.corridor",
       "source_path": "mudlib/d/sanyen/corridor.c",
-      "status": "structured",
+      "status": "verified",
       "name": "走廊",
       "description": "你正走在一条长廊上, 两旁种植著一排月桂树。南边的布幔后是\n大殿, 北方则是后殿。东边是个不小的广场, 广场上正晒著一些不知\n名的药草。",
       "exits": [
@@ -77,7 +77,7 @@
     {
       "id": "sanyen.corridor1",
       "source_path": "mudlib/d/sanyen/corridor1.c",
-      "status": "structured",
+      "status": "verified",
       "name": "走廊",
       "description": "你正走在一条长廊上, 两旁分别是流云轩及后殿的外墙, 墙上画\n著大慈大悲观世音菩萨救苦救难的事迹。长廊往东西两边延伸, 西边\n的尽是一间相当大的房屋。",
       "exits": [
@@ -105,7 +105,8 @@
     {
       "id": "sanyen.door",
       "source_path": "mudlib/d/sanyen/door.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "山烟寺寺门",
       "description": "出现在眼前的是一座宏伟壮丽的寺门, 上方覆著镶金的瓦片, 瓦\n片的下方挂著一方翡翠匾额, 上面写著『山烟寺』三个烫金大字。正\n中的大门正紧紧关闭著, 只有在迎接大人物时才会开启。现在只开著\n两旁的偏门。",
       "exits": [
@@ -133,7 +134,8 @@
     {
       "id": "sanyen.drug_field",
       "source_path": "mudlib/d/sanyen/drug_field.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "药圃",
       "description": "一片广阔的药圃, 药香就是从这里散发出来的。这里似乎经过详\n细的规划, 一块一块的, 哪边种当归, 哪边种枸杞, 绝不会混在一起\n。只是看来看去都只是些寻常的药材, 看不到比较珍贵特殊的。",
       "exits": [
@@ -154,7 +156,8 @@
     {
       "id": "sanyen.front_yard",
       "source_path": "mudlib/d/sanyen/front_yard.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "山烟寺前广场",
       "description": "这里是山烟寺前的空地，平日僧人们就在这里练武强身，空地四周\n种了一排白杨树，靠北边的地方放了一堆用来锻链膂力的砖头，寺门就\n在你的北边, 东边则是山门。",
       "exits": [
@@ -189,7 +192,8 @@
     {
       "id": "sanyen.gate",
       "source_path": "mudlib/d/sanyen/gate.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "山烟寺山门",
       "description": "这里是往山烟寺的山门，山烟寺在你的西面不远，由于寺中的老方丈\n玄智和尚医术通神，不少受过恩惠的各地富豪将山烟寺修整得金碧辉煌，\n庄严雄伟，因此山烟寺规模虽然不及京城的白象禅院，但是名气却是\n大得多了。",
       "exits": [
@@ -231,7 +235,7 @@
     {
       "id": "sanyen.heal_room",
       "source_path": "mudlib/d/sanyen/heal_room.c",
-      "status": "structured",
+      "status": "verified",
       "name": "流云轩",
       "description": "你走进这里, 一阵刺鼻药味向你扑了过来。这是一间相当宽敞的\n的大房间, 是玄智方丈为人看病的地方, 也是存放药草的地方。与屋\n顶齐高的木柜, 画分成许多抽屉, 里面分别摆放著药材。两侧的墙璧\n上挂了许许多多的檀木扁额(plaque)。",
       "exits": [
@@ -267,7 +271,8 @@
     {
       "id": "sanyen.inner_yard",
       "source_path": "mudlib/d/sanyen/inner_yard.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "庭园",
       "description": "你正站在山烟寺的庭园里, 这庭园里不但花草茂盛, 而且小桥流\n水, 假山凉亭, 应有尽有, 气派非凡。北边有间雅房, 东边穿过拱门\n则是大殿。",
       "exits": [
@@ -302,7 +307,7 @@
     {
       "id": "sanyen.kitchen",
       "source_path": "mudlib/d/sanyen/kitchen.c",
-      "status": "structured",
+      "status": "verified",
       "name": "香积厨",
       "description": "一间整理相乾净的厨房, 西北边的角落里砌了两个大灶, 灶里正\n燃著熊熊大火, 灶上分别放著一个大锅(pot) 及一个蒸笼(steampot)\n。锅子及蒸笼正冒著阵阵的热气以及香气, 你忍不住想打开来看看。",
       "exits": [
@@ -344,7 +349,8 @@
     {
       "id": "sanyen.road1",
       "source_path": "mudlib/d/sanyen/road1.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "石板大道",
       "description": "一条铺著青石板的大道, 两旁种植一排芍药。北方就是大雄宝殿\n, 一座上覆金瓦的雄伟建筑, 屋檐的四个角落雕就著四只栩栩如的金\n龙, 屋檐下还各挂著一串金风铃, 清风吹来, 发出阵阵清脆的铃声。\n东边有条小一点的石板路, 阵阵的药香就从东边传来。",
       "exits": [
@@ -395,7 +401,8 @@
     {
       "id": "sanyen.road2",
       "source_path": "mudlib/d/sanyen/road2.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "石板小径",
       "description": "你正走在一条青石板铺造的小径上, 两旁种植著一排芍药。阵阵\n药香随风送了过来, 原来北边是片广大的药圃。",
       "exits": [
@@ -430,7 +437,8 @@
     {
       "id": "sanyen.sroad1",
       "source_path": "mudlib/d/sanyen/sroad1.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "山路",
       "description": "这是一条铺著生满青苔大石的山路，但是路面大概常有人行走，因\n此倒也并不湿滑，往南是一段石阶缓缓下山，往北则是通往山中的山路\n，东面的山壁上刻著「山烟寺」几个大字，看起来岁月已经颇久了。",
       "exits": [
@@ -458,7 +466,8 @@
     {
       "id": "sanyen.sroad2",
       "source_path": "mudlib/d/sanyen/sroad2.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "山路",
       "description": "这条山路到这里转了个弯，往东穿过一个山壁上凿出来的隧道，往\n南则顺著山势缓缓下山。",
       "exits": [
@@ -486,7 +495,7 @@
     {
       "id": "sanyen.temple",
       "source_path": "mudlib/d/sanyen/temple.c",
-      "status": "structured",
+      "status": "verified",
       "name": "大雄宝殿",
       "description": "一阵耀眼的金光向你袭来, 你定神一看原来是座一丈八尺的如来\n佛祖金身, 坐在一座三尺高的莲台上, 前方的香炉里香烟缓缓飘上天\n。这整座山烟寺都是由上好的桧木搭建而成, 南方则是两扇敞开的金\n门, 价值不菲, 气势不凡, 在佛像的右侧有道黄布幔, 布幔后似乎是\n条通道。西边则传来阵阵的流水声。",
       "exits": [
@@ -530,7 +539,8 @@
     {
       "id": "sanyen.tower",
       "source_path": "mudlib/d/sanyen/tower.c",
-      "status": "structured",
+      "outdoors": "sanyen",
+      "status": "verified",
       "name": "塔林",
       "description": "你正站在两座高塔前, 左边这一座名曰: 『明心塔』, 右方名叫\n『见性塔』。历来, 当山烟寺中的高僧涅盘后, 遗体火化后所得的舍\n利子就存放在这两座塔里。",
       "exits": [
@@ -558,7 +568,7 @@
     {
       "id": "sanyen.tunnel",
       "source_path": "mudlib/d/sanyen/tunnel.c",
-      "status": "structured",
+      "status": "verified",
       "name": "隧道",
       "description": "你走进了一个凿穿山壁开成的隧道，隧道也不甚长，约七、八丈左\n右，西边就是隧道的出口，隧道中你可以闻到一股硫磺的味道，想必左\n近便有温泉或是火山。",
       "exits": [
@@ -586,7 +596,7 @@
     {
       "id": "sanyen.tunnele",
       "source_path": "mudlib/d/sanyen/tunnele.c",
-      "status": "structured",
+      "status": "verified",
       "name": "隧道口",
       "description": "你走进了一个凿穿山壁开成的隧道，东边是隧道的出口，往西不远\n处也可以从这里瞧见西边的出口，一股硫磺的味道从隧道壁中传来，想\n必左近便有温泉或是火山。",
       "exits": [
