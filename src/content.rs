@@ -822,8 +822,8 @@ mod tests {
         assert_eq!(npc_ledger["behavior_flags"]["remaining"], 0);
         for (status, expected) in [
             ("verified", 17),
-            ("adapted", 23),
-            ("deferred", 23),
+            ("adapted", 31),
+            ("deferred", 15),
             ("excluded", 13),
             ("alias", 4),
             ("source_noop", 1),
@@ -1112,8 +1112,8 @@ mod tests {
         assert_eq!(npc_ledger["behavior_flags"]["disposed"], 183);
         assert_eq!(npc_ledger["behavior_flags"]["remaining"], 0);
         assert_eq!(npc_ledger["behavior_flags"]["by_status"]["verified"], 33);
-        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["adapted"], 50);
-        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["deferred"], 51);
+        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["adapted"], 51);
+        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["deferred"], 50);
         assert_eq!(npc_ledger["behavior_flags"]["by_status"]["excluded"], 38);
         assert_eq!(npc_ledger["behavior_flags"]["by_status"]["alias"], 10);
         assert_eq!(npc_ledger["behavior_flags"]["by_status"]["source_noop"], 1);
@@ -1628,8 +1628,8 @@ mod tests {
         assert_eq!(npc_ledger["behavior_flags"]["disposed"], 59);
         assert_eq!(npc_ledger["behavior_flags"]["remaining"], 0);
         assert_eq!(npc_ledger["behavior_flags"]["by_status"]["verified"], 14);
-        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["adapted"], 21);
-        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["deferred"], 23);
+        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["adapted"], 38);
+        assert_eq!(npc_ledger["behavior_flags"]["by_status"]["deferred"], 6);
         assert_eq!(npc_ledger["behavior_flags"]["by_status"]["excluded"], 1);
 
         let catalog_flags: std::collections::HashSet<_> = npc_catalog["npcs"]

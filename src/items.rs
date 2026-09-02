@@ -648,10 +648,21 @@ mod tests {
             .collect::<std::collections::BTreeSet<_>>();
         expected.insert(SLUMBER_DRUG_ID);
         assert_eq!(actual, expected);
+        for status in ["verified", "adapted", "deferred", "excluded"] {
+            assert_eq!(
+                ledger["entries"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .filter(|entry| entry["status"] == status)
+                    .count() as u64,
+                ledger["summary"][status].as_u64().unwrap()
+            );
+        }
         assert!(ledger["entries"].as_array().unwrap().iter().all(|entry| {
             matches!(
                 entry["status"].as_str(),
-                Some("verified" | "deferred" | "excluded")
+                Some("verified" | "adapted" | "deferred" | "excluded")
             )
         }));
     }

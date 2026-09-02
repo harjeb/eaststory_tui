@@ -79,7 +79,7 @@
     {
       "feature": "behavior_flag_audit",
       "status": "audited",
-      "decision": "M6 四区 81 项 NPC 行为标记与固定源逐项对应：17 verified、25 adapted、21 deferred、13 excluded、4 alias、1 source_noop，无未处置项；M8 v28 已覆盖两类非关键儿童的环境移动。"
+      "decision": "M6 四区 81 项 NPC 行为标记与固定源逐项对应：17 verified、31 adapted、15 deferred、13 excluded、4 alias、1 source_noop，无未处置项；M8 v28 已覆盖两类非关键儿童的环境移动。"
     }
   ],
   "behavior_flags": {
