@@ -286,7 +286,7 @@ pub enum SuicideKind {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-struct StealState {
+pub struct StealState {
     npc: NpcId,
     item_id: ItemId,
     slot: usize,
@@ -2165,7 +2165,7 @@ impl Game {
                 {
                     actions.push(Action::SellItem(item.instance_id));
                 }
-                for &npc in &present_npcs {
+                for npc in &present_npcs {
                     let accepts_gifts = npcs()
                         .definition(npc)
                         .is_some_and(|definition| definition.accepts_runtime_gifts());
@@ -2255,11 +2255,11 @@ impl Game {
         let Some(mapped) = self.player.mapped_skill(FORCE_ID) else {
             return 0;
         };
-        self.player
-            .skill_by_id(mapped.as_str())
-            .is_some()
-            .then(|| self.player.skill_level(FORCE_ID) / 2)
-            .unwrap_or(0)
+        if self.player.skill_by_id(mapped.as_str()).is_some() {
+            self.player.skill_level(FORCE_ID) / 2
+        } else {
+            0
+        }
     }
 
     pub fn mana_factor_limit(&self) -> u32 {
@@ -3426,15 +3426,14 @@ impl Game {
             Gender::Male => "男",
             Gender::Female => "女",
         };
-        let title = player.title.as_deref().unwrap_or_else(|| {
-            if player.combat_experience >= 100_000 {
-                "江湖前辈"
-            } else if player.combat_experience >= 20_000 {
-                "江湖侠客"
-            } else {
-                "初入江湖"
-            }
-        });
+        let default_title = if player.combat_experience >= 100_000 {
+            "江湖前辈"
+        } else if player.combat_experience >= 20_000 {
+            "江湖侠客"
+        } else {
+            "初入江湖"
+        };
+        let title = player.title.as_deref().unwrap_or(default_title);
         let standing = if player.wanted > 0 {
             format!("被通缉（{}级）", player.wanted)
         } else if player.bellicosity > 0 {
@@ -4748,7 +4747,8 @@ impl Game {
             return;
         };
         container.contents.push(transferred);
-        self.push_log(format!("你把{}放进{}。", name, container.display_name()));
+        let container_name = container.display_name().to_string();
+        self.push_log(format!("你把{name}放进{container_name}。"));
     }
 
     fn take_from_container(&mut self, instance_id: u64, container_id: u64, quantity: u32) {
@@ -5013,10 +5013,8 @@ impl Game {
                 slot: state.slot,
             });
             if self.player.skill_by_id("stealing").is_some() {
-                self.gain_skill_progress(
-                    SkillId::from("stealing"),
-                    self.random(self.player.intelligence.max(1)),
-                );
+                let progress = self.random(self.player.intelligence.max(1));
+                self.gain_skill_progress(SkillId::from("stealing"), progress);
             }
             self.push_log(format!("得手了！你成功偷到一件{name}。"));
             if self.random(sp) < dp / 2 {
