@@ -81,7 +81,40 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: ${{ runner.os == 'Windows' && 'false' || 'recursive' }}
+
+      - name: Materialize Windows ES2 quest sources
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $submoduleCommit = ((git ls-tree HEAD es2-utf8) -split '\s+')[2]
+          $questIds = @(
+            1000, 1500, 2000, 3000, 5000, 8000, 10000, 13000,
+            17000, 22000, 40000, 50000, 60000, 80000, 100000
+          )
+
+          git init --bare .es2-source
+          git -C .es2-source remote add origin https://github.com/mudchina/es2-utf8.git
+          git -C .es2-source -c protocol.version=2 fetch --depth=1 --filter=blob:none origin $submoduleCommit
+          New-Item -ItemType Directory -Force es2-utf8/mudlib/quest | Out-Null
+
+          foreach ($id in $questIds) {
+            $sourcePath = "mudlib/quest/qlist$id.c"
+            $destination = "es2-utf8/$sourcePath"
+            $object = "${submoduleCommit}:$sourcePath"
+            cmd.exe /d /c "git -C .es2-source show $object > $destination"
+            if ($LASTEXITCODE -ne 0) {
+              throw "Failed to materialize $sourcePath"
+            }
+
+            $expected = git -C .es2-source rev-parse $object
+            $actual = git hash-object $destination
+            if ($actual -ne $expected) {
+              throw "Blob verification failed for $sourcePath"
+            }
+          }
+
+          Remove-Item -Recurse -Force .es2-source
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -90,7 +123,12 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Run platform test suite
+        if: runner.os != 'Windows'
         run: cargo test --all-targets --locked
+
+      - name: Run Windows platform test suite
+        if: runner.os == 'Windows'
+        run: cargo test --lib --locked
 
       - name: Build release binary
         run: cargo build --release --locked
