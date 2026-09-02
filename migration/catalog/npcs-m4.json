@@ -4,7 +4,7 @@
   "scope": "m4-npcs",
   "status": "verified",
   "summary": {
-    "total": 73,
+    "total": 74,
     "placed": 59,
     "vendors": 9,
     "vendor_goods": 27,
@@ -12,10 +12,10 @@
     "inquiry_topics": 75,
     "static_inquiries": 57,
     "scripted_inquiries": 18,
-    "runtime_inquiry_npcs": 21,
-    "runtime_inquiries": 50,
-    "runtime_inquiry_references": 95,
-    "combat_profiles": 72,
+    "runtime_inquiry_npcs": 20,
+    "runtime_inquiries": 47,
+    "runtime_inquiry_references": 83,
+    "combat_profiles": 73,
     "combat_skill_entries": 316,
     "combat_mapping_entries": 94,
     "combat_apply_entries": 21,
@@ -27,12 +27,13 @@
     "wielded_item_entries": 32,
     "placed_combat_npcs": 59,
     "placed_combat_chat_npcs": 16,
-    "placed_carried_item_npcs": 42,
+    "placed_carried_item_npcs": 41,
     "by_area": {
       "canyon": 10,
       "city": 23,
       "snow": 26,
-      "temple": 14
+      "temple": 14,
+      "u": 1
     }
   },
   "npcs": [
@@ -1411,7 +1412,7 @@
       "combat_apply": {},
       "combat_chat": null,
       "carried_items": [],
-      "placement_count": 2,
+      "placement_count": 1,
       "vendor_goods": [
         {
           "item_id": "city.npc.obj.cake",
@@ -2837,7 +2838,7 @@
           "state": "carried"
         }
       ],
-      "placement_count": 11,
+      "placement_count": 5,
       "vendor_goods": [],
       "inquiries": [],
       "behavior_flags": [
@@ -3186,7 +3187,7 @@
           "state": "worn"
         }
       ],
-      "placement_count": 4,
+      "placement_count": 0,
       "vendor_goods": [],
       "inquiries": [
         {
@@ -4154,6 +4155,29 @@
         "inquiry",
         "random_movement"
       ]
+    },
+    {
+      "id": "u.cp.chater2",
+      "source_path": "mudlib/u/cp/chater2.c",
+      "status": "verified",
+      "area": "u",
+      "name": "普通百姓",
+      "description": null,
+      "combat_exp": 100,
+      "attributes": {},
+      "resources": {},
+      "skills": {},
+      "mappings": {},
+      "combat_apply": {},
+      "combat_chat": null,
+      "carried_items": [],
+      "placement_count": 1,
+      "vendor_goods": [],
+      "inquiries": [],
+      "behavior_flags": [
+        "ambient_chat",
+        "object_exchange"
+      ]
     }
   ],
   "warnings": [
@@ -4312,6 +4336,8 @@
     "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [combat_chat]",
     "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [fight_gate]",
     "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [inquiry]",
-    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [random_movement]"
+    "mudlib/d/temple/npc/trainer.c: NPC 行为待实现 [random_movement]",
+    "mudlib/u/cp/chater2.c: NPC 行为待实现 [ambient_chat]",
+    "mudlib/u/cp/chater2.c: NPC 行为待实现 [object_exchange]"
   ]
 }

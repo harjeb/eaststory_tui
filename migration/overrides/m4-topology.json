@@ -317,10 +317,10 @@
     }
   },
   "room_object_audit": {
-    "source_mappings": 84,
-    "source_instances": 120,
+    "source_mappings": 77,
+    "source_instances": 110,
     "runtime_npc_definitions": 61,
-    "runtime_npc_instances": 115,
+    "runtime_npc_instances": 105,
     "runtime_item_placements": 4,
     "runtime_item_instances": 5,
     "status_counts": {
@@ -331,9 +331,9 @@
       {
         "kind": "static_npcs",
         "status": "verified",
-        "source_mappings": 78,
-        "source_instances": 113,
-        "decision": "区域目录 schema v4 保留 objects 映射数量；59 个静态定义按数量展开为 113 个房间实例。同源同房间多人只显示一组交互入口，但比试、死斗、移除和战利品均逐个结算。"
+        "source_mappings": 71,
+        "source_instances": 103,
+        "decision": "区域目录 schema v4 保留去除注释后的 objects 映射数量；59 个静态定义按数量展开为 103 个房间实例。同源同房间多人只显示一组交互入口，但比试、死斗、移除和战利品均逐个结算。"
       },
       {
         "kind": "temple_reset_guards",

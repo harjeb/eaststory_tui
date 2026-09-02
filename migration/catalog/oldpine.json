@@ -488,17 +488,12 @@
         }
       ],
       "object_sources": [
-        "mudlib/d/oldpine/npc/maniac.c",
-        "mudlib/d/oldpine/npc/venomsnake.c"
+        "mudlib/d/oldpine/npc/maniac.c"
       ],
       "object_placements": [
         {
           "source_path": "mudlib/d/oldpine/npc/maniac.c",
           "quantity": 1
-        },
-        {
-          "source_path": "mudlib/d/oldpine/npc/venomsnake.c",
-          "quantity": 2
         }
       ],
       "behavior_flags": [
@@ -761,15 +756,8 @@
           "door_direction": null
         }
       ],
-      "object_sources": [
-        "mudlib/d/oldpine/npc/maniac.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/oldpine/npc/maniac.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": [
         "item_interaction"
       ]
@@ -1281,19 +1269,9 @@
       "doors": [],
       "details": [],
       "object_sources": [
-        "mudlib/d/oldpine/npc/bandit.c",
-        "mudlib/d/oldpine/npc/fat_bandit.c",
-        "mudlib/d/oldpine/npc/tall_bandit.c"
+        "mudlib/d/oldpine/npc/bandit.c"
       ],
       "object_placements": [
-        {
-          "source_path": "mudlib/d/oldpine/npc/tall_bandit.c",
-          "quantity": 1
-        },
-        {
-          "source_path": "mudlib/d/oldpine/npc/fat_bandit.c",
-          "quantity": 1
-        },
         {
           "source_path": "mudlib/d/oldpine/npc/bandit.c",
           "quantity": 3

@@ -144,6 +144,7 @@ pub enum ScriptedInquiryKind {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ObjectExchangeKind {
+    CommonerDonation,
     CanyonAdviser,
     CanyonCaptain,
     CanyonGeneral,
@@ -264,7 +265,8 @@ impl ObjectExchangeKind {
             Self::CityWaiter => Some(1_000),
             Self::CityShangshuGuard => Some(30_000),
             Self::SnowTempleDonation => Some(1_000),
-            Self::CanyonGeneral
+            Self::CommonerDonation
+            | Self::CanyonGeneral
             | Self::ChoyinSergeant
             | Self::ChoyinYoungMan
             | Self::CityChenLetter
@@ -432,6 +434,7 @@ impl NpcDefinition {
 
     pub fn object_exchange_kind(&self) -> Option<ObjectExchangeKind> {
         match self.id.as_str() {
+            "u.cp.chater2" => Some(ObjectExchangeKind::CommonerDonation),
             CANYON_ADVISER_ID => Some(ObjectExchangeKind::CanyonAdviser),
             CANYON_CAPTAIN_ID => Some(ObjectExchangeKind::CanyonCaptain),
             CANYON_GENERAL_ID => Some(ObjectExchangeKind::CanyonGeneral),
@@ -616,7 +619,7 @@ pub struct NpcRepository {
 impl NpcRepository {
     fn load() -> Self {
         let catalogs = [
-            (M4_CATALOG_JSON, "M4", 73usize),
+            (M4_CATALOG_JSON, "M4", 74usize),
             (M5_CATALOG_JSON, "M5", 49usize),
             (M6_CATALOG_JSON, "M6", 57usize),
             (M7_CATALOG_JSON, "M7", 85usize),
@@ -845,7 +848,7 @@ mod tests {
 
     #[test]
     fn fixed_m4_catalog_and_vendor_references_are_complete() {
-        assert_eq!(npcs().source_npc_count(), 264);
+        assert_eq!(npcs().source_npc_count(), 265);
         assert_eq!(npcs().source_commit(), SOURCE_COMMIT);
         let catalog: serde_json::Value = serde_json::from_str(M4_CATALOG_JSON).unwrap();
         assert_eq!(catalog["summary"]["placed"], 59);
@@ -855,10 +858,10 @@ mod tests {
         assert_eq!(catalog["summary"]["inquiry_topics"], 75);
         assert_eq!(catalog["summary"]["static_inquiries"], 57);
         assert_eq!(catalog["summary"]["scripted_inquiries"], 18);
-        assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 21);
-        assert_eq!(catalog["summary"]["runtime_inquiries"], 50);
-        assert_eq!(catalog["summary"]["runtime_inquiry_references"], 95);
-        assert_eq!(catalog["summary"]["combat_profiles"], 72);
+        assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 20);
+        assert_eq!(catalog["summary"]["runtime_inquiries"], 47);
+        assert_eq!(catalog["summary"]["runtime_inquiry_references"], 83);
+        assert_eq!(catalog["summary"]["combat_profiles"], 73);
         assert_eq!(catalog["summary"]["combat_skill_entries"], 316);
         assert_eq!(catalog["summary"]["combat_mapping_entries"], 94);
         assert_eq!(catalog["summary"]["combat_apply_entries"], 21);
@@ -870,12 +873,12 @@ mod tests {
         assert_eq!(catalog["summary"]["wielded_item_entries"], 32);
         assert_eq!(catalog["summary"]["placed_combat_npcs"], 59);
         assert_eq!(catalog["summary"]["placed_combat_chat_npcs"], 16);
-        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 42);
+        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 41);
     }
 
     #[test]
     fn m8_ambient_chat_catalog_is_source_matched_and_runtime_ready() {
-        assert_eq!(npcs().ambient_chats.len(), 70);
+        assert_eq!(npcs().ambient_chats.len(), 72);
         let cake_vendor = npcs()
             .ambient_chat(&NpcId::from(CHOYIN_CAKE_VENDOR_ID))
             .unwrap();
@@ -1427,6 +1430,7 @@ mod tests {
                 LATEMOON_FUNLIN_ID,
                 LATEMOON_OLD_ID,
                 LATEMOON_SHAOWEI_ID,
+                "u.cp.chater2",
                 "snow.npc.scavenger",
                 SNOW_DRUNK_ID,
                 SNOW_KEEPER_ID,

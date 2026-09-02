@@ -228,6 +228,7 @@ struct NpcRecord {
     mappings: BTreeMap<String, String>,
     combat_apply: BTreeMap<String, i32>,
     combat_chat: Option<NpcCombatChatRecord>,
+    #[serde(skip_serializing)]
     ambient_chat: Option<NpcAmbientChatRecord>,
     carried_items: Vec<NpcCarriedItemRecord>,
     placement_count: usize,
@@ -1323,14 +1324,15 @@ fn extract_npc_combat_chat(source: &str) -> Option<NpcCombatChatRecord> {
 }
 
 fn extract_npc_ambient_chat(source: &str) -> Option<NpcAmbientChatRecord> {
-    let value = find_set_value(source, "chat_msg")?;
+    let code = strip_lpc_comments(source);
+    let value = find_set_value(&code, "chat_msg")?;
     let start = value.find("({")? + 2;
     let end = value.get(start..)?.find("})")? + start;
     let entries = split_lpc_top_level(value.get(start..end)?, b',')
         .into_iter()
         .filter_map(parse_npc_ambient_chat_entry)
         .collect();
-    let chance_value = find_set_value(source, "chat_chance");
+    let chance_value = find_set_value(&code, "chat_chance");
     let chance = chance_value.and_then(parse_leading_integer);
     let chance_expression = chance_value.and_then(|value| {
         chance.is_none().then(|| {
@@ -2104,7 +2106,8 @@ fn extract_objects(source: &str, source_path: &str) -> Vec<String> {
 }
 
 fn extract_object_references(source: &str, source_path: &str) -> Vec<ObjectReference> {
-    let Some(block) = mapping_block(source, "objects") else {
+    let code = strip_lpc_comments(source);
+    let Some(block) = mapping_block(&code, "objects") else {
         return Vec::new();
     };
     block
@@ -2579,8 +2582,8 @@ string look_notice(object me)
                 15,
                 13,
                 21,
-                38,
-                51,
+                32,
+                45,
             ),
             (
                 "snow",
@@ -2588,8 +2591,8 @@ string look_notice(object me)
                 11,
                 9,
                 11,
-                25,
-                44,
+                24,
+                40,
             ),
             (
                 "temple",
@@ -2615,8 +2618,8 @@ string look_notice(object me)
                 0,
                 11,
                 14,
-                19,
-                37,
+                15,
+                32,
             ),
             (
                 "goathill",
@@ -2981,6 +2984,7 @@ set("chat_msg_combat", ({ "战斗消息。" }));
 set("chat_chance", 15);
 set("chat_msg", ({
     "闲聊消息。\n",
+    // (: ignored_callback :),
     (: random_move :),
 }) );
 "#,
@@ -3025,8 +3029,8 @@ carry_object("/obj/old_book");
             "87bba6bd2249beec8424b0d6623486a0dd1f7b30"
         );
         assert_eq!(catalog["scope"], "m8-npc-ambient-chat");
-        assert_eq!(npcs.len(), 70);
-        assert_eq!(entries, 167);
+        assert_eq!(npcs.len(), 72);
+        assert_eq!(entries, 173);
         let cake_vendor = npcs
             .iter()
             .find(|npc| npc["id"] == "choyin.npc.cake_vendor")
@@ -3056,7 +3060,7 @@ carry_object("/obj/old_book");
             catalog["source_commit"],
             "87bba6bd2249beec8424b0d6623486a0dd1f7b30"
         );
-        assert_eq!(npcs.len(), 73);
+        assert_eq!(npcs.len(), 74);
         assert_eq!(catalog["summary"]["placed"], 59);
         assert_eq!(catalog["summary"]["vendors"], 9);
         assert_eq!(catalog["summary"]["vendor_goods"], 27);
@@ -3064,10 +3068,10 @@ carry_object("/obj/old_book");
         assert_eq!(catalog["summary"]["inquiry_topics"], 75);
         assert_eq!(catalog["summary"]["static_inquiries"], 57);
         assert_eq!(catalog["summary"]["scripted_inquiries"], 18);
-        assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 21);
-        assert_eq!(catalog["summary"]["runtime_inquiries"], 50);
-        assert_eq!(catalog["summary"]["runtime_inquiry_references"], 95);
-        assert_eq!(catalog["summary"]["combat_profiles"], 72);
+        assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 20);
+        assert_eq!(catalog["summary"]["runtime_inquiries"], 47);
+        assert_eq!(catalog["summary"]["runtime_inquiry_references"], 83);
+        assert_eq!(catalog["summary"]["combat_profiles"], 73);
         assert_eq!(catalog["summary"]["combat_skill_entries"], 316);
         assert_eq!(catalog["summary"]["combat_mapping_entries"], 94);
         assert_eq!(catalog["summary"]["combat_apply_entries"], 21);
@@ -3079,9 +3083,9 @@ carry_object("/obj/old_book");
         assert_eq!(catalog["summary"]["wielded_item_entries"], 32);
         assert_eq!(catalog["summary"]["placed_combat_npcs"], 59);
         assert_eq!(catalog["summary"]["placed_combat_chat_npcs"], 16);
-        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 42);
-        assert_eq!(behavior_total, 156);
-        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 156);
+        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 41);
+        assert_eq!(behavior_total, 158);
+        assert_eq!(catalog["warnings"].as_array().unwrap().len(), 158);
     }
 
     #[test]
@@ -3313,8 +3317,14 @@ set("objects", ([
     #[test]
     fn parses_npc_vendor_goods_and_room_quantities() {
         let room = r#"
+/*
+set("objects", ([
+  "/obj/commented_block": 3,
+]));
+*/
 set("objects", ([
   __DIR__"npc/trainee": 6,
+  // "/obj/commented_line": 2,
   "/obj/weapon/shield": 1,
 ]));
 "#;

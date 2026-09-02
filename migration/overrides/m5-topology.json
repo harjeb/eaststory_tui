@@ -24,8 +24,8 @@
     },
     "source_doors": 4,
     "room_details": 25,
-    "object_mappings": 68,
-    "object_instances": 138,
+    "object_mappings": 64,
+    "object_instances": 133,
     "fixed_room_item_mappings": 6,
     "fixed_room_item_instances": 10
   },

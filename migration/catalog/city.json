@@ -371,15 +371,8 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [
-        "mudlib/d/snow/npc/scavenger.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/snow/npc/scavenger.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -495,15 +488,8 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [
-        "mudlib/d/city/npc/waiter.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/city/npc/waiter.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -648,8 +634,15 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [],
-      "object_placements": [],
+      "object_sources": [
+        "mudlib/u/cp/chater2.c"
+      ],
+      "object_placements": [
+        {
+          "source_path": "mudlib/u/cp/chater2.c",
+          "quantity": 1
+        }
+      ],
       "behavior_flags": []
     },
     {
@@ -1299,15 +1292,8 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [
-        "mudlib/d/snow/npc/scavenger.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/snow/npc/scavenger.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -1349,15 +1335,8 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [
-        "mudlib/d/snow/npc/scavenger.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/snow/npc/scavenger.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -1385,15 +1364,8 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [
-        "mudlib/d/snow/npc/scavenger.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/snow/npc/scavenger.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -1457,15 +1429,8 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [
-        "mudlib/d/snow/npc/scavenger.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/snow/npc/scavenger.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {
@@ -1493,15 +1458,8 @@
       ],
       "doors": [],
       "details": [],
-      "object_sources": [
-        "mudlib/d/snow/npc/scavenger.c"
-      ],
-      "object_placements": [
-        {
-          "source_path": "mudlib/d/snow/npc/scavenger.c",
-          "quantity": 1
-        }
-      ],
+      "object_sources": [],
+      "object_placements": [],
       "behavior_flags": []
     },
     {

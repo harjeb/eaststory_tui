@@ -27,7 +27,7 @@
         "F_UNIQUE"
       ],
       "name": "悟疾风劲竹书",
-      "description": null,
+      "description": "直竹贵地生，风吹动不止，起迄中空立，随风飘不定，斯乃劲风竹\n\n\t\t\t\t\t\t   柳淳风",
       "unit": "把",
       "material": "paper",
       "weight": 800,
@@ -404,7 +404,7 @@
         "ITEM"
       ],
       "name": "古 剑",
-      "description": null,
+      "description": "行云流水，如劲风之竹，气聚于锋，如晦如明，斯行于技，缓动而\n瞬攻，乃徐如林，急如风，不动如山，侵略如火。",
       "unit": "把",
       "material": "铜",
       "weight": 800,
@@ -435,7 +435,7 @@
         "ITEM"
       ],
       "name": "悟疾风劲竹书",
-      "description": null,
+      "description": "直竹贵地生，风吹动不止，起迄中空立，随风飘不定，斯乃劲风竹\n\n\t\t\t\t\t\t   柳淳风",
       "unit": "把",
       "material": "paper",
       "weight": 800,
@@ -1447,7 +1447,7 @@
         "ITEM"
       ],
       "name": "缚仙绳",
-      "description": null,
+      "description": "这是一条由上等金丝编成的绳索, 可缚(tie)禽兽鬼怪。上刻有无数咒文，发出耀目金光.",
       "unit": "条",
       "material": null,
       "weight": 600,
@@ -5041,7 +5041,7 @@
         "F_UNIQUE"
       ],
       "name": "玉佩",
-      "description": null,
+      "description": "上面刻著一些字:\n行气, 深则蓄, 蓄则伸, 伸则下, 下则定, 定则固, 固则萌, 萌则长, 长则退,\n退则天. 天几舂在上, 地几舂在下, 顺则生, 逆则死.",
       "unit": "个",
       "material": "jade",
       "weight": 500,
@@ -9658,7 +9658,7 @@
         "ITEM"
       ],
       "name": "过招要旨",
-      "description": null,
+      "description": "这是一本介绍过招时如何拆招卸力的书籍。\n对练武人来说是本不可多得的珍宝。",
       "unit": "把",
       "material": "paper",
       "weight": 800,
@@ -12636,7 +12636,7 @@
         "ITEM"
       ],
       "name": "信件",
-      "description": null,
+      "description": "师叔：\n    小徒在我这里学满，欲求教于您老，敬请收纳他为徒。\n                                侄：剑秋 敬上",
       "unit": "封",
       "material": "paper",
       "weight": 50,

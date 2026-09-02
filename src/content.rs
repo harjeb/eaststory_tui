@@ -1424,7 +1424,7 @@ mod tests {
                 .flat_map(|catalog| catalog["rooms"].as_array().unwrap())
                 .map(|room| room["object_placements"].as_array().unwrap().len())
                 .sum::<usize>(),
-            68
+            64
         );
         assert_eq!(
             catalogs
@@ -1433,7 +1433,7 @@ mod tests {
                 .flat_map(|room| room["object_placements"].as_array().unwrap())
                 .map(|placement| placement["quantity"].as_u64().unwrap())
                 .sum::<u64>(),
-            138
+            133
         );
 
         let ledger: serde_json::Value =
@@ -1579,17 +1579,17 @@ mod tests {
         assert_eq!(npc_ledger["status"], "complete");
         assert_eq!(npc_ledger["catalog"]["definitions"], 49);
         assert_eq!(npc_ledger["catalog"]["placed_definitions"], 46);
-        assert_eq!(npc_ledger["catalog"]["runtime_instances"], 128);
+        assert_eq!(npc_ledger["catalog"]["runtime_instances"], 123);
         assert_eq!(npc_ledger["catalog"]["dynamic_spawn_definitions"], 1);
-        assert_eq!(npc_ledger["catalog"]["dynamic_spawn_sites"], 2);
+        assert_eq!(npc_ledger["catalog"]["dynamic_spawn_sites"], 1);
         assert_eq!(
             npc_ledger["catalog"]["runtime_instances_with_dynamic_max"],
-            130
+            124
         );
-        assert_eq!(npc_ledger["catalog"]["runtime_drop_entries"], 136);
+        assert_eq!(npc_ledger["catalog"]["runtime_drop_entries"], 132);
         assert_eq!(
             npc_ledger["catalog"]["runtime_drop_entries_with_dynamic_max"],
-            140
+            134
         );
         assert_eq!(npc_ledger["behavior_flags"]["total"], 59);
         assert_eq!(
@@ -1744,7 +1744,7 @@ mod tests {
                 })
                 .map(|location| location.npcs.len())
                 .sum::<usize>(),
-            128
+            123
         );
         assert_eq!(
             world()
@@ -1896,10 +1896,10 @@ mod tests {
         );
 
         let object_audit = &ledger["room_object_audit"];
-        assert_eq!(object_audit["source_mappings"], 84);
-        assert_eq!(object_audit["source_instances"], 120);
+        assert_eq!(object_audit["source_mappings"], 77);
+        assert_eq!(object_audit["source_instances"], 110);
         assert_eq!(object_audit["runtime_npc_definitions"], 61);
-        assert_eq!(object_audit["runtime_npc_instances"], 115);
+        assert_eq!(object_audit["runtime_npc_instances"], 105);
         assert_eq!(object_audit["runtime_item_placements"], 4);
         assert_eq!(object_audit["runtime_item_instances"], 5);
         let object_dispositions = object_audit["dispositions"].as_array().unwrap();
@@ -1909,14 +1909,14 @@ mod tests {
                 .iter()
                 .map(|entry| entry["source_mappings"].as_u64().unwrap())
                 .sum::<u64>(),
-            84
+            77
         );
         assert_eq!(
             object_dispositions
                 .iter()
                 .map(|entry| entry["source_instances"].as_u64().unwrap())
                 .sum::<u64>(),
-            120
+            110
         );
 
         let registered_blockers: HashSet<_> = ledger["transitions"]
@@ -1980,10 +1980,10 @@ mod tests {
         assert_eq!(catalog["summary"]["inquiry_topics"], 75);
         assert_eq!(catalog["summary"]["static_inquiries"], 57);
         assert_eq!(catalog["summary"]["scripted_inquiries"], 18);
-        assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 21);
-        assert_eq!(catalog["summary"]["runtime_inquiries"], 50);
-        assert_eq!(catalog["summary"]["runtime_inquiry_references"], 95);
-        assert_eq!(catalog["summary"]["combat_profiles"], 72);
+        assert_eq!(catalog["summary"]["runtime_inquiry_npcs"], 20);
+        assert_eq!(catalog["summary"]["runtime_inquiries"], 47);
+        assert_eq!(catalog["summary"]["runtime_inquiry_references"], 83);
+        assert_eq!(catalog["summary"]["combat_profiles"], 73);
         assert_eq!(catalog["summary"]["combat_skill_entries"], 316);
         assert_eq!(catalog["summary"]["combat_mapping_entries"], 94);
         assert_eq!(catalog["summary"]["combat_apply_entries"], 21);
@@ -1995,7 +1995,7 @@ mod tests {
         assert_eq!(catalog["summary"]["wielded_item_entries"], 32);
         assert_eq!(catalog["summary"]["placed_combat_npcs"], 59);
         assert_eq!(catalog["summary"]["placed_combat_chat_npcs"], 16);
-        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 42);
+        assert_eq!(catalog["summary"]["placed_carried_item_npcs"], 41);
         let runtime_features: std::collections::BTreeMap<_, _> = ledger["runtime_features"]
             .as_array()
             .unwrap()
@@ -2021,16 +2021,16 @@ mod tests {
         assert_eq!(runtime_features["source_custom_commands"], "adapted");
         assert_eq!(runtime_features["city_exit_token"], "adapted");
         assert_eq!(ledger["catalog"]["runtime_scripted_inquiries"], 10);
-        assert_eq!(ledger["catalog"]["total_runtime_inquiry_npcs"], 26);
-        assert_eq!(ledger["catalog"]["total_runtime_inquiries"], 60);
-        assert_eq!(ledger["catalog"]["total_runtime_inquiry_references"], 105);
+        assert_eq!(ledger["catalog"]["total_runtime_inquiry_npcs"], 25);
+        assert_eq!(ledger["catalog"]["total_runtime_inquiries"], 57);
+        assert_eq!(ledger["catalog"]["total_runtime_inquiry_references"], 93);
         assert_eq!(ledger["catalog"]["fight_gate_npcs"], 9);
         assert_eq!(ledger["catalog"]["runtime_fight_gate_npcs"], 8);
         assert_eq!(ledger["catalog"]["apprenticeship_npcs"], 8);
         assert_eq!(ledger["catalog"]["placed_apprenticeship_npcs"], 6);
         assert_eq!(ledger["catalog"]["runtime_lesson_npcs"], 5);
         assert_eq!(ledger["catalog"]["runtime_lessons"], 37);
-        assert_eq!(ledger["catalog"]["combat_profiles"], 72);
+        assert_eq!(ledger["catalog"]["combat_profiles"], 73);
         assert_eq!(ledger["catalog"]["combat_skill_entries"], 316);
         assert_eq!(ledger["catalog"]["combat_mapping_entries"], 94);
         assert_eq!(ledger["catalog"]["combat_apply_entries"], 21);
@@ -2043,20 +2043,20 @@ mod tests {
         assert_eq!(ledger["catalog"]["wielded_items"], 32);
         assert_eq!(ledger["catalog"]["static_placed_definitions"], 59);
         assert_eq!(ledger["catalog"]["placed_definitions"], 61);
-        assert_eq!(ledger["catalog"]["static_room_mappings"], 78);
-        assert_eq!(ledger["catalog"]["static_room_instances"], 113);
-        assert_eq!(ledger["catalog"]["runtime_room_references"], 115);
-        assert_eq!(ledger["catalog"]["runtime_carried_item_npcs"], 44);
-        assert_eq!(ledger["catalog"]["runtime_carried_item_references"], 86);
-        assert_eq!(ledger["catalog"]["runtime_drop_entries"], 136);
+        assert_eq!(ledger["catalog"]["static_room_mappings"], 71);
+        assert_eq!(ledger["catalog"]["static_room_instances"], 103);
+        assert_eq!(ledger["catalog"]["runtime_room_references"], 105);
+        assert_eq!(ledger["catalog"]["runtime_carried_item_npcs"], 43);
+        assert_eq!(ledger["catalog"]["runtime_carried_item_references"], 76);
+        assert_eq!(ledger["catalog"]["runtime_drop_entries"], 126);
         assert_eq!(ledger["catalog"]["runtime_combat_npcs"], 61);
-        assert_eq!(ledger["catalog"]["runtime_combat_npc_instances"], 115);
+        assert_eq!(ledger["catalog"]["runtime_combat_npc_instances"], 105);
         assert_eq!(ledger["catalog"]["runtime_combat_chat_npcs"], 18);
         assert_eq!(ledger["catalog"]["runtime_combat_chat_instances"], 36);
         assert_eq!(ledger["catalog"]["custom_command_npcs"], 11);
         assert_eq!(ledger["catalog"]["placed_custom_command_npcs"], 10);
         assert_eq!(ledger["catalog"]["runtime_custom_command_npcs"], 10);
-        assert_eq!(ledger["catalog"]["runtime_object_exchange_npcs"], 10);
+        assert_eq!(ledger["catalog"]["runtime_object_exchange_npcs"], 11);
 
         let catalog_apprenticeship: HashSet<_> = catalog["npcs"]
             .as_array()
@@ -2202,7 +2202,7 @@ mod tests {
                 ("adapted", 2),
                 ("deferred", 4),
                 ("excluded", 5),
-                ("verified", 8),
+                ("verified", 9),
             ])
         );
 
@@ -2219,7 +2219,7 @@ mod tests {
             .flat_map(|location| &location.npcs)
             .filter(|npc| !npc.as_str().starts_with("adapted."))
             .count();
-        assert_eq!(source_placements, 115);
+        assert_eq!(source_placements, 105);
 
         let bridge_npcs: HashSet<_> = world()
             .location(&LocationId::from("city.bridge"))

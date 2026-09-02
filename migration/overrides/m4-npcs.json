@@ -4,32 +4,32 @@
   "milestone": "M4",
   "status": "complete",
   "catalog": {
-    "definitions": 73,
+    "definitions": 74,
     "static_placed_definitions": 59,
-    "static_room_mappings": 78,
-    "static_room_instances": 113,
+    "static_room_mappings": 71,
+    "static_room_instances": 103,
     "placed_definitions": 61,
-    "runtime_room_references": 115,
+    "runtime_room_references": 105,
     "vendors": 9,
     "vendor_goods": 27,
     "inquiry_npcs": 30,
     "inquiry_topics": 75,
     "static_inquiries": 57,
     "scripted_inquiries": 18,
-    "runtime_inquiry_npcs": 21,
-    "runtime_inquiries": 50,
-    "runtime_inquiry_references": 95,
+    "runtime_inquiry_npcs": 20,
+    "runtime_inquiries": 47,
+    "runtime_inquiry_references": 83,
     "runtime_scripted_inquiries": 10,
-    "total_runtime_inquiry_npcs": 26,
-    "total_runtime_inquiries": 60,
-    "total_runtime_inquiry_references": 105,
+    "total_runtime_inquiry_npcs": 25,
+    "total_runtime_inquiries": 57,
+    "total_runtime_inquiry_references": 93,
     "fight_gate_npcs": 9,
     "runtime_fight_gate_npcs": 8,
     "apprenticeship_npcs": 8,
     "placed_apprenticeship_npcs": 6,
     "runtime_lesson_npcs": 5,
     "runtime_lessons": 37,
-    "combat_profiles": 72,
+    "combat_profiles": 73,
     "combat_skill_entries": 316,
     "combat_mapping_entries": 94,
     "combat_apply_entries": 21,
@@ -40,17 +40,17 @@
     "carried_items": 5,
     "worn_items": 56,
     "wielded_items": 32,
-    "runtime_carried_item_npcs": 44,
-    "runtime_carried_item_references": 86,
-    "runtime_drop_entries": 136,
+    "runtime_carried_item_npcs": 43,
+    "runtime_carried_item_references": 76,
+    "runtime_drop_entries": 126,
     "runtime_combat_npcs": 61,
-    "runtime_combat_npc_instances": 115,
+    "runtime_combat_npc_instances": 105,
     "runtime_combat_chat_npcs": 18,
     "runtime_combat_chat_instances": 36,
     "custom_command_npcs": 11,
     "placed_custom_command_npcs": 10,
     "runtime_custom_command_npcs": 10,
-    "runtime_object_exchange_npcs": 10
+    "runtime_object_exchange_npcs": 11
   },
   "runtime_features": [
     {
@@ -61,7 +61,7 @@
     {
       "feature": "source_placements",
       "status": "adapted",
-      "decision": "区域目录 schema v4 保留四区 78 条静态 NPC 映射的数量，运行时展开为 113 个同房间实例；temple/road2.c 的 reset 再从两组三人池各随机一名守卫，单人存档确定化为清灵和清风。合计 61 个定义、115 个运行时实例；同源同房间个体逐个击杀、逐个掉落。"
+      "decision": "区域目录 schema v4 保留四区去除注释后的 71 条静态 NPC 映射，运行时展开为 103 个同房间实例；temple/road2.c 的 reset 再从两组三人池各随机一名守卫，单人存档确定化为清灵和清风。合计 61 个定义、105 个运行时实例；同源同房间个体逐个击杀、逐个掉落。"
     },
     {
       "feature": "source_vendors",
@@ -76,17 +76,17 @@
     {
       "feature": "placed_static_inquiries",
       "status": "verified",
-      "decision": "21 个已被源房间放置的 NPC 提供 50 个静态询问主题；重复放置后共形成 95 个运行时房间主题引用。其余 7 个静态主题属于固定源未放置 NPC，不虚构放置。"
+      "decision": "20 个已被源房间放置的 NPC 提供 47 个静态询问主题；重复放置后共形成 83 个运行时房间主题引用。其余 10 个静态主题属于固定源未放置 NPC，不虚构放置。"
     },
     {
       "feature": "scripted_inquiry_runtime",
       "status": "adapted",
-      "decision": "三项原版货单回调、黄石隘口故事、杨掌柜三项伤势判断、魏无极学费和刘安禄两项身份揭露已接入运行时；26 个已放置 NPC 共提供 60 个主题，重复放置后形成 105 个房间主题引用。"
+      "decision": "三项原版货单回调、黄石隘口故事、杨掌柜三项伤势判断、魏无极学费和刘安禄两项身份揭露已接入运行时；25 个已放置 NPC 共提供 57 个主题，重复放置后形成 93 个房间主题引用。"
     },
     {
       "feature": "object_exchange_audit",
       "status": "verified",
-      "decision": "19 个 accept_object 候选均有逐源处置；8 项 verified、2 项 adapted 已接入运行时，4 项跨区或世界状态交换 deferred，5 项未放置或空实现 excluded。"
+      "decision": "20 个 accept_object 候选均有逐源处置；9 项 verified、2 项 adapted 已接入运行时，4 项跨区或世界状态交换 deferred，5 项未放置或空实现 excluded。"
     },
     {
       "feature": "snow_temple_donation",
@@ -106,12 +106,12 @@
     {
       "feature": "source_npc_combat_profiles",
       "status": "adapted",
-      "decision": "schema v4 保留 72 个静态战斗档案的 combat_exp、八项先天属性、精气神/内力资源、316 项技能、94 项映射和 21 项初始 apply 修正；59 个静态放置定义与 2 个确定化随机守卫共 115 个运行时实例均提供比试与死斗。单人战斗数值由这些源字段确定性换算，死斗移除按地点、NpcId 与已败数量持久化，避免同源多房间或同房间多实例被整体删除；存档进入 schema v10。"
+      "decision": "schema v4 保留 73 个静态战斗档案的 combat_exp、八项先天属性、精气神/内力资源、316 项技能、94 项映射和 21 项初始 apply 修正；59 个静态放置定义与 2 个确定化随机守卫共 105 个运行时实例均提供比试与死斗。单人战斗数值由这些源字段确定性换算，死斗移除按地点、NpcId 与已败数量持久化，避免同源多房间或同房间多实例被整体删除；存档进入 schema v10。"
     },
     {
       "feature": "source_npc_carried_items",
       "status": "adapted",
-      "decision": "schema v4 从 create() 提取 55 个 NPC 的 93 件初始携带物，保留 5 件 carried、56 件 worn 与 32 件 wielded 状态，全部命中现有物品目录；排除注释代码和刘安禄身份揭露时动态取得的刀谱。加入两名确定化藏经楼守卫后，44 个已放置定义形成 86 个房间实例和 136 件可结算战利品；M8 死斗会同时生成通用地面尸体，单角色适配继续将携带物直接落地，避免化尸粉吞没战利品。"
+      "decision": "schema v4 从 create() 提取 55 个 NPC 的 93 件初始携带物，保留 5 件 carried、56 件 worn 与 32 件 wielded 状态，全部命中现有物品目录；排除注释代码和刘安禄身份揭露时动态取得的刀谱。加入两名确定化藏经楼守卫后，43 个已放置定义形成 76 个房间实例和 126 件可结算战利品；M8 死斗会同时生成通用地面尸体，单角色适配继续将携带物直接落地，避免化尸粉吞没战利品。"
     },
     {
       "feature": "source_npc_combat_chat",
@@ -355,6 +355,11 @@
       "status": "deferred",
       "target": "M8",
       "decision": "按价值计算雇佣天数并跟随玩家，等待统一 NPC 移动与离线计时。"
+    },
+    {
+      "source_path": "mudlib/u/cp/chater2.c",
+      "status": "verified",
+      "decision": "北驿道普通百姓的 accept_object 无条件收下任意未装备物品且不附加奖励；运行时保留收下并道谢的来源语义。"
     }
   ],
   "custom_command_dispositions": [
@@ -417,7 +422,7 @@
   "behavior_flags": [
     {
       "flag": "ambient_chat",
-      "candidates": 24,
+      "candidates": 25,
       "status": "deferred",
       "target": "M8",
       "decision": "依赖 NPC 日程与世界 tick 的环境对白批次。"
@@ -456,10 +461,10 @@
     },
     {
       "flag": "object_exchange",
-      "candidates": 19,
+      "candidates": 20,
       "status": "deferred",
       "target": "M4-events",
-      "decision": "19 个候选已逐项审计：8 个 verified、2 个 adapted、4 个跨区或调度依赖 deferred、5 个未放置或空实现 excluded；M4 范围内已无未实现交换。"
+      "decision": "20 个候选已逐项审计：9 个 verified、2 个 adapted、4 个跨区或调度依赖 deferred、5 个未放置或空实现 excluded；M4 范围内已无未实现交换。"
     },
     {
       "flag": "random_identity",

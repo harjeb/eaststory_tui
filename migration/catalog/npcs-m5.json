@@ -1987,7 +1987,7 @@
           "state": "worn"
         }
       ],
-      "placement_count": 2,
+      "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
       "behavior_flags": [
@@ -2052,7 +2052,7 @@
           "state": "worn"
         }
       ],
-      "placement_count": 2,
+      "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
       "behavior_flags": [
@@ -2161,7 +2161,7 @@
           "state": "wielded"
         }
       ],
-      "placement_count": 2,
+      "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
       "behavior_flags": []
@@ -2191,7 +2191,7 @@
       },
       "combat_chat": null,
       "carried_items": [],
-      "placement_count": 3,
+      "placement_count": 1,
       "vendor_goods": [],
       "inquiries": [],
       "behavior_flags": []

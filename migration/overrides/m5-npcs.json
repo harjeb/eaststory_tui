@@ -12,10 +12,10 @@
     "schema_version": 4,
     "definitions": 49,
     "placed_definitions": 46,
-    "runtime_instances": 128,
+    "runtime_instances": 123,
     "dynamic_spawn_definitions": 1,
-    "dynamic_spawn_sites": 2,
-    "runtime_instances_with_dynamic_max": 130,
+    "dynamic_spawn_sites": 1,
+    "runtime_instances_with_dynamic_max": 124,
     "vendors": 4,
     "vendor_goods": 5,
     "runtime_vendor_instances": 5,
@@ -34,21 +34,21 @@
     "combat_apply_entries": 85,
     "combat_chat_npcs": 10,
     "combat_chat_entries": 29,
-    "runtime_combat_chat_instances": 31,
-    "runtime_combat_chat_instances_with_dynamic_max": 33,
+    "runtime_combat_chat_instances": 29,
+    "runtime_combat_chat_instances_with_dynamic_max": 30,
     "carried_item_npcs": 29,
     "carried_item_entries": 53,
     "runtime_carried_item_npcs": 28,
-    "runtime_carried_item_instances": 79,
-    "runtime_carried_item_instances_with_dynamic_max": 81,
-    "runtime_drop_entries": 136,
-    "runtime_drop_entries_with_dynamic_max": 140
+    "runtime_carried_item_instances": 76,
+    "runtime_carried_item_instances_with_dynamic_max": 77,
+    "runtime_drop_entries": 132,
+    "runtime_drop_entries_with_dynamic_max": 134
   },
   "runtime_features": [
     {
       "feature": "source_npc_placements",
       "status": "adapted",
-      "decision": "区域目录 schema v4 的数量字段展开 46 个静态放置定义，共 128 个房间实例；另按 fat_bandit.call_for_help 在两个来源位置最多各生成一名持久化土匪老大，使来源可达实例上限为 130。同源同房 NPC 逐实例结算。"
+      "decision": "区域目录 schema v4 的去注释数量字段展开 46 个静态放置定义，共 123 个房间实例；另按 fat_bandit.call_for_help 在其来源位置最多生成一名持久化土匪老大，使来源可达实例上限为 124。同源同房 NPC 逐实例结算。"
     },
     {
       "feature": "source_static_vendors",
@@ -68,17 +68,17 @@
     {
       "feature": "source_combat_profiles",
       "status": "adapted",
-      "decision": "48 个源战斗档案保留 105 项技能、10 项映射和 85 项 apply 修正；46 个已放置定义的 128 个实例均提供比试与死斗，并使用 M4 建立的确定性换算。"
+      "decision": "48 个源战斗档案保留 105 项技能、10 项映射和 85 项 apply 修正；46 个已放置定义的 123 个实例均提供比试与死斗，并使用 M4 建立的确定性换算。"
     },
     {
       "feature": "source_combat_chat",
       "status": "adapted",
-      "decision": "10 个定义的 29 条战斗消息结构化；导入器在缺少 chat_chance_combat 时按源回退 chat_chance，使矮胖土匪、土匪老大和狼狗获得真实 10/10/15 概率。9 个静态定义形成 31 个实例，动态老大使可达上限为 33；call_for_help 回调接入持久化援军，其余类型沿用通用执行器。"
+      "decision": "10 个定义的 29 条战斗消息结构化；导入器在缺少 chat_chance_combat 时按源回退 chat_chance，使矮胖土匪、土匪老大和狼狗获得真实 10/10/15 概率。9 个静态定义形成 29 个实例，动态老大使可达上限为 30；call_for_help 回调接入持久化援军，其余类型沿用通用执行器。"
     },
     {
       "feature": "source_carried_items",
       "status": "adapted",
-      "decision": "29 个定义的 53 件初始携带物结构化；28 个静态放置定义形成 79 个实例和 136 件潜在掉落，两个动态土匪老大使可达上限增至 81 个携带物实例与 140 件掉落。M8 同时生成通用地面尸体，单角色适配仍直接落地，避免化尸粉吞没战利品。"
+      "decision": "29 个定义的 53 件初始携带物结构化；28 个静态放置定义形成 76 个实例和 132 件潜在掉落，一个动态土匪老大使可达上限增至 77 个携带物实例与 134 件掉落。M8 同时生成通用地面尸体，单角色适配仍直接落地，避免化尸粉吞没战利品。"
     },
     {
       "feature": "source_fight_gates",

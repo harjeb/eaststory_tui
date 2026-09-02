@@ -2805,7 +2805,8 @@ impl Game {
             ObjectExchangeKind::CityWaiter => !self.city_inn_access,
             ObjectExchangeKind::CityShangshuGuard => !self.city_manor_pass,
             ObjectExchangeKind::SnowTempleDonation => true,
-            ObjectExchangeKind::CanyonGeneral
+            ObjectExchangeKind::CommonerDonation
+            | ObjectExchangeKind::CanyonGeneral
             | ObjectExchangeKind::ChoyinSergeant
             | ObjectExchangeKind::ChoyinYoungMan
             | ObjectExchangeKind::CityGuardToken
@@ -3980,7 +3981,8 @@ impl Game {
                 self.apply_snow_temple_donation(amount);
                 self.push_log("庙祝收下香火钱：神明一定会保佑你的。".into());
             }
-            ObjectExchangeKind::CanyonGeneral
+            ObjectExchangeKind::CommonerDonation
+            | ObjectExchangeKind::CanyonGeneral
             | ObjectExchangeKind::ChoyinSergeant
             | ObjectExchangeKind::ChoyinYoungMan
             | ObjectExchangeKind::CityGuardToken
@@ -4192,6 +4194,10 @@ impl Game {
         let value = item.unit_value().max(0) as u64 * item.quantity as u64;
 
         match definition.object_exchange_kind() {
+            Some(ObjectExchangeKind::CommonerDonation) => {
+                self.player.inventory.remove(index);
+                self.push_log(format!("普通百姓收下{name}，向你道了声谢。"));
+            }
             Some(ObjectExchangeKind::TeacherTuition) if !self.snow_teacher_paid && value < 500 => {
                 self.push_log("魏无极说道：你的诚意不够，这东西还是拿回去吧。".into());
             }
@@ -11956,6 +11962,30 @@ mod tests {
         assert!(game.available_actions().iter().all(|action| {
             !matches!(action, Action::AskNpc { topic, .. } if topic == "刘安禄")
         }));
+    }
+
+    #[test]
+    fn city_commoner_accepts_source_gifts_without_reward() {
+        let mut game = Game::new();
+        game.location = LocationId::from("city.nroad2");
+        let commoner = NpcId::from("u.cp.chater2");
+        let rations = game
+            .player
+            .inventory
+            .iter()
+            .find(|item| item.item_id.as_str() == items::DRY_RATIONS_ID)
+            .unwrap()
+            .instance_id;
+        let gift = Action::GiveItem {
+            instance_id: rations,
+            npc: commoner,
+        };
+
+        assert!(game.available_actions().contains(&gift));
+        game.perform(gift);
+
+        assert!(game.player.item(rations).is_none());
+        assert!(game.logs.last().unwrap().contains("普通百姓收下"));
     }
 
     #[test]

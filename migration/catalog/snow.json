@@ -1102,14 +1102,9 @@
       "doors": [],
       "details": [],
       "object_sources": [
-        "mudlib/d/snow/npc/trav_blade.c",
-        "mudlib/d/snow/npc/worker.c"
+        "mudlib/d/snow/npc/trav_blade.c"
       ],
       "object_placements": [
-        {
-          "source_path": "mudlib/d/snow/npc/worker.c",
-          "quantity": 4
-        },
         {
           "source_path": "mudlib/d/snow/npc/trav_blade.c",
           "quantity": 3
