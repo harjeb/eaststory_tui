@@ -5,23 +5,19 @@ use std::{
     process,
 };
 
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result, bail};
 use dongfang_tui::{
-    content::{world, M9_HIDDEN_SOURCE_LOCATIONS},
+    content::{M9_HIDDEN_SOURCE_LOCATIONS, world},
     items::items,
     npcs::npcs,
     quests,
     save::CURRENT_SAVE_VERSION,
     skills::skills,
 };
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 
-const FORBIDDEN_MIGRATION_STATUSES: [&str; 4] = [
-    "discovered",
-    "structured",
-    "implemented",
-    "blocked",
-];
+const FORBIDDEN_MIGRATION_STATUSES: [&str; 4] =
+    ["discovered", "structured", "implemented", "blocked"];
 const EXCLUSION_STATUSES: [&str; 3] = ["excluded", "deferred", "source_noop"];
 
 fn main() {
@@ -81,10 +77,12 @@ fn run() -> Result<()> {
     let source_npc_definitions = ["npcs-m4", "npcs-m5", "npcs-m6", "npcs-m7"]
         .iter()
         .map(|name| -> Result<usize> {
-            Ok(read_json(&root.join(format!("migration/catalog/{name}.json")))?["npcs"]
-                .as_array()
-                .with_context(|| format!("{name} catalog has no NPC array"))?
-                .len())
+            Ok(
+                read_json(&root.join(format!("migration/catalog/{name}.json")))?["npcs"]
+                    .as_array()
+                    .with_context(|| format!("{name} catalog has no NPC array"))?
+                    .len(),
+            )
         })
         .collect::<Result<Vec<_>>>()?
         .into_iter()
@@ -98,8 +96,7 @@ fn run() -> Result<()> {
         .count();
     if hidden_source_location_count != hidden_source_locations.len()
         || world().locations().any(|location| {
-            hidden_source_locations.contains(location.id.as_str())
-                && location.source_path.is_none()
+            hidden_source_locations.contains(location.id.as_str()) && location.source_path.is_none()
         })
     {
         bail!("M9 hidden source-room registry does not match the runtime world");
@@ -146,7 +143,10 @@ fn run() -> Result<()> {
         ));
     }
     if !invalid_references.is_empty() {
-        bail!("invalid runtime references:\n{}", invalid_references.join("\n"));
+        bail!(
+            "invalid runtime references:\n{}",
+            invalid_references.join("\n")
+        );
     }
 
     let task_definitions = quests::all_task_definitions();
@@ -183,8 +183,7 @@ fn run() -> Result<()> {
     ]);
     verify_contract(&ledger, &actual_contract)?;
 
-    fs::create_dir_all(&output)
-        .with_context(|| format!("create {}", output.display()))?;
+    fs::create_dir_all(&output).with_context(|| format!("create {}", output.display()))?;
     let coverage = json!({
         "schema_version": 1,
         "milestone": "M9",
@@ -278,7 +277,10 @@ fn collect_json_files(directory: &Path, files: &mut Vec<PathBuf>) -> Result<()> 
         let path = entry.path();
         if path.is_dir() {
             collect_json_files(&path, files)?;
-        } else if path.extension().is_some_and(|extension| extension == "json") {
+        } else if path
+            .extension()
+            .is_some_and(|extension| extension == "json")
+        {
             files.push(path);
         }
     }
@@ -366,6 +368,5 @@ fn verify_contract(ledger: &Value, actual: &BTreeMap<&str, usize>) -> Result<()>
 
 fn write_json(path: &Path, value: &Value) -> Result<()> {
     let serialized = serde_json::to_string_pretty(value)?;
-    fs::write(path, format!("{serialized}\n"))
-        .with_context(|| format!("write {}", path.display()))
+    fs::write(path, format!("{serialized}\n")).with_context(|| format!("write {}", path.display()))
 }

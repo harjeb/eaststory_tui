@@ -13,8 +13,7 @@ use crate::{
         CHOYIN_POLICE_ID, CHOYIN_YOUNG_MAN_ID, CHUENYU_OLD_LIU_ID, CHUENYU_XIAO_JUAN_ID,
         CHUENYU_XIAO_JUAN_PLACED_ID, CITY_SHANGSHU_PATROL_ELITE_ID, CITY_SHANGSHU_PATROL_ID,
         CLOUD_B_HEADER_ID, CLOUD_GOD_ID, FARM_WOMAN_ID, FISHER_ID, FLOWER_GIRL_ID, GREEN_SHEN_ID,
-        MELONER_ID,
-        NpcApprenticeshipPolicy, NpcFightPolicy, NpcId, OLD_LIU_ID, ObjectExchangeKind,
+        MELONER_ID, NpcApprenticeshipPolicy, NpcFightPolicy, NpcId, OLD_LIU_ID, ObjectExchangeKind,
         SNOW_FIST_TRAINER_ID, SNOW_GIRL_ID, SNOW_GUARD_ID, SNOW_SCAVENGER_ID, ScriptedInquiryKind,
         TEA_SELLER_ID, TEMPLE_MASTER_ID, TEMPLE_OLD_TAOIST_ID, TEMPLE_PROTECTOR_ID,
         TEMPLE_TRAINER_ID, TRADER_ID, WATERFOG_ELITE_GUARD_ID, XIAO_JUAN_ID, npcs,
@@ -868,9 +867,7 @@ impl Action {
             Self::ConfigureCombat => {
                 "分别设置每次命中的内力、武器灵力强度，以及气低于指定百分比时的自动逃跑阈值。"
             }
-            Self::SelfLearn(_) => {
-                "基础武学达到四十层后可耗精自学；仍受潜能与实战经验门槛约束。"
-            }
+            Self::SelfLearn(_) => "基础武学达到四十层后可耗精自学；仍受潜能与实战经验门槛约束。",
             Self::Train(_) => "时间会自动推进，持续积累基础熟练度并消耗精力。",
             Self::PracticeSkill(_) => "按原版规则消耗气、神或内力练习已映射武学。",
             Self::StudyItem(_) => "研读秘笈需要读书识字，并受秘笈记载上限约束。",
@@ -894,9 +891,7 @@ impl Action {
             Self::AttachTalisman { .. } => {
                 "仅可贴给当前受控的来源僵尸；符纸会被消耗，并在限时内让其协助追击指定目标。"
             }
-            Self::Steal { .. } => {
-                "行窃需要等待三拍；失手可能被当场发现、进入死斗并增加通缉。"
-            }
+            Self::Steal { .. } => "行窃需要等待三拍；失手可能被当场发现、进入死斗并增加通缉。",
             Self::Suicide(SuicideKind::Reincarnate) => {
                 "留下可搜取的遗体并重置人物旅程；该操作需要二次确认。"
             }
@@ -2229,9 +2224,7 @@ impl Game {
             .get(&self.location)
             .into_iter()
             .flatten()
-            .filter(|item| {
-                item.item_id.as_str() == CORPSE_ITEM_ID && item.lifecycle_stage < 2
-            })
+            .filter(|item| item.item_id.as_str() == CORPSE_ITEM_ID && item.lifecycle_stage < 2)
             .map(|item| item.instance_id)
             .collect();
         let dust_instance_ids: Vec<_> = self
@@ -2287,7 +2280,10 @@ impl Game {
         } else if requested == 0 {
             self.push_log("你收敛内力，之后每击不再额外运劲。".into());
         } else {
-            self.push_log(format!("之后每次命中会运出{}点内力。", self.player.force_factor));
+            self.push_log(format!(
+                "之后每次命中会运出{}点内力。",
+                self.player.force_factor
+            ));
         }
     }
 
@@ -2352,7 +2348,11 @@ impl Game {
         }
         self.ground_items
             .get_mut(&self.location)
-            .and_then(|ground| ground.iter_mut().find_map(|item| item.find_nested_mut(instance_id)))
+            .and_then(|ground| {
+                ground
+                    .iter_mut()
+                    .find_map(|item| item.find_nested_mut(instance_id))
+            })
     }
 
     fn collect_containers_from(item: &ItemInstance, containers: &mut Vec<u64>) {
@@ -2384,7 +2384,8 @@ impl Game {
         }
         let mut actions = Vec::new();
         for item in &self.player.inventory {
-            if self.player.is_equipped(item.instance_id) || Self::item_is_transfer_restricted(item) {
+            if self.player.is_equipped(item.instance_id) || Self::item_is_transfer_restricted(item)
+            {
                 continue;
             }
             for &container_id in &containers {
@@ -2433,14 +2434,17 @@ impl Game {
 
     fn talisman_actions(&self, present_npcs: &[NpcId]) -> Vec<Action> {
         let mut actions = Vec::new();
-        let can_scribe = self.player.mapped_skill(SPELLS_ID).map(SkillId::as_str) == Some("necromancy")
+        let can_scribe = self.player.mapped_skill(SPELLS_ID).map(SkillId::as_str)
+            == Some("necromancy")
             && self.player.mana >= 20
             && self.player.spirit >= 40
             && self.player.qi >= 1;
         if can_scribe {
-            for paper in self.player.inventory.iter().filter(|item| {
-                item.item_id.as_str() == "obj.paper_seal" && item.talisman.is_none()
-            }) {
+            for paper in
+                self.player.inventory.iter().filter(|item| {
+                    item.item_id.as_str() == "obj.paper_seal" && item.talisman.is_none()
+                })
+            {
                 for target in present_npcs.iter().filter(|npc| !Self::is_zombie_npc(npc)) {
                     actions.push(Action::ScribeHaunt {
                         paper_instance_id: paper.instance_id,
@@ -2457,7 +2461,10 @@ impl Game {
         if !zombies.is_empty() {
             for talisman in self.player.inventory.iter().filter(|item| {
                 item.item_id.as_str() == "obj.magic_seal"
-                    && item.talisman.as_ref().is_some_and(|mark| mark.kind == TalismanKind::Haunt)
+                    && item
+                        .talisman
+                        .as_ref()
+                        .is_some_and(|mark| mark.kind == TalismanKind::Haunt)
             }) {
                 for zombie in &zombies {
                     actions.push(Action::AttachTalisman {
@@ -2529,12 +2536,7 @@ impl Game {
             .unwrap_or_else(|| "未知物品".into())
     }
 
-    fn static_npc_location(
-        &self,
-        origin: &LocationId,
-        npc: &NpcId,
-        ordinal: usize,
-    ) -> LocationId {
+    fn static_npc_location(&self, origin: &LocationId, npc: &NpcId, ordinal: usize) -> LocationId {
         self.npc_location_overrides
             .iter()
             .find(|entry| {
@@ -2567,11 +2569,7 @@ impl Game {
         slots.into_iter().map(|(_, _, npc)| npc).collect()
     }
 
-    fn static_npc_slots_at(
-        &self,
-        location: &LocationId,
-        npc: &NpcId,
-    ) -> Vec<(LocationId, usize)> {
+    fn static_npc_slots_at(&self, location: &LocationId, npc: &NpcId) -> Vec<(LocationId, usize)> {
         let mut slots = Vec::new();
         for source_location in world().locations() {
             for (ordinal, candidate) in source_location.npcs.iter().enumerate() {
@@ -2643,7 +2641,8 @@ impl Game {
                 .spawned_npc_instances
                 .iter()
                 .filter(|entry| {
-                    entry.location.as_str() == location.as_str() && entry.npc.as_str() == npc.as_str()
+                    entry.location.as_str() == location.as_str()
+                        && entry.npc.as_str() == npc.as_str()
                 })
                 .count();
         let defeated = self
@@ -2717,9 +2716,9 @@ impl Game {
     }
 
     fn dynamic_quest_has_expired(&self) -> bool {
-        self.dynamic_quest.as_ref().is_some_and(|quest| {
-            self.elapsed_minutes > quest.deadline_elapsed_minutes
-        })
+        self.dynamic_quest
+            .as_ref()
+            .is_some_and(|quest| self.elapsed_minutes > quest.deadline_elapsed_minutes)
     }
 
     fn request_dynamic_quest(&mut self) {
@@ -2752,10 +2751,8 @@ impl Game {
             ));
         }
 
-        let tier = quests::task_tier_for(
-            self.player.combat_experience,
-            self.dynamic_quest_finished,
-        );
+        let tier =
+            quests::task_tier_for(self.player.combat_experience, self.dynamic_quest_finished);
         let candidates = self.dynamic_quest_candidates(tier);
         if candidates.is_empty() {
             self.push_log("朱鸿雪沉吟道：眼下没有仍可追索的合适目标，过些时候再来。".into());
@@ -3097,7 +3094,9 @@ impl Game {
             Action::LearnFromNpc { skill, npc } => self.learn_from_npc(skill, npc),
             Action::MapSkill { usage, skill } => self.map_skill(usage, skill),
             Action::AbandonSkill(skill) => self.abandon_skill(skill),
-            Action::ConfigureCombat => self.push_log("请用战斗设置面板调整内力、灵力与自动逃跑。".into()),
+            Action::ConfigureCombat => {
+                self.push_log("请用战斗设置面板调整内力、灵力与自动逃跑。".into())
+            }
             Action::SelfLearn(skill) => self.self_learn(skill),
             Action::Train(skill) => self.toggle_training(skill),
             Action::PracticeSkill(skill) => self.practice_skill(skill),
@@ -3267,9 +3266,8 @@ impl Game {
         let Some(saved_at) = self.last_saved_at_unix_seconds else {
             return;
         };
-        let reference = file_modified_unix_seconds.map_or(saved_at, |modified_at| {
-            saved_at.max(modified_at)
-        });
+        let reference =
+            file_modified_unix_seconds.map_or(saved_at, |modified_at| saved_at.max(modified_at));
         self.last_saved_at_unix_seconds = Some(now_unix_seconds);
 
         if reference > now_unix_seconds {
@@ -3351,7 +3349,9 @@ impl Game {
             Activity::Idle => "整装待发".into(),
             Activity::Resting => "正在休息".into(),
             Activity::Training(skill) => format!("修炼{}中", skill.name()),
-            Activity::Stealing(state) => format!("伺机偷取{}的{}", state.npc.name(), state.item_id.as_str()),
+            Activity::Stealing(state) => {
+                format!("伺机偷取{}的{}", state.npc.name(), state.item_id.as_str())
+            }
             Activity::Fighting(combat) => match combat.mode {
                 CombatMode::Spar => format!("与{}比试", combat.enemy.name()),
                 CombatMode::Lethal => format!("与{}死斗", combat.enemy.name()),
@@ -3447,10 +3447,17 @@ impl Game {
             format!("名号：{}", title),
             format!("师门：{}", player.faction.as_deref().unwrap_or("无门无派")),
             format!("师承：{}", player.teacher.as_deref().unwrap_or("暂无")),
-            format!("实战经验：{}    江湖评价：{:+}", player.combat_experience, player.reputation),
+            format!(
+                "实战经验：{}    江湖评价：{:+}",
+                player.combat_experience, player.reputation
+            ),
             format!("江湖状态：{}", standing),
         ];
-        if let Some(description) = player.description.as_deref().filter(|value| !value.is_empty()) {
+        if let Some(description) = player
+            .description
+            .as_deref()
+            .filter(|value| !value.is_empty())
+        {
             lines.push(String::new());
             lines.push(format!("自述：{description}"));
         }
@@ -3484,7 +3491,9 @@ impl Game {
         let equipped = equipment
             .iter()
             .find(|equipped| equipped.instance_id == item.instance_id)
-            .map_or_else(String::new, |equipped| format!(" [{}]", equipped.slot.name()));
+            .map_or_else(String::new, |equipped| {
+                format!(" [{}]", equipped.slot.name())
+            });
         let durability = item.durability.map_or_else(String::new, |durability| {
             format!(
                 " 耐久 {durability}/{}",
@@ -3500,11 +3509,12 @@ impl Game {
                 format!(" 剩余{remaining}份")
             }
         });
-        let talisman = item.talisman.as_ref().map_or_else(String::new, |mark| {
-            match mark.kind {
+        let talisman = item
+            .talisman
+            .as_ref()
+            .map_or_else(String::new, |mark| match mark.kind {
                 TalismanKind::Haunt => format!(" · 追魂：{}", mark.target),
-            }
-        });
+            });
         let indent = "  ".repeat(depth);
         lines.push(format!(
             "{indent}• {}{}{}{}{}{}",
@@ -3575,10 +3585,10 @@ impl Game {
         }
         if item.item_id.as_str() == CORPSE_ITEM_ID {
             item.expires_at_elapsed_minutes = Some(
-                self.elapsed_minutes
-                    .saturating_add(Self::corpse_stage_ticks(item.lifecycle_stage).saturating_mul(
-                        GAME_MINUTES_PER_TICK,
-                    )),
+                self.elapsed_minutes.saturating_add(
+                    Self::corpse_stage_ticks(item.lifecycle_stage)
+                        .saturating_mul(GAME_MINUTES_PER_TICK),
+                ),
             );
             return;
         }
@@ -3607,24 +3617,32 @@ impl Game {
             item.expires_at_elapsed_minutes = Some(deadline);
         }
         for child in &mut item.contents {
-            Self::initialize_temporary_item_expirations_recursively(child, deadline, corpse_deadline);
+            Self::initialize_temporary_item_expirations_recursively(
+                child,
+                deadline,
+                corpse_deadline,
+            );
         }
     }
 
     fn initialize_m8_temporary_item_expirations(&mut self) {
-        let deadline = self.elapsed_minutes.saturating_add(
-            GOATHILL_DEAD_LEECH_DECAY_TICKS.saturating_mul(GAME_MINUTES_PER_TICK),
-        );
-        let corpse_deadline = self.elapsed_minutes.saturating_add(
-            CORPSE_FRESH_DECAY_TICKS.saturating_mul(GAME_MINUTES_PER_TICK),
-        );
+        let deadline = self
+            .elapsed_minutes
+            .saturating_add(GOATHILL_DEAD_LEECH_DECAY_TICKS.saturating_mul(GAME_MINUTES_PER_TICK));
+        let corpse_deadline = self
+            .elapsed_minutes
+            .saturating_add(CORPSE_FRESH_DECAY_TICKS.saturating_mul(GAME_MINUTES_PER_TICK));
         for item in self
             .player
             .inventory
             .iter_mut()
             .chain(self.ground_items.values_mut().flatten())
         {
-            Self::initialize_temporary_item_expirations_recursively(item, deadline, corpse_deadline);
+            Self::initialize_temporary_item_expirations_recursively(
+                item,
+                deadline,
+                corpse_deadline,
+            );
         }
     }
 
@@ -3722,7 +3740,10 @@ impl Game {
             self.player
                 .equipment
                 .retain(|equipped| surviving.contains(&equipped.instance_id));
-            self.push_log(format!("行囊中的{}已经腐坏。", expired_inventory.join("、")));
+            self.push_log(format!(
+                "行囊中的{}已经腐坏。",
+                expired_inventory.join("、")
+            ));
         }
         if !inventory_spill.is_empty() {
             let names = inventory_spill
@@ -3747,8 +3768,7 @@ impl Game {
             for mut item in std::mem::take(ground) {
                 let name = item.display_name().to_string();
                 let was_corpse = item.item_id.as_str() == CORPSE_ITEM_ID;
-                let (keep, messages, spilled) =
-                    Self::advance_temporary_item_tree(&mut item, now);
+                let (keep, messages, spilled) = Self::advance_temporary_item_tree(&mut item, now);
                 if location == &current_location {
                     ground_messages.extend(messages);
                 }
@@ -4770,7 +4790,8 @@ impl Game {
             self.push_log(format!("{}太重了，你目前无法拿起。", source.display_name()));
             return;
         }
-        let new_instance_id = (quantity < source.quantity).then(|| self.allocate_item_instance_id());
+        let new_instance_id =
+            (quantity < source.quantity).then(|| self.allocate_item_instance_id());
         let transferred = {
             let container = self
                 .current_container_item_mut(container_id)
@@ -4893,9 +4914,9 @@ impl Game {
         self.zombie_haunts.push(ZombieHaunt {
             zombie: zombie.clone(),
             target: NpcId::from(mark.target.as_str()),
-            expires_at_elapsed_minutes: self.elapsed_minutes.saturating_add(
-                ZOMBIE_HAUNT_DURATION_TICKS.saturating_mul(GAME_MINUTES_PER_TICK),
-            ),
+            expires_at_elapsed_minutes: self
+                .elapsed_minutes
+                .saturating_add(ZOMBIE_HAUNT_DURATION_TICKS.saturating_mul(GAME_MINUTES_PER_TICK)),
         });
         self.push_log(format!(
             "你把追魂符贴在{}额前，它喃喃道：杀……死……{}……",
@@ -4964,12 +4985,14 @@ impl Game {
             .definition(&state.item_id)
             .expect("NPC carried item must exist")
             .unit_weight();
-        let dp = u32::try_from(spirit.saturating_mul(2)).unwrap_or(u32::MAX)
+        let dp = u32::try_from(spirit.saturating_mul(2))
+            .unwrap_or(u32::MAX)
             .saturating_add(weight / 25)
             .max(1);
         let sp = u32::try_from(sp).unwrap_or(1).max(1);
         if self.random(sp.saturating_add(dp).max(1)) > dp {
-            let item = ItemInstance::new(self.allocate_item_instance_id(), state.item_id.clone(), 1);
+            let item =
+                ItemInstance::new(self.allocate_item_instance_id(), state.item_id.clone(), 1);
             if self
                 .player
                 .carried_weight()
@@ -7558,7 +7581,8 @@ impl Game {
                 .iter()
                 .filter_map(|exit| {
                     let target = self.resolved_source_exit_target(current, exit);
-                    self.exit_is_available(current, exit, &target).then_some(target)
+                    self.exit_is_available(current, exit, &target)
+                        .then_some(target)
                 })
                 .collect()
         };
@@ -7650,9 +7674,10 @@ impl Game {
             let mut mana_spent = 0;
             let mana_factor = self.player.mana_factor.min(self.mana_factor_limit());
             let mana_cost = i32::try_from(mana_factor).unwrap_or(i32::MAX);
-            let magic_is_mapped = self.player.mapped_skill(MAGIC_ID).is_some_and(|skill| {
-                self.player.skill_by_id(skill.as_str()).is_some()
-            });
+            let magic_is_mapped = self
+                .player
+                .mapped_skill(MAGIC_ID)
+                .is_some_and(|skill| self.player.skill_by_id(skill.as_str()).is_some());
             if has_weapon && mana_cost > 0 && magic_is_mapped && self.player.atman >= mana_cost {
                 let bonus = mana_cost
                     .saturating_add(
@@ -7708,7 +7733,11 @@ impl Game {
                 self.push_log(format!("你以{}点灵力灌注兵器，锋芒一盛。", mana_spent));
             }
             for (zombie, bonus) in zombie_assistance {
-                self.push_log(format!("{}受追魂符驱使，隔空协击造成{}点伤势。", zombie.name(), bonus));
+                self.push_log(format!(
+                    "{}受追魂符驱使，隔空协击造成{}点伤势。",
+                    zombie.name(),
+                    bonus
+                ));
             }
             if let Some(message) = hook_message {
                 self.push_log(format!("{message}。"));
@@ -7986,7 +8015,10 @@ impl Game {
         self.zombie_haunts = active;
         for haunt in expired {
             if self.npc_is_present(&haunt.zombie) || self.npc_is_present(&haunt.target) {
-                self.push_log(format!("{}额前的追魂符失去灵光，追击随之停歇。", haunt.zombie.name()));
+                self.push_log(format!(
+                    "{}额前的追魂符失去灵光，追击随之停歇。",
+                    haunt.zombie.name()
+                ));
             }
         }
     }
@@ -8001,16 +8033,18 @@ impl Game {
             if !Self::npc_can_roam_safely(&respawn.npc) {
                 continue;
             }
-            let Some(index) = self.defeated_npc_instances.iter().position(|entry| {
-                entry.location == respawn.location && entry.npc == respawn.npc
-            }) else {
+            let Some(index) = self
+                .defeated_npc_instances
+                .iter()
+                .position(|entry| entry.location == respawn.location && entry.npc == respawn.npc)
+            else {
                 continue;
             };
             self.defeated_npc_instances.remove(index);
-            self.stolen_npc_items.retain(|entry| entry.npc != respawn.npc);
-            self.npc_location_overrides.retain(|entry| {
-                entry.npc != respawn.npc || entry.location != respawn.location
-            });
+            self.stolen_npc_items
+                .retain(|entry| entry.npc != respawn.npc);
+            self.npc_location_overrides
+                .retain(|entry| entry.npc != respawn.npc || entry.location != respawn.location);
             if self.location == respawn.location {
                 self.push_log(format!("{}重新出现在附近。", respawn.npc.name()));
             }
@@ -10582,24 +10616,28 @@ mod tests {
         game.elapsed_minutes = deadline - GAME_MINUTES_PER_TICK;
         game.tick();
         assert!(!game.current_ground_has(GOATHILL_DEAD_LEECH_ID));
-        assert!(game
-            .logs
-            .iter()
-            .any(|log| log.contains("地上的死岩蛭已经腐坏")));
+        assert!(
+            game.logs
+                .iter()
+                .any(|log| log.contains("地上的死岩蛭已经腐坏"))
+        );
 
         let corpse = game.add_inventory_item(ItemId::from(GOATHILL_DEAD_LEECH_ID), 1);
-        let deadline = game.player.item(corpse).unwrap().expires_at_elapsed_minutes.unwrap();
+        let deadline = game
+            .player
+            .item(corpse)
+            .unwrap()
+            .expires_at_elapsed_minutes
+            .unwrap();
         let ticks = (deadline - game.elapsed_minutes) / GAME_MINUTES_PER_TICK;
         game.last_saved_at_unix_seconds = Some(1_000);
-        game.advance_offline_progress(
-            1_000 + ticks * OFFLINE_REAL_SECONDS_PER_TICK,
-            Some(1_000),
-        );
+        game.advance_offline_progress(1_000 + ticks * OFFLINE_REAL_SECONDS_PER_TICK, Some(1_000));
         assert!(game.player.item(corpse).is_none());
-        assert!(game
-            .logs
-            .iter()
-            .any(|log| log.contains("行囊中的死岩蛭已经腐坏")));
+        assert!(
+            game.logs
+                .iter()
+                .any(|log| log.contains("行囊中的死岩蛭已经腐坏"))
+        );
     }
 
     #[test]
@@ -10649,10 +10687,7 @@ mod tests {
 
         game.place_corpse_on_ground("守城官兵");
         game.last_saved_at_unix_seconds = Some(1_000);
-        game.advance_offline_progress(
-            1_000 + 300 * OFFLINE_REAL_SECONDS_PER_TICK,
-            Some(1_000),
-        );
+        game.advance_offline_progress(1_000 + 300 * OFFLINE_REAL_SECONDS_PER_TICK, Some(1_000));
         assert!(!game.current_ground_has(CORPSE_ITEM_ID));
         assert!(game.logs.iter().any(|log| log.contains("开始腐烂")));
         assert!(game.logs.iter().any(|log| log.contains("变成一具骸骨")));
@@ -10693,7 +10728,10 @@ mod tests {
         ];
         let mut outdoor = Game::new();
         outdoor.location = LocationId::from("choyin.bridge2");
-        assert_eq!(outdoor.current_location().outdoors.as_deref(), Some("choyin"));
+        assert_eq!(
+            outdoor.current_location().outdoors.as_deref(),
+            Some("choyin")
+        );
         for (minutes, name, description) in phases {
             outdoor.elapsed_minutes = minutes;
             assert_eq!(outdoor.time_period_text(), name);
@@ -10709,18 +10747,22 @@ mod tests {
         outdoor.elapsed_minutes = 230;
         outdoor.logs.clear();
         outdoor.tick();
-        assert!(outdoor
-            .logs
-            .iter()
-            .any(|log| log == "太阳从东方的地平线升起了。"));
+        assert!(
+            outdoor
+                .logs
+                .iter()
+                .any(|log| log == "太阳从东方的地平线升起了。")
+        );
 
         indoor.elapsed_minutes = 230;
         indoor.logs.clear();
         indoor.tick();
-        assert!(!indoor
-            .logs
-            .iter()
-            .any(|log| log == "太阳从东方的地平线升起了。"));
+        assert!(
+            !indoor
+                .logs
+                .iter()
+                .any(|log| log == "太阳从东方的地平线升起了。")
+        );
 
         let mut offline = Game::new();
         offline.location = LocationId::from("choyin.bridge2");
@@ -10730,10 +10772,12 @@ mod tests {
         offline.advance_offline_progress(1_000 + OFFLINE_REAL_SECONDS_PER_TICK, Some(1_000));
         assert_eq!(offline.elapsed_minutes, 240);
         assert_eq!(offline.time_period_text(), "日出");
-        assert!(!offline
-            .logs
-            .iter()
-            .any(|log| log == "太阳从东方的地平线升起了。"));
+        assert!(
+            !offline
+                .logs
+                .iter()
+                .any(|log| log == "太阳从东方的地平线升起了。")
+        );
     }
 
     #[test]
@@ -10752,24 +10796,29 @@ mod tests {
         game.perform(request.clone());
         let active = game.dynamic_quest.clone().expect("quest must be issued");
         assert_eq!(active.tier, 5_000);
-        assert!(game
-            .available_dynamic_quest_targets()
-            .contains(active.target.as_str()));
+        assert!(
+            game.available_dynamic_quest_targets()
+                .contains(active.target.as_str())
+        );
         assert!(game.quest_title().contains("朱鸿雪悬赏"));
         assert!(game.quest_objective().contains(&active.target));
-        assert!(game.dynamic_quest_remaining_seconds().is_some_and(|seconds| seconds > 0));
+        assert!(
+            game.dynamic_quest_remaining_seconds()
+                .is_some_and(|seconds| seconds > 0)
+        );
 
         let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
         assert_eq!(restored.dynamic_quest(), Some(&active));
 
         let mut offline = restored;
         let deadline = offline.elapsed_minutes + GAME_MINUTES_PER_TICK;
-        offline.dynamic_quest.as_mut().unwrap().deadline_elapsed_minutes = deadline;
+        offline
+            .dynamic_quest
+            .as_mut()
+            .unwrap()
+            .deadline_elapsed_minutes = deadline;
         offline.last_saved_at_unix_seconds = Some(1_000);
-        offline.advance_offline_progress(
-            1_000 + 2 * OFFLINE_REAL_SECONDS_PER_TICK,
-            Some(1_000),
-        );
+        offline.advance_offline_progress(1_000 + 2 * OFFLINE_REAL_SECONDS_PER_TICK, Some(1_000));
         assert!(offline.dynamic_quest_has_expired());
         assert_eq!(offline.dynamic_quest_remaining_seconds(), Some(0));
         assert!(offline.quest_title().contains("已逾期"));
@@ -10777,7 +10826,10 @@ mod tests {
         offline.dynamic_quest_finished = 7;
         let qi_before = offline.player.qi;
         offline.perform(request);
-        assert_eq!(offline.player.qi, (qi_before / 2 + 1).min(offline.player.max_qi));
+        assert_eq!(
+            offline.player.qi,
+            (qi_before / 2 + 1).min(offline.player.max_qi)
+        );
         assert_eq!(offline.dynamic_quest_finished, 0);
         assert!(offline.dynamic_quest.is_some());
         assert!(!offline.dynamic_quest_has_expired());
@@ -10837,7 +10889,8 @@ mod tests {
         baseline.win_combat(combat.clone());
         rewarded.win_combat(combat);
 
-        let experience_bonus = rewarded.player.combat_experience - baseline.player.combat_experience;
+        let experience_bonus =
+            rewarded.player.combat_experience - baseline.player.combat_experience;
         assert!(experience_bonus >= (definition.exp_bonus / 2) as u64);
         assert!(experience_bonus < definition.exp_bonus as u64);
         let reputation_penalty = baseline.player.reputation - rewarded.player.reputation;
@@ -10849,10 +10902,12 @@ mod tests {
         );
         assert!(rewarded.dynamic_quest.is_none());
         assert_eq!(rewarded.dynamic_quest_finished, 1);
-        assert!(rewarded
-            .logs
-            .iter()
-            .any(|log| log.contains("朱鸿雪的悬赏完成")));
+        assert!(
+            rewarded
+                .logs
+                .iter()
+                .any(|log| log.contains("朱鸿雪的悬赏完成"))
+        );
     }
 
     #[test]
@@ -10865,22 +10920,24 @@ mod tests {
         game.activity = Activity::Training(skill.clone());
 
         assert!(game.available_actions().contains(&action));
-        assert!(game
-            .player
-            .skill_mappings
-            .iter()
-            .any(|mapping| mapping.skill.as_str() == skill.as_str()));
+        assert!(
+            game.player
+                .skill_mappings
+                .iter()
+                .any(|mapping| mapping.skill.as_str() == skill.as_str())
+        );
         game.perform(action);
 
         assert!(game.player.skill_by_id(LIUH_KEN_ID).is_none());
         assert_eq!(game.player.learned_points, 37);
         assert_eq!(game.player.potential, 120);
         assert_eq!(game.activity, Activity::Idle);
-        assert!(game
-            .player
-            .skill_mappings
-            .iter()
-            .any(|mapping| mapping.skill.as_str() == LIUH_KEN_ID));
+        assert!(
+            game.player
+                .skill_mappings
+                .iter()
+                .any(|mapping| mapping.skill.as_str() == LIUH_KEN_ID)
+        );
         assert_eq!(
             game.player.effective_skill(UNARMED_ID),
             game.player.skill_level(UNARMED_ID) / 2
@@ -10889,11 +10946,13 @@ mod tests {
 
         let restored: Game = serde_json::from_str(&serde_json::to_string(&game).unwrap()).unwrap();
         assert!(restored.player.skill_by_id(LIUH_KEN_ID).is_none());
-        assert!(restored
-            .player
-            .skill_mappings
-            .iter()
-            .any(|mapping| mapping.skill.as_str() == LIUH_KEN_ID));
+        assert!(
+            restored
+                .player
+                .skill_mappings
+                .iter()
+                .any(|mapping| mapping.skill.as_str() == LIUH_KEN_ID)
+        );
     }
 
     #[test]
@@ -10906,26 +10965,31 @@ mod tests {
         assert_eq!(bribe.choyin_justice, ChoyinJusticeState::Pursuit);
         bribe.tick();
         assert_eq!(bribe.choyin_justice, ChoyinJusticeState::Caught);
-        assert!(bribe
-            .available_actions()
-            .iter()
-            .all(|action| !matches!(action, Action::Move { .. })));
+        assert!(
+            bribe
+                .available_actions()
+                .iter()
+                .all(|action| !matches!(action, Action::Move { .. }))
+        );
         let ransom = Action::OfferMoney {
             amount: CHOYIN_BRIBE_AMOUNT,
             npc: NpcId::from(CHOYIN_POLICE_ID),
         };
         assert_eq!(bribe.available_actions(), vec![ransom.clone()]);
 
-        let mut restored: Game = serde_json::from_str(&serde_json::to_string(&bribe).unwrap()).unwrap();
+        let mut restored: Game =
+            serde_json::from_str(&serde_json::to_string(&bribe).unwrap()).unwrap();
         assert_eq!(restored.choyin_justice, ChoyinJusticeState::Caught);
         restored.perform(ransom);
         assert_eq!(restored.player.money_value(), 0);
         assert_eq!(restored.player.wanted, 0);
         assert_eq!(restored.choyin_justice, ChoyinJusticeState::Free);
-        assert!(restored
-            .available_actions()
-            .iter()
-            .any(|action| matches!(action, Action::Move { .. })));
+        assert!(
+            restored
+                .available_actions()
+                .iter()
+                .any(|action| matches!(action, Action::Move { .. }))
+        );
 
         let mut trial = Game::new();
         trial.location = LocationId::from("choyin.bridge2");
@@ -10940,24 +11004,25 @@ mod tests {
         assert!(trial.player.essence < health_before.0);
         assert!(trial.player.qi < health_before.1);
         assert!(trial.player.spirit < health_before.2);
-        assert!(trial
-            .logs
-            .iter()
-            .any(|log| log.contains("打20大板")));
-        assert!(trial
-            .logs
-            .iter()
-            .any(|log| log.contains("差役将你丢在县衙门外")));
+        assert!(trial.logs.iter().any(|log| log.contains("打20大板")));
+        assert!(
+            trial
+                .logs
+                .iter()
+                .any(|log| log.contains("差役将你丢在县衙门外"))
+        );
 
         let mut offline = Game::new();
         offline.player.wanted = 1;
         offline.last_saved_at_unix_seconds = Some(1_000);
         offline.advance_offline_progress(1_000 + OFFLINE_REAL_SECONDS_PER_TICK, Some(1_000));
         assert_eq!(offline.choyin_justice, ChoyinJusticeState::Free);
-        assert!(!offline
-            .logs
-            .iter()
-            .any(|log| log.contains("巡捕正在赶来缉拿")));
+        assert!(
+            !offline
+                .logs
+                .iter()
+                .any(|log| log.contains("巡捕正在赶来缉拿"))
+        );
     }
 
     #[test]
@@ -10966,10 +11031,7 @@ mod tests {
         speaker.location = LocationId::from("choyin.n_street1");
         speaker.rng_state = 17;
         speaker.run_npc_ambient_chat();
-        assert!(speaker
-            .logs
-            .iter()
-            .any(|log| log.contains("卖饼大叔")));
+        assert!(speaker.logs.iter().any(|log| log.contains("卖饼大叔")));
 
         let mut mover = Game::new();
         mover.location = LocationId::from("choyin.bridge2");
@@ -10988,7 +11050,10 @@ mod tests {
         let moved = mover.npc_location_overrides.first().unwrap().clone();
         assert_eq!(moved.origin.as_str(), "choyin.bridge2");
         assert_eq!(moved.npc, scholar);
-        assert!(matches!(moved.location.as_str(), "choyin.bridge1" | "choyin.bridge3"));
+        assert!(matches!(
+            moved.location.as_str(),
+            "choyin.bridge1" | "choyin.bridge3"
+        ));
         assert_eq!(
             mover
                 .static_npcs_at(&mover.location)
@@ -10999,25 +11064,31 @@ mod tests {
         );
         mover.location = moved.location.clone();
         assert!(mover.npc_is_present(&scholar));
-        assert!(mover.available_actions().contains(&Action::Talk(scholar.clone())));
+        assert!(
+            mover
+                .available_actions()
+                .contains(&Action::Talk(scholar.clone()))
+        );
 
         let restored: Game = serde_json::from_str(&serde_json::to_string(&mover).unwrap()).unwrap();
-        assert_eq!(restored.npc_location_overrides, mover.npc_location_overrides);
+        assert_eq!(
+            restored.npc_location_overrides,
+            mover.npc_location_overrides
+        );
 
         let mut protected = Game::new();
         protected.location = LocationId::from("snow.school1");
-        assert!(protected
-            .run_npc_random_movement(&NpcId::from(SNOW_GUARD_ID))
-            .is_none());
+        assert!(
+            protected
+                .run_npc_random_movement(&NpcId::from(SNOW_GUARD_ID))
+                .is_none()
+        );
         assert!(protected.npc_location_overrides.is_empty());
 
         let mut offline = Game::new();
         offline.location = LocationId::from("choyin.bridge2");
         offline.last_saved_at_unix_seconds = Some(1_000);
-        offline.advance_offline_progress(
-            1_000 + 128 * OFFLINE_REAL_SECONDS_PER_TICK,
-            Some(1_000),
-        );
+        offline.advance_offline_progress(1_000 + 128 * OFFLINE_REAL_SECONDS_PER_TICK, Some(1_000));
         assert!(offline.npc_location_overrides.is_empty());
     }
 

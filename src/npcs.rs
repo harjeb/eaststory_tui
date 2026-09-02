@@ -686,11 +686,15 @@ impl NpcRepository {
         );
         let mut ambient_chats = HashMap::new();
         for entry in ambient_catalog.npcs {
-            let definition = definitions
-                .get(&entry.id)
-                .unwrap_or_else(|| panic!("ambient catalog references unknown NPC {}", entry.id.as_str()));
+            let definition = definitions.get(&entry.id).unwrap_or_else(|| {
+                panic!(
+                    "ambient catalog references unknown NPC {}",
+                    entry.id.as_str()
+                )
+            });
             assert_eq!(
-                definition.source_path, entry.source_path,
+                definition.source_path,
+                entry.source_path,
                 "ambient catalog source mismatch for {}",
                 entry.id.as_str()
             );
@@ -891,7 +895,12 @@ mod tests {
         ] {
             let npc_id = NpcId::from(npc_id);
             let chat = npcs().ambient_chat(&npc_id).unwrap();
-            assert_eq!(chat.runtime_chance(), expected_chance, "{}", npc_id.as_str());
+            assert_eq!(
+                chat.runtime_chance(),
+                expected_chance,
+                "{}",
+                npc_id.as_str()
+            );
             assert_eq!(chat.entries.len(), expected_entries, "{}", npc_id.as_str());
             assert!(
                 chat.entries.iter().all(|entry| entry.kind == "text"),

@@ -130,10 +130,7 @@ pub fn save_game(path: &std::path::Path, game: &Game) -> Result<()> {
         value
             .as_object_mut()
             .expect("Game must serialize to a JSON object")
-            .insert(
-                "last_saved_at_unix_seconds".into(),
-                serde_json::json!(now),
-            );
+            .insert("last_saved_at_unix_seconds".into(), serde_json::json!(now));
     }
     let contents = serde_json::to_string_pretty(&value).context("无法序列化存档")?;
     fs::write(path, contents).with_context(|| format!("无法写入存档 {}", path.display()))
@@ -1249,10 +1246,7 @@ mod tests {
         let path = std::env::temp_dir().join(format!("dongfang-tui-v28-{nonce}.json"));
         let mut value = serde_json::to_value(Game::new()).unwrap();
         value["version"] = serde_json::json!(28);
-        value
-            .as_object_mut()
-            .unwrap()
-            .remove("choyin_justice");
+        value.as_object_mut().unwrap().remove("choyin_justice");
         fs::write(&path, serde_json::to_string_pretty(&value).unwrap()).unwrap();
 
         let restored = load_game(&path).unwrap().unwrap();
@@ -1296,7 +1290,10 @@ mod tests {
         assert_eq!(restored.version, CURRENT_SAVE_VERSION);
         let restored_value = serde_json::to_value(&restored).unwrap();
         assert_eq!(restored_value["dynamic_quest"], serde_json::Value::Null);
-        assert_eq!(restored_value["dynamic_quest_finished"], serde_json::json!(0));
+        assert_eq!(
+            restored_value["dynamic_quest_finished"],
+            serde_json::json!(0)
+        );
     }
 
     #[test]
@@ -1473,6 +1470,12 @@ mod tests {
         assert_eq!(restored.player.force_factor, 0);
         assert_eq!(restored.player.mana_factor, 0);
         assert_eq!(restored.player.wimpy_percent, 0);
-        assert!(restored.player.inventory.iter().all(|item| item.contents.is_empty()));
+        assert!(
+            restored
+                .player
+                .inventory
+                .iter()
+                .all(|item| item.contents.is_empty())
+        );
     }
 }

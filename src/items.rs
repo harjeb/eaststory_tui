@@ -428,16 +428,17 @@ impl ItemInstance {
         self.contents.iter().map(ItemInstance::total_weight).sum()
     }
     pub fn container_capacity(&self) -> Option<u32> {
-        self.container_capacity.or_else(|| match self.item_id.as_str() {
-            "canyon.bamboo.obj.slipcase" => Some(5_000),
-            "choyin.npc.obj.silk_bag" | "choyin.obj.silk_bag" => Some(3_000),
-            "latemoon.room.npc.obj.token" => Some(3_000),
-            "choyin.npc.obj.denotation"
-            | "choyin.obj.denotation"
-            | "snow.npc.obj.denotation"
-            | "snow.obj.denotation" => Some(10_000),
-            _ => None,
-        })
+        self.container_capacity
+            .or_else(|| match self.item_id.as_str() {
+                "canyon.bamboo.obj.slipcase" => Some(5_000),
+                "choyin.npc.obj.silk_bag" | "choyin.obj.silk_bag" => Some(3_000),
+                "latemoon.room.npc.obj.token" => Some(3_000),
+                "choyin.npc.obj.denotation"
+                | "choyin.obj.denotation"
+                | "snow.npc.obj.denotation"
+                | "snow.obj.denotation" => Some(10_000),
+                _ => None,
+            })
     }
     pub fn is_container(&self) -> bool {
         self.container_capacity().is_some()

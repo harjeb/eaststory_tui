@@ -657,10 +657,7 @@ fn render_abandon_skill_confirmation(frame: &mut Frame<'_>, area: Rect, skill_na
             "已消耗的潜能不会返还；日后重新学习须从零开始。",
             Style::default().fg(MUTED),
         ),
-        Line::styled(
-            "Enter / Y 确认    Esc / N 取消",
-            Style::default().fg(GOLD),
-        ),
+        Line::styled("Enter / Y 确认    Esc / N 取消", Style::default().fg(GOLD)),
     ];
     frame.render_widget(
         Paragraph::new(lines)
@@ -723,7 +720,10 @@ fn render_combat_settings(frame: &mut Frame<'_>, area: Rect, app: &App) {
         let marker = if active { "› " } else { "  " };
         let color = if active { JADE } else { PAPER };
         lines.push(Line::from(vec![
-            Span::styled(marker, Style::default().fg(color).add_modifier(Modifier::BOLD)),
+            Span::styled(
+                marker,
+                Style::default().fg(color).add_modifier(Modifier::BOLD),
+            ),
             Span::styled(format!("{name:<8}"), Style::default().fg(color)),
             Span::styled(value, Style::default().fg(PAPER)),
         ]));
@@ -751,12 +751,7 @@ fn render_combat_settings(frame: &mut Frame<'_>, area: Rect, app: &App) {
     );
 }
 
-fn render_suicide_confirmation(
-    frame: &mut Frame<'_>,
-    area: Rect,
-    app: &App,
-    kind: SuicideKind,
-) {
+fn render_suicide_confirmation(frame: &mut Frame<'_>, area: Rect, app: &App, kind: SuicideKind) {
     let (title, lines) = match kind {
         SuicideKind::Reincarnate => (
             "确认投胎",
@@ -780,7 +775,10 @@ fn render_suicide_confirmation(
                 ),
                 Line::raw(""),
                 Line::raw("删除后会立即退出，游戏内无法恢复该档案。"),
-                Line::styled("再按 Enter / Y 删除    Esc / N 取消", Style::default().fg(GOLD)),
+                Line::styled(
+                    "再按 Enter / Y 删除    Esc / N 取消",
+                    Style::default().fg(GOLD),
+                ),
             ],
         ),
         SuicideKind::EraseSave => (
@@ -872,9 +870,7 @@ mod tests {
     #[test]
     fn renders_abandon_skill_confirmation() {
         let mut app = App::new(Game::new());
-        let action = Action::AbandonSkill(crate::skills::SkillId::from(
-            crate::skills::LIUH_KEN_ID,
-        ));
+        let action = Action::AbandonSkill(crate::skills::SkillId::from(crate::skills::LIUH_KEN_ID));
         app.selected_action = app
             .game
             .available_actions()

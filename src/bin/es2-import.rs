@@ -2793,7 +2793,10 @@ add_action ("do_work", "work");
             extract_set_string(source, "short").as_deref(),
             Some("谷物加工厂")
         );
-        assert_eq!(extract_set_string(source, "outdoors").as_deref(), Some("snow"));
+        assert_eq!(
+            extract_set_string(source, "outdoors").as_deref(),
+            Some("snow")
+        );
         assert_eq!(extract_long(source).as_deref(), Some("第一行\n第二行"));
         assert_eq!(
             extract_exits(source, "snow", "mudlib/d/snow/workplace.c").len(),
@@ -3029,7 +3032,13 @@ carry_object("/obj/old_book");
             .find(|npc| npc["id"] == "choyin.npc.cake_vendor")
             .unwrap();
         assert_eq!(cake_vendor["ambient_chat"]["chance"], 13);
-        assert_eq!(cake_vendor["ambient_chat"]["entries"].as_array().unwrap().len(), 3);
+        assert_eq!(
+            cake_vendor["ambient_chat"]["entries"]
+                .as_array()
+                .unwrap()
+                .len(),
+            3
+        );
     }
 
     #[test]

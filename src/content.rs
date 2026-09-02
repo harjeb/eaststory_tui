@@ -54,11 +54,8 @@ pub const CHOYIN_NORTH_GATE: &str = "choyin.n_gate";
 pub const OLD_PINE_CAVE_PREFIX: &str = "oldpine.cave";
 pub const OLD_PINE_FOREST_PREFIX: &str = "oldpine.pine";
 pub const CHUENYU_SOUTH_ROAD: &str = "chuenyu.croad1";
-pub const M9_HIDDEN_SOURCE_LOCATIONS: [&str; 3] = [
-    "snow.herbshop1",
-    "temple.broom1",
-    "temple.broom2",
-];
+pub const M9_HIDDEN_SOURCE_LOCATIONS: [&str; 3] =
+    ["snow.herbshop1", "temple.broom1", "temple.broom2"];
 
 const RUNTIME_EXCLUDED_SOURCE_EXITS: [(&str, &str); 3] = [
     ("city.nroad1", "city.room"),
@@ -638,11 +635,13 @@ mod tests {
                 .as_deref(),
             Some("cloud")
         );
-        assert!(world()
-            .location(&LocationId::from(LIU_HOME))
-            .unwrap()
-            .outdoors
-            .is_none());
+        assert!(
+            world()
+                .location(&LocationId::from(LIU_HOME))
+                .unwrap()
+                .outdoors
+                .is_none()
+        );
     }
 
     #[test]
@@ -1310,9 +1309,11 @@ mod tests {
             HashSet::from([OLD_PINE_CAVE_PREFIX, OLD_PINE_FOREST_PREFIX])
         );
         for (_, _, targets) in dynamic_targets {
-            assert!(targets
-                .iter()
-                .all(|target| world().contains(&LocationId::from(*target))));
+            assert!(
+                targets
+                    .iter()
+                    .all(|target| world().contains(&LocationId::from(*target)))
+            );
         }
     }
 
@@ -1384,10 +1385,7 @@ mod tests {
             })
             .map(|location| location.id.as_str())
             .collect();
-        assert_eq!(
-            unreachable,
-            HashSet::from(M9_HIDDEN_SOURCE_LOCATIONS)
-        );
+        assert_eq!(unreachable, HashSet::from(M9_HIDDEN_SOURCE_LOCATIONS));
     }
 
     #[test]

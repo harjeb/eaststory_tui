@@ -90,7 +90,10 @@ impl App {
         }
 
         if self.show_identity {
-            if matches!(key.code, KeyCode::Esc | KeyCode::Char('i') | KeyCode::Char('q')) {
+            if matches!(
+                key.code,
+                KeyCode::Esc | KeyCode::Char('i') | KeyCode::Char('q')
+            ) {
                 self.show_identity = false;
             }
             return;
@@ -254,8 +257,12 @@ impl App {
             }
         };
         match self.combat_setting_index {
-            0 => self.game.set_force_factor(increase(self.game.player.force_factor)),
-            1 => self.game.set_mana_factor(increase(self.game.player.mana_factor)),
+            0 => self
+                .game
+                .set_force_factor(increase(self.game.player.force_factor)),
+            1 => self
+                .game
+                .set_mana_factor(increase(self.game.player.mana_factor)),
             _ => {
                 let current = self.game.wimpy_percent();
                 let requested = if delta >= 0 {

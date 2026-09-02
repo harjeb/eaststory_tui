@@ -1,8 +1,8 @@
 use std::sync::LazyLock;
 
 pub const TASK_TIERS: [u64; 15] = [
-    1_000, 1_500, 2_000, 3_000, 5_000, 8_000, 10_000, 13_000, 17_000, 22_000, 40_000,
-    50_000, 60_000, 80_000, 100_000,
+    1_000, 1_500, 2_000, 3_000, 5_000, 8_000, 10_000, 13_000, 17_000, 22_000, 40_000, 50_000,
+    60_000, 80_000, 100_000,
 ];
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -22,30 +22,12 @@ pub struct TaskDefinition {
 }
 
 const TASK_SOURCES: [(u64, &str); 15] = [
-    (
-        1_000,
-        include_str!("../es2-utf8/mudlib/quest/qlist1000.c"),
-    ),
-    (
-        1_500,
-        include_str!("../es2-utf8/mudlib/quest/qlist1500.c"),
-    ),
-    (
-        2_000,
-        include_str!("../es2-utf8/mudlib/quest/qlist2000.c"),
-    ),
-    (
-        3_000,
-        include_str!("../es2-utf8/mudlib/quest/qlist3000.c"),
-    ),
-    (
-        5_000,
-        include_str!("../es2-utf8/mudlib/quest/qlist5000.c"),
-    ),
-    (
-        8_000,
-        include_str!("../es2-utf8/mudlib/quest/qlist8000.c"),
-    ),
+    (1_000, include_str!("../es2-utf8/mudlib/quest/qlist1000.c")),
+    (1_500, include_str!("../es2-utf8/mudlib/quest/qlist1500.c")),
+    (2_000, include_str!("../es2-utf8/mudlib/quest/qlist2000.c")),
+    (3_000, include_str!("../es2-utf8/mudlib/quest/qlist3000.c")),
+    (5_000, include_str!("../es2-utf8/mudlib/quest/qlist5000.c")),
+    (8_000, include_str!("../es2-utf8/mudlib/quest/qlist8000.c")),
     (
         10_000,
         include_str!("../es2-utf8/mudlib/quest/qlist10000.c"),
@@ -118,7 +100,7 @@ fn parse_task_source(tier: u64, source: &str) -> Vec<TaskDefinition> {
     source
         .split("([")
         .skip(1)
-        .filter_map(|mapping| mapping.split_once("])" ).map(|(mapping, _)| mapping))
+        .filter_map(|mapping| mapping.split_once("])").map(|(mapping, _)| mapping))
         .filter(|mapping| mapping.contains("\"quest\""))
         .map(|mapping| {
             let target = quoted_field(mapping, "quest")
